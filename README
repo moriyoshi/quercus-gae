@@ -1,0 +1,11 @@
+This is a fork of Quercus/PHP, which has been developed by Caucho Technology,
+Inc.  The intiial source code was taken from the revison 5460 of the Quercus
+subersion repository and resin 4.0 snapshot (4/9/2009).
+
+The source code was heavily patched to reduce dependencies between components
+so that it could run on Google App Engine. Therefore, several features such as
+content cache and session management doesn't work at the moment, and needs lots
+of fixes.
+
+4/11/2009
+Moriyoshi Koizumi

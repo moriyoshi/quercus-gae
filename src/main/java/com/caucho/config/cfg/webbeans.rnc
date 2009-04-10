@@ -1,0 +1,115 @@
+default namespace w = "urn:java:ee"
+
+namespace xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+start = w_Beans
+
+w_Any = text | (attribute * {string} | element * { w_Any })*
+
+w_bean-Custom = element * - w:* {
+  (w_bean-Field-Custom*
+
+   & (attribute value { string }
+      | element value { w_Any })*
+  
+   & (attribute name { string }
+      | element Named { attribute value { string }? | string }?)
+  
+   & element ApplicationScoped { empty }?
+   & element ConversationScoped { empty }?
+   & element RequestScoped { empty }?
+   & element SessionScoped { empty }?
+   & element Dependent { empty }?
+   
+   & element Production { w_bean-Custom* }?
+   
+   & element Current { empty }?
+   
+   & element Decorates { empty }?
+  )
+  | string
+}
+
+w_bean-Field-Custom = element * - w:* {
+  w_Any
+}
+
+w_binding = element binding {
+  string
+}
+
+w_class = element class {
+  string
+}
+
+w_component = element component {
+  w_binding*
+  & w_class?
+  & w_init?
+  & w_name?
+  & w_producer?
+  & w_scope?
+  & w_type?
+}
+
+w_deploy = element Deploy {
+  w_bean-Field-Custom*
+  & w_standard?
+  & w_production?
+}
+
+w_component-type =
+  attribute component-type { string }
+  | element component-type { string }
+
+w_component-types =  element component-types {
+  w_component-type*
+}
+
+w_decorators = element Decorators {
+  w_bean-Field-Custom*
+}
+
+w_name = element name {
+  string
+}
+
+w_init = element init {
+  w_Any
+}
+
+w_interceptors = element Interceptors {
+  w_bean-Field-Custom*
+}
+
+w_producer = element producer {
+  string
+}
+
+w_production = element Production {
+  empty
+}  
+
+w_type = element type {
+  string
+}
+
+w_scope = element scope {
+  string
+}
+
+w_standard = element Standard {
+  empty
+}  
+
+w_Beans = element Beans {
+  attribute xsi:schemaLocation { string }?
+  
+  & w_bean-Custom*
+
+  & w_decorators?
+  
+  & w_deploy?
+  
+  & w_interceptors?
+}
