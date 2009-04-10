@@ -13,14 +13,14 @@ To compile the source and build the deployable Quercus JAR file.  The JAR is
 placed in target/ .
 
 Probably you will need the JAR files of JavaMail and JMS API.  These are
-not distributed from Maven repository and need to be downloaded separately
+not distributed from the Maven repository and need to be downloaded separately
 from the Sun's website due to some license issues.
 
 - JavaMail: http://java.sun.com/products/javamail/downloads/
 - JMS: http://java.sun.com/products/jms/docs.html
   (Choose "Version 1.1 API Documentation, Jar and Source")
 
-2. Place the JAR file to war/WEB-INF/lib in your GAE application directory.
+2. Put the JAR file to war/WEB-INF/lib in your GAE application directory.
 
 3. Edit web.xml so that the requests whose path ends with ".php" will be
    handled by the Quercus servlet.
