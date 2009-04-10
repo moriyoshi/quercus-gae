@@ -7,7 +7,7 @@ Build Instruction
 =================
 1. Install maven2 and type
 
- $ mvn install
+ $ mvn jar:jar
 
 To compile the source and build the deployable Quercus JAR file.  The JAR is
 placed in target/ .
