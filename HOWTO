@@ -1,6 +1,6 @@
 Prerequisite
 ============
-- JDK 1.5.0 or above.
+- JDK 1.6.0 or later versions
 - Apache Maven2
 
 Build Instruction
