@@ -1,0 +1,81 @@
+Prerequisite
+============
+- JDK 1.5.0 or above.
+- Apache Maven2
+
+Build Instruction
+=================
+1. Install maven2 and type
+
+ $ mvn install
+
+To compile the source and build the deployable Quercus JAR file.  The JAR is
+placed in target/ .
+
+Probably you will need the JAR files of JavaMail and JMS API.  These are
+not distributed from Maven repository and need to be downloaded separately
+from the Sun's website due to some license issues.
+
+- JavaMail: http://java.sun.com/products/javamail/downloads/
+- JMS: http://java.sun.com/products/jms/docs.html
+  (Choose "Version 1.1 API Documentation, Jar and Source")
+
+2. Place the JAR file to war/WEB-INF/lib in your GAE application directory.
+
+3. Edit web.xml so that the requests whose path ends with ".php" will be
+   handled by the Quercus servlet.
+
+ <?xml version="1.0" encoding="utf-8"?>
+ <!DOCTYPE web-app
+     PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+     "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+ <web-app>
+   <description>...</description>
+ 
+   <servlet>
+     <servlet-name>Quercus Servlet</servlet-name>
+     <servlet-class>com.caucho.quercus.servlet.QuercusServlet</servlet-class>
+     <init-param>
+       <param-name>script-encoding</param-name>
+       <param-value>UTF-8</param-value>
+     </init-param>
+ 
+     <init-param>
+       <param-name>ini-file</param-name>
+       <param-value>WEB-INF/php.ini</param-value>
+     </init-param>
+   </servlet>
+ 
+   <servlet-mapping>
+     <servlet-name>Quercus Servlet</servlet-name>
+     <url-pattern>*.php</url-pattern>
+   </servlet-mapping>
+ 
+   <welcome-file-list>
+     <welcome-file>/index.php</welcome-file>
+   </welcome-file-list>
+ </web-app>
+
+For further details on the initialization parameters, consult the Quercus/PHP's
+documentation:
+http://wiki.caucho.com/Quercus
+
+4. Add <static-files> and <resource-files> section in the appengine-web.xml 
+to mark .php files to ensure these would be served through the Quercus servlet.
+
+ <?xml version="1.0" encoding="utf-8"?>
+ <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+   <application>...</application>
+   <version>1</version>
+   <static-files>
+     <exclude path="/**.php" />
+   </static-files>
+   <resource-files>
+     <include path="/**.php" />
+   </resource-files>
+ </appengine-web-app>
+
+See the following page for detail:
+http://code.google.com/intl/en/appengine/docs/java/config/appconfig.html
+
+5. Deploy it and enjoy!
