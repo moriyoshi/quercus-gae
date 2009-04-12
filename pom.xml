@@ -11,12 +11,12 @@
   <url>http://github.com/moriyoshi/quercus-gae/</url>
   <dependencies>
     <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
       <version>2.4</version>
     </dependency>
     <dependency>
-      <groupId>jms</groupId>
+      <groupId>javax.jms</groupId>
       <artifactId>jms</artifactId>
       <version>1.1</version>
     </dependency>
