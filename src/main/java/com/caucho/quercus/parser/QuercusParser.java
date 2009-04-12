@@ -448,12 +448,6 @@ public class QuercusParser {
                            _function,
                            stmt);
     return program;
-
-    /*
-    com.caucho.vfs.WriteStream out = com.caucho.vfs.Vfs.lookup("stdout:").openWrite();
-    out.setFlushOnNewline(true);
-    stmt.debug(new JavaWriter(out));
-    */
   }
 
   QuercusProgram parseCode()
