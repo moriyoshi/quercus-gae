@@ -7,10 +7,13 @@ Build Instruction
 =================
 1. Install maven2 and type
 
+ $ mvn compile
+
+to compile the source, and
+
  $ mvn jar:jar
 
-To compile the source and build the deployable Quercus JAR file.  The JAR is
-placed in target/ .
+to build the deployable Quercus JAR file.  The JAR is placed in target/ .
 
 Probably you will need the JAR files of JavaMail and JMS API.  These are
 not distributed from the Maven repository and need to be downloaded separately
