@@ -30,7 +30,6 @@
 package com.caucho.quercus.env;
 
 import com.caucho.java.LineMap;
-import com.caucho.java.ScriptStackTrace;
 import com.caucho.java.WorkDir;
 import com.caucho.loader.SimpleLoader;
 import com.caucho.quercus.Location;

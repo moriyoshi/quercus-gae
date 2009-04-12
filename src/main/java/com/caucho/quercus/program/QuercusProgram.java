@@ -365,11 +365,6 @@ public class QuercusProgram {
    */
   public void init(Env env)
   {
-    /*
-    for (Map.Entry<String,InterpretedClassDef> entry : _classMap.entrySet()) {
-      entry.getValue().init(env);
-    }
-    */
   }
 
   /**

@@ -907,16 +907,6 @@ public class Quercus
   }
 
   /**
-   * Returns the relative path.
-   */
-  /*
-  public String getClassName(Path path)
-  {
-    return _pageManager.getClassName(path);
-  }
-  */
-
-  /**
    * Returns an include path.
    */
   public Path getIncludeCache(StringValue include,
@@ -960,41 +950,6 @@ public class Quercus
   {
     return _defCacheMissCount;
   }
-
-  /**
-   * Returns the definition state for an include.
-   */
-  /*
-  public DefinitionState getDefinitionCache(DefinitionKey key)
-  {
-    SoftReference<DefinitionState> defStateRef = _defCache.get(key);
-
-    if (defStateRef != null) {
-      DefinitionState defState = defStateRef.get();
-
-      if (defState != null) {
-        _defCacheHitCount++;
-
-        return defState.copyLazy();
-      }
-    }
-
-    _defCacheMissCount++;
-
-    return null;
-  }
-  */
-
-  /**
-   * Returns the definition state for an include.
-   */
-  /*
-  public void putDefinitionCache(DefinitionKey key,
-                                 DefinitionState defState)
-  {
-    _defCache.put(key, new SoftReference<DefinitionState>(defState.copy()));
-  }
-  */
 
   /**
    * Clears the definition cache.
@@ -1280,8 +1235,6 @@ public class Quercus
       }
 
       _classNames[id] = className;
-
-      // _classMap[id] = new UndefinedClass(name);
 
       _classNameMap.put(className, id);
       _classNameMap.put(name, id);
@@ -1692,35 +1645,6 @@ public class Quercus
   }
 
   /**
-   * Interns a string.
-   */
-/*
-  public StringValue intern(String name)
-  {
-    StringValue value = _internMap.get(name);
-
-    if (value != null)
-      return value;
-    
-    synchronized (_internMap) {
-      value = _internMap.get(name);
-
-      if (value != null)
-        return value;
-
-      if (value == null) {
-        name = name.intern();
-
-        value = new StringBuilderValue(name);
-        _internMap.put(name, value);
-      }
-
-      return value;
-    }
-  }
-*/
-
-  /**
    * Returns a named constant.
    */
   public Value getConstant(int id)
@@ -1809,20 +1733,6 @@ public class Quercus
   protected void initLocal()
   {
     StringBuilder sb = new StringBuilder(".");
-/*
-    Path pwd = getPwd();
-
-    String []paths = new String[] {
-      "/usr/share/php", "/usr/lib/php", "/usr/local/lib/php",
-      "/usr/share/pear", "/usr/lib/pear", "/usr/local/lib/pear"
-    };
-
-    for (String path : paths) {
-      if (pwd.lookup(path).isDirectory()) {
-        sb.append(":").append(pwd.lookup(path).getPath());
-      }
-    }
-*/
     setIni("include_path", sb.toString());
   }
 

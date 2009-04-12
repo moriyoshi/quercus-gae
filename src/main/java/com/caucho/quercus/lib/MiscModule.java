@@ -571,7 +571,6 @@ public class MiscModule extends AbstractQuercusModule {
       WriteStream out = env.getPwd().lookup("stderr:").openWrite();
       try {
         e.printStackTrace(out.getPrintWriter());
-        //ScriptStackTrace.printStackTrace(e, out.getPrintWriter());
       } finally {
         out.close();
       }

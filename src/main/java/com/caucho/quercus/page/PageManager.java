@@ -174,29 +174,6 @@ public class PageManager
   }
 
   /**
-   * Returns the relative path.
-   */
-  /*
-  public String getClassName(Path path)
-  {
-    if (path == null)
-      return "tmp.eval";
-    
-    String pathName = path.getFullPath();
-    String pwdName = getPwd().getFullPath();
-
-    String relPath;
-
-    if (pathName.startsWith(pwdName))
-      relPath = pathName.substring(pwdName.length());
-    else
-      relPath = pathName;
-
-    return "_quercus." + JavaCompiler.mangleName(relPath);
-  }
-  */
-  
-  /**
    * Returns a parsed or compiled quercus program.
    *
    * @param path the source file path
@@ -210,7 +187,7 @@ public class PageManager
   {
     return parse(path, null, -1);
   }
-  
+
   /**
    * Returns a parsed or compiled quercus program.
    *
