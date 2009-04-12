@@ -20,8 +20,6 @@ not distributed from the Maven repository and need to be downloaded separately
 from the Sun's website due to some license issues.
 
 - JavaMail: http://java.sun.com/products/javamail/downloads/
-- JMS: http://java.sun.com/products/jms/docs.html
-  (Choose "Version 1.1 API Documentation, Jar and Source")
 
 2. Put the JAR file to war/WEB-INF/lib in your GAE application directory.
 
