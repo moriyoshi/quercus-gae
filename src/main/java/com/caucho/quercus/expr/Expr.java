@@ -165,7 +165,7 @@ abstract public class Expr {
     throws IOException
   {
     String msg = (L.l("{0} is an invalid left-hand side of an assignment.",
-		      this));
+                      this));
 
     if (parser != null)
       throw parser.error(msg);
@@ -180,7 +180,7 @@ abstract public class Expr {
     throws IOException
   {
     String msg = L.l("{0} is an invalid left-hand side of an assignment.",
-		     this);
+                     this);
 
     if (parser != null)
       throw parser.error(msg);
@@ -193,7 +193,7 @@ abstract public class Expr {
   {
     // XXX: need real exception
     String msg = L.l("{0} is an invalid left-hand side of an assignment.",
-		     this);
+                     this);
 
     if (parser != null)
       throw parser.error(msg);
@@ -264,7 +264,7 @@ abstract public class Expr {
     throws IOException
   {
     throw new IOException(L.l("{0} is an illegal value to unset",
-			      this));
+                              this));
   }
 
   /**
@@ -274,7 +274,7 @@ abstract public class Expr {
     throws IOException
   {
     throw new IOException(L.l("{0} is an illegal value to isset",
-			      this));
+                              this));
   }
   
   /**
@@ -425,7 +425,7 @@ abstract public class Expr {
   public void evalAssign(Env env, Value value)
   {
     throw new RuntimeException(L.l("{0} is an invalid left-hand side of an assignment.",
-				   this));
+                                   this));
   }
   
   /**

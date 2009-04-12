@@ -114,7 +114,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date.
    */
   public String date(Env env,
-		     String format,
+                     String format,
                      @Optional("time()") long time)
   {
     return date(env, format, time, false);
@@ -124,8 +124,8 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date as an int.
    */
   public Value idate(Env env,
-		     String format,
-		     @Optional("time()") long time)
+                     String format,
+                     @Optional("time()") long time)
   {
     if (format.length() != 1) {
       log.log(Level.FINE, L.l("idate format '{0}' needs to be of length one and only one", format));
@@ -158,16 +158,16 @@ public class DateModule extends AbstractQuercusModule {
       int length = dateString.length();
         
       for (int i = 0; i < length; i++) {
-	char ch = dateString.charAt(i);
+        char ch = dateString.charAt(i);
           
-	if ('0' <= ch && ch <= '9')
-	  result = result * 10 + ch - '0';
-	else if (ch == '-' && i == 0)
-	  sign = -1;
-	else {
-	  log.log(Level.FINEST, L.l("error parsing idate string '{0}'", dateString));
-	  break;
-	}
+        if ('0' <= ch && ch <= '9')
+          result = result * 10 + ch - '0';
+        else if (ch == '-' && i == 0)
+          sign = -1;
+        else {
+          log.log(Level.FINEST, L.l("error parsing idate string '{0}'", dateString));
+          break;
+        }
       }
 
       return LongValue.create(result * sign);
@@ -201,8 +201,8 @@ public class DateModule extends AbstractQuercusModule {
     int i = c - c /4 - (c - k) / 3 + 19 * n + 15;
     i = i - 30 * (i / 30);
     i = i - (i / 28) * (1 - ((i / 28) *
-			     (29 / (i + 1)) *
-			     ((21 - n) / 11)));
+                             (29 / (i + 1)) *
+                             ((21 - n) / 11)));
 
     int j = y + y / 4 + i + 2 - c + c / 4;
     j = j - 7 * (j / 7);
@@ -221,7 +221,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the timestamp of easter.
    */
   public static long easter_days(@Optional("-1") int year,
-				 @Optional int method)
+                                 @Optional int method)
   {
     return easter_date(year);
   }
@@ -282,8 +282,8 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date.
    */
   public String gmdate(Env env,
-		       String format,
-		       @Optional("time()") long time)
+                       String format,
+                       @Optional("time()") long time)
   {
     return date(env, format, time, true);
   }
@@ -292,7 +292,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date.
    */
   public long gmmktime(Env env,
-		       @Optional() Value hourV,
+                       @Optional() Value hourV,
                        @Optional() Value minuteV,
                        @Optional() Value secondV,
                        @Optional() Value monthV,
@@ -317,7 +317,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date.
    */
   public String gmstrftime(String format,
-			   @Optional("-1") long phpTime)
+                           @Optional("-1") long phpTime)
   {
     long time;
 
@@ -357,9 +357,9 @@ public class DateModule extends AbstractQuercusModule {
       QDate calendar;
       
       if (env.getDefaultTimeZone() != null)
-	calendar = new QDate(env.getDefaultTimeZone());
+        calendar = new QDate(env.getDefaultTimeZone());
       else
-	calendar = env.getLocalDate();
+        calendar = env.getLocalDate();
 
       return dateImpl(format, time, calendar);
     }
@@ -390,386 +390,386 @@ public class DateModule extends AbstractQuercusModule {
       char ch = format.charAt(i);
 
       switch (ch) {
-	//
-	// day
-	//
+        //
+        // day
+        //
           
       case 'd':
-	{
-	  int day = calendar.getDayOfMonth();
-	  sb.append(day / 10);
-	  sb.append(day % 10);
-	  break;
-	}
+        {
+          int day = calendar.getDayOfMonth();
+          sb.append(day / 10);
+          sb.append(day % 10);
+          break;
+        }
 
       case 'D':
-	{
-	  // subtract 1 to be zero-based for array
-	  int day = calendar.getDayOfWeek() - 1;
+        {
+          // subtract 1 to be zero-based for array
+          int day = calendar.getDayOfWeek() - 1;
 
-	  sb.append(_shortDayOfWeek[day]);
-	  break;
-	}
+          sb.append(_shortDayOfWeek[day]);
+          break;
+        }
 
       case 'j':
-	{
-	  int day = calendar.getDayOfMonth();
-	  sb.append(day);
-	  break;
-	}
+        {
+          int day = calendar.getDayOfMonth();
+          sb.append(day);
+          break;
+        }
 
       case 'l':
-	{
-	  // subtract 1 to be zero-based for array
-	  int day = calendar.getDayOfWeek() - 1;
+        {
+          // subtract 1 to be zero-based for array
+          int day = calendar.getDayOfWeek() - 1;
 
-	  sb.append(_fullDayOfWeek[day]);
-	  break;
-	}
+          sb.append(_fullDayOfWeek[day]);
+          break;
+        }
           
       case 'N':
-	{
-	  int day = calendar.getDayOfWeek();
+        {
+          int day = calendar.getDayOfWeek();
             
-	  // Mon=1, Sun=7
-	  day = day - 1;
+          // Mon=1, Sun=7
+          day = day - 1;
             
-	  if (day == 0)
-	    day = 7;
+          if (day == 0)
+            day = 7;
             
-	  sb.append(day);
-	  break;
-	}
+          sb.append(day);
+          break;
+        }
 
       case 'S':
-	{
-	  int day = calendar.getDayOfMonth();
+        {
+          int day = calendar.getDayOfMonth();
 
-	  switch (day) {
-	  case 1: case 21: case 31:
-	    sb.append("st");
-	    break;
-	  case 2: case 22:
-	    sb.append("nd");
-	    break;
-	  case 3: case 23:
-	    sb.append("rd");
-	    break;
-	  default:
-	    sb.append("th");
-	    break;
-	  }
-	  break;
-	}
+          switch (day) {
+          case 1: case 21: case 31:
+            sb.append("st");
+            break;
+          case 2: case 22:
+            sb.append("nd");
+            break;
+          case 3: case 23:
+            sb.append("rd");
+            break;
+          default:
+            sb.append("th");
+            break;
+          }
+          break;
+        }
 
       case 'w':
-	{
-	  int day = calendar.getDayOfWeek() - 1;
+        {
+          int day = calendar.getDayOfWeek() - 1;
 
-	  sb.append(day);
-	  break;
-	}
+          sb.append(day);
+          break;
+        }
 
       case 'z':
-	{
-	  int day = calendar.getDayOfYear();
+        {
+          int day = calendar.getDayOfYear();
 
-	  sb.append(day);
-	  break;
-	}
+          sb.append(day);
+          break;
+        }
 
-	//
-	// week
-	//
+        //
+        // week
+        //
           
       case 'W':
-	{
-	  int week = calendar.getWeek();
+        {
+          int week = calendar.getWeek();
 
-	  sb.append(week / 10);
-	  sb.append(week % 10);
-	  break;
-	}
+          sb.append(week / 10);
+          sb.append(week % 10);
+          break;
+        }
 
-	//
-	// month
-	//
+        //
+        // month
+        //
           
       case 'F':
-	{
-	  int month = calendar.getMonth();
-	  sb.append(_fullMonth[month]);
-	  break;
-	}
+        {
+          int month = calendar.getMonth();
+          sb.append(_fullMonth[month]);
+          break;
+        }
           
       case 'm':
-	{
-	  int month = calendar.getMonth() + 1;
-	  sb.append(month / 10);
-	  sb.append(month % 10);
-	  break;
-	}
+        {
+          int month = calendar.getMonth() + 1;
+          sb.append(month / 10);
+          sb.append(month % 10);
+          break;
+        }
 
       case 'M':
-	{
-	  int month = calendar.getMonth();
-	  sb.append(_shortMonth[month]);
-	  break;
-	}
+        {
+          int month = calendar.getMonth();
+          sb.append(_shortMonth[month]);
+          break;
+        }
 
       case 'n':
-	{
-	  int month = calendar.getMonth() + 1;
-	  sb.append(month);
-	  break;
-	}
+        {
+          int month = calendar.getMonth() + 1;
+          sb.append(month);
+          break;
+        }
 
       case 't':
-	{
-	  int days = calendar.getDaysInMonth();
-	  sb.append(days);
-	  break;
-	}
+        {
+          int days = calendar.getDaysInMonth();
+          sb.append(days);
+          break;
+        }
 
-	//
-	// year
-	//
+        //
+        // year
+        //
           
       case 'L':
-	{
-	  if (calendar.isLeapYear())
-	    sb.append(1);
-	  else
-	    sb.append(0);
-	  break;
-	}
+        {
+          if (calendar.isLeapYear())
+            sb.append(1);
+          else
+            sb.append(0);
+          break;
+        }
           
       case 'o':
-	{
-	  int year = calendar.getYear();
+        {
+          int year = calendar.getYear();
             
-	  int week = calendar.getWeek();
-	  int month = calendar.getMonth();
+          int week = calendar.getWeek();
+          int month = calendar.getMonth();
             
-	  if (month > week)
-	    year++;
-	  else if (week == 53)
-	    year--;
+          if (month > week)
+            year++;
+          else if (week == 53)
+            year--;
             
-	  sb.append((year / 1000) % 10);
-	  sb.append((year / 100) % 10);
-	  sb.append((year / 10) % 10);
-	  sb.append((year) % 10);
-	  break;
-	}
+          sb.append((year / 1000) % 10);
+          sb.append((year / 100) % 10);
+          sb.append((year / 10) % 10);
+          sb.append((year) % 10);
+          break;
+        }
           
       case 'Y':
-	{
-	  int year = calendar.getYear();
+        {
+          int year = calendar.getYear();
             
-	  sb.append((year / 1000) % 10);
-	  sb.append((year / 100) % 10);
-	  sb.append((year / 10) % 10);
-	  sb.append((year) % 10);
-	  break;
-	}
+          sb.append((year / 1000) % 10);
+          sb.append((year / 100) % 10);
+          sb.append((year / 10) % 10);
+          sb.append((year) % 10);
+          break;
+        }
 
       case 'y':
-	{
-	  int year = calendar.getYear();
+        {
+          int year = calendar.getYear();
 
-	  sb.append((year / 10) % 10);
-	  sb.append((year) % 10);
-	  break;
-	}
+          sb.append((year / 10) % 10);
+          sb.append((year) % 10);
+          break;
+        }
 
-	//
-	// time
-	//
+        //
+        // time
+        //
           
       case 'a':
-	{
-	  int hour = calendar.getHour();
+        {
+          int hour = calendar.getHour();
 
-	  if (hour < 12)
-	    sb.append("am");
-	  else
-	    sb.append("pm");
-	  break;
-	}
+          if (hour < 12)
+            sb.append("am");
+          else
+            sb.append("pm");
+          break;
+        }
 
       case 'A':
-	{
-	  int hour = calendar.getHour();
+        {
+          int hour = calendar.getHour();
 
-	  if (hour < 12)
-	    sb.append("AM");
-	  else
-	    sb.append("PM");
-	  break;
-	}
+          if (hour < 12)
+            sb.append("AM");
+          else
+            sb.append("PM");
+          break;
+        }
 
       case 'g':
-	{
-	  int hour = calendar.getHour() % 12;
+        {
+          int hour = calendar.getHour() % 12;
 
-	  if (hour == 0)
-	    hour = 12;
+          if (hour == 0)
+            hour = 12;
 
-	  sb.append(hour);
-	  break;
-	}
+          sb.append(hour);
+          break;
+        }
 
       case 'G':
-	{
-	  int hour = calendar.getHour();
+        {
+          int hour = calendar.getHour();
 
-	  sb.append(hour);
-	  break;
-	}
+          sb.append(hour);
+          break;
+        }
 
       case 'h':
-	{
-	  int hour = calendar.getHour() % 12;
+        {
+          int hour = calendar.getHour() % 12;
 
-	  if (hour == 0)
-	    hour = 12;
+          if (hour == 0)
+            hour = 12;
 
-	  sb.append(hour / 10);
-	  sb.append(hour % 10);
-	  break;
-	}
+          sb.append(hour / 10);
+          sb.append(hour % 10);
+          break;
+        }
 
       case 'H':
-	{
-	  int hour = calendar.getHour();
+        {
+          int hour = calendar.getHour();
 
-	  sb.append(hour / 10);
-	  sb.append(hour % 10);
-	  break;
-	}
+          sb.append(hour / 10);
+          sb.append(hour % 10);
+          break;
+        }
 
       case 'i':
-	{
-	  int minutes = calendar.getMinute();
+        {
+          int minutes = calendar.getMinute();
 
-	  sb.append(minutes / 10);
-	  sb.append(minutes % 10);
-	  break;
-	}
+          sb.append(minutes / 10);
+          sb.append(minutes % 10);
+          break;
+        }
 
       case 's':
-	{
-	  int seconds = calendar.getSecond();
+        {
+          int seconds = calendar.getSecond();
 
-	  sb.append(seconds / 10);
-	  sb.append(seconds % 10);
-	  break;
-	}
+          sb.append(seconds / 10);
+          sb.append(seconds % 10);
+          break;
+        }
 
-	//
-	// timezone
-	//
+        //
+        // timezone
+        //
           
       case 'e':
-	{
-	  TimeZone zone = calendar.getLocalTimeZone();
+        {
+          TimeZone zone = calendar.getLocalTimeZone();
 
-	  sb.append(zone.getID());
-	  break;
-	}
+          sb.append(zone.getID());
+          break;
+        }
           
       case 'I':
-	{
-	  if (calendar.isDST())
-	    sb.append('1');
-	  else
-	    sb.append('0');
-	  break;
-	}
+        {
+          if (calendar.isDST())
+            sb.append('1');
+          else
+            sb.append('0');
+          break;
+        }
           
       case 'O':
-	{
-	  long offset = calendar.getZoneOffset();
+        {
+          long offset = calendar.getZoneOffset();
 
-	  int minute = (int) (offset / (60 * 1000));
+          int minute = (int) (offset / (60 * 1000));
 
-	  if (minute < 0) {
-	    sb.append('-');
-	    minute = -1 * minute;
-	  }
-	  else
-	    sb.append('+');
+          if (minute < 0) {
+            sb.append('-');
+            minute = -1 * minute;
+          }
+          else
+            sb.append('+');
 
-	  sb.append((minute / 60) / 10);
-	  sb.append((minute / 60) % 10);
-	  sb.append((minute % 60) % 10);
-	  sb.append(minute % 10);
-	  break;
-	}
+          sb.append((minute / 60) / 10);
+          sb.append((minute / 60) % 10);
+          sb.append((minute % 60) % 10);
+          sb.append(minute % 10);
+          break;
+        }
           
       case 'P':
-	{
-	  long offset = calendar.getZoneOffset();
+        {
+          long offset = calendar.getZoneOffset();
 
-	  int minute = (int) (offset / (60 * 1000));
+          int minute = (int) (offset / (60 * 1000));
 
-	  if (minute < 0) {
-	    sb.append('-');
-	    minute = -1 * minute;
-	  }
-	  else
-	    sb.append('+');
+          if (minute < 0) {
+            sb.append('-');
+            minute = -1 * minute;
+          }
+          else
+            sb.append('+');
 
-	  sb.append((minute / 60) / 10);
-	  sb.append((minute / 60) % 10);
-	  sb.append(':');
-	  sb.append((minute % 60) % 10);
-	  sb.append(minute % 10);
-	  break;
-	}
+          sb.append((minute / 60) / 10);
+          sb.append((minute / 60) % 10);
+          sb.append(':');
+          sb.append((minute % 60) % 10);
+          sb.append(minute % 10);
+          break;
+        }
 
       case 'T':
-	{
-	  TimeZone zone = calendar.getLocalTimeZone();
+        {
+          TimeZone zone = calendar.getLocalTimeZone();
 
-	  sb.append(zone.getDisplayName(calendar.isDST(), TimeZone.SHORT));
-	  break;
-	}
+          sb.append(zone.getDisplayName(calendar.isDST(), TimeZone.SHORT));
+          break;
+        }
 
       case 'Z':
-	{
-	  long offset = calendar.getZoneOffset();
+        {
+          long offset = calendar.getZoneOffset();
 
-	  sb.append(offset / (1000));
-	  break;
-	}
+          sb.append(offset / (1000));
+          break;
+        }
 
       case 'c':
-	{
-	  sb.append(calendar.printISO8601());
-	  break;
-	}
+        {
+          sb.append(calendar.printISO8601());
+          break;
+        }
 
       case 'r':
-	{
-	  calendar.printRFC2822(sb);
-	  break;
-	}
+        {
+          calendar.printRFC2822(sb);
+          break;
+        }
 
       case 'U':
-	{
-	  sb.append(now / 1000);
-	  break;
-	}
+        {
+          sb.append(now / 1000);
+          break;
+        }
 
       case '\\':
-	sb.append(format.charAt(++i));
-	break;
+        sb.append(format.charAt(++i));
+        break;
 
       default:
-	sb.append(ch);
-	break;
+        sb.append(ch);
+        break;
       }
     }
 
@@ -780,7 +780,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the time as an indexed or associative array
    */
   public ArrayValue localtime(Env env,
-			      @NotNull @Optional("-1") long time,
+                              @NotNull @Optional("-1") long time,
                               @Optional("false") boolean isAssociative)
   {
     if (time < 0)
@@ -855,9 +855,9 @@ public class DateModule extends AbstractQuercusModule {
     }
     else {
       return (env.createUnicodeBuilder()
-	      .append(String.format("%.6f", now - Math.floor(now)))
-	      .append(' ')
-	      .append((int) Math.floor(now)));
+              .append(String.format("%.6f", now - Math.floor(now)))
+              .append(' ')
+              .append((int) Math.floor(now)));
     }
   }
 
@@ -947,7 +947,7 @@ public class DateModule extends AbstractQuercusModule {
    * Returns the formatted date.
    */
   public String strftime(String format,
-			 @Optional("-1") long phpTime)
+                         @Optional("-1") long phpTime)
   {
     long time;
 
@@ -1278,7 +1278,7 @@ public class DateModule extends AbstractQuercusModule {
     {
       _value = NULL_VALUE;
       _unit = 0;
-	
+        
       while (true) {
         int token = nextToken();
 
@@ -1294,9 +1294,9 @@ public class DateModule extends AbstractQuercusModule {
         }
 
         if (token < 0) {
-	  if (_hasDate && ! _hasTime)
-	    _date.setTime(0, 0, 0, 0);
-	  
+          if (_hasDate && ! _hasTime)
+            _date.setTime(0, 0, 0, 0);
+          
           return _date.getGMTTime();
         }
         else if (token == INT) {
@@ -1375,9 +1375,9 @@ public class DateModule extends AbstractQuercusModule {
 
       int token = nextToken();
       if (token == AGO)
-	value = -value;
+        value = -value;
       else
-	_peekToken = token;
+        _peekToken = token;
 
       addTime(value, unit);
     }
@@ -1389,51 +1389,51 @@ public class DateModule extends AbstractQuercusModule {
       int day = 0;
       
       if (value1 < 0)
-	value1 = - value1;
+        value1 = - value1;
       
       int token = nextToken();
 
       int value2 = 0;
       
       if (token == INT) {
-	value2 = _value;
-	_value = NULL_VALUE;
+        value2 = _value;
+        _value = NULL_VALUE;
       }
       else {
-	_peekToken = token;
-	return;
+        _peekToken = token;
+        return;
       }
       
       token = nextToken();
 
       if (token == '-') {
-	token = nextToken();
+        token = nextToken();
 
-	if (token == INT) {
-	  if (value1 < 0)
-	    _date.setYear(value1);
-	  else if (value1 <= 68)
-	    _date.setYear(2000 + value1);
-	  else if (value1 < 100)
-	    _date.setYear(1900 + value1);
-	  else
-	    _date.setYear(value1);
-	  
-	  _date.setMonth(value2 - 1);
-	  _date.setDayOfMonth(_value);
-	}
-	else {
-	  _date.setMonth(value1 - 1);
-	  _date.setDayOfMonth(value2);
-	  
-	  _peekToken = token;
-	}
+        if (token == INT) {
+          if (value1 < 0)
+            _date.setYear(value1);
+          else if (value1 <= 68)
+            _date.setYear(2000 + value1);
+          else if (value1 < 100)
+            _date.setYear(1900 + value1);
+          else
+            _date.setYear(value1);
+          
+          _date.setMonth(value2 - 1);
+          _date.setDayOfMonth(_value);
+        }
+        else {
+          _date.setMonth(value1 - 1);
+          _date.setDayOfMonth(value2);
+          
+          _peekToken = token;
+        }
       }
       else {
-	_date.setMonth(value1 - 1);
-	_date.setDayOfMonth(value2);
-	  
-	_peekToken = token;
+        _date.setMonth(value1 - 1);
+        _date.setDayOfMonth(value2);
+          
+        _peekToken = token;
       }
     }
 
@@ -1444,52 +1444,52 @@ public class DateModule extends AbstractQuercusModule {
       int day = 0;
       
       if (value1 < 0)
-	value1 = - value1;
+        value1 = - value1;
       
       int token = nextToken();
 
       int value2 = 0;
       
       if (token == INT) {
-	value2 = _value;
+        value2 = _value;
       }
       else {
-	_peekToken = token;
-	return;
+        _peekToken = token;
+        return;
       }
       
       _value = NULL_VALUE;
       token = nextToken();
 
       if (token == '/') {
-	token = nextToken();
+        token = nextToken();
 
-	if (token == INT) {
-	  _date.setMonth(value1 - 1);
-	  _date.setDayOfMonth(value2);
-	  
-	  if (_value < 0)
-	    _date.setYear(_value);
-	  else if (_value <= 68)
-	    _date.setYear(2000 + _value);
-	  else if (_value < 100)
-	    _date.setYear(1900 + _value);
-	  else
-	    _date.setYear(_value);
-	}
-	else {
-	  _date.setMonth(value1 - 1);
-	  _date.setDayOfMonth(value2);
-	  
-	  _peekToken = token;
-	}
-	_value = NULL_VALUE;
+        if (token == INT) {
+          _date.setMonth(value1 - 1);
+          _date.setDayOfMonth(value2);
+          
+          if (_value < 0)
+            _date.setYear(_value);
+          else if (_value <= 68)
+            _date.setYear(2000 + _value);
+          else if (_value < 100)
+            _date.setYear(1900 + _value);
+          else
+            _date.setYear(_value);
+        }
+        else {
+          _date.setMonth(value1 - 1);
+          _date.setDayOfMonth(value2);
+          
+          _peekToken = token;
+        }
+        _value = NULL_VALUE;
       }
       else {
-	_date.setMonth(value1 - 1);
-	_date.setDayOfMonth(value2);
-	  
-	_peekToken = token;
+        _date.setMonth(value1 - 1);
+        _date.setDayOfMonth(value2);
+          
+        _peekToken = token;
       }
     }
 
@@ -1500,7 +1500,7 @@ public class DateModule extends AbstractQuercusModule {
       int day = 0;
       
       if (value1 < 0)
-	value1 = - value1;
+        value1 = - value1;
 
       int value2 = _value;
 
@@ -1508,82 +1508,82 @@ public class DateModule extends AbstractQuercusModule {
       int token = nextToken();
 
       if (token == '-') {
-	_value = NULL_VALUE;
-	token = nextToken();
+        _value = NULL_VALUE;
+        token = nextToken();
       }
 
       if (token == INT) {
-	_date.setDayOfMonth(value1);
-	_date.setMonth(value2 - 1);
-	  
-	if (_value < 0)
-	  _date.setYear(_value);
-	else if (_value <= 68)
-	  _date.setYear(2000 + _value);
-	else if (_value < 100)
-	  _date.setYear(1900 + _value);
-	else
-	  _date.setYear(_value);
-	
-	_value = NULL_VALUE;
+        _date.setDayOfMonth(value1);
+        _date.setMonth(value2 - 1);
+          
+        if (_value < 0)
+          _date.setYear(_value);
+        else if (_value <= 68)
+          _date.setYear(2000 + _value);
+        else if (_value < 100)
+          _date.setYear(1900 + _value);
+        else
+          _date.setYear(_value);
+        
+        _value = NULL_VALUE;
       }
       else {
-	_date.setDayOfMonth(value1);
-	_date.setMonth(value2 - 1);
-	  
-	_peekToken = token;
+        _date.setDayOfMonth(value1);
+        _date.setMonth(value2 - 1);
+          
+        _peekToken = token;
       }
     }
 
     private void parseMonthDate(int value1)
     {
       if (value1 < 0)
-	value1 = - value1;
+        value1 = - value1;
 
       _value = NULL_VALUE;
       int token = nextToken();
 
       if (token == '-') {
-	_value = NULL_VALUE;
-	token = nextToken();
+        _value = NULL_VALUE;
+        token = nextToken();
       }
 
       if (token == INT) {
-	int value2 = _value;
+        int value2 = _value;
 
-	_value = NULL_VALUE;
-	token = nextToken();
-	if (token == '-') {
-	  _value = NULL_VALUE;
-	  token = nextToken();
-	}
+        _value = NULL_VALUE;
+        token = nextToken();
+        if (token == '-') {
+          _value = NULL_VALUE;
+          token = nextToken();
+        }
 
-	if (token == INT) {
-	  _date.setMonth(value1 - 1);
-	  _date.setDayOfMonth(value2);
-	  
-	  if (_value < 0)
-	    _date.setYear(_value);
-	  else if (_value <= 68)
-	    _date.setYear(2000 + _value);
-	  else if (_value < 100)
-	    _date.setYear(1900 + _value);
-	  else
-	    _date.setYear(_value);
-	  
-	  _value = NULL_VALUE;
-	}
-	else {
-	  _date.setMonth(value1 - 1);
-	  _date.setDayOfMonth(value2);
+        if (token == INT) {
+          _date.setMonth(value1 - 1);
+          _date.setDayOfMonth(value2);
+          
+          if (_value < 0)
+            _date.setYear(_value);
+          else if (_value <= 68)
+            _date.setYear(2000 + _value);
+          else if (_value < 100)
+            _date.setYear(1900 + _value);
+          else
+            _date.setYear(_value);
+          
+          _value = NULL_VALUE;
+        }
+        else {
+          _date.setMonth(value1 - 1);
+          _date.setDayOfMonth(value2);
 
-	  _peekToken = token;
-	}
+          _peekToken = token;
+        }
       }
       else {
-	_date.setMonth(value1 - 1);
-	  
-	_peekToken = token;
+        _date.setMonth(value1 - 1);
+          
+        _peekToken = token;
       }
     }
 
@@ -1593,7 +1593,7 @@ public class DateModule extends AbstractQuercusModule {
       _value = NULL_VALUE;
 
       if (hour < 0)
-	hour = - hour;
+        hour = - hour;
 
       _date.setHour(hour);
       _date.setMinute(0);
@@ -1603,57 +1603,57 @@ public class DateModule extends AbstractQuercusModule {
       int token = nextToken();
       
       if (token == INT) {
-	_date.setMinute(_value);
-	_value = NULL_VALUE;
+        _date.setMinute(_value);
+        _value = NULL_VALUE;
       }
       else {
-	_peekToken = token;
-	return;
+        _peekToken = token;
+        return;
       }
 
       token = nextToken();
 
       if (token == ':') {
-	token = nextToken();
+        token = nextToken();
       
-	if (token == INT) {
-	  _date.setSecond(_value);
-	  _value = NULL_VALUE;
-	}
-	else {
-	  _peekToken = token;
-	  return;
-	}
+        if (token == INT) {
+          _date.setSecond(_value);
+          _value = NULL_VALUE;
+        }
+        else {
+          _peekToken = token;
+          return;
+        }
 
-	token = nextToken();
+        token = nextToken();
 
-	if (token == '.') { // milliseconds
-	  token = nextToken();
+        if (token == '.') { // milliseconds
+          token = nextToken();
 
-	  _value = NULL_VALUE;
-	  if (token != INT) {
-	    _peekToken = token;
-	    return;
-	  }
-	}
+          _value = NULL_VALUE;
+          if (token != INT) {
+            _peekToken = token;
+            return;
+          }
+        }
       }
 
       if (token == AM) {
-	hour = _date.getHour();
+        hour = _date.getHour();
 
-	if (hour == 12)
-	  _date.setHour(0);
+        if (hour == 12)
+          _date.setHour(0);
       }
       else if (token == PM) {
-	hour = _date.getHour();
+        hour = _date.getHour();
 
-	if (hour == 12)
-	  _date.setHour(12);
-	else
-	  _date.setHour(hour + 12);
+        if (hour == 12)
+          _date.setHour(12);
+        else
+          _date.setHour(hour + 12);
       }
       else
-	_peekToken = token;
+        _peekToken = token;
 
       parseTimezone();
     }
@@ -1665,458 +1665,458 @@ public class DateModule extends AbstractQuercusModule {
       boolean hasUTC = false;
 
       if (token == UTC) {
-	token = nextToken();
-	
-	hasUTC = true;
+        token = nextToken();
+        
+        hasUTC = true;
       }
 
       if (token == '-')
-	sign = -1;
+        sign = -1;
       else if (token == '+')
-	sign = 1;
+        sign = 1;
       else {
-	_peekToken = token;
+        _peekToken = token;
 
-	if (hasUTC)
-	  _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
-	
-	return;
+        if (hasUTC)
+          _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
+        
+        return;
       }
 
       int offset = 0;
 
       token = nextToken();
       if (token != INT) {
-	_peekToken = token;
+        _peekToken = token;
 
-	if (hasUTC)
-	  _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
-	  
-	return;
+        if (hasUTC)
+          _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
+          
+        return;
       }
       else if (_digits == 4) {
-	int value = sign * _value;
-	_value = NULL_VALUE;
+        int value = sign * _value;
+        _value = NULL_VALUE;
 
-	_date.setGMTTime(_date.getGMTTime() - value * 60000L + _date.getZoneOffset());
-	return;
+        _date.setGMTTime(_date.getGMTTime() - value * 60000L + _date.getZoneOffset());
+        return;
       }
       else if (_digits == 2) {
-	int value = _value;
+        int value = _value;
 
-	token = nextToken();
+        token = nextToken();
 
-	if (token != ':') {
-	  _value = sign * _value;
-	  _peekToken = token;
+        if (token != ':') {
+          _value = sign * _value;
+          _peekToken = token;
 
-	  if (hasUTC)
-	    _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
-	  return;
-	}
+          if (hasUTC)
+            _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
+          return;
+        }
 
-	value = sign * (100 * value + _value);
+        value = sign * (100 * value + _value);
 
-	_date.setGMTTime(_date.getGMTTime() - value * 60000L + _date.getZoneOffset());
-	return;
+        _date.setGMTTime(_date.getGMTTime() - value * 60000L + _date.getZoneOffset());
+        return;
       }
       else {
-	_value = sign * _value;
-	_peekToken = token;
-	
-	if (hasUTC)
-	  _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
-	
-	return;
+        _value = sign * _value;
+        _peekToken = token;
+        
+        if (hasUTC)
+          _date.setGMTTime(_date.getGMTTime() + _date.getZoneOffset());
+        
+        return;
       }
     }
 
     private void addTime(int value, int unit)
     {
       if (value == NULL_VALUE)
-	value = 1;
+        value = 1;
       else if (value == -NULL_VALUE)
-	value = -1;
+        value = -1;
       
       switch (unit) {
       case UNIT_YEAR:
-	_date.setYear(_date.getYear() + value);
-	break;
+        _date.setYear(_date.getYear() + value);
+        break;
       case UNIT_MONTH:
-	_date.setMonth(_date.getMonth() + value);
-	break;
+        _date.setMonth(_date.getMonth() + value);
+        break;
       case UNIT_FORTNIGHT:
-	_date.setGMTTime(_date.getGMTTime() + 14 * DAY * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + 14 * DAY * value);
+        break;
       case UNIT_WEEK:
-	_date.setGMTTime(_date.getGMTTime() + 7 * DAY * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + 7 * DAY * value);
+        break;
       case UNIT_DAY:
-	_date.setGMTTime(_date.getGMTTime() + DAY * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + DAY * value);
+        break;
       case UNIT_HOUR:
-	_date.setGMTTime(_date.getGMTTime() + HOUR * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + HOUR * value);
+        break;
       case UNIT_MINUTE:
-	_date.setGMTTime(_date.getGMTTime() + MINUTE * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + MINUTE * value);
+        break;
       case UNIT_SECOND:
-	_date.setGMTTime(_date.getGMTTime() + 1000L * value);
-	break;
+        _date.setGMTTime(_date.getGMTTime() + 1000L * value);
+        break;
       }
     }
 
     private void addWeekday(int value, int weekday)
     {
       if (value == NULL_VALUE)
-	value = 0;
+        value = 0;
       else if (value == -NULL_VALUE)
-	value = -1;
+        value = -1;
 
       _date.setDayOfMonth(_date.getDayOfMonth() +
-			  (8 + weekday - _date.getDayOfWeek()) % 7 +
-			  7 * value);
+                          (8 + weekday - _date.getDayOfWeek()) % 7 +
+                          7 * value);
     }
 
     private void parseBareInt(int value, int digits)
     {
       if (digits == 8 && ! _hasDate) {
-	_hasDate = true;
+        _hasDate = true;
 
-	_date.setYear(value / 10000);
-	_date.setMonth((value / 100 % 12) - 1);
-	_date.setDayOfMonth(value % 100);
+        _date.setYear(value / 10000);
+        _date.setMonth((value / 100 % 12) - 1);
+        _date.setDayOfMonth(value % 100);
       }
       else if (digits == 6 && ! _hasTime) {
-	_hasTime = true;
-	_date.setHour(value / 10000);
-	_date.setMinute(value / 100 % 100);
-	_date.setSecond(value % 100);
+        _hasTime = true;
+        _date.setHour(value / 10000);
+        _date.setMinute(value / 100 % 100);
+        _date.setSecond(value % 100);
 
-	parseTimezone();
+        parseTimezone();
       }
       else if (digits == 4 && ! _hasTime) {
-	_hasTime = true;
-	_date.setHour(value / 100);
-	_date.setMinute(value % 100);
-	_date.setSecond(0);
-	parseTimezone();
+        _hasTime = true;
+        _date.setHour(value / 100);
+        _date.setMinute(value % 100);
+        _date.setSecond(0);
+        parseTimezone();
       }
       else if (digits == 2 && ! _hasTime) {
-	_hasTime = true;
-	_date.setHour(value);
-	_date.setMinute(0);
-	_date.setSecond(0);
-	parseTimezone();
+        _hasTime = true;
+        _date.setHour(value);
+        _date.setMinute(0);
+        _date.setSecond(0);
+        parseTimezone();
       }
 
       int token = nextToken();
       if (token == '.') {
-	_value = NULL_VALUE;
-	token = nextToken();
+        _value = NULL_VALUE;
+        token = nextToken();
 
-	if (token == INT)
-	  _value = NULL_VALUE;
-	else
-	  _peekToken = token;
+        if (token == INT)
+          _value = NULL_VALUE;
+        else
+          _peekToken = token;
       }
       else
-	_peekToken = token;
+        _peekToken = token;
     }
 
     int nextToken()
     {
       if (_peekToken > 0) {
-	int token = _peekToken;
-	_peekToken = 0;
-	return token;
+        int token = _peekToken;
+        _peekToken = 0;
+        return token;
       }
       
       while (true) {
-	skipSpaces();
+        skipSpaces();
       
-	int ch = read();
+        int ch = read();
 
-	if (ch < 0)
-	  return -1;
-	else if (ch == '-')
-	  return '-';
-	else if (ch == '+')
-	  return '+';
-	else if (ch == ':')
-	  return ':';
-	else if (ch == '.')
-	  return '.';
-	else if (ch == '/')
-	  return '/';
-	else if (ch == '@')
-	  return '@';
-	else if ('0' <= ch && ch <= '9') {
-	  int value = 0;
-	  int digits = 0;
+        if (ch < 0)
+          return -1;
+        else if (ch == '-')
+          return '-';
+        else if (ch == '+')
+          return '+';
+        else if (ch == ':')
+          return ':';
+        else if (ch == '.')
+          return '.';
+        else if (ch == '/')
+          return '/';
+        else if (ch == '@')
+          return '@';
+        else if ('0' <= ch && ch <= '9') {
+          int value = 0;
+          int digits = 0;
 
-	  for (; '0' <= ch && ch <= '9'; ch = read()) {
-	    digits++;
-	    value = 10 * value + ch - '0';
-	  }
+          for (; '0' <= ch && ch <= '9'; ch = read()) {
+            digits++;
+            value = 10 * value + ch - '0';
+          }
 
-	  _value = value;
-	  _digits = digits;
+          _value = value;
+          _digits = digits;
 
-	  unread();
+          unread();
 
-	  return INT;
-	}
-	else if ('a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z') {
-	  _sb.setLength(0);
-	
-	  for (;
-	       'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '.';
-	       ch = read()) {
-	    _sb.append(Character.toLowerCase((char) ch));
-	  }
+          return INT;
+        }
+        else if ('a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z') {
+          _sb.setLength(0);
+        
+          for (;
+               'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '.';
+               ch = read()) {
+            _sb.append(Character.toLowerCase((char) ch));
+          }
 
-	  unread();
+          unread();
 
-	  String s = _sb.toString();
+          String s = _sb.toString();
 
-	  return parseString(s);
-	}
-	else {
-	  // skip
-	}
+          return parseString(s);
+        }
+        else {
+          // skip
+        }
       }
     }
 
     private int parseString(String s)
     {
       if (s.endsWith("."))
-	s = s.substring(0, s.length() - 1);
+        s = s.substring(0, s.length() - 1);
       
       if ("now".equals(s) ||
-	  "today".equals(s)) {
-	_value = 0;
-	_unit = UNIT_NOW;
-	return PERIOD;
+          "today".equals(s)) {
+        _value = 0;
+        _unit = UNIT_NOW;
+        return PERIOD;
       }
       else if ("last".equals(s)) {
-	_value = -1;
-	return INT;
+        _value = -1;
+        return INT;
       }
       else if ("this".equals(s)) {
-	_value = 0;
-	return INT;
+        _value = 0;
+        return INT;
       }
       else if ("am".equals(s) || "a.m".equals(s)) {
-	return AM;
+        return AM;
       }
       else if ("pm".equals(s) || "p.m".equals(s)) {
-	return PM;
+        return PM;
       }
       else if ("next".equals(s)) {
-	_value = 1;
-	return INT;
+        _value = 1;
+        return INT;
       }
       else if ("third".equals(s)) {
-	_value = 3;
-	return INT;
+        _value = 3;
+        return INT;
       }
       else if ("fourth".equals(s)) {
-	_value = 4;
-	return INT;
+        _value = 4;
+        return INT;
       }
       else if ("fifth".equals(s)) {
-	_value = 5;
-	return INT;
+        _value = 5;
+        return INT;
       }
       else if ("sixth".equals(s)) {
-	_value = 6;
-	return INT;
+        _value = 6;
+        return INT;
       }
       else if ("seventh".equals(s)) {
-	_value = 7;
-	return INT;
+        _value = 7;
+        return INT;
       }
       else if ("eighth".equals(s)) {
-	_value = 8;
-	return INT;
+        _value = 8;
+        return INT;
       }
       else if ("ninth".equals(s)) {
-	_value = 9;
-	return INT;
+        _value = 9;
+        return INT;
       }
       else if ("tenth".equals(s)) {
-	_value = 10;
-	return INT;
+        _value = 10;
+        return INT;
       }
       else if ("eleventh".equals(s)) {
-	_value = 11;
-	return INT;
+        _value = 11;
+        return INT;
       }
       else if ("twelfth".equals(s)) {
-	_value = 12;
-	return INT;
+        _value = 12;
+        return INT;
       }
       else if ("yesterday".equals(s)) {
-	_value = -1;
-	_unit = UNIT_DAY;
-	return PERIOD;
+        _value = -1;
+        _unit = UNIT_DAY;
+        return PERIOD;
       }
       else if ("tomorrow".equals(s)) {
-	_value = 1;
-	_unit = UNIT_DAY;
-	return PERIOD;
+        _value = 1;
+        _unit = UNIT_DAY;
+        return PERIOD;
       }
       else if ("ago".equals(s)) {
-	return AGO;
+        return AGO;
       }
       else if ("year".equals(s) || "years".equals(s)) {
-	_unit = UNIT_YEAR;
-	return PERIOD;
+        _unit = UNIT_YEAR;
+        return PERIOD;
       }
       else if ("month".equals(s) || "months".equals(s)) {
-	_unit = UNIT_MONTH;
-	return PERIOD;
+        _unit = UNIT_MONTH;
+        return PERIOD;
       }
       else if ("fortnight".equals(s) || "fortnights".equals(s)) {
-	_unit = UNIT_FORTNIGHT;
-	return PERIOD;
+        _unit = UNIT_FORTNIGHT;
+        return PERIOD;
       }
       else if ("week".equals(s) || "weeks".equals(s)) {
-	_unit = UNIT_WEEK;
-	return PERIOD;
+        _unit = UNIT_WEEK;
+        return PERIOD;
       }
       else if ("day".equals(s) || "days".equals(s)) {
-	_unit = UNIT_DAY;
-	return PERIOD;
+        _unit = UNIT_DAY;
+        return PERIOD;
       }
       else if ("hour".equals(s) || "hours".equals(s)) {
-	_unit = UNIT_HOUR;
-	return PERIOD;
+        _unit = UNIT_HOUR;
+        return PERIOD;
       }
       else if ("minute".equals(s) || "minutes".equals(s)) {
-	_unit = UNIT_MINUTE;
-	return PERIOD;
+        _unit = UNIT_MINUTE;
+        return PERIOD;
       }
       else if ("second".equals(s) || "seconds".equals(s)) {
-	_unit = UNIT_SECOND;
-	return PERIOD;
+        _unit = UNIT_SECOND;
+        return PERIOD;
       }
       else if ("second".equals(s) || "seconds".equals(s)) {
-	_unit = UNIT_SECOND;
-	return PERIOD;
+        _unit = UNIT_SECOND;
+        return PERIOD;
       }
       else if ("january".equals(s) || "jan".equals(s)) {
-	_value = 1;
-	return MONTH;
+        _value = 1;
+        return MONTH;
       }
       else if ("february".equals(s) || "feb".equals(s)) {
-	_value = 2;
-	return MONTH;
+        _value = 2;
+        return MONTH;
       }
       else if ("march".equals(s) || "mar".equals(s)) {
-	_value = 3;
-	return MONTH;
+        _value = 3;
+        return MONTH;
       }
       else if ("april".equals(s) || "apr".equals(s)) {
-	_value = 4;
-	return MONTH;
+        _value = 4;
+        return MONTH;
       }
       else if ("may".equals(s)) {
-	_value = 5;
-	return MONTH;
+        _value = 5;
+        return MONTH;
       }
       else if ("june".equals(s) || "jun".equals(s)) {
-	_value = 6;
-	return MONTH;
+        _value = 6;
+        return MONTH;
       }
       else if ("july".equals(s) || "jul".equals(s)) {
-	_value = 7;
-	return MONTH;
+        _value = 7;
+        return MONTH;
       }
       else if ("august".equals(s) || "aug".equals(s)) {
-	_value = 8;
-	return MONTH;
+        _value = 8;
+        return MONTH;
       }
       else if ("september".equals(s) || "sep".equals(s) || "sept".equals(s)) {
-	_value = 9;
-	return MONTH;
+        _value = 9;
+        return MONTH;
       }
       else if ("october".equals(s) || "oct".equals(s)) {
-	_value = 10;
-	return MONTH;
+        _value = 10;
+        return MONTH;
       }
       else if ("november".equals(s) || "nov".equals(s)) {
-	_value = 11;
-	return MONTH;
+        _value = 11;
+        return MONTH;
       }
       else if ("december".equals(s) || "dec".equals(s)) {
-	_value = 12;
-	return MONTH;
+        _value = 12;
+        return MONTH;
       }
       else if ("sunday".equals(s) || "sun".equals(s)) {
-	_weekday = 0;
-	return WEEKDAY;
+        _weekday = 0;
+        return WEEKDAY;
       }
       else if ("monday".equals(s) || "mon".equals(s)) {
-	_weekday = 1;
-	return WEEKDAY;
+        _weekday = 1;
+        return WEEKDAY;
       }
       else if ("tuesday".equals(s) || "tue".equals(s) || "tues".equals(s)) {
-	_weekday = 2;
-	return WEEKDAY;
+        _weekday = 2;
+        return WEEKDAY;
       }
       else if ("wednesday".equals(s) || "wed".equals(s) ||
-	       "wednes".equals(s)) {
-	_weekday = 3;
-	return WEEKDAY;
+               "wednes".equals(s)) {
+        _weekday = 3;
+        return WEEKDAY;
       }
       else if ("thursday".equals(s) || "thu".equals(s) ||
-	       "thur".equals(s) || "thurs".equals(s)) {
-	_weekday = 4;
-	return WEEKDAY;
+               "thur".equals(s) || "thurs".equals(s)) {
+        _weekday = 4;
+        return WEEKDAY;
       }
       else if ("friday".equals(s) || "fri".equals(s)) {
-	_weekday = 5;
-	return WEEKDAY;
+        _weekday = 5;
+        return WEEKDAY;
       }
       else if ("saturday".equals(s) || "sat".equals(s)) {
-	_weekday = 6;
-	return WEEKDAY;
+        _weekday = 6;
+        return WEEKDAY;
       }
       else if ("z".equals(s) || "gmt".equals(s) || "utc".equals(s)) {
-	return UTC;
+        return UTC;
       }
       else
-	return 0;
+        return 0;
     }
 
     private void skipSpaces()
     {
       while (true) {
-	int ch = read();
+        int ch = read();
 
-	if (Character.isWhitespace((char) ch)) {
-	  continue;
-	}
-	else if (ch == '(') {
-	  for (ch = read(); ch > 0 && ch != ')'; ch = read()) {
-	  }
-	}
-	else {
-	  unread();
-	  return;
-	}
+        if (Character.isWhitespace((char) ch)) {
+          continue;
+        }
+        else if (ch == '(') {
+          for (ch = read(); ch > 0 && ch != ')'; ch = read()) {
+          }
+        }
+        else {
+          unread();
+          return;
+        }
       }
     }
 
     int read()
     {
       if (_index < _length)
-	return _s.charAt(_index++);
+        return _s.charAt(_index++);
       else {
-	_index++;
-	return -1;
+        _index++;
+        return -1;
       }
     }
 

@@ -180,33 +180,33 @@ public class WeakLruCache<K,V> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	CacheItem<K,V> item = _entries[hash];
+        CacheItem<K,V> item = _entries[hash];
 
-	// No matching item, so create one
-	if (item == null) {
-	  item = new CacheItem<K,V>(key, value);
-	  _entries[hash] = item;
-	  _size++;
-	  item._next = _head;
-	  if (_head != null)
-	    _head._prev = item;
+        // No matching item, so create one
+        if (item == null) {
+          item = new CacheItem<K,V>(key, value);
+          _entries[hash] = item;
+          _size++;
+          item._next = _head;
+          if (_head != null)
+            _head._prev = item;
           else
             _tail = item;
-	  _head = item;
+          _head = item;
 
-	  return null;
-	}
+          return null;
+        }
 
-	// matching item gets replaced
-	if (item._key == okey || item._key.equals(okey)) {
-	  updateLru(item);
+        // matching item gets replaced
+        if (item._key == okey || item._key.equals(okey)) {
+          updateLru(item);
 
-	  oldValue = item.getValue();
-	  item.setValue(value);
-	  break;
-	}
+          oldValue = item.getValue();
+          item.setValue(value);
+          break;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
     
@@ -234,9 +234,9 @@ public class WeakLruCache<K,V> {
       _head = item;
 
       if (next != null)
-	next._prev = prev;
+        next._prev = prev;
       else
-	_tail = prev;
+        _tail = prev;
     }
   }
 
@@ -275,44 +275,44 @@ public class WeakLruCache<K,V> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	CacheItem<K,V> item = _entries[hash];
+        CacheItem<K,V> item = _entries[hash];
 
-	if (item == null)
-	  return null;
+        if (item == null)
+          return null;
 
-	if (item._key == okey || item._key.equals(okey)) {
-	  _entries[hash] = null;
-	  _size--; 
+        if (item._key == okey || item._key.equals(okey)) {
+          _entries[hash] = null;
+          _size--; 
 
-	  CacheItem<K,V> prev = item._prev;
-	  CacheItem<K,V> next = item._next;
+          CacheItem<K,V> prev = item._prev;
+          CacheItem<K,V> next = item._next;
 
-	  if (prev != null)
-	    prev._next = next;
-	  else
-	    _head = next;
+          if (prev != null)
+            prev._next = next;
+          else
+            _head = next;
 
-	  if (next != null)
-	    next._prev = prev;
-	  else
-	    _tail = prev;
+          if (next != null)
+            next._prev = prev;
+          else
+            _tail = prev;
 
-	  // Shift colliding entries down
-	  for (int i = 1; i <= count; i++) {
-	    int nextHash = (hash + i) & _mask;
-	    CacheItem<K,V> nextItem = _entries[nextHash];
-	    if (nextItem == null)
-	      break;
+          // Shift colliding entries down
+          for (int i = 1; i <= count; i++) {
+            int nextHash = (hash + i) & _mask;
+            CacheItem<K,V> nextItem = _entries[nextHash];
+            if (nextItem == null)
+              break;
 
-	    _entries[nextHash] = null;
-	    refillEntry(nextItem);
-	  }
+            _entries[nextHash] = null;
+            refillEntry(nextItem);
+          }
 
-	  value = item.getValue();
-	  break;
-	}
+          value = item.getValue();
+          break;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -336,8 +336,8 @@ public class WeakLruCache<K,V> {
       int hash = (baseHash + count) & _mask;
 
       if (_entries[hash] == null) {
-	_entries[hash] = item;
-	return;
+        _entries[hash] = item;
+        return;
       }
     }
   }

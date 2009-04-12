@@ -75,8 +75,8 @@ public class FunctionScope extends Scope {
    * Adds a function.
    */
   public void addFunction(String name,
-			  Function function,
-			  boolean isTop)
+                          Function function,
+                          boolean isTop)
   {
     name = name.toLowerCase();
     

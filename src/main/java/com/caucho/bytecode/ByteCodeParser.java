@@ -179,9 +179,9 @@ public class ByteCodeParser {
       _cp.addConstant(entry);
       
       if (entry instanceof DoubleConstant ||
-	  entry instanceof LongConstant) {
-	i++;
-	_cp.addConstant(null);
+          entry instanceof LongConstant) {
+        i++;
+        _cp.addConstant(null);
       }
     }
   }
@@ -230,7 +230,7 @@ public class ByteCodeParser {
 
     default:
       throw error(L.l("'{0}' is an unknown constant pool type.",
-		      tag));
+                      tag));
     }
   }
 
@@ -255,7 +255,7 @@ public class ByteCodeParser {
     int nameAndTypeIndex = readShort();
 
     return new FieldRefConstant(_class.getConstantPool(), index,
-				classIndex, nameAndTypeIndex);
+                                classIndex, nameAndTypeIndex);
   }
 
   /**
@@ -268,7 +268,7 @@ public class ByteCodeParser {
     int nameAndTypeIndex = readShort();
 
     return new MethodRefConstant(_class.getConstantPool(), index,
-				 classIndex, nameAndTypeIndex);
+                                 classIndex, nameAndTypeIndex);
   }
 
   /**
@@ -281,7 +281,7 @@ public class ByteCodeParser {
     int nameAndTypeIndex = readShort();
 
     return new InterfaceMethodRefConstant(_class.getConstantPool(), index,
-					  classIndex, nameAndTypeIndex);
+                                          classIndex, nameAndTypeIndex);
   }
 
   /**
@@ -353,7 +353,7 @@ public class ByteCodeParser {
     int descriptorIndex = readShort();
 
     return new NameAndTypeConstant(_class.getConstantPool(), index,
-				   nameIndex, descriptorIndex);
+                                   nameIndex, descriptorIndex);
   }
 
   /**
@@ -370,23 +370,23 @@ public class ByteCodeParser {
       int ch = read();
 
       if (ch < 0x80) {
-	cb.append((char) ch);
+        cb.append((char) ch);
       }
       else if ((ch & 0xe0) == 0xc0) {
-	int ch2 = read();
-	i++;
+        int ch2 = read();
+        i++;
 
-	cb.append((char) (((ch & 0x1f) << 6)+
-			  (ch2 & 0x3f)));
+        cb.append((char) (((ch & 0x1f) << 6)+
+                          (ch2 & 0x3f)));
       }
       else {
-	int ch2 = read();
-	int ch3 = read();
-	i += 2;
+        int ch2 = read();
+        int ch3 = read();
+        i += 2;
       
-	cb.append((char) (((ch & 0xf) << 12)+
-			  ((ch2 & 0x3f) << 6) +
-			  ((ch3 & 0x3f))));
+        cb.append((char) (((ch & 0xf) << 12)+
+                          ((ch2 & 0x3f) << 6) +
+                          ((ch3 & 0x3f))));
       }
     }
 
@@ -444,21 +444,21 @@ public class ByteCodeParser {
       method.addAttribute(attr);
       
       if (attr instanceof ExceptionsAttribute) {
-	ExceptionsAttribute exn = (ExceptionsAttribute) attr;
+        ExceptionsAttribute exn = (ExceptionsAttribute) attr;
 
-	ArrayList<String> exnNames = exn.getExceptionList();
+        ArrayList<String> exnNames = exn.getExceptionList();
 
-	if (exnNames.size() > 0) {
-	  JClass []exnClasses = new JClass[exnNames.size()];
+        if (exnNames.size() > 0) {
+          JClass []exnClasses = new JClass[exnNames.size()];
 
-	  for (int j = 0; j < exnNames.size(); j++) {
-	    String exnName = exnNames.get(j).replace('/', '.');
-	  
-	    exnClasses[j] = _loader.forName(exnName);
-	  }
+          for (int j = 0; j < exnNames.size(); j++) {
+            String exnName = exnNames.get(j).replace('/', '.');
+          
+            exnClasses[j] = _loader.forName(exnName);
+          }
 
-	  method.setExceptionTypes(exnClasses);
-	}
+          method.setExceptionTypes(exnClasses);
+        }
       }
     }
 
@@ -511,13 +511,13 @@ public class ByteCodeParser {
     throws IOException
   {
     return (((long) _is.read() << 56) |
-	    ((long) _is.read() << 48) |
-	    ((long) _is.read() << 40) |
-	    ((long) _is.read() << 32) |
-	    ((long) _is.read() << 24) |
-	    ((long) _is.read() << 16) |
-	    ((long) _is.read() << 8) |
-	    ((long) _is.read()));
+            ((long) _is.read() << 48) |
+            ((long) _is.read() << 40) |
+            ((long) _is.read() << 32) |
+            ((long) _is.read() << 24) |
+            ((long) _is.read() << 16) |
+            ((long) _is.read() << 8) |
+            ((long) _is.read()));
   }
 
   /**
@@ -527,9 +527,9 @@ public class ByteCodeParser {
     throws IOException
   {
     return ((_is.read() << 24) |
-	    (_is.read() << 16) |
-	    (_is.read() << 8) |
-	    (_is.read()));
+            (_is.read() << 16) |
+            (_is.read() << 8) |
+            (_is.read()));
   }
 
   /**
@@ -565,7 +565,7 @@ public class ByteCodeParser {
       int sublen = _is.read(buffer, offset, length);
 
       if (sublen < 0)
-	return readLength == 0 ? -1 : readLength;
+        return readLength == 0 ? -1 : readLength;
 
       offset += sublen;
       length -= sublen;

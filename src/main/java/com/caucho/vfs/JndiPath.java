@@ -76,8 +76,8 @@ public class JndiPath extends FilesystemPath {
    * @return a new JndiPath representing the new path.
    */
   public Path fsWalk(String userPath,
-		     Map<String,Object> attributes,
-		     String path)
+                     Map<String,Object> attributes,
+                     String path)
   {
     return new JndiPath(_root, userPath, path);
   }

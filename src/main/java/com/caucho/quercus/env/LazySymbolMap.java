@@ -78,17 +78,17 @@ public class LazySymbolMap extends AbstractMap<String,EnvVar> {
       int id = _intMap.get(key);
 
       if (id >= 0 && _values[id] != null) {
-	Var var = new Var();
-	var.setGlobal();
-	
-	envVar = new EnvVarImpl(var);
-	_extMap.put(key, envVar);
+        Var var = new Var();
+        var.setGlobal();
+        
+        envVar = new EnvVarImpl(var);
+        _extMap.put(key, envVar);
       
-	Env env = Env.getCurrent();
-	
-	Value value = _values[id].copy(env);
+        Env env = Env.getCurrent();
+        
+        Value value = _values[id].copy(env);
 
-	envVar.set(value);
+        envVar.set(value);
       }
     }
     

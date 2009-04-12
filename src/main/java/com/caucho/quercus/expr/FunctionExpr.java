@@ -173,7 +173,7 @@ public class FunctionExpr extends Expr {
     // XXX: qa/1d14 Value oldThis = env.setThis(UnsetValue.NULL);
     try {
       env.checkTimeout();
-	
+        
       if (isRef)
         return fun.callRef(env, args);
       else if (isCopy)

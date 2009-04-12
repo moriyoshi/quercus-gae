@@ -69,20 +69,20 @@ public class ScriptStackTrace {
     
     while (true) {
       if (e.getMessage() != null)
-	out.println(e.getClass().getName() + ": " + e.getMessage());
+        out.println(e.getClass().getName() + ": " + e.getMessage());
       else
-	out.println(e.getClass().getName());
+        out.println(e.getClass().getName());
 
       StackTraceElement []trace = e.getStackTrace();
       StackTraceElement nextHead = trace.length > 0 ? trace[0] : null;
 
       for (int i = 0; i < trace.length; i++) {
-	if (trace[i].equals(lastHead))
-	  break;
-	
-	out.print("\tat ");
+        if (trace[i].equals(lastHead))
+          break;
+        
+        out.print("\tat ");
 
-	printStackTraceElement(trace[i], out, loader);
+        printStackTraceElement(trace[i], out, loader);
       }
 
       lastHead = nextHead;
@@ -90,11 +90,11 @@ public class ScriptStackTrace {
       Throwable cause = e.getCause();
 
       if (cause != null) {
-	out.print("Caused by: ");
-	e = cause;
+        out.print("Caused by: ");
+        e = cause;
       }
       else
-	break;
+        break;
     }
   }
 
@@ -102,20 +102,20 @@ public class ScriptStackTrace {
    * Prints a single stack trace element.
    */
   private static void printStackTraceElement(StackTraceElement trace,
-					     PrintWriter out,
-					     ClassLoader loader)
+                                             PrintWriter out,
+                                             ClassLoader loader)
   {
     try {
       LineMap map = getScriptLineMap(trace.getClassName(), loader);
 
       if (map != null) {
-	LineMap.Line line = map.getLine(trace.getLineNumber());
-	if (line != null) {
-	  out.print(trace.getClassName() + "." + trace.getMethodName());
-	  out.print("(" + line.getSourceFilename() + ":");
-	  out.println(line.getSourceLine(trace.getLineNumber()) + ")");
-	  return;
-	}
+        LineMap.Line line = map.getLine(trace.getLineNumber());
+        if (line != null) {
+          out.print(trace.getClassName() + "." + trace.getMethodName());
+          out.print("(" + line.getSourceFilename() + ":");
+          out.println(line.getSourceLine(trace.getLineNumber()) + ")");
+          return;
+        }
       }
     } catch (Throwable e) {
     }
@@ -134,8 +134,8 @@ public class ScriptStackTrace {
       LineMap map = _scriptMap.get(cl);
 
       if (map == null) {
-	map = loadScriptMap(cl);
-	_scriptMap.put(cl, map);
+        map = loadScriptMap(cl);
+        _scriptMap.put(cl, map);
       }
 
       return map;
@@ -161,44 +161,44 @@ public class ScriptStackTrace {
       InputStream is = loader.getResourceAsStream(pathName);
 
       if (is == null)
-	return null;
+        return null;
       
       try {
-	JavaClass jClass = new ByteCodeParser().parse(is);
+        JavaClass jClass = new ByteCodeParser().parse(is);
 
-	Attribute attr = jClass.getAttribute("SourceDebugExtension");
+        Attribute attr = jClass.getAttribute("SourceDebugExtension");
 
-	if (attr == null) {
-	  int p = cl.getName().indexOf('$');
-	  
-	  if (p > 0) {
-	    String className = cl.getName().substring(0, p);
+        if (attr == null) {
+          int p = cl.getName().indexOf('$');
+          
+          if (p > 0) {
+            String className = cl.getName().substring(0, p);
 
-	    return loadScriptMap(loader.loadClass(className));
-	  }
+            return loadScriptMap(loader.loadClass(className));
+          }
 
-	  return new LineMap();
-	}
-	else if (attr instanceof OpaqueAttribute) {
-	  byte []value = ((OpaqueAttribute) attr).getValue();
+          return new LineMap();
+        }
+        else if (attr instanceof OpaqueAttribute) {
+          byte []value = ((OpaqueAttribute) attr).getValue();
 
-	  ByteArrayInputStream bis = new ByteArrayInputStream(value);
+          ByteArrayInputStream bis = new ByteArrayInputStream(value);
 
-	  ReadStream rs = Vfs.openRead(bis);
-	  rs.setEncoding("UTF-8");
+          ReadStream rs = Vfs.openRead(bis);
+          rs.setEncoding("UTF-8");
 
-	  try {
-	    return parseSmap(rs);
-	  } finally {
-	    rs.close();
-	  }
-	}
-	else
-	  throw new IllegalStateException(L.l("Expected opaque attribute at '{0}'",
-					      attr));
+          try {
+            return parseSmap(rs);
+          } finally {
+            rs.close();
+          }
+        }
+        else
+          throw new IllegalStateException(L.l("Expected opaque attribute at '{0}'",
+                                              attr));
       } finally {
-	if (is != null)
-	  is.close();
+        if (is != null)
+          is.close();
       }
     } catch (Throwable e) {
       log.log(Level.FINER, e.toString(), e);
@@ -232,74 +232,74 @@ public class ScriptStackTrace {
       int ch = is.read();
 
       if (ch < 0)
-	break;
+        break;
 
       if (ch != '*')
-	throw new IOException(L.l("unexpected character '{0}'",
-				  String.valueOf((char) ch)));
+        throw new IOException(L.l("unexpected character '{0}'",
+                                  String.valueOf((char) ch)));
 
       int code = is.read();
       String value = is.readln();
 
       switch (code) {
       case 'E':
-	break loop;
+        break loop;
 
       case 'S':
-	stratum = value.trim();
-	break;
+        stratum = value.trim();
+        break;
 
       case 'F':
-	while ((ch = is.read()) > 0 && ch != '*') {
-	  if (ch == '+') {
-	    String first = is.readln().trim();
-	    String second = is.readln().trim();
+        while ((ch = is.read()) > 0 && ch != '*') {
+          if (ch == '+') {
+            String first = is.readln().trim();
+            String second = is.readln().trim();
 
-	    int p = first.indexOf(' ');
-	    String key = first.substring(0, p);
-	    String file = first.substring(p + 1).trim();
+            int p = first.indexOf(' ');
+            String key = first.substring(0, p);
+            String file = first.substring(p + 1).trim();
 
-	    if (fileMap.size() == 0)
-	      fileMap.put("", second);
+            if (fileMap.size() == 0)
+              fileMap.put("", second);
 
-	    fileMap.put(key, second);
-	  }
-	  else {
-	    String first = is.readln().trim();
-	  
-	    int p = first.indexOf(' ');
-	    String key = first.substring(0, p);
-	    String file = first.substring(p + 1).trim();
+            fileMap.put(key, second);
+          }
+          else {
+            String first = is.readln().trim();
+          
+            int p = first.indexOf(' ');
+            String key = first.substring(0, p);
+            String file = first.substring(p + 1).trim();
 
-	    if (fileMap.size() == 0)
-	      fileMap.put("", file);
+            if (fileMap.size() == 0)
+              fileMap.put("", file);
 
-	    fileMap.put(key, file);
-	  }
-	}
-	if (ch == '*')
-	  is.unread();
-	break;
+            fileMap.put(key, file);
+          }
+        }
+        if (ch == '*')
+          is.unread();
+        break;
 
       case 'L':
-	while ((ch = is.read()) != '*' && ch > 0) {
-	  is.unread();
-	  
-	  String line = is.readln().trim();
+        while ((ch = is.read()) != '*' && ch > 0) {
+          is.unread();
+          
+          String line = is.readln().trim();
 
-	  addMap(line, fileMap, lineMap);
-	}
-	if (ch == '*')
-	  is.unread();
-	break;
-	
+          addMap(line, fileMap, lineMap);
+        }
+        if (ch == '*')
+          is.unread();
+        break;
+        
       default:
-	while ((ch = is.read()) != '*') {
-	  is.readln();
-	}
-	if (ch == '*')
-	  is.unread();
-	break;
+        while ((ch = is.read()) != '*') {
+          is.readln();
+        }
+        if (ch == '*')
+          is.unread();
+        break;
       }
     }
     
@@ -308,8 +308,8 @@ public class ScriptStackTrace {
   }
 
   private static void addMap(String line,
-			     HashMap<String,String> fileMap,
-			     LineMap lineMap)
+                             HashMap<String,String> fileMap,
+                             LineMap lineMap)
   {
     int colon = line.indexOf(':');
 
@@ -329,11 +329,11 @@ public class ScriptStackTrace {
       int comma = line.indexOf(',', hash);
 
       if (comma > 0 && comma < colon) {
-	fileId = line.substring(hash + 1, comma).trim();
-	repeatCount = Integer.parseInt(line.substring(comma + 1, colon));
+        fileId = line.substring(hash + 1, comma).trim();
+        repeatCount = Integer.parseInt(line.substring(comma + 1, colon));
       }
       else
-	fileId = line.substring(hash + 1, colon).trim();
+        fileId = line.substring(hash + 1, colon).trim();
     }
 
     int outputLine = -1;

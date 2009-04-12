@@ -97,15 +97,15 @@ public class TempCharReader extends Reader {
   {
     if (_length <= _offset) {
       if (_head == null)
-	return -1;
+        return -1;
 
       TempCharBuffer next = _head.getNext();
       if (_isFree)
-	TempCharBuffer.free(_head);
+        TempCharBuffer.free(_head);
       _head = next;
 
       if (_head == null)
-	return -1;
+        return -1;
       
       _buffer = _head.getBuffer();
       _length = _head.getLength();
@@ -124,26 +124,26 @@ public class TempCharReader extends Reader {
     
     while (length > 0) {
       if (_length <= _offset) {
-	if (_head == null)
-	  return readLength == 0 ? -1 : readLength;
+        if (_head == null)
+          return readLength == 0 ? -1 : readLength;
 
-	TempCharBuffer next = _head.getNext();
-	if (_isFree)
-	  TempCharBuffer.free(_head);
-	_head = next;
+        TempCharBuffer next = _head.getNext();
+        if (_isFree)
+          TempCharBuffer.free(_head);
+        _head = next;
 
-	if (_head == null)
-	  return readLength == 0 ? -1 : readLength;
+        if (_head == null)
+          return readLength == 0 ? -1 : readLength;
       
-	_buffer = _head.getBuffer();
-	_length = _head.getLength();
-	_offset = 0;
+        _buffer = _head.getBuffer();
+        _length = _head.getLength();
+        _offset = 0;
       }
 
       int sublen = _length - _offset;
 
       if (length < sublen)
-	sublen = length;
+        sublen = length;
 
       System.arraycopy(_buffer, _offset, buffer, offset, sublen);
 

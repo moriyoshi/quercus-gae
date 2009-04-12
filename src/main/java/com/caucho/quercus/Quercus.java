@@ -297,10 +297,10 @@ public class Quercus
   {
     if (_moduleContext == null) {
       synchronized (this) {
-	if (_moduleContext == null) {
-	  _moduleContext = createModuleContext(null, loader);
-	  _moduleContext.init();
-	}
+        if (_moduleContext == null) {
+          _moduleContext = createModuleContext(null, loader);
+          _moduleContext.init();
+        }
       }
     }
 
@@ -308,7 +308,7 @@ public class Quercus
   }
 
   protected ModuleContext createModuleContext(ModuleContext parent,
-					      ClassLoader loader)
+                                              ClassLoader loader)
   {
     return new ModuleContext(parent, loader);
   }
@@ -508,27 +508,27 @@ public class Quercus
       return _database;
     else {
       try {
-	String key = driver + ";" + url;
-	
-	DataSource database = _databaseMap.get(key);
+        String key = driver + ";" + url;
+        
+        DataSource database = _databaseMap.get(key);
 
-	if (database != null)
-	  return database;
-	
-	ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if (database != null)
+          return database;
+        
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
       
-	Class cls = loader.loadClass(driver);
+        Class cls = loader.loadClass(driver);
         
-	Object ds = cls.newInstance();
+        Object ds = cls.newInstance();
         
-	if (ds instanceof DataSource)
-	  database = (DataSource) ds;
-	else
-	  database = new JavaSqlDriverWrapper((java.sql.Driver) ds, url);
+        if (ds instanceof DataSource)
+          database = (DataSource) ds;
+        else
+          database = new JavaSqlDriverWrapper((java.sql.Driver) ds, url);
 
-	_databaseMap.put(key, database);
+        _databaseMap.put(key, database);
 
-	return database;
+        return database;
       } catch (ClassNotFoundException e) {
         throw new QuercusModuleException(e);
       } catch (InstantiationException e) {
@@ -720,16 +720,16 @@ public class Quercus
 
     if (def == null) {
       try {
-	def = getModuleContext().getJavaClassDefinition(type, className);
+        def = getModuleContext().getJavaClassDefinition(type, className);
 
-	int id = getClassId(className);
-	_classDefMap[id] = def;
+        int id = getClassId(className);
+        _classDefMap[id] = def;
 
-	_javaClassWrappers.put(className, def);
+        _javaClassWrappers.put(className, def);
       } catch (RuntimeException e) {
-	throw e;
+        throw e;
       } catch (Exception e) {
-	throw new QuercusRuntimeException(e);
+        throw new QuercusRuntimeException(e);
       }
     }
 
@@ -752,15 +752,15 @@ public class Quercus
 
     if (def == null) {
       try {
-	def = getModuleContext().getJavaClassDefinition(className);
+        def = getModuleContext().getJavaClassDefinition(className);
 
-	_javaClassWrappers.put(className, def);
+        _javaClassWrappers.put(className, def);
       } catch (RuntimeException e) {
-	_classNotFoundCache.put(className, className);
+        _classNotFoundCache.put(className, className);
           
-	throw e;
+        throw e;
       } catch (Exception e) {
-	throw new QuercusRuntimeException(e);
+        throw new QuercusRuntimeException(e);
       }
     }
 
@@ -1173,10 +1173,10 @@ public class Quercus
 
     synchronized (_functionNameMap) {
       id = _functionNameMap.get(name);
-	  
+          
       if (id >= 0)
-	return id;
-	
+        return id;
+        
       id = _functionNameMap.size();
 
       extendFunctionMap(name, id);
@@ -1192,7 +1192,7 @@ public class Quercus
     if (_functionMap.length <= id) {
       AbstractFunction []functionMap = new AbstractFunction[id + 256];
       System.arraycopy(_functionMap, 0,
-		       functionMap, 0, _functionMap.length);
+                       functionMap, 0, _functionMap.length);
       _functionMap = functionMap;
     }
 
@@ -1252,31 +1252,31 @@ public class Quercus
       id = _classNameMap.get(name);
 
       if (id >= 0) {
-	_classNameMap.put(className, id);
-	
-	return id;
+        _classNameMap.put(className, id);
+        
+        return id;
       }
       
       id = _classNameMap.size();
 
       if (_classDefMap.length <= id) {
-	String []classNames = new String[id + 256];
-	System.arraycopy(_classNames, 0,
-			 classNames, 0,
-			 _classNames.length);
-	_classNames = classNames;
-	  
-	ClassDef []classDefMap = new ClassDef[_classNames.length];
-	System.arraycopy(_classDefMap, 0,
-			 classDefMap, 0,
-			 _classDefMap.length);
-	_classDefMap = classDefMap;
-	  
-	QuercusClass []classCacheMap = new QuercusClass[_classNames.length];
-	System.arraycopy(_classCacheMap, 0,
-			 classCacheMap, 0,
-			 _classCacheMap.length);
-	_classCacheMap = classCacheMap;
+        String []classNames = new String[id + 256];
+        System.arraycopy(_classNames, 0,
+                         classNames, 0,
+                         _classNames.length);
+        _classNames = classNames;
+          
+        ClassDef []classDefMap = new ClassDef[_classNames.length];
+        System.arraycopy(_classDefMap, 0,
+                         classDefMap, 0,
+                         _classDefMap.length);
+        _classDefMap = classDefMap;
+          
+        QuercusClass []classCacheMap = new QuercusClass[_classNames.length];
+        System.arraycopy(_classCacheMap, 0,
+                         classCacheMap, 0,
+                         _classCacheMap.length);
+        _classCacheMap = classCacheMap;
       }
 
       _classNames[id] = className;
@@ -1373,28 +1373,28 @@ public class Quercus
       id = _constantNameMap.get(name);
 
       if (id >= 0)
-	return id;
+        return id;
       
       id = _constantNameMap.size();
 
       if (_classDefMap.length <= id) {
-	Value []constantMap = new Value[id + 256];
-	System.arraycopy(_constantMap, 0,
-			 constantMap, 0,
-			 _constantMap.length);
-	_constantMap = constantMap;
-	  
-	Value []constantNameList = new Value[id + 256];
-	System.arraycopy(_constantNameList, 0,
-			 constantNameList, 0,
-			 _constantNameList.length);
-	_constantNameList = constantNameList;
-	  
-	int []constantLowerMap = new int[_constantMap.length];
-	System.arraycopy(_constantLowerMap, 0,
-			 constantLowerMap, 0,
-			 _constantLowerMap.length);
-	_constantLowerMap = constantLowerMap;
+        Value []constantMap = new Value[id + 256];
+        System.arraycopy(_constantMap, 0,
+                         constantMap, 0,
+                         _constantMap.length);
+        _constantMap = constantMap;
+          
+        Value []constantNameList = new Value[id + 256];
+        System.arraycopy(_constantNameList, 0,
+                         constantNameList, 0,
+                         _constantNameList.length);
+        _constantNameList = constantNameList;
+          
+        int []constantLowerMap = new int[_constantMap.length];
+        System.arraycopy(_constantLowerMap, 0,
+                         constantLowerMap, 0,
+                         _constantLowerMap.length);
+        _constantLowerMap = constantLowerMap;
       }
 
       // XXX: i18n
@@ -1404,9 +1404,9 @@ public class Quercus
       int lowerId;
 
       if (! name.equals(name.toLowerCase()))
-	lowerId = getConstantId(name.toLowerCase());
+        lowerId = getConstantId(name.toLowerCase());
       else
-	lowerId = id;
+        lowerId = id;
     
       _constantLowerMap[id] = lowerId;
 
@@ -1497,7 +1497,7 @@ public class Quercus
 
     if (module == null)
       throw new IllegalStateException(L.l("'{0}' is an unknown quercus module",
-					  name));
+                                          name));
 
     return module;
   }
@@ -1571,7 +1571,7 @@ public class Quercus
     _iniDefinitions.addAll(_ini);
     
     _includeCache = new TimedCache<IncludeKey, Path>(getIncludeCacheMax(),
-						     getIncludeCacheTimeout());
+                                                     getIncludeCacheTimeout());
 
     initLocal();
   }
@@ -1579,8 +1579,8 @@ public class Quercus
   public void addModule(QuercusModule module)
   {
     ModuleInfo info = new ModuleInfo(_moduleContext,
-				     module.getClass().getName(),
-				     module);
+                                     module.getClass().getName(),
+                                     module);
 
     addModuleInfo(info);
   }
@@ -1611,16 +1611,16 @@ public class Quercus
 
     if (map != null) {
       for (Map.Entry<String,Value> entry : map.entrySet()) {
-	int id = getConstantId(entry.getKey());
+        int id = getConstantId(entry.getKey());
 
-	_constantMap[id] = entry.getValue();
+        _constantMap[id] = entry.getValue();
       }
     }
 
     _iniDefinitions.addAll(info.getIniDefinitions());
 
     for (Map.Entry<String, AbstractFunction> entry
-	   : info.getFunctions().entrySet()) {
+           : info.getFunctions().entrySet()) {
       String funName = entry.getKey();
       AbstractFunction fun = entry.getValue();
       
@@ -1637,7 +1637,7 @@ public class Quercus
   private void initClasses()
   {
     for (Map.Entry<String,JavaClassDef> entry
-	   : _moduleContext.getWrapperMap().entrySet()) {
+           : _moduleContext.getWrapperMap().entrySet()) {
       String name = entry.getKey();
       JavaClassDef def = entry.getValue();
       
@@ -1646,7 +1646,7 @@ public class Quercus
     }
     
     for (Map.Entry<String,ClassDef> entry
-	   : _moduleContext.getClassMap().entrySet()) {
+           : _moduleContext.getClassMap().entrySet()) {
       
       String name = entry.getKey();
       ClassDef def = entry.getValue();
@@ -1706,7 +1706,7 @@ public class Quercus
       value = _internMap.get(name);
 
       if (value != null)
-	return value;
+        return value;
 
       if (value == null) {
         name = name.intern();
@@ -1786,9 +1786,9 @@ public class Quercus
     if (obj == null)
       return NullValue.NULL;
     else if (Byte.class.equals(obj.getClass())
-	     || Short.class.equals(obj.getClass())
-	     || Integer.class.equals(obj.getClass())
-	     || Long.class.equals(obj.getClass())) {
+             || Short.class.equals(obj.getClass())
+             || Integer.class.equals(obj.getClass())
+             || Long.class.equals(obj.getClass())) {
       return LongValue.create(((Number) obj).longValue());
     } else if (Float.class.equals(obj.getClass()) ||
                Double.class.equals(obj.getClass())) {
@@ -1819,7 +1819,7 @@ public class Quercus
 
     for (String path : paths) {
       if (pwd.lookup(path).isDirectory()) {
-	sb.append(":").append(pwd.lookup(path).getPath());
+        sb.append(":").append(pwd.lookup(path).getPath());
       }
     }
 */
@@ -1866,9 +1866,9 @@ public class Quercus
     private final Path _scriptPwd;
 
     IncludeKey(StringValue include,
-	       String includePath,
-	       Path pwd,
-	       Path scriptPwd)
+               String includePath,
+               Path pwd,
+               Path scriptPwd)
     {
       _include = include;
       _includePath = includePath;
@@ -1896,9 +1896,9 @@ public class Quercus
       IncludeKey key = (IncludeKey) o;
 
       return (_include.equals(key._include)
-	      && _includePath.equals(key._includePath)
-	      && _pwd.equals(key._pwd)
-	      && _scriptPwd.equals(key._scriptPwd));
+              && _includePath.equals(key._includePath)
+              && _pwd.equals(key._pwd)
+              && _scriptPwd.equals(key._scriptPwd));
     }
   }
 

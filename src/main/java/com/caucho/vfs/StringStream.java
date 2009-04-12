@@ -66,21 +66,21 @@ public class StringStream extends StreamImpl {
       int ch = _string.charAt(index);
 
       if (ch < 0x80)
-	buf[offset++] = (byte) ch;
+        buf[offset++] = (byte) ch;
       else if (ch < 0x800 && offset + 1 < end) {
-	buf[offset++] = (byte) (0xc0 | (ch >> 6));
-	buf[offset++] = (byte) (0x80 | (ch & 0x3f));
+        buf[offset++] = (byte) (0xc0 | (ch >> 6));
+        buf[offset++] = (byte) (0x80 | (ch & 0x3f));
       }
       else if (ch < 0x8000 && offset + 2 < end) {
-	buf[offset++] = (byte) (0xe0 | (ch >> 12));
-	buf[offset++] = (byte) (0x80 | ((ch >> 6) & 0x3f));
-	buf[offset++] = (byte) (0x80 | ((ch >> 6) & 0x3f));
+        buf[offset++] = (byte) (0xe0 | (ch >> 12));
+        buf[offset++] = (byte) (0x80 | ((ch >> 6) & 0x3f));
+        buf[offset++] = (byte) (0x80 | ((ch >> 6) & 0x3f));
       }
       else if (offset == start) {
-	throw new IllegalStateException("buffer length is not large enough to decode UTF-8 data");
+        throw new IllegalStateException("buffer length is not large enough to decode UTF-8 data");
       }
       else {
-	break;
+        break;
       }
     }
 

@@ -72,27 +72,27 @@ class TcpStream extends StreamImpl {
 
     try {
       if (path instanceof TcpsPath) {
-	SSLContext context = SSLContext.getInstance("TLS");
+        SSLContext context = SSLContext.getInstance("TLS");
 
-	javax.net.ssl.TrustManager tm =
-	  new javax.net.ssl.X509TrustManager() {
-	    public java.security.cert.X509Certificate[]
-	      getAcceptedIssuers() {
-	      return null;
-	    }
-	    public void checkClientTrusted(
-					   java.security.cert.X509Certificate[] cert, String foo) {
-	    }
-	    public void checkServerTrusted(
-					   java.security.cert.X509Certificate[] cert, String foo) {
-	    }
-	  };
+        javax.net.ssl.TrustManager tm =
+          new javax.net.ssl.X509TrustManager() {
+            public java.security.cert.X509Certificate[]
+              getAcceptedIssuers() {
+              return null;
+            }
+            public void checkClientTrusted(
+                                           java.security.cert.X509Certificate[] cert, String foo) {
+            }
+            public void checkServerTrusted(
+                                           java.security.cert.X509Certificate[] cert, String foo) {
+            }
+          };
 
       
-	context.init(null, new javax.net.ssl.TrustManager[] { tm }, null);
-	SSLSocketFactory factory = context.getSocketFactory();
+        context.init(null, new javax.net.ssl.TrustManager[] { tm }, null);
+        SSLSocketFactory factory = context.getSocketFactory();
 
-	_s = factory.createSocket(_s, path.getHost(), path.getPort(), true);
+        _s = factory.createSocket(_s, path.getHost(), path.getPort(), true);
       }
     } catch (IOException e) {
       throw e;
@@ -110,12 +110,12 @@ class TcpStream extends StreamImpl {
   {
     if (name.equals("timeout")) {
       try {
-	if (value instanceof Number)
-	  _s.setSoTimeout(((Number) value).intValue());
-	else
-	  _s.setSoTimeout(Integer.parseInt(String.valueOf(value)));
+        if (value instanceof Number)
+          _s.setSoTimeout(((Number) value).intValue());
+        else
+          _s.setSoTimeout(Integer.parseInt(String.valueOf(value)));
       } catch (SocketException e) {
-	log.log(Level.FINER, e.toString(), e);
+        log.log(Level.FINER, e.toString(), e);
       }
     }
   }
@@ -203,13 +203,13 @@ class TcpStream extends StreamImpl {
 
     try {
       if (os != null)
-	os.close();
+        os.close();
 
       if (is != null)
-	is.close();
+        is.close();
     } finally {
       if (s != null)
-	s.close();
+        s.close();
     }
   }
 }

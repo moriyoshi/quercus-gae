@@ -76,7 +76,7 @@ public class ExceptionsAttribute extends Attribute {
       int index = in.readShort();
 
       if (index == 0)
-	_exceptions.add(null);
+        _exceptions.add(null);
       
       _exceptions.add(in.getConstantPool().getClass(index).getName());
     }

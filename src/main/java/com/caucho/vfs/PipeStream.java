@@ -81,28 +81,28 @@ public class PipeStream extends StreamImpl {
 
     synchronized (this) {
       try {
-	if (readOffset >= readLength) {
-	  // Sibling has closed
-	  if (sibling.readBuffer == null)
-	    return 0;
+        if (readOffset >= readLength) {
+          // Sibling has closed
+          if (sibling.readBuffer == null)
+            return 0;
 
-	  notifyAll();
-	  wait();
-	}
-	
-	int sublen = readLength - readOffset;
-	if (sublen <= 0)
-	  return 0;
+          notifyAll();
+          wait();
+        }
+        
+        int sublen = readLength - readOffset;
+        if (sublen <= 0)
+          return 0;
 
-	if (length < sublen)
-	  sublen = length;
+        if (length < sublen)
+          sublen = length;
 
-	System.arraycopy(readBuffer, readOffset, buf, offset, sublen);
-	readOffset += sublen;
+        System.arraycopy(readBuffer, readOffset, buf, offset, sublen);
+        readOffset += sublen;
 
-	return sublen;
+        return sublen;
       } catch (InterruptedException e) {
-	throw new InterruptedIOException(e.getMessage());
+        throw new InterruptedIOException(e.getMessage());
       }
     }
   }
@@ -138,42 +138,42 @@ public class PipeStream extends StreamImpl {
   {
     while (length > 0) {
       synchronized (sibling) {
-	if (sibling.readBuffer == null)
-	  return;
+        if (sibling.readBuffer == null)
+          return;
 
-	if (sibling.readLength == sibling.readBuffer.length) {
-	  if (sibling.readOffset < sibling.readLength) {
-	    try {
-	      sibling.wait();
-	    } catch (InterruptedException e) {
-	      throw new InterruptedIOException(e.getMessage());
-	    }
-	  }
-	  sibling.readOffset = 0;
-	  sibling.readLength = 0;
-	}
+        if (sibling.readLength == sibling.readBuffer.length) {
+          if (sibling.readOffset < sibling.readLength) {
+            try {
+              sibling.wait();
+            } catch (InterruptedException e) {
+              throw new InterruptedIOException(e.getMessage());
+            }
+          }
+          sibling.readOffset = 0;
+          sibling.readLength = 0;
+        }
 
         if (sibling.readOffset == sibling.readLength) {
           sibling.readOffset = 0;
           sibling.readLength = 0;
         }
 
-	if (sibling.readBuffer == null)
-	  return;
+        if (sibling.readBuffer == null)
+          return;
 
-	int sublen = sibling.readBuffer.length - sibling.readLength;
-	if (length < sublen)
-	  sublen = length;
+        int sublen = sibling.readBuffer.length - sibling.readLength;
+        if (length < sublen)
+          sublen = length;
 
-	System.arraycopy(buf, offset,
-			 sibling.readBuffer, sibling.readLength, sublen);
+        System.arraycopy(buf, offset,
+                         sibling.readBuffer, sibling.readLength, sublen);
 
-	sibling.readLength += sublen;
+        sibling.readLength += sublen;
 
-	length -= sublen;
-	offset += sublen;
+        length -= sublen;
+        offset += sublen;
 
-	sibling.notifyAll();
+        sibling.notifyAll();
       }
     }
   }

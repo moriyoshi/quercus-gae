@@ -135,7 +135,7 @@ public class FileModule extends AbstractQuercusModule {
    * Returns the base name of a string.
    */
   public static Value basename(StringValue path,
-			       @Optional StringValue suffix)
+                               @Optional StringValue suffix)
   {
     int len = path.length();
 
@@ -504,14 +504,14 @@ public class FileModule extends AbstractQuercusModule {
       int ch = is.read();
 
       if (ch >= 0) {
-	StringValue v = env.createBinaryBuilder(1);
-	
-	v.append((char) ch);
-	
-	return v;
+        StringValue v = env.createBinaryBuilder(1);
+        
+        v.append((char) ch);
+        
+        return v;
       }
       else
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
     } catch (IOException e) {
       throw new QuercusModuleException(e);
     }
@@ -535,87 +535,87 @@ public class FileModule extends AbstractQuercusModule {
 
     try {
       if (is == null)
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
 
       // XXX: length is never used
       if (length <= 0)
-	length = Integer.MAX_VALUE;
+        length = Integer.MAX_VALUE;
 
       int comma = ',';
 
       if (delimiter != null && delimiter.length() > 0)
-	comma = delimiter.charAt(0);
+        comma = delimiter.charAt(0);
 
       int quote = '"';
 
       if (enclosure != null && enclosure.length() > 0)
-	quote = enclosure.charAt(0);
+        quote = enclosure.charAt(0);
 
       ArrayValue array = new ArrayValueImpl();
 
       int ch;
 
       while (true) {
-	// scan whitespace
-	while (true) {
-	  ch = is.read();
+        // scan whitespace
+        while (true) {
+          ch = is.read();
 
-	  if (ch < 0 || ch == '\n')
-	    return array;
-	  else if (ch == '\r') {
-	    is.readOptionalLinefeed();
-	    return array;
-	  }
-	  else if (ch == ' ' || ch == '\t')
-	    continue;
-	  else
-	    break;
-	}
+          if (ch < 0 || ch == '\n')
+            return array;
+          else if (ch == '\r') {
+            is.readOptionalLinefeed();
+            return array;
+          }
+          else if (ch == ' ' || ch == '\t')
+            continue;
+          else
+            break;
+        }
 
-	StringValue sb = env.createBinaryBuilder();
+        StringValue sb = env.createBinaryBuilder();
 
-	if (ch == quote) {
-	  for (ch = is.read(); ch >= 0; ch = is.read()) {
-	    if (ch == quote) {
-	      ch = is.read();
+        if (ch == quote) {
+          for (ch = is.read(); ch >= 0; ch = is.read()) {
+            if (ch == quote) {
+              ch = is.read();
 
-	      if (ch == quote)
-		sb.append((char) ch);
-	      else
-		break;
-	    }
-	    else
-	      sb.append((char) ch);
-	  }
+              if (ch == quote)
+                sb.append((char) ch);
+              else
+                break;
+            }
+            else
+              sb.append((char) ch);
+          }
 
-	  array.append(sb);
+          array.append(sb);
 
-	  for (; ch >= 0 && ch == ' ' || ch == '\t'; ch = is.read()) {
-	  }
-	}
-	else {
-	  for (;
-	       ch >= 0 && ch != comma && ch != '\r' && ch != '\n';
-	       ch = is.read()) {
-	    sb.append((char) ch);
-	  }
+          for (; ch >= 0 && ch == ' ' || ch == '\t'; ch = is.read()) {
+          }
+        }
+        else {
+          for (;
+               ch >= 0 && ch != comma && ch != '\r' && ch != '\n';
+               ch = is.read()) {
+            sb.append((char) ch);
+          }
 
-	  array.append(sb);
-	}
+          array.append(sb);
+        }
 
-	if (ch < 0)
-	  return array;
-	else if (ch == '\n')
-	  return array;
-	else if (ch == '\r') {
-	  is.readOptionalLinefeed();
-	  return array;
-	}
-	else if (ch == comma) {
-	}
-	else {
-	  env.warning("expected comma");
-	}
+        if (ch < 0)
+          return array;
+        else if (ch == '\n')
+          return array;
+        else if (ch == '\r') {
+          is.readOptionalLinefeed();
+          return array;
+        }
+        else if (ch == comma) {
+        }
+        else {
+          env.warning("expected comma");
+        }
       }
     } catch (IOException e) {
       throw new QuercusModuleException(e);
@@ -626,8 +626,8 @@ public class FileModule extends AbstractQuercusModule {
    * Returns the next line
    */
   public static Value fgets(Env env,
-			    @NotNull BinaryInput is,
-			    @Optional("0x7fffffff") int length)
+                            @NotNull BinaryInput is,
+                            @Optional("0x7fffffff") int length)
   {
     // php/1615
 
@@ -819,8 +819,8 @@ public class FileModule extends AbstractQuercusModule {
       return new LongValue(time / 1000L);
     else {
       if (!path.canRead()) {
-	env.warning(L.l("{0} cannot be read", path.getFullPath()));
-	return BooleanValue.FALSE;
+        env.warning(L.l("{0} cannot be read", path.getFullPath()));
+        return BooleanValue.FALSE;
       }
 
       return BooleanValue.FALSE;
@@ -930,11 +930,11 @@ public class FileModule extends AbstractQuercusModule {
   @ReturnNullAsFalse
   public static StringValue
     file_get_contents(Env env,
-		      StringValue filename,
-		      @Optional boolean useIncludePath,
-		      @Optional Value context,
-		      @Optional long offset,
-		      @Optional("4294967296") long maxLen)
+                      StringValue filename,
+                      @Optional boolean useIncludePath,
+                      @Optional Value context,
+                      @Optional long offset,
+                      @Optional("4294967296") long maxLen)
   {
     if (filename.length() == 0) {
       env.warning(L.l("file name must not be null"));
@@ -1303,7 +1303,7 @@ public class FileModule extends AbstractQuercusModule {
   }
 
   private static ProtocolWrapper getProtocolWrapper(Env env,
-						    StringValue pathName)
+                                                    StringValue pathName)
   {
     int p = pathName.indexOf("://");
 
@@ -1377,14 +1377,14 @@ public class FileModule extends AbstractQuercusModule {
           env.warning(L.l("{0} cannot be read", filename));
 
           return null;
-	}
-	// server/2l80
+        }
+        // server/2l80
         /* else if (! path.exists()) {
           env.warning(L.l("{0} cannot be read", path.getFullPath()));
 
           return null;
         }
-	  */
+          */
 
         try {
           String scheme = path.getScheme();
@@ -1398,7 +1398,7 @@ public class FileModule extends AbstractQuercusModule {
             return new FileInput(env, path);
         } catch (IOException e) {
           log.log(Level.FINE, e.toString(), e);
-	  
+          
           env.warning(L.l("{0} cannot be read", path.getFullPath()));
 
           return null;
@@ -1488,7 +1488,7 @@ public class FileModule extends AbstractQuercusModule {
 
     try {
       if (is == null)
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
 
       WriteStream out = env.getOut();
 
@@ -1517,52 +1517,52 @@ public class FileModule extends AbstractQuercusModule {
 
     try {
       if (os == null)
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
 
       if (value == null)
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
 
       char comma = ',';
       char quote = '\"';
 
       if (delimiter != null && delimiter.length() > 0)
-	comma = delimiter.charAt(0);
+        comma = delimiter.charAt(0);
 
       if (enclosure != null && enclosure.length() > 0)
-	quote = enclosure.charAt(0);
+        quote = enclosure.charAt(0);
 
       int writeLength = 0;
       boolean isFirst = true;
 
       for (Value data : value.values()) {
-	if (! isFirst) {
-	  os.print(comma);
-	  writeLength++;
-	}
-	isFirst = false;
+        if (! isFirst) {
+          os.print(comma);
+          writeLength++;
+        }
+        isFirst = false;
 
-	StringValue s = data.toStringValue();
-	int strlen = s.length();
+        StringValue s = data.toStringValue();
+        int strlen = s.length();
 
-	writeLength++;
-	os.print(quote);
+        writeLength++;
+        os.print(quote);
 
-	for (int i = 0; i < strlen; i++) {
-	  char ch = s.charAt(i);
+        for (int i = 0; i < strlen; i++) {
+          char ch = s.charAt(i);
 
-	  if (ch != quote) {
-	    os.print(ch);
-	    writeLength++;
-	  }
-	  else {
-	    os.print(quote);
-	    os.print(quote);
-	    writeLength += 2;
-	  }
-	}
+          if (ch != quote) {
+            os.print(ch);
+            writeLength++;
+          }
+          else {
+            os.print(quote);
+            os.print(quote);
+            writeLength += 2;
+          }
+        }
 
-	os.print(quote);
-	writeLength++;
+        os.print(quote);
+        writeLength++;
       }
 
       os.print("\n");
@@ -1578,9 +1578,9 @@ public class FileModule extends AbstractQuercusModule {
    * Writes a string to the file.
    */
   public static Value fputs(Env env,
-			    BinaryOutput os,
-			    InputStream value,
-			    @Optional("0x7fffffff") int length)
+                            BinaryOutput os,
+                            InputStream value,
+                            @Optional("0x7fffffff") int length)
   {
     return fwrite(env, os, value, length);
   }
@@ -1591,8 +1591,8 @@ public class FileModule extends AbstractQuercusModule {
    * @param is the file
    */
   public static Value fread(Env env,
-			    @NotNull BinaryInput is,
-			    int length)
+                            @NotNull BinaryInput is,
+                            int length)
   {
     if (is == null)
       return BooleanValue.FALSE;
@@ -1637,9 +1637,9 @@ public class FileModule extends AbstractQuercusModule {
    * @return 0 on success, -1 on error.
    */
   public static Value fseek(Env env,
-			    @NotNull BinaryStream binaryStream,
-			    long offset,
-			    @Optional("SEEK_SET") int whence)
+                            @NotNull BinaryStream binaryStream,
+                            long offset,
+                            @Optional("SEEK_SET") int whence)
   {
     if (binaryStream == null)
       return LongValue.MINUS_ONE;
@@ -1670,7 +1670,7 @@ public class FileModule extends AbstractQuercusModule {
    * @return position in file or FALSE on error.
    */
   public static Value ftell(Env env,
-			    @NotNull BinaryStream binaryStream)
+                            @NotNull BinaryStream binaryStream)
   {
     if (binaryStream == null)
       return BooleanValue.FALSE;
@@ -1707,9 +1707,9 @@ public class FileModule extends AbstractQuercusModule {
    * Writes a string to the file.
    */
   public static Value fwrite(Env env,
-			     @NotNull BinaryOutput os,
-			     InputStream value,
-			     @Optional("0x7fffffff") int length)
+                             @NotNull BinaryOutput os,
+                             InputStream value,
+                             @Optional("0x7fffffff") int length)
   {
     try {
       if (os == null)
@@ -2273,8 +2273,8 @@ public class FileModule extends AbstractQuercusModule {
    * Parses the ini file.
    */
   public static Value parse_ini_file(Env env,
-				     Path path,
-				     @Optional boolean processSections)
+                                     Path path,
+                                     @Optional boolean processSections)
   {
     ReadStream is = null;
     
@@ -2289,13 +2289,13 @@ public class FileModule extends AbstractQuercusModule {
       return BooleanValue.FALSE;
     } finally {
       if (is != null)
-	is.close();
+        is.close();
     }
   }
 
   private static ArrayValue parseIni(Env env,
-				     ReadStream is,
-				     boolean processSections)
+                                     ReadStream is,
+                                     boolean processSections)
     throws IOException
   {
     ArrayValue top = new ArrayValueImpl();
@@ -2307,41 +2307,41 @@ public class FileModule extends AbstractQuercusModule {
       if (Character.isWhitespace(ch)) {
       }
       else if (ch == ';') {
-	for (; ch >= 0 && ch != '\r' && ch != '\n'; ch = is.read()) {
-	}
+        for (; ch >= 0 && ch != '\r' && ch != '\n'; ch = is.read()) {
+        }
       }
       else if (ch == '[') {
-	StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-	for (ch = is.read(); ch >= 0 && ch != ']'; ch = is.read()) {
-	  sb.append((char) ch);
-	}
+        for (ch = is.read(); ch >= 0 && ch != ']'; ch = is.read()) {
+          sb.append((char) ch);
+        }
 
-	String name = sb.toString().trim();
+        String name = sb.toString().trim();
 
-	if (processSections) {
-	  section = new ArrayValueImpl();
-	  top.put(env.createString(name), section);
-	}
+        if (processSections) {
+          section = new ArrayValueImpl();
+          top.put(env.createString(name), section);
+        }
       }
       else if (isValidIniKeyChar((char) ch)) {
-	StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-	for (; isValidIniKeyChar((char) ch); ch = is.read()) {
-	  sb.append((char) ch);
-	}
+        for (; isValidIniKeyChar((char) ch); ch = is.read()) {
+          sb.append((char) ch);
+        }
 
-	String key = sb.toString().trim();
+        String key = sb.toString().trim();
 
-	for (; ch >= 0 && ch != '='; ch = is.read()) {
-	}
+        for (; ch >= 0 && ch != '='; ch = is.read()) {
+        }
 
-	for (ch = is.read(); ch == ' ' || ch == '\t'; ch = is.read()) {
-	}
+        for (ch = is.read(); ch == ' ' || ch == '\t'; ch = is.read()) {
+        }
 
-	Value value = parseIniValue(env, ch, is);
+        Value value = parseIniValue(env, ch, is);
 
-	section.put(env.createString(key), value);
+        section.put(env.createString(key), value);
       }
     }
 
@@ -2358,7 +2358,7 @@ public class FileModule extends AbstractQuercusModule {
       StringValue sb = env.createUnicodeBuilder();
       
       for (ch = is.read(); ch >= 0 && ch != '"'; ch = is.read()) {
-	sb.append((char) ch);
+        sb.append((char) ch);
       }
 
       skipToEndOfLine(ch, is);
@@ -2369,7 +2369,7 @@ public class FileModule extends AbstractQuercusModule {
       StringValue sb = env.createUnicodeBuilder();
       
       for (ch = is.read(); ch >= 0 && ch != '\''; ch = is.read()) {
-	sb.append((char) ch);
+        sb.append((char) ch);
       }
 
       skipToEndOfLine(ch, is);
@@ -2380,73 +2380,73 @@ public class FileModule extends AbstractQuercusModule {
       StringBuilder sb = new StringBuilder();
 
       for (;
-	   ch >= 0 && ch != '\r' && ch != '\n';
-	   ch = is.read()) {
-	
-	if (ch == ';') {
-	  skipToEndOfLine(ch, is);
-	  break;
-	}
-	else if (ch == '$') {
-	  int peek = is.read();
+           ch >= 0 && ch != '\r' && ch != '\n';
+           ch = is.read()) {
+        
+        if (ch == ';') {
+          skipToEndOfLine(ch, is);
+          break;
+        }
+        else if (ch == '$') {
+          int peek = is.read();
 
-	  if (peek == '{') {
-	    StringBuilder var = new StringBuilder();
+          if (peek == '{') {
+            StringBuilder var = new StringBuilder();
 
-	    for (ch = is.read();
-		 ch >= 0 && ch != '\r' && ch != '\n' && ch != '}';
-		 ch = is.read()) {
-	      var.append((char) ch);
-	    }
-	    
-	    Value value = env.getIni(var.toString());
+            for (ch = is.read();
+                 ch >= 0 && ch != '\r' && ch != '\n' && ch != '}';
+                 ch = is.read()) {
+              var.append((char) ch);
+            }
+            
+            Value value = env.getIni(var.toString());
 
-	    if (value != null)
-	      sb.append(value);
-	  }
-	  else {
-	    sb.append('$');
-	    is.unread();
-	  }
+            if (value != null)
+              sb.append(value);
+          }
+          else {
+            sb.append('$');
+            is.unread();
+          }
 
-	}
-	else
-	  sb.append((char) ch);
+        }
+        else
+          sb.append((char) ch);
       }
 
       String value = sb.toString().trim();
 
       if (value.equalsIgnoreCase("null"))
-	return env.getEmptyString();
+        return env.getEmptyString();
       else if (value.equalsIgnoreCase("true")
-	       || value.equalsIgnoreCase("yes"))
-	return env.createString("1");
+               || value.equalsIgnoreCase("yes"))
+        return env.createString("1");
       else if (value.equalsIgnoreCase("false")
-	       || value.equalsIgnoreCase("no"))
-	return env.getEmptyString();
+               || value.equalsIgnoreCase("no"))
+        return env.getEmptyString();
 
       if (env.isDefined(value))
-	return env.createString(env.getConstant(value).toString());
+        return env.createString(env.getConstant(value).toString());
       else
-	return env.createString(value);
+        return env.createString(value);
     }
   }
 
   private static boolean isValidIniKeyChar(char ch)
   {
     if (ch <= 0
-	|| ch == '='
-	|| ch == ';'
-	|| ch == '{'
-	|| ch == '}'
-	|| ch == '|'
-	|| ch == '&'
-	|| ch == '~'
-	|| ch == '!'
-	|| ch == '['
-	|| ch == '('
-	|| ch == ')'
-	|| ch == '"')
+        || ch == '='
+        || ch == ';'
+        || ch == '{'
+        || ch == '}'
+        || ch == '|'
+        || ch == '&'
+        || ch == '~'
+        || ch == '!'
+        || ch == '['
+        || ch == '('
+        || ch == ')'
+        || ch == '"')
       return false;
     else
       return true;
@@ -2690,7 +2690,7 @@ public class FileModule extends AbstractQuercusModule {
    * @param is the file resource
    */
   public static Value rewind(Env env,
-			     @NotNull BinaryStream binaryStream)
+                             @NotNull BinaryStream binaryStream)
   {
     if (binaryStream == null)
       return BooleanValue.FALSE;

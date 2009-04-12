@@ -234,8 +234,8 @@ public class QuercusParser {
   }
 
   public QuercusParser(Quercus quercus,
-		       Path sourceFile,
-		       ReadStream is)
+                       Path sourceFile,
+                       ReadStream is)
   {
     this(quercus);
 
@@ -282,8 +282,8 @@ public class QuercusParser {
   }
   
   public static QuercusProgram parse(Quercus quercus,
-				     Path path,
-				     String encoding)
+                                     Path path,
+                                     String encoding)
     throws IOException
   {
     ReadStream is = path.openRead();
@@ -301,10 +301,10 @@ public class QuercusParser {
   }
   
   public static QuercusProgram parse(Quercus quercus,
-				     Path path,
-				     String encoding,
-				     String fileName,
-				     int line)
+                                     Path path,
+                                     String encoding,
+                                     String fileName,
+                                     int line)
     throws IOException
   {
     ReadStream is = path.openRead();
@@ -316,7 +316,7 @@ public class QuercusParser {
       parser = new QuercusParser(quercus, path, is);
 
       if (fileName != null && line >= 0)
-	parser.setLocation(fileName, line);
+        parser.setLocation(fileName, line);
 
       return parser.parse();
     } finally {
@@ -325,7 +325,7 @@ public class QuercusParser {
   }
   
   public static QuercusProgram parse(Quercus quercus,
-				     ReadStream is)
+                                     ReadStream is)
     throws IOException
   {
     QuercusParser parser;
@@ -335,7 +335,7 @@ public class QuercusParser {
   }
   
   public static QuercusProgram parse(Quercus quercus,
-				     Path path, ReadStream is)
+                                     Path path, ReadStream is)
     throws IOException
   {
     return new QuercusParser(quercus, path, is).parse();
@@ -494,10 +494,10 @@ public class QuercusParser {
     Statement []statements = parseStatements();
     
     Function fun = _factory.createFunction(Location.UNKNOWN,
-					   name,
-					   _function,
-					   args,
-					   statements);
+                                           name,
+                                           _function,
+                                           args,
+                                           statements);
 
     close();
 
@@ -528,7 +528,7 @@ public class QuercusParser {
       _peekToken = parseToken();
 
       if (_peekToken == IDENTIFIER && _lexeme.equalsIgnoreCase("php")) {
-	_peekToken = -1;
+        _peekToken = -1;
       }
     }
     
@@ -570,133 +570,133 @@ public class QuercusParser {
         return statementList;
 
       case ';':
-	break;
+        break;
 
       case ECHO:
-	parseEcho(statementList);
-	break;
+        parseEcho(statementList);
+        break;
 
       case PRINT:
-	statementList.add(parsePrint());
-	break;
+        statementList.add(parsePrint());
+        break;
 
       case UNSET:
-	parseUnset(statementList);
-	break;
+        parseUnset(statementList);
+        break;
 
       case ABSTRACT:
       case FINAL:
-	{
-	  _peekToken = token;
+        {
+          _peekToken = token;
 
-	  int modifiers = 0;
-	  do {
-	    token = parseToken();
+          int modifiers = 0;
+          do {
+            token = parseToken();
 
-	    switch (token) {
-	    case ABSTRACT:
-	      modifiers |= M_ABSTRACT;
-	      break;
-	    case FINAL:
-	      modifiers |= M_FINAL;
-	      break;
-	    case CLASS:
-	      statementList.add(parseClassDefinition(modifiers));
-	      break;
-	    default:
-	      throw error(L.l("expected 'class' at {0}",
-			      tokenName(token)));
-	    }
-	  } while (token != CLASS);
-	}
-	break;
+            switch (token) {
+            case ABSTRACT:
+              modifiers |= M_ABSTRACT;
+              break;
+            case FINAL:
+              modifiers |= M_FINAL;
+              break;
+            case CLASS:
+              statementList.add(parseClassDefinition(modifiers));
+              break;
+            default:
+              throw error(L.l("expected 'class' at {0}",
+                              tokenName(token)));
+            }
+          } while (token != CLASS);
+        }
+        break;
 
       case FUNCTION:
-	{
+        {
           Location functionLocation = getLocation();
 
           Function fun = parseFunctionDefinition(M_STATIC);
 
-	  if (! _isTop) {
-	    statementList.add(_factory.createFunctionDef(functionLocation, fun));
-	  }
-	}
-	break;
+          if (! _isTop) {
+            statementList.add(_factory.createFunctionDef(functionLocation, fun));
+          }
+        }
+        break;
 
       case CLASS:
-	// parseClassDefinition(0);
-	statementList.add(parseClassDefinition(0));
-	break;
+        // parseClassDefinition(0);
+        statementList.add(parseClassDefinition(0));
+        break;
 
       case INTERFACE:
-	// parseClassDefinition(M_INTERFACE);
-	statementList.add(parseClassDefinition(M_INTERFACE));
-	break;
+        // parseClassDefinition(M_INTERFACE);
+        statementList.add(parseClassDefinition(M_INTERFACE));
+        break;
 
       case IF:
-	statementList.add(parseIf());
-	break;
+        statementList.add(parseIf());
+        break;
 
       case SWITCH:
-	statementList.add(parseSwitch());
-	break;
+        statementList.add(parseSwitch());
+        break;
 
       case WHILE:
-	statementList.add(parseWhile());
-	break;
+        statementList.add(parseWhile());
+        break;
 
       case DO:
-	statementList.add(parseDo());
-	break;
+        statementList.add(parseDo());
+        break;
 
       case FOR:
-	statementList.add(parseFor());
-	break;
+        statementList.add(parseFor());
+        break;
 
       case FOREACH:
-	statementList.add(parseForeach());
-	break;
+        statementList.add(parseForeach());
+        break;
 
       case PHP_END:
-	return statementList;
+        return statementList;
 
       case RETURN:
-	statementList.add(parseReturn());
-	break;
+        statementList.add(parseReturn());
+        break;
 
       case THROW:
-	statementList.add(parseThrow());
-	break;
+        statementList.add(parseThrow());
+        break;
 
       case BREAK:
-	statementList.add(parseBreak());
-	break;
+        statementList.add(parseBreak());
+        break;
 
       case CONTINUE:
-	statementList.add(parseContinue());
-	break;
+        statementList.add(parseContinue());
+        break;
 
       case GLOBAL:
-	statementList.add(parseGlobal());
-	break;
-	
+        statementList.add(parseGlobal());
+        break;
+        
       case STATIC:
-	statementList.add(parseStatic());
-	break;
-	
+        statementList.add(parseStatic());
+        break;
+        
       case TRY:
-	statementList.add(parseTry());
-	break;
+        statementList.add(parseTry());
+        break;
 
       case '{':
-	{
-	  ArrayList<Statement> enclosedStatementList = parseStatementList();
+        {
+          ArrayList<Statement> enclosedStatementList = parseStatementList();
 
-	  expect('}');
-	  
-	  statementList.addAll(enclosedStatementList);
-	}
-	break;
+          expect('}');
+          
+          statementList.addAll(enclosedStatementList);
+        }
+        break;
 
       case '}':
       case CASE:
@@ -708,40 +708,40 @@ public class QuercusParser {
       case ENDFOR:
       case ENDFOREACH:
       case ENDSWITCH:
-	_peekToken = token;
-	return statementList;
+        _peekToken = token;
+        return statementList;
 
       case TEXT:
-	if (_lexeme.length() > 0) {
-	  statementList.add(_factory.createText(location, _lexeme));
-	}
-	break;
+        if (_lexeme.length() > 0) {
+          statementList.add(_factory.createText(location, _lexeme));
+        }
+        break;
 
       case TEXT_PHP:
-	if (_lexeme.length() > 0) {
-	  statementList.add(_factory.createText(location, _lexeme));
-	}
+        if (_lexeme.length() > 0) {
+          statementList.add(_factory.createText(location, _lexeme));
+        }
 
-	_peekToken = parseToken();
+        _peekToken = parseToken();
 
-	if (_peekToken == IDENTIFIER && _lexeme.equalsIgnoreCase("php")) {
-	  _peekToken = -1;
-	}
-	break;
-	
+        if (_peekToken == IDENTIFIER && _lexeme.equalsIgnoreCase("php")) {
+          _peekToken = -1;
+        }
+        break;
+        
       case TEXT_ECHO:
-	if (_lexeme.length() > 0)
-	  statementList.add(_factory.createText(location, _lexeme));
+        if (_lexeme.length() > 0)
+          statementList.add(_factory.createText(location, _lexeme));
 
-	parseEcho(statementList);
+        parseEcho(statementList);
 
-	break;
+        break;
 
       default:
-	_peekToken = token;
-	
-	statementList.add(parseExprStatement());
-	break;
+        _peekToken = token;
+        
+        statementList.add(parseExprStatement());
+        break;
       }
     }
   }
@@ -789,29 +789,29 @@ public class QuercusParser {
 
     case TEXT:
       if (_lexeme.length() > 0) {
-	return _factory.createText(location, _lexeme);
+        return _factory.createText(location, _lexeme);
       }
       else
-	return parseStatement();
+        return parseStatement();
 
     case TEXT_PHP:
       {
-	Statement stmt = null;
-	
-	if (_lexeme.length() > 0) {
-	  stmt = _factory.createText(location, _lexeme);
-	}
+        Statement stmt = null;
+        
+        if (_lexeme.length() > 0) {
+          stmt = _factory.createText(location, _lexeme);
+        }
 
-	_peekToken = parseToken();
+        _peekToken = parseToken();
 
-	if (_peekToken == IDENTIFIER && _lexeme.equalsIgnoreCase("php")) {
-	  _peekToken = -1;
-	}
+        if (_peekToken == IDENTIFIER && _lexeme.equalsIgnoreCase("php")) {
+          _peekToken = -1;
+        }
 
-	if (stmt == null)
-	  stmt = parseStatement();
+        if (stmt == null)
+          stmt = parseStatement();
 
-	return stmt;
+        return stmt;
       }
       
     default:
@@ -819,7 +819,7 @@ public class QuercusParser {
 
       token  = parseToken();
       if (token != ';')
-	_peekToken = token;
+        _peekToken = token;
 
       return stmt;
     }
@@ -837,9 +837,9 @@ public class QuercusParser {
         Location location = getLocation();
 
         ArrayList<Statement> statementList = new ArrayList<Statement>();
-	parseEcho(statementList);
+        parseEcho(statementList);
 
-	return _factory.createBlock(location, statementList);
+        return _factory.createBlock(location, statementList);
       }
 
     case PRINT:
@@ -896,8 +896,8 @@ public class QuercusParser {
       int token = parseToken();
 
       if (token != ',') {
-	_peekToken = token;
-	return;
+        _peekToken = token;
+        return;
       }
     }
   }
@@ -907,7 +907,7 @@ public class QuercusParser {
    */
   private void createEchoStatements(Location location,
                                     ArrayList<Statement> statements,
-				    Expr expr)
+                                    Expr expr)
   {
     if (expr == null) {
       // since AppendExpr.getNext() can be null.
@@ -924,7 +924,7 @@ public class QuercusParser {
       StringLiteralExpr string = (StringLiteralExpr) expr;
       
       Statement statement
-	= _factory.createText(location, string.evalConstant().toString());
+        = _factory.createText(location, string.evalConstant().toString());
 
       statements.add(statement);
     }
@@ -1021,16 +1021,16 @@ public class QuercusParser {
       int token = parseToken();
 
       if (token == '=') {
-	init = parseExpr();
-	token = parseToken();
+        init = parseExpr();
+        token = parseToken();
       }
 
       // var.getVarInfo().setReference();
       statementList.add(_factory.createStatic(location, var, init));
       
       if (token != ',') {
-	_peekToken = token;
-	return _factory.createBlock(location, statementList);
+        _peekToken = token;
+        return _factory.createBlock(location, statementList);
       }
     }
   }
@@ -1118,7 +1118,7 @@ public class QuercusParser {
         falseBlock = parseIf();
       }
       else if (token == ELSE) {
-	falseBlock = parseStatement();
+        falseBlock = parseStatement();
       }
       else
         _peekToken = token;
@@ -1192,13 +1192,13 @@ public class QuercusParser {
       int token = parseToken();
 
       if (token == ':')
-	isAlternate = true;
+        isAlternate = true;
       else if (token == '{')
-	isAlternate = false;
+        isAlternate = false;
       else {
-	_peekToken = token;
+        _peekToken = token;
 
-	expect('{');
+        expect('{');
       }
 
       ArrayList<Expr[]> caseList = new ArrayList<Expr[]>();
@@ -1210,77 +1210,77 @@ public class QuercusParser {
       while ((token = parseToken()) == CASE || token == DEFAULT) {
         Location caseLocation = getLocation();
 
-	ArrayList<Expr> valueList = new ArrayList<Expr>();
-	boolean isDefault = false;
+        ArrayList<Expr> valueList = new ArrayList<Expr>();
+        boolean isDefault = false;
             
-	while (token == CASE || token == DEFAULT) {
-	  if (token == CASE) {
-	    Expr value = parseExpr();
+        while (token == CASE || token == DEFAULT) {
+          if (token == CASE) {
+            Expr value = parseExpr();
 
-	    valueList.add(value);
-	  }
-	  else
-	    isDefault = true;
+            valueList.add(value);
+          }
+          else
+            isDefault = true;
 
-	  token = parseToken();
-	  if (token == ':') {
-	  }
-	  else if (token == ';') {
-	    // XXX: warning?
-	  }
-	  else
-	    throw error("expected ':' at " + tokenName(token));
+          token = parseToken();
+          if (token == ':') {
+          }
+          else if (token == ';') {
+            // XXX: warning?
+          }
+          else
+            throw error("expected ':' at " + tokenName(token));
 
-	  token = parseToken();
-	}
+          token = parseToken();
+        }
 
-	_peekToken = token;
+        _peekToken = token;
 
-	Expr []values = new Expr[valueList.size()];
-	valueList.toArray(values);
+        Expr []values = new Expr[valueList.size()];
+        valueList.toArray(values);
 
-	ArrayList<Statement> newBlockList = parseStatementList();
+        ArrayList<Statement> newBlockList = parseStatementList();
 
-	for (int fallThrough : fallThroughList) {
-	  BlockStatement block = blockList.get(fallThrough);
+        for (int fallThrough : fallThroughList) {
+          BlockStatement block = blockList.get(fallThrough);
 
-	  boolean isDefaultBlock = block == defaultBlock;
+          boolean isDefaultBlock = block == defaultBlock;
 
-	  block = block.append(newBlockList);
+          block = block.append(newBlockList);
 
-	  blockList.set(fallThrough, block);
+          blockList.set(fallThrough, block);
 
-	  if (isDefaultBlock)
-	    defaultBlock = block;
-	}
+          if (isDefaultBlock)
+            defaultBlock = block;
+        }
             
-	BlockStatement block
-	  = _factory.createBlockImpl(caseLocation, newBlockList);
+        BlockStatement block
+          = _factory.createBlockImpl(caseLocation, newBlockList);
 
-	if (values.length > 0) {
-	  caseList.add(values);
+        if (values.length > 0) {
+          caseList.add(values);
 
-	  blockList.add(block);
-	}
+          blockList.add(block);
+        }
 
-	if (isDefault)
-	  defaultBlock = block;
+        if (isDefault)
+          defaultBlock = block;
 
-	if (blockList.size() > 0 &&
-	    ! fallThroughList.contains(blockList.size() - 1)) {
-	  fallThroughList.add(blockList.size() - 1);
-	}
+        if (blockList.size() > 0 &&
+            ! fallThroughList.contains(blockList.size() - 1)) {
+          fallThroughList.add(blockList.size() - 1);
+        }
 
-	if (block.fallThrough() != Statement.FALL_THROUGH)
-	  fallThroughList.clear();
+        if (block.fallThrough() != Statement.FALL_THROUGH)
+          fallThroughList.clear();
       }
 
       _peekToken = token;
 
       if (isAlternate)
-	expect(ENDSWITCH);
+        expect(ENDSWITCH);
       else
-	expect('}');
+        expect('}');
 
       return _factory.createSwitch(location, test,
                                    caseList, blockList,
@@ -1319,14 +1319,14 @@ public class QuercusParser {
       int token = parseToken();
 
       if (token == ':') {
-	block = _factory.createBlock(getLocation(), parseStatementList());
+        block = _factory.createBlock(getLocation(), parseStatementList());
 
-	expect(ENDWHILE);
+        expect(ENDWHILE);
       }
       else {
-	_peekToken = token;
+        _peekToken = token;
     
-	block = parseStatement();
+        block = parseStatement();
       }
 
       return _factory.createWhile(location, test, block, label);
@@ -1478,7 +1478,7 @@ public class QuercusParser {
       if (token == ARRAY_RIGHT) {
         if (isRef)
           throw error(L.l("key reference is forbidden in foreach"));
-	
+        
         keyVar = valueExpr;
 
         token = parseToken();
@@ -1539,7 +1539,7 @@ public class QuercusParser {
       try {
         block = parseStatement();
       } finally {
-	//  _scope = oldScope;
+        //  _scope = oldScope;
       }
 
       TryStatement stmt = _factory.createTry(location, block);
@@ -1547,19 +1547,19 @@ public class QuercusParser {
       int token = parseToken();
 
       while (token == CATCH) {
-	expect('(');
+        expect('(');
           
-	String id = parseIdentifier();
+        String id = parseIdentifier();
 
-	AbstractVarExpr lhs = parseLeftHandSide();
+        AbstractVarExpr lhs = parseLeftHandSide();
           
-	expect(')');
+        expect(')');
 
-	block = parseStatement();
+        block = parseStatement();
 
-	stmt.addCatch(id, lhs, block);
+        stmt.addCatch(id, lhs, block);
 
-	token = parseToken();
+        token = parseToken();
       }
 
       _peekToken = token;
@@ -1596,19 +1596,19 @@ public class QuercusParser {
       _comment = null;
 
       if (token == '&')
-	_returnsReference = true;
+        _returnsReference = true;
       else
-	_peekToken = token;
+        _peekToken = token;
 
       String name = parseIdentifier();
 
       if (isAbstract && ! _scope.isAbstract()) {
-	if (_classDef != null)
-	  throw error(L.l("'{0}' may not be abstract because class {1} is not abstract.",
-			  name, _classDef.getName()));
-	else
-	  throw error(L.l("'{0}' may not be abstract.  Abstract functions are only allowed in abstract classes.",
-			  name));
+        if (_classDef != null)
+          throw error(L.l("'{0}' may not be abstract because class {1} is not abstract.",
+                          name, _classDef.getName()));
+        else
+          throw error(L.l("'{0}' may not be abstract.  Abstract functions are only allowed in abstract classes.",
+                          name));
       }
 
       _function = getFactory().createFunctionInfo(_quercus, name);
@@ -1639,8 +1639,8 @@ public class QuercusParser {
         expect(';');
 
         function = _factory.createMethodDeclaration(location,
-	                                                _classDef, name,
-	                                                _function, args);
+                                                        _classDef, name,
+                                                        _function, args);
       }
       else {
         expect('{');
@@ -1709,22 +1709,22 @@ public class QuercusParser {
       // XXX: save arg type for type checking upon function call
       String expectedClass = null;
       if (token != ')'
-	  && token != '&'
-	  && token != '$'
-	  && token != -1) {
+          && token != '&'
+          && token != '$'
+          && token != -1) {
         _peekToken = token;
         expectedClass = parseIdentifier();
         token = parseToken();
       }
 
       if (token == '&') {
-	isReference = true;
-	token = parseToken();
+        isReference = true;
+        token = parseToken();
       }
-	
+        
       if (token != '$') {
-	_peekToken = token;
-	break;
+        _peekToken = token;
+        break;
       }
       
       String argName = parseIdentifier();
@@ -1732,10 +1732,10 @@ public class QuercusParser {
 
       token = parseToken();
       if (token == '=') {
-	// XXX: actually needs to be primitive
-	defaultExpr = parseTerm();
-	
-	token = parseToken();
+        // XXX: actually needs to be primitive
+        defaultExpr = parseTerm();
+        
+        token = parseToken();
       }
 
       Arg arg = new Arg(argName, defaultExpr, isReference, expectedClass);
@@ -1749,8 +1749,8 @@ public class QuercusParser {
       VarInfo var = _function.createVar(argName);
       
       if (token != ',') {
-	_peekToken = token;
-	break;
+        _peekToken = token;
+        break;
       }
     }
 
@@ -1855,15 +1855,15 @@ public class QuercusParser {
 
       /*
       if (_returnsReference)
-	expr = expr.createRef();
+        expr = expr.createRef();
       else
-	expr = expr.createCopy();
+        expr = expr.createCopy();
       */
 
       if (_returnsReference)
-	return _factory.createReturnRef(location, expr);
+        return _factory.createReturnRef(location, expr);
       else
-	return _factory.createReturn(location, expr);
+        return _factory.createReturn(location, expr);
     }
   }
 
@@ -1979,10 +1979,10 @@ public class QuercusParser {
           parseClassDefinition(0);
           break;
 
-	    /* quercus/0260
+            /* quercus/0260
         case VAR:
-	      parseClassVarDefinition(false);
-	      break;
+              parseClassVarDefinition(false);
+              break;
         */
 
         case CONST:
@@ -2051,11 +2051,11 @@ public class QuercusParser {
       Expr expr = null;
 
       if (token == '=') {
-	expr = parseExpr();
+        expr = parseExpr();
       }
       else {
-	_peekToken = token;
-	expr = _factory.createNull();
+        _peekToken = token;
+        expr = _factory.createNull();
       }
 
       if ((modifiers & M_STATIC) != 0) {
@@ -2120,32 +2120,32 @@ public class QuercusParser {
 
       switch (token) {
       case PUBLIC:
-	modifiers |= M_PUBLIC;
-	break;
+        modifiers |= M_PUBLIC;
+        break;
 
       case PRIVATE:
-	modifiers |= M_PRIVATE;
-	break;
+        modifiers |= M_PRIVATE;
+        break;
 
       case PROTECTED:
-	modifiers |= M_PROTECTED;
-	break;
+        modifiers |= M_PROTECTED;
+        break;
 
       case FINAL:
-	modifiers |= M_FINAL;
-	break;
+        modifiers |= M_FINAL;
+        break;
 
       case STATIC:
-	modifiers |= M_STATIC;
-	break;
+        modifiers |= M_STATIC;
+        break;
 
       case ABSTRACT:
-	modifiers |= M_ABSTRACT;
-	break;
+        modifiers |= M_ABSTRACT;
+        break;
 
       default:
-	_peekToken = token;
-	return modifiers;
+        _peekToken = token;
+        return modifiers;
       }
     }
   }
@@ -2214,11 +2214,11 @@ public class QuercusParser {
 
       switch (token) {
       case ',':
-	expr = _factory.createComma(expr, parseExpr());
-	break;
+        expr = _factory.createComma(expr, parseExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2266,11 +2266,11 @@ public class QuercusParser {
 
       switch (token) {
       case OR_RES:
-	expr = _factory.createOr(expr, parseWeakXorExpr());
-	break;
+        expr = _factory.createOr(expr, parseWeakXorExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2288,11 +2288,11 @@ public class QuercusParser {
 
       switch (token) {
       case XOR_RES:
-	expr = _factory.createXor(expr, parseWeakAndExpr());
-	break;
+        expr = _factory.createXor(expr, parseWeakAndExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2310,11 +2310,11 @@ public class QuercusParser {
 
       switch (token) {
       case AND_RES:
-	expr = _factory.createAnd(expr, parseConditionalExpr());
-	break;
+        expr = _factory.createAnd(expr, parseConditionalExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2332,14 +2332,14 @@ public class QuercusParser {
 
       switch (token) {
       case '?':
-	Expr trueExpr = parseExpr();
-	expect(':');
-	// php/33c1
-	expr = _factory.createConditional(expr, trueExpr, parseOrExpr());
-	break;
+        Expr trueExpr = parseExpr();
+        expect(':');
+        // php/33c1
+        expr = _factory.createConditional(expr, trueExpr, parseOrExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2357,11 +2357,11 @@ public class QuercusParser {
 
       switch (token) {
       case C_OR:
-	expr = _factory.createOr(expr, parseAndExpr());
-	break;
+        expr = _factory.createOr(expr, parseAndExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2379,11 +2379,11 @@ public class QuercusParser {
 
       switch (token) {
       case C_AND:
-	expr = _factory.createAnd(expr, parseBitOrExpr());
-	break;
+        expr = _factory.createAnd(expr, parseBitOrExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2401,11 +2401,11 @@ public class QuercusParser {
 
       switch (token) {
       case '|':
-	expr = _factory.createBitOr(expr, parseBitXorExpr());
-	break;
+        expr = _factory.createBitOr(expr, parseBitXorExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2423,11 +2423,11 @@ public class QuercusParser {
 
       switch (token) {
       case '^':
-	expr = _factory.createBitXor(expr, parseBitAndExpr());
-	break;
+        expr = _factory.createBitXor(expr, parseBitAndExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2445,11 +2445,11 @@ public class QuercusParser {
 
       switch (token) {
       case '&':
-	expr = _factory.createBitAnd(expr, parseEqExpr());
-	break;
+        expr = _factory.createBitAnd(expr, parseEqExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2535,14 +2535,14 @@ public class QuercusParser {
 
       switch (token) {
       case LSHIFT:
-	expr = _factory.createLeftShift(expr, parseAddExpr());
-	break;
+        expr = _factory.createLeftShift(expr, parseAddExpr());
+        break;
       case RSHIFT:
-	expr = _factory.createRightShift(expr, parseAddExpr());
-	break;
+        expr = _factory.createRightShift(expr, parseAddExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2560,17 +2560,17 @@ public class QuercusParser {
 
       switch (token) {
       case '+':
-	expr = _factory.createAdd(expr, parseMulExpr());
-	break;
+        expr = _factory.createAdd(expr, parseMulExpr());
+        break;
       case '-':
-	expr = _factory.createSub(expr, parseMulExpr());
-	break;
+        expr = _factory.createSub(expr, parseMulExpr());
+        break;
       case '.':
-	expr = _factory.createAppend(expr, parseMulExpr());
-	break;
+        expr = _factory.createAppend(expr, parseMulExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2588,17 +2588,17 @@ public class QuercusParser {
 
       switch (token) {
       case '*':
-	expr = _factory.createMul(expr, parseAssignExpr());
-	break;
+        expr = _factory.createMul(expr, parseAssignExpr());
+        break;
       case '/':
-	expr = _factory.createDiv(expr, parseAssignExpr());
-	break;
+        expr = _factory.createDiv(expr, parseAssignExpr());
+        break;
       case '%':
-	expr = _factory.createMod(expr, parseAssignExpr());
-	break;
+        expr = _factory.createMod(expr, parseAssignExpr());
+        break;
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2616,131 +2616,131 @@ public class QuercusParser {
 
       switch (token) {
       case '=':
-	token = parseToken();
-	
-	try {
-	  if (token == '&') {
-	    // php/03d6
-	    expr = expr.createAssignRef(this, parseBitOrExpr());
-	  }
-	  else {
-	    _peekToken = token;
+        token = parseToken();
+        
+        try {
+          if (token == '&') {
+            // php/03d6
+            expr = expr.createAssignRef(this, parseBitOrExpr());
+          }
+          else {
+            _peekToken = token;
 
         if (_isIfTest && _quercus.isStrict()) {
           throw error("assignment without parentheses inside If/While/For test statement; please make sure whether equality was intended instead");
         }
         
-	    expr = expr.createAssign(this, parseConditionalExpr());
-	  }
-	} catch (QuercusParseException e) {
-	  throw e;
-	} catch (IOException e) {
-	  throw error(e.getMessage());
-	}
-	break;
-	
+            expr = expr.createAssign(this, parseConditionalExpr());
+          }
+        } catch (QuercusParseException e) {
+          throw e;
+        } catch (IOException e) {
+          throw error(e.getMessage());
+        }
+        break;
+        
       case PLUS_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createAdd(expr,
-						      parseConditionalExpr()));
-	else // php/03d4
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                      parseConditionalExpr()));
+        else // php/03d4
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case MINUS_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createSub(expr,
-						      parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                      parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case APPEND_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
-				   _factory.createAppend(expr,
-							 parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+        if (expr.canRead())
+          expr = expr.createAssign(this,
+                                   _factory.createAppend(expr,
+                                                         parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case MUL_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createMul(expr,
-						      parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                      parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case DIV_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createDiv(expr,
-						      parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                      parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case MOD_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createMod(expr,
-						      parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                      parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case LSHIFT_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createLeftShift(expr,
-							    parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                            parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case RSHIFT_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createRightShift(expr,
-							     parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                             parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case AND_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createBitAnd(expr,
-							 parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                         parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case OR_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createBitOr(expr,
-							parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                        parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       case XOR_ASSIGN:
-	if (expr.canRead())
-	  expr = expr.createAssign(this,
+        if (expr.canRead())
+          expr = expr.createAssign(this,
                                    _factory.createBitXor(expr,
-							 parseConditionalExpr()));
-	else
-	  expr = expr.createAssign(this, parseConditionalExpr());
-	break;
-	
+                                                         parseConditionalExpr()));
+        else
+          expr = expr.createAssign(this, parseConditionalExpr());
+        break;
+        
       default:
-	_peekToken = token;
-	return expr;
+        _peekToken = token;
+        return expr;
       }
     }
   }
@@ -2784,7 +2784,7 @@ public class QuercusParser {
             throw expect("']'", token);
         }
         break;
-	
+        
       case '{':
         {
           Expr index = parseExpr();
@@ -2796,20 +2796,20 @@ public class QuercusParser {
         break;
 
       case INCR:
-	term = _factory.createPostIncrement(term, 1);
-	break;
+        term = _factory.createPostIncrement(term, 1);
+        break;
 
       case DECR:
-	term = _factory.createPostIncrement(term, -1);
-	break;
+        term = _factory.createPostIncrement(term, -1);
+        break;
 
       case DEREF:
-	term = parseDeref(term);
+        term = parseDeref(term);
         break;
 
       case '(':
-	_peek = token;
-	term = parseFunction(term);
+        _peek = token;
+        term = parseFunction(term);
         break;
 
       default:
@@ -2905,45 +2905,45 @@ public class QuercusParser {
       switch (token) {
       case '[':
         {
-	  token = parseToken();
-	  
-	  if (token == ']') {
-	    term = _factory.createArrayTail(getLocation(), term);
-	  }
-	  else {
-	    _peekToken = token;
-	    Expr index = parseExpr();
-	    token = parseToken();
+          token = parseToken();
+          
+          if (token == ']') {
+            term = _factory.createArrayTail(getLocation(), term);
+          }
+          else {
+            _peekToken = token;
+            Expr index = parseExpr();
+            token = parseToken();
 
-	    term = _factory.createArrayGet(getLocation(), term, index);
-	  }
+            term = _factory.createArrayGet(getLocation(), term, index);
+          }
 
           if (token != ']')
             throw expect("']'", token);
         }
         break;
-	
+        
       case '{':
         {
           Expr index = parseExpr();
 
-	  expect('}');
+          expect('}');
 
           term = _factory.createCharAt(term, index);
         }
         break;
 
       case INCR:
-	term = _factory.createPostIncrement(term, 1);
-	break;
+        term = _factory.createPostIncrement(term, 1);
+        break;
 
       case DECR:
-	term = _factory.createPostIncrement(term, -1);
-	break;
-	
+        term = _factory.createPostIncrement(term, -1);
+        break;
+        
       case DEREF:
       // php/0d6g
-	term = parseDeref(term);
+        term = parseDeref(term);
         break;
 
       default:
@@ -2977,18 +2977,18 @@ public class QuercusParser {
       token = parseToken();
       switch (token) {
       case '[':
-	Expr index = parseExpr();
+        Expr index = parseExpr();
 
-	token = parseToken();
-	if (token != ']')
-	  throw expect("']'", token);
+        token = parseToken();
+        if (token != ']')
+          throw expect("']'", token);
 
-	nameExpr = _factory.createArrayGet(getLocation(), nameExpr, index);
-	break;
-	
+        nameExpr = _factory.createArrayGet(getLocation(), nameExpr, index);
+        break;
+        
       default:
-	_peekToken = token;
-	break;
+        _peekToken = token;
+        break;
       }
     }
     else if (token == '{') {
@@ -3007,8 +3007,8 @@ public class QuercusParser {
         
         _peekToken = token;
         return term.createFieldGet(_factory,
-				   getLocation(),
-				   createStringValue(name));
+                                   getLocation(),
+                                   createStringValue(name));
       }
 
       ArrayList<Expr> args = new ArrayList<Expr>();
@@ -3016,15 +3016,15 @@ public class QuercusParser {
       parseFunctionArgs(args);
 
       if (nameExpr != null)
-	return _factory.createVarMethodCall(getLocation(),
-	                                    term,
-	                                    nameExpr,
-	                                    args);
+        return _factory.createVarMethodCall(getLocation(),
+                                            term,
+                                            nameExpr,
+                                            args);
       else
-	return _factory.createMethodCall(getLocation(),
-	                                 term,
-	                                 name,
-	                                 args);
+        return _factory.createMethodCall(getLocation(),
+                                         term,
+                                         name,
+                                         args);
     }
     else if (nameExpr != null) {
       _peekToken = token;
@@ -3058,23 +3058,23 @@ public class QuercusParser {
       
     case SYSTEM_STRING:
       {
-	ArrayList<Expr> args = new ArrayList<Expr>();
-	args.add(createString(_lexeme));
-	return _factory.createFunction(getLocation(), "shell_exec", args);
+        ArrayList<Expr> args = new ArrayList<Expr>();
+        args.add(createString(_lexeme));
+        return _factory.createFunction(getLocation(), "shell_exec", args);
       }
       
     case SIMPLE_SYSTEM_STRING:
       {
-	ArrayList<Expr> args = new ArrayList<Expr>();
-	args.add(parseEscapedString(_lexeme, SIMPLE_STRING_ESCAPE, true));
-	return _factory.createFunction(getLocation(), "shell_exec", args);
+        ArrayList<Expr> args = new ArrayList<Expr>();
+        args.add(parseEscapedString(_lexeme, SIMPLE_STRING_ESCAPE, true));
+        return _factory.createFunction(getLocation(), "shell_exec", args);
       }
 
     case COMPLEX_SYSTEM_STRING:
       {
-	ArrayList<Expr> args = new ArrayList<Expr>();
-	args.add(parseEscapedString(_lexeme, COMPLEX_STRING_ESCAPE, true));
-	return _factory.createFunction(getLocation(), "shell_exec", args);
+        ArrayList<Expr> args = new ArrayList<Expr>();
+        args.add(parseEscapedString(_lexeme, COMPLEX_STRING_ESCAPE, true));
+        return _factory.createFunction(getLocation(), "shell_exec", args);
       }
       
     case SIMPLE_STRING_ESCAPE:
@@ -3109,9 +3109,9 @@ public class QuercusParser {
       /* quercus/0211
     case '&':
       {
-	Expr expr = parseTerm();
-	
-	return expr.createRef();
+        Expr expr = parseTerm();
+        
+        return expr.createRef();
       }
       */
 
@@ -3169,35 +3169,35 @@ public class QuercusParser {
 
     case '!':
       {
-	// XXX: quercus/03i3 vs quercus/03i4
-	
+        // XXX: quercus/03i3 vs quercus/03i4
+        
         Expr expr = parseTerm();
 
-	token = parseToken();
+        token = parseToken();
 
-	if (token == '=') {
-	  token = parseToken();
+        if (token == '=') {
+          token = parseToken();
 
-	  // php/03i6
-	  if (token == '&') {
-	    return _factory.createNot(expr.createAssignRef(this, parseBitOrExpr()));
-	  }
-	  else {
-	    _peekToken = token;
-	
-	    return _factory.createNot(expr.createAssign(this, parseConditionalExpr()));
-	  }
+          // php/03i6
+          if (token == '&') {
+            return _factory.createNot(expr.createAssignRef(this, parseBitOrExpr()));
+          }
+          else {
+            _peekToken = token;
+        
+            return _factory.createNot(expr.createAssign(this, parseConditionalExpr()));
+          }
 
-	}
+        }
         else if (token == INSTANCEOF) {
           // php/03p1
           return _factory.createNot(_factory.createInstanceOf(expr, parseIdentifier()));
         }
         else {
-	  _peekToken = token;
-	  
-	  return _factory.createNot(expr);
-	}
+          _peekToken = token;
+          
+          return _factory.createNot(expr);
+        }
       }
 
     case '~':
@@ -3211,14 +3211,14 @@ public class QuercusParser {
       {
         Expr expr = parseTerm();
 
-	return _factory.createSuppress(expr);
+        return _factory.createSuppress(expr);
       }
 
     case CLONE:
       {
         Expr expr = parseTerm();
 
-	return _factory.createClone(expr);
+        return _factory.createClone(expr);
       }
 
     case INCR:
@@ -3266,7 +3266,7 @@ public class QuercusParser {
 
         String className = null;
         String name = _lexeme;
-	    
+            
         token = parseToken();
         _peekToken = token;
 
@@ -3298,28 +3298,28 @@ public class QuercusParser {
 
           token = parseToken();
           if (token == '$')
-	    return parseStaticClassField(className, isLateStaticBinding);
-	  else
-	    _peekToken = token;
-	  
-	  name = parseIdentifier();
+            return parseStaticClassField(className, isLateStaticBinding);
+          else
+            _peekToken = token;
+          
+          name = parseIdentifier();
 
-	  token = parseToken();
-	  _peekToken = token;
-	}
-	    
-	if (token == '(') {
-	  
-	  if (_isNewExpr) {
-	    if ("self".equals(name))
-	      return createString(_classDef.getName());
-	    else if ("parent".equals(name))
-	      return createString(_classDef.getParentName());
-	    else
-	      return createString(name);
-	  }
-	  
-	  /*
+          token = parseToken();
+          _peekToken = token;
+        }
+            
+        if (token == '(') {
+          
+          if (_isNewExpr) {
+            if ("self".equals(name))
+              return createString(_classDef.getName());
+            else if ("parent".equals(name))
+              return createString(_classDef.getParentName());
+            else
+              return createString(name);
+          }
+          
+          /*
           if (_isNewExpr && className == null
               && ("self".equals(name) || "parent".equals(name))) {
             if ("self".equals(name))
@@ -3380,20 +3380,20 @@ public class QuercusParser {
         token = parseToken();
         
         if (token == '(') {
-	  _peekToken = token;
-	    
+          _peekToken = token;
+            
           return parseFunction(null, importTokenString, false, false);
         }
         else {
-	  _peekToken = token;
-	  
+          _peekToken = token;
+          
           return parseImport();
         }
       }
       
     default:
       throw error(L.l("{0} is an unexpected token, expected an expression.",
-		      tokenName(token)));
+                      tokenName(token)));
     }
   }
   
@@ -3416,7 +3416,7 @@ public class QuercusParser {
       lhs = parseVariable();
     else
       throw error(L.l("expected variable at {0} as left-hand-side",
-		      tokenName(token)));
+                      tokenName(token)));
 
     while (true) {
       token = parseToken();
@@ -3424,29 +3424,29 @@ public class QuercusParser {
       switch (token) {
       case '[':
         {
-	  token = parseToken();
-	  
-	  if (token == ']') {
-	    lhs = _factory.createArrayTail(getLocation(), lhs);
-	  }
-	  else {
-	    _peekToken = token;
-	    Expr index = parseExpr();
-	    token = parseToken();
+          token = parseToken();
+          
+          if (token == ']') {
+            lhs = _factory.createArrayTail(getLocation(), lhs);
+          }
+          else {
+            _peekToken = token;
+            Expr index = parseExpr();
+            token = parseToken();
 
-	    lhs = _factory.createArrayGet(getLocation(), lhs, index);
-	  }
+            lhs = _factory.createArrayGet(getLocation(), lhs, index);
+          }
 
           if (token != ']')
             throw expect("']'", token);
         }
         break;
-	
+        
       case '{':
         {
           Expr index = parseExpr();
 
-	  expect('}');
+          expect('}');
 
           lhs = _factory.createCharAt(lhs, index);
         }
@@ -3455,7 +3455,7 @@ public class QuercusParser {
       case DEREF:
         lhs = (AbstractVarExpr) parseDeref(lhs);
         break;
-	
+        
       default:
         _peekToken = token;
         return lhs;
@@ -3665,22 +3665,22 @@ public class QuercusParser {
       boolean isRef = false;
       
       if (token == '&')
-	isRef = true;
+        isRef = true;
       else
-	_peekToken = token;
+        _peekToken = token;
 
       Expr expr = parseExpr();
 
       if (isRef)
-	expr = expr.createRef(this);
+        expr = expr.createRef(this);
       
       args.add(expr);
 
       token = parseToken();
       if (token == ')')
-	break;
+        break;
       else if (token != ',')
-	throw expect("','", token);
+        throw expect("','", token);
     }
   }
 
@@ -3722,7 +3722,7 @@ public class QuercusParser {
 
       // php/0957
       if ("self".equals(name) && _classDef != null)
-	name = _classDef.getName();
+        name = _classDef.getName();
     }
 
     int token = parseToken();
@@ -3733,15 +3733,15 @@ public class QuercusParser {
       _peekToken = token;
     else {
       while ((token = parseToken()) > 0 && token != ')') {
-	_peekToken = token;
+        _peekToken = token;
 
-	args.add(parseExpr());
+        args.add(parseExpr());
 
-	token = parseToken();
-	if (token == ')')
-	  break;
-	else if (token != ',')
-	  throw error(L.l("expected ','"));
+        token = parseToken();
+        if (token == ')')
+          break;
+        else if (token != ',')
+          throw error(L.l("expected ','"));
       }
     }
 
@@ -3795,29 +3795,29 @@ public class QuercusParser {
 
     while (peek > 0 && peek != ')') {
       if (peek == LIST) {
-	leftVars.add(parseListHead());
+        leftVars.add(parseListHead());
 
-	peek = parseToken();
+        peek = parseToken();
       }
       else if (peek != ',') {
-	_peekToken = peek;
+        _peekToken = peek;
 
-	Expr left = parseTerm();
+        Expr left = parseTerm();
 
-	leftVars.add(left);
+        leftVars.add(left);
 
-	left.assign(this);
+        left.assign(this);
 
-	peek = parseToken();
+        peek = parseToken();
       }
       else {
-	leftVars.add(null);
+        leftVars.add(null);
       }
 
       if (peek == ',')
-	peek = parseToken();
+        peek = parseToken();
       else
-	break;
+        break;
     }
 
     if (peek != ')')
@@ -3838,9 +3838,9 @@ public class QuercusParser {
       ArrayList<Expr> args = parseArgs();
 
       if (args.size() > 0)
-	return _factory.createExit(args.get(0));
+        return _factory.createExit(args.get(0));
       else
-	return _factory.createExit(null);
+        return _factory.createExit(null);
     }
     else {
       _peekToken = token;
@@ -3861,9 +3861,9 @@ public class QuercusParser {
       ArrayList<Expr> args = parseArgs();
 
       if (args.size() > 0)
-	return _factory.createDie(args.get(0));
+        return _factory.createDie(args.get(0));
       else
-	return _factory.createDie(null);
+        return _factory.createDie(null);
     }
     else {
       _peekToken = token;
@@ -3896,24 +3896,24 @@ public class QuercusParser {
       token = parseToken();
 
       if (token == ARRAY_RIGHT) {
-	Expr key = value;
+        Expr key = value;
 
-	value = parseRefExpr();
+        value = parseRefExpr();
 
-	keys.add(key);
-	values.add(value);
+        keys.add(key);
+        values.add(value);
 
-	token = parseToken();
+        token = parseToken();
       }
       else {
-	keys.add(null);
-	values.add(value);
+        keys.add(null);
+        values.add(value);
       }
       
       if (token == ')')
-	break;
+        break;
       else if (token != ',')
-	throw error(L.l("expected ','"));
+        throw error(L.l("expected ','"));
     }
 
     return _factory.createArrayFun(keys, values);
@@ -3934,24 +3934,24 @@ public class QuercusParser {
       int token = parseToken();
 
       if (token == IDENTIFIER) {
-	sb.append(_lexeme);
+        sb.append(_lexeme);
 
-	token = parseToken();
+        token = parseToken();
 
-	if (token == '.') {
-	  sb.append('.');
-	}
-	else {
-	  _peekToken = token;
-	  break;
-	}
+        if (token == '.') {
+          sb.append('.');
+        }
+        else {
+          _peekToken = token;
+          break;
+        }
       }
       else if (token == '*') {
-	if (sb.length() > 0)
-	  sb.setLength(sb.length() - 1);
-	
-	isWildcard = true;
-	break;
+        if (sb.length() > 0)
+          sb.setLength(sb.length() - 1);
+        
+        isWildcard = true;
+        break;
       }
       else {
         throw error(L.l("'{0}' is an unexpected token in import",
@@ -3994,29 +3994,29 @@ public class QuercusParser {
 
       switch (ch) {
       case -1:
-	return -1;
+        return -1;
 
       case ' ': case '\t': case '\n': case '\r':
-	break;
+        break;
 
       case '#':
-	while ((ch = readByte()) != '\n' && ch != '\r' && ch >= 0) {
-	  if (ch != '?') {
-	  }
-	  else if ((ch = readByte()) != '>') {
-	    _peek = ch;
-	  }
-	  else {
-	    ch = readByte();
-	    if (ch == '\r')
-	      ch = readByte();
-	    if (ch != '\n')
-	      _peek = ch;
+        while ((ch = readByte()) != '\n' && ch != '\r' && ch >= 0) {
+          if (ch != '?') {
+          }
+          else if ((ch = readByte()) != '>') {
+            _peek = ch;
+          }
+          else {
+            ch = readByte();
+            if (ch == '\r')
+              ch = readByte();
+            if (ch != '\n')
+              _peek = ch;
     
-	    return parsePhpText();
-	  }
-	}
-	break;
+            return parsePhpText();
+          }
+        }
+        break;
 
       case '"':
       {
@@ -4029,278 +4029,278 @@ public class QuercusParser {
         return result;
       }
       case '`':
-	{
-	  int token = parseEscapedString('`');
+        {
+          int token = parseEscapedString('`');
 
-	  switch (token) {
-	  case STRING:
-	    return SYSTEM_STRING;
-	  case SIMPLE_STRING_ESCAPE:
-	    return SIMPLE_SYSTEM_STRING;
-	  case COMPLEX_STRING_ESCAPE:
-	    return COMPLEX_SYSTEM_STRING;
-	  default:
-	    throw new IllegalStateException();
-	  }
-	}
-	
+          switch (token) {
+          case STRING:
+            return SYSTEM_STRING;
+          case SIMPLE_STRING_ESCAPE:
+            return SIMPLE_SYSTEM_STRING;
+          case COMPLEX_STRING_ESCAPE:
+            return COMPLEX_SYSTEM_STRING;
+          default:
+            throw new IllegalStateException();
+          }
+        }
+        
       case '\'':
-	parseStringToken('\'');
-	return STRING;
+        parseStringToken('\'');
+        return STRING;
 
       case ';': case '$': case '(': case ')': case '@':
       case '[': case ']': case ',': case '{': case '}':
       case '~':
-	return ch;
+        return ch;
 
       case '+':
-	ch = read();
-	if (ch == '=')
-	  return PLUS_ASSIGN;
-	else if (ch == '+')
-	  return INCR;
-	else
-	  _peek = ch;
+        ch = read();
+        if (ch == '=')
+          return PLUS_ASSIGN;
+        else if (ch == '+')
+          return INCR;
+        else
+          _peek = ch;
 
-	return '+';
+        return '+';
 
       case '-':
-	ch = read();
-	if (ch == '>')
-	  return DEREF;
-	else if (ch == '=')
-	  return MINUS_ASSIGN;
-	else if (ch == '-')
-	  return DECR;
-	else
-	  _peek = ch;
-	
-	return '-';
+        ch = read();
+        if (ch == '>')
+          return DEREF;
+        else if (ch == '=')
+          return MINUS_ASSIGN;
+        else if (ch == '-')
+          return DECR;
+        else
+          _peek = ch;
+        
+        return '-';
 
       case '*':
-	ch = read();
-	if (ch == '=')
-	  return MUL_ASSIGN;
-	else
-	  _peek = ch;
+        ch = read();
+        if (ch == '=')
+          return MUL_ASSIGN;
+        else
+          _peek = ch;
 
-	return '*';
+        return '*';
 
       case '/':
-	ch = read();
-	if (ch == '=')
-	  return DIV_ASSIGN;
-	else if (ch == '/') {
-	  while (ch >= 0) {
-	    if (ch == '\n' || ch == '\r') {
-	      break;
-	    }
-	    else if (ch == '?') {
-	      ch = readByte();
+        ch = read();
+        if (ch == '=')
+          return DIV_ASSIGN;
+        else if (ch == '/') {
+          while (ch >= 0) {
+            if (ch == '\n' || ch == '\r') {
+              break;
+            }
+            else if (ch == '?') {
+              ch = readByte();
 
-	      if (ch == '>') {
-	        ch = readByte();
-	        
-	        if (ch == '\r')
-	          ch = readByte();
-	        if (ch != '\n')
-	          _peek = ch;
-		
-		return parsePhpText();
-	      }
-	    }
-	    else
-	      ch = readByte();
-	  }
-	  break;
-	}
-	else if (ch == '*') {
-	  parseMultilineComment();
-	  break;
-	}
-	else
-	  _peek = ch;
+              if (ch == '>') {
+                ch = readByte();
+                
+                if (ch == '\r')
+                  ch = readByte();
+                if (ch != '\n')
+                  _peek = ch;
+                
+                return parsePhpText();
+              }
+            }
+            else
+              ch = readByte();
+          }
+          break;
+        }
+        else if (ch == '*') {
+          parseMultilineComment();
+          break;
+        }
+        else
+          _peek = ch;
 
-	return '/';
+        return '/';
 
       case '%':
-	ch = read();
-	if (ch == '=')
-	  return MOD_ASSIGN;
-	else if (ch == '>') {
-	  ch = read();
-	  if (ch == '\r')
-	    ch = read();
-	  if (ch != '\n')
-	    _peek = ch;
+        ch = read();
+        if (ch == '=')
+          return MOD_ASSIGN;
+        else if (ch == '>') {
+          ch = read();
+          if (ch == '\r')
+            ch = read();
+          if (ch != '\n')
+            _peek = ch;
     
-	  return parsePhpText();
+          return parsePhpText();
         }
-	else
-	  _peek = ch;
+        else
+          _peek = ch;
 
-	return '%';
+        return '%';
 
       case ':':
-	ch = read();
-	if (ch == ':')
-	  return SCOPE;
-	else
-	  _peek = ch;
-	
-	return ':';
-	
+        ch = read();
+        if (ch == ':')
+          return SCOPE;
+        else
+          _peek = ch;
+        
+        return ':';
+        
       case '=':
-	ch = read();
-	if (ch == '=') {
-	  ch = read();
-	  if (ch == '=')
-	    return EQUALS;
-	  else {
-	    _peek = ch;
-	    return EQ;
-	  }
-	}
-	else if (ch == '>')
-	  return ARRAY_RIGHT;
-	else {
-	  _peek = ch;
-	  return '=';
-	}
-	
+        ch = read();
+        if (ch == '=') {
+          ch = read();
+          if (ch == '=')
+            return EQUALS;
+          else {
+            _peek = ch;
+            return EQ;
+          }
+        }
+        else if (ch == '>')
+          return ARRAY_RIGHT;
+        else {
+          _peek = ch;
+          return '=';
+        }
+        
       case '!':
-	ch = read();
-	if (ch == '=') {
-	  ch = read();
-	  if (ch == '=')
-	    return NEQUALS;
-	  else {
-	    _peek = ch;
-	    return NEQ;
-	  }
-	}
-	else {
-	  _peek = ch;
-	  return '!';
-	}
+        ch = read();
+        if (ch == '=') {
+          ch = read();
+          if (ch == '=')
+            return NEQUALS;
+          else {
+            _peek = ch;
+            return NEQ;
+          }
+        }
+        else {
+          _peek = ch;
+          return '!';
+        }
 
       case '&':
-	ch = read();
-	if (ch == '&')
-	  return C_AND;
-	else if (ch == '=')
-	  return AND_ASSIGN;
-	else {
-	  _peek = ch;
-	  return '&';
-	}
+        ch = read();
+        if (ch == '&')
+          return C_AND;
+        else if (ch == '=')
+          return AND_ASSIGN;
+        else {
+          _peek = ch;
+          return '&';
+        }
 
       case '^':
-	ch = read();
-	if (ch == '=')
-	  return XOR_ASSIGN;
-	else
-	  _peek = ch;
-	
-	return '^';
+        ch = read();
+        if (ch == '=')
+          return XOR_ASSIGN;
+        else
+          _peek = ch;
+        
+        return '^';
 
       case '|':
-	ch = read();
-	if (ch == '|')
-	  return C_OR;
-	else if (ch == '=')
-	  return OR_ASSIGN;
-	else {
-	  _peek = ch;
-	  return '|';
-	}
+        ch = read();
+        if (ch == '|')
+          return C_OR;
+        else if (ch == '=')
+          return OR_ASSIGN;
+        else {
+          _peek = ch;
+          return '|';
+        }
 
       case '<':
-	ch = read();
-	if (ch == '<') {
-	  ch = read();
+        ch = read();
+        if (ch == '<') {
+          ch = read();
 
-	  if (ch == '=')
-	    return LSHIFT_ASSIGN;
-	  else if (ch == '<') {
-	    return parseHeredocToken();
-	  }
-	  else
-	    _peek = ch;
-	  
-	  return LSHIFT;
-	}
-	else if (ch == '=')
-	  return LEQ;
-	else if (ch == '>')
-	  return NEQ;
-	else if (ch == '/') {
-	  StringBuilder sb = new StringBuilder();
-	    
-	  if (! parseTextMatch(sb, "script"))
-	    throw error(L.l("expected 'script' at '{0}'", sb));
+          if (ch == '=')
+            return LSHIFT_ASSIGN;
+          else if (ch == '<') {
+            return parseHeredocToken();
+          }
+          else
+            _peek = ch;
+          
+          return LSHIFT;
+        }
+        else if (ch == '=')
+          return LEQ;
+        else if (ch == '>')
+          return NEQ;
+        else if (ch == '/') {
+          StringBuilder sb = new StringBuilder();
+            
+          if (! parseTextMatch(sb, "script"))
+            throw error(L.l("expected 'script' at '{0}'", sb));
 
-	  expect('>');
+          expect('>');
 
-	  return parsePhpText();
-	}
-	else
-	  _peek = ch;
+          return parsePhpText();
+        }
+        else
+          _peek = ch;
 
-	return '<';
+        return '<';
 
       case '>':
-	ch = read();
-	if (ch == '>') {
-	  ch = read();
+        ch = read();
+        if (ch == '>') {
+          ch = read();
 
-	  if (ch == '=')
-	    return RSHIFT_ASSIGN;
-	  else
-	    _peek = ch;
-	  
-	  return RSHIFT;
-	}
-	else if (ch == '=')
-	  return GEQ;
-	else
-	  _peek = ch;
+          if (ch == '=')
+            return RSHIFT_ASSIGN;
+          else
+            _peek = ch;
+          
+          return RSHIFT;
+        }
+        else if (ch == '=')
+          return GEQ;
+        else
+          _peek = ch;
 
-	return '>';
+        return '>';
 
       case '?':
-	ch = read();
-	if (ch == '>') {
-	  ch = read();
-	  if (ch == '\r')
-	    ch = read();
-	  if (ch != '\n')
-	    _peek = ch;
+        ch = read();
+        if (ch == '>') {
+          ch = read();
+          if (ch == '\r')
+            ch = read();
+          if (ch != '\n')
+            _peek = ch;
     
-	  return parsePhpText();
+          return parsePhpText();
         }
-	else
-	  _peek = ch;
+        else
+          _peek = ch;
 
-	return '?';
+        return '?';
 
       case '.':
-	ch = read();
+        ch = read();
 
-	if (ch == '=')
-	  return APPEND_ASSIGN;
-	
-	_peek = ch;
-	
-	if ('0' <= ch && ch <= '9')
-	  return parseNumberToken('.');
-	else
-	  return '.';
+        if (ch == '=')
+          return APPEND_ASSIGN;
+        
+        _peek = ch;
+        
+        if ('0' <= ch && ch <= '9')
+          return parseNumberToken('.');
+        else
+          return '.';
 
       case '0': case '1': case '2': case '3': case '4':
       case '5': case '6': case '7': case '8': case '9':
-	return parseNumberToken(ch);
-	
+        return parseNumberToken(ch);
+        
       default:
 
         if (ch == 'b') {
@@ -4328,35 +4328,35 @@ public class QuercusParser {
             _peek = ch2;
         }
 
-	if (isIdentifierStart(ch)) {
-	  _sb.setLength(0);
-	  _sb.append((char) ch);
+        if (isIdentifierStart(ch)) {
+          _sb.setLength(0);
+          _sb.append((char) ch);
 
-	  for (ch = read(); isIdentifierPart(ch); ch = read()) {
-	    _sb.append((char) ch);
-	  }
+          for (ch = read(); isIdentifierPart(ch); ch = read()) {
+            _sb.append((char) ch);
+          }
 
-	  _peek = ch;
+          _peek = ch;
 
-	  _lexeme = _sb.toString();
-	  
-	  // the 'static' reserved keyword vs late static binding (static::$a)
-	  if (_peek == ':' && "static".equals(_lexeme))
-	    return IDENTIFIER;
+          _lexeme = _sb.toString();
+          
+          // the 'static' reserved keyword vs late static binding (static::$a)
+          if (_peek == ':' && "static".equals(_lexeme))
+            return IDENTIFIER;
 
-	  int reserved = _reserved.get(_lexeme);
+          int reserved = _reserved.get(_lexeme);
 
-	  if (reserved > 0)
-	    return reserved;
+          if (reserved > 0)
+            return reserved;
 
-	  reserved = _insensitiveReserved.get(_lexeme.toLowerCase());
-	  if (reserved > 0)
-	    return reserved;
-	  else
-	    return IDENTIFIER;
-	}
+          reserved = _insensitiveReserved.get(_lexeme.toLowerCase());
+          if (reserved > 0)
+            return reserved;
+          else
+            return IDENTIFIER;
+        }
         
-	throw error("unknown lexeme:" + (char) ch);
+        throw error("unknown lexeme:" + (char) ch);
       }
     }
   }
@@ -4417,50 +4417,50 @@ public class QuercusParser {
     int ch = read();
     while (ch > 0) {
       if (ch == '<') {
-	int ch2;
-	int ch3;
-	
-	if ((ch = read()) == 's' || ch == 'S') {
-	  _peek = ch;
-	  if (parseScriptBegin(sb)) {
-	    return TEXT;
-	  }
-	  ch = read();
-	}
-	else if (ch == '%') {
-	  if ((ch = read()) == '=') {
-	    _lexeme = sb.toString();
+        int ch2;
+        int ch3;
+        
+        if ((ch = read()) == 's' || ch == 'S') {
+          _peek = ch;
+          if (parseScriptBegin(sb)) {
+            return TEXT;
+          }
+          ch = read();
+        }
+        else if (ch == '%') {
+          if ((ch = read()) == '=') {
+            _lexeme = sb.toString();
 
-	    return TEXT_ECHO;
-	  }
-	  else if (Character.isWhitespace(ch)) {
-	    _lexeme = sb.toString();
+            return TEXT_ECHO;
+          }
+          else if (Character.isWhitespace(ch)) {
+            _lexeme = sb.toString();
 
-	    return TEXT;
-	  }
-	}
-	else if (ch != '?') {
-	  sb.append('<');
-	}
-	else if ((ch = read()) == '=') {
-	  _lexeme = sb.toString();
+            return TEXT;
+          }
+        }
+        else if (ch != '?') {
+          sb.append('<');
+        }
+        else if ((ch = read()) == '=') {
+          _lexeme = sb.toString();
 
-	  return TEXT_ECHO;
-	}
-	else {
-	  _lexeme = sb.toString();
-	  _peek = ch;
+          return TEXT_ECHO;
+        }
+        else {
+          _lexeme = sb.toString();
+          _peek = ch;
 
-	  if (ch == 'p' || ch == 'P')
-	    return TEXT_PHP;
-	  else
-	    return TEXT;
-	}
+          if (ch == 'p' || ch == 'P')
+            return TEXT_PHP;
+          else
+            return TEXT;
+        }
       }
       else {
-	sb.append((char) ch);
+        sb.append((char) ch);
 
-	ch = read();
+        ch = read();
       }
     }
     
@@ -4515,14 +4515,14 @@ public class QuercusParser {
       int ch = read();
 
       if (ch < 0)
-	return false;
+        return false;
 
       if (Character.toLowerCase(ch) != text.charAt(i)) {
-	_peek = ch;
-	return false;
+        _peek = ch;
+        return false;
       }
       else
-	sb.append((char) ch);
+        sb.append((char) ch);
     }
 
     return true;
@@ -4625,7 +4625,7 @@ public class QuercusParser {
     else if (ch == '\r') {
       ch = read();
       if (ch != '\n')
-	_peek = ch;
+        _peek = ch;
     }
     else
       _peek = ch;
@@ -4667,67 +4667,67 @@ public class QuercusParser {
       if (token == COMPLEX_STRING_ESCAPE ||
           token == COMPLEX_BINARY_ESCAPE) {
 
-	tail = parseExpr();
+        tail = parseExpr();
 
-	expect('}');
+        expect('}');
       }
       else if (token == SIMPLE_STRING_ESCAPE ||
                token == SIMPLE_BINARY_ESCAPE) {
-	int ch = read();
-	
-	_sb.setLength(0);
+        int ch = read();
+        
+        _sb.setLength(0);
 
-	for (; isIdentifierPart(ch); ch = read()) {
-	  _sb.append((char) ch);
-	}
+        for (; isIdentifierPart(ch); ch = read()) {
+          _sb.append((char) ch);
+        }
 
-	_peek = ch;
+        _peek = ch;
 
-	String varName = _sb.toString();
+        String varName = _sb.toString();
 
-	if (varName.equals("this"))
-	  tail = _factory.createThis(getLocation(), _classDef);
-	else
-	  tail = _factory.createVar(_function.createVar(varName));
+        if (varName.equals("this"))
+          tail = _factory.createThis(getLocation(), _classDef);
+        else
+          tail = _factory.createVar(_function.createVar(varName));
 
-	// php/013n
-	if (((ch = read()) == '[' || ch == '-')) {
-	  if (ch == '[') {
-	    tail = parseSimpleArrayTail(tail);
+        // php/013n
+        if (((ch = read()) == '[' || ch == '-')) {
+          if (ch == '[') {
+            tail = parseSimpleArrayTail(tail);
 
-	    ch = read();
-	  }
-	  else {
-	    if ((ch = read()) != '>') {
-	      tail = _factory.createAppend(tail, createString("-"));
-	    }
-	    else if (isIdentifierPart(ch = read())) {
-	      _sb.clear();
-	      for (; isIdentifierPart(ch); ch = read()) {
-		_sb.append((char) ch);
-	      }
+            ch = read();
+          }
+          else {
+            if ((ch = read()) != '>') {
+              tail = _factory.createAppend(tail, createString("-"));
+            }
+            else if (isIdentifierPart(ch = read())) {
+              _sb.clear();
+              for (; isIdentifierPart(ch); ch = read()) {
+                _sb.append((char) ch);
+              }
 
-	      tail = tail.createFieldGet(_factory, getLocation(), createStringValue(_sb.toString()));
-	    }
-	    else {
-	      tail = _factory.createAppend(tail, createString("->"));
-	    }
+              tail = tail.createFieldGet(_factory, getLocation(), createStringValue(_sb.toString()));
+            }
+            else {
+              tail = _factory.createAppend(tail, createString("->"));
+            }
 
-	    _peek = ch;
-	  }
-	}
+            _peek = ch;
+          }
+        }
 
-	_peek = ch;
+        _peek = ch;
       }
       else
-	throw error("unexpected token");
+        throw error("unexpected token");
 
       expr = _factory.createAppend(expr, tail);
 
       if (isSystem)
-	token = parseEscapedString('`');
+        token = parseEscapedString('`');
       else
-	token = parseEscapedString('"');
+        token = parseEscapedString('"');
 
       if (_sb.length() > 0) {
         Expr string;
@@ -4737,11 +4737,11 @@ public class QuercusParser {
         else
           string = createBinary(_sb.toString().getBytes());
         
-	expr = _factory.createAppend(expr, string);
+        expr = _factory.createAppend(expr, string);
       }
 
       if (token == STRING)
-	return expr;
+        return expr;
     }
   }
   
@@ -4757,7 +4757,7 @@ public class QuercusParser {
 
     if (ch == '$') {
       for (ch = read(); isIdentifierPart(ch); ch = read()) {
-	_sb.append((char) ch);
+        _sb.append((char) ch);
       }
 
       VarExpr var = _factory.createVar(_function.createVar(_sb.toString()));
@@ -4768,16 +4768,16 @@ public class QuercusParser {
       long index = ch - '0';
 
       for (ch = read();
-	   '0' <= ch && ch <= '9';
-	   ch = read()) {
-	index = 10 * index + ch - '0';
+           '0' <= ch && ch <= '9';
+           ch = read()) {
+        index = 10 * index + ch - '0';
       }
 
       tail = _factory.createArrayGet(getLocation(), tail, _factory.createLong(index));
     }
     else if (isIdentifierPart(ch)) {
       for (; isIdentifierPart(ch); ch = read()) {
-	_sb.append((char) ch);
+        _sb.append((char) ch);
       }
 
       Expr constExpr = _factory.createConst(_sb.toString());
@@ -4786,11 +4786,11 @@ public class QuercusParser {
     }
     else
       throw error(L.l("Unexpected character at {0}",
-		      String.valueOf((char) ch)));
+                      String.valueOf((char) ch)));
 
     if (ch != ']')
       throw error(L.l("Expected ']' at {0}",
-		      String.valueOf((char) ch)));
+                      String.valueOf((char) ch)));
 
     return tail;
   }
@@ -4843,8 +4843,8 @@ public class QuercusParser {
 
     while ((ch = read()) > 0) {
       if (_heredocEnd == null && ch == end) {
-	_lexeme = _sb.toString();
-	return STRING;
+        _lexeme = _sb.toString();
+        return STRING;
       }
       else if (ch == '\\') {
         ch = read();
@@ -4864,9 +4864,9 @@ public class QuercusParser {
           break;
         case '"':
         case '`':
-	  if (_heredocEnd != null)
-	    _sb.append('\\');
-	  
+          if (_heredocEnd != null)
+            _sb.append('\\');
+          
           _sb.append((char) ch);
           break;
         case '$':
@@ -4888,74 +4888,74 @@ public class QuercusParser {
           else
             _sb.append((char) ch);
           break;
-	case '{':
-	  ch = read();
-	  _peek = ch;
-	  if (ch == '$' && _heredocEnd == null)
-	    _sb.append('{');
-	  else
-	    _sb.append("\\{");
-	  break;
+        case '{':
+          ch = read();
+          _peek = ch;
+          if (ch == '$' && _heredocEnd == null)
+            _sb.append('{');
+          else
+            _sb.append("\\{");
+          break;
         default:
           _sb.append('\\');
           _sb.append((char) ch);
-	  break;
+          break;
         }
       }
       else if (ch == '$') {
-	ch = read();
+        ch = read();
 
-	if (ch == '{') {
-	  _peek = '$';
-	  _lexeme = _sb.toString();
-	  return COMPLEX_STRING_ESCAPE;
-	}
-	else if (isIdentifierStart(ch)) {
-	  _peek = ch;
-	  _lexeme = _sb.toString();
-	  return SIMPLE_STRING_ESCAPE;
-	}
-	else {
-	  _sb.append('$');
-	  _peek = ch;
-	}
+        if (ch == '{') {
+          _peek = '$';
+          _lexeme = _sb.toString();
+          return COMPLEX_STRING_ESCAPE;
+        }
+        else if (isIdentifierStart(ch)) {
+          _peek = ch;
+          _lexeme = _sb.toString();
+          return SIMPLE_STRING_ESCAPE;
+        }
+        else {
+          _sb.append('$');
+          _peek = ch;
+        }
       }
       else if (ch == '{') {
-	ch = read();
+        ch = read();
 
-	if (ch == '$') {
-	  _peek = ch;
-	  _lexeme = _sb.toString();
-	  return COMPLEX_STRING_ESCAPE;
-	}
-	else {
-	  _peek = ch;
-	  _sb.append('{');
-	}
+        if (ch == '$') {
+          _peek = ch;
+          _lexeme = _sb.toString();
+          return COMPLEX_STRING_ESCAPE;
+        }
+        else {
+          _peek = ch;
+          _sb.append('{');
+        }
       }
       /* quercus/013c
       else if ((ch == '\r' || ch == '\n') && _heredocEnd == null)
-	throw error(L.l("unexpected newline in string."));
+        throw error(L.l("unexpected newline in string."));
       */
       else {
         _sb.append((char) ch);
 
-	if (_heredocEnd == null || ! _sb.endsWith(_heredocEnd)) {
-	}
-	else if (_sb.length() == _heredocEnd.length() ||
-		 _sb.charAt(_sb.length() - _heredocEnd.length() - 1) == '\n' ||
-		 _sb.charAt(_sb.length() - _heredocEnd.length() - 1) == '\r') {
-	  _sb.setLength(_sb.length() - _heredocEnd.length());
+        if (_heredocEnd == null || ! _sb.endsWith(_heredocEnd)) {
+        }
+        else if (_sb.length() == _heredocEnd.length() ||
+                 _sb.charAt(_sb.length() - _heredocEnd.length() - 1) == '\n' ||
+                 _sb.charAt(_sb.length() - _heredocEnd.length() - 1) == '\r') {
+          _sb.setLength(_sb.length() - _heredocEnd.length());
 
-	  if (_sb.length() > 0 && _sb.charAt(_sb.length() - 1) == '\n')
-	    _sb.setLength(_sb.length() - 1);
-	  if (_sb.length() > 0 && _sb.charAt(_sb.length() - 1) == '\r')
-	    _sb.setLength(_sb.length() - 1);
+          if (_sb.length() > 0 && _sb.charAt(_sb.length() - 1) == '\n')
+            _sb.setLength(_sb.length() - 1);
+          if (_sb.length() > 0 && _sb.charAt(_sb.length() - 1) == '\r')
+            _sb.setLength(_sb.length() - 1);
 
-	  _heredocEnd = null;
-	  _lexeme = _sb.toString();
-	  return STRING;
-	}
+          _heredocEnd = null;
+          _lexeme = _sb.toString();
+          return STRING;
+        }
       }
     }
 
@@ -4970,9 +4970,9 @@ public class QuercusParser {
       return false;
     else
       return (ch >= 'a' && ch <= 'z' ||
-	      ch >= 'A' && ch <= 'Z' ||
-	      ch == '_' ||
-	      Character.isLetter(ch));
+              ch >= 'A' && ch <= 'Z' ||
+              ch == '_' ||
+              Character.isLetter(ch));
   }
 
   private boolean isIdentifierPart(int ch)
@@ -4981,10 +4981,10 @@ public class QuercusParser {
       return false;
     else
       return (ch >= 'a' && ch <= 'z' ||
-	      ch >= 'A' && ch <= 'Z' ||
-	      ch >= '0' && ch <= '9' ||
-	      ch == '_' ||
-	      Character.isLetterOrDigit(ch));
+              ch >= 'A' && ch <= 'Z' ||
+              ch >= '0' && ch <= '9' ||
+              ch == '_' ||
+              Character.isLetterOrDigit(ch));
   }
 
   private int parseOctalEscape(int ch)
@@ -5065,12 +5065,12 @@ public class QuercusParser {
     if (ch == '0') {
       ch = read();
       if (ch == 'x' || ch == 'X')
-	return parseHex();
+        return parseHex();
       else if ('0' <= ch && ch <= '7')
-	return parseOctal(ch);
+        return parseOctal(ch);
       else {
-	_peek = ch;
-	ch = '0';
+        _peek = ch;
+        ch = '0';
       }
     }
     
@@ -5088,7 +5088,7 @@ public class QuercusParser {
       _sb.append((char) ch);
       
       for (ch = read(); '0' <= ch && ch <= '9'; ch = read()) {
-	_sb.append((char) ch);
+        _sb.append((char) ch);
       }
     }
 
@@ -5099,17 +5099,17 @@ public class QuercusParser {
 
       ch = read();
       if (ch == '+' || ch == '-') {
-	_sb.append((char) ch);
-	ch = read();
+        _sb.append((char) ch);
+        ch = read();
       }
 
       if ('0' <= ch && ch <= '9') {
-	for (; '0' <= ch && ch <= '9'; ch = read()) {
-	  _sb.append((char) ch);
-	}
+        for (; '0' <= ch && ch <= '9'; ch = read()) {
+          _sb.append((char) ch);
+        }
       }
       else
-	throw error(L.l("illegal exponent"));
+        throw error(L.l("illegal exponent"));
     }
 
     _peek = ch;
@@ -5132,20 +5132,20 @@ public class QuercusParser {
       int ch = read();
 
       if ('0' <= ch && ch <= '9') {
-	value = 16 * value + ch - '0';
-	dValue = 16 * dValue + ch - '0';
+        value = 16 * value + ch - '0';
+        dValue = 16 * dValue + ch - '0';
       }
       else if ('a' <= ch && ch <= 'f') {
-	value = 16 * value + ch - 'a' + 10;
-	dValue = 16 * dValue + ch - 'a' + 10;
+        value = 16 * value + ch - 'a' + 10;
+        dValue = 16 * dValue + ch - 'a' + 10;
       }
       else if ('A' <= ch && ch <= 'F') {
-	value = 16 * value + ch - 'A' + 10;
-	dValue = 16 * dValue + ch - 'A' + 10;
+        value = 16 * value + ch - 'A' + 10;
+        dValue = 16 * dValue + ch - 'A' + 10;
       }
       else {
-	_peek = ch;
-	break;
+        _peek = ch;
+        break;
       }
     }
 
@@ -5205,8 +5205,8 @@ public class QuercusParser {
 
     if (token != expect)
       throw error(L.l("expected {0} at {1}",
-		      tokenName(expect),
-		      tokenName(token)));
+                      tokenName(expect),
+                      tokenName(token)));
   }
 
   /**
@@ -5299,21 +5299,21 @@ public class QuercusParser {
     String []sourceLines = Env.getSourceLine(_sourceFile, lineNumber - 1, 3);
 
     if (sourceLines != null &&
-	sourceLines.length > 0 &&
-	sourceLines[0] != null) {
+        sourceLines.length > 0 &&
+        sourceLines[0] != null) {
       StringBuilder sb = new StringBuilder();
 
       String shortFile = _parserLocation.getFileName();
       int p = shortFile.lastIndexOf('/');
       if (p > 0)
-	shortFile = shortFile.substring(p + 1);
+        shortFile = shortFile.substring(p + 1);
 
       sb.append(_parserLocation.toString())
         .append(msg)
         .append(" in");
 
       for (int i = 0; i < sourceLines.length && sourceLines[i] != null; i++) {
-	sb.append("\n");
+        sb.append("\n");
         sb.append(shortFile)
           .append(":")
           .append(lineNumber - 1 + i)
@@ -5434,9 +5434,9 @@ public class QuercusParser {
 
     default:
       if (32 <= token && token < 127)
-	return "'" + (char) token + "'";
+        return "'" + (char) token + "'";
       else
-	return "(token " + token + ")";
+        return "(token " + token + ")";
     }
   }
 
@@ -5572,9 +5572,9 @@ public class QuercusParser {
     public Location getLocation()
     {
       String currentFunctionName
-	= (_function == null || _function.isPageMain()
-	   ? null
-	   : _function.getName());
+        = (_function == null || _function.isPageMain()
+           ? null
+           : _function.getName());
       
       String currentClassName = _classDef == null ? null : _classDef.getName();
 

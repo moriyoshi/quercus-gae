@@ -43,7 +43,7 @@ public class IoUtil {
   {
     try {
       if (is != null)
-	is.close();
+        is.close();
     } catch (IOException e) {
       log.log(Level.FINER, e.toString(), e);
     }
@@ -53,7 +53,7 @@ public class IoUtil {
   {
     try {
       if (os != null)
-	os.close();
+        os.close();
     } catch (IOException e) {
       log.log(Level.FINER, e.toString(), e);
     }

@@ -67,8 +67,8 @@ public final class CurlHostnameVerifier
   {
     System.out.println("VERIFY: " + hostname);
     if (_isVerifySSLPeer == false
-	&& _isVerifySSLCommonName == false
-	&& _isVerifySSLHostname == false) {
+        && _isVerifySSLCommonName == false
+        && _isVerifySSLHostname == false) {
       return true;
     }
     

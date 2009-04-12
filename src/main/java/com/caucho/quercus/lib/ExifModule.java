@@ -56,9 +56,9 @@ public class ExifModule extends AbstractQuercusModule {
    *  Reads the EXIF headers from JPEG or TIFF
    */
   public static Value exif_read_data(Env env, Path file,
-				     @Optional String sections,
-				     @Optional boolean arrays,
-				     @Optional boolean thumbs)
+                                     @Optional String sections,
+                                     @Optional boolean arrays,
+                                     @Optional boolean thumbs)
   {
     return BooleanValue.FALSE;
   }
@@ -67,9 +67,9 @@ public class ExifModule extends AbstractQuercusModule {
    *  Alias of exif_read_data()
    */
   public static Value read_exif_data(Env env, Path file,
-				     @Optional String sections,
-				     @Optional boolean arrays,
-				     @Optional boolean thumbs)
+                                     @Optional String sections,
+                                     @Optional boolean arrays,
+                                     @Optional boolean thumbs)
   {
     return exif_read_data(env, file, sections, arrays, thumbs);
   }
@@ -83,9 +83,9 @@ public class ExifModule extends AbstractQuercusModule {
    *  @return either the thumbnail or FALSE
    */
   public static Value exif_thumbnail(Env env, Path file,
-				     @Optional @Reference int width,
-				     @Optional @Reference int height,
-				     @Optional @Reference int imageType)
+                                     @Optional @Reference int width,
+                                     @Optional @Reference int height,
+                                     @Optional @Reference int imageType)
   {
     return BooleanValue.FALSE;
   }
@@ -106,53 +106,53 @@ public class ExifModule extends AbstractQuercusModule {
     try {
       Iterator it = ImageIO.getImageReaders(file.openRead());
       if (!it.hasNext())
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
       ImageReader imageReader = (ImageReader)it.next();
       if (it.hasNext())
-	throw new QuercusException("ImageIO returned two ImageReaders:\n  "+
-				   imageReader+"\n  "+it.next());
+        throw new QuercusException("ImageIO returned two ImageReaders:\n  "+
+                                   imageReader+"\n  "+it.next());
       String formatName = imageReader.getFormatName();
       if (formatName.equals("jpeg") || formatName.equals("jpg"))
-	return LongValue.create(ImageModule.IMAGETYPE_JPG);
+        return LongValue.create(ImageModule.IMAGETYPE_JPG);
       if (formatName.equals("gif"))
-	return LongValue.create(ImageModule.IMAGETYPE_GIF);
+        return LongValue.create(ImageModule.IMAGETYPE_GIF);
       if (formatName.equals("png"))
-	return LongValue.create(ImageModule.IMAGETYPE_PNG);
+        return LongValue.create(ImageModule.IMAGETYPE_PNG);
       if (formatName.equals("swf"))
-	return LongValue.create(ImageModule.IMAGETYPE_SWF);
+        return LongValue.create(ImageModule.IMAGETYPE_SWF);
       if (formatName.equals("psd"))
-	return LongValue.create(ImageModule.IMAGETYPE_PSD);
+        return LongValue.create(ImageModule.IMAGETYPE_PSD);
       if (formatName.equals("bmp"))
-	return LongValue.create(ImageModule.IMAGETYPE_BMP);
+        return LongValue.create(ImageModule.IMAGETYPE_BMP);
       if (formatName.equals("tiff"))
-	return LongValue.create(ImageModule.IMAGETYPE_TIFF_II);
+        return LongValue.create(ImageModule.IMAGETYPE_TIFF_II);
       /*
       // XXX: check byte order
       if (formatName.equals("tiff"))
       return ImageModule.IMAGETYPE_TIFF_MM;
       */
       if (formatName.equals("jpc"))
-	return LongValue.create(ImageModule.IMAGETYPE_JPC);
+        return LongValue.create(ImageModule.IMAGETYPE_JPC);
       if (formatName.equals("jp2"))
-	return LongValue.create(ImageModule.IMAGETYPE_JP2);
+        return LongValue.create(ImageModule.IMAGETYPE_JP2);
       if (formatName.equals("jpf"))
-	return LongValue.create(ImageModule.IMAGETYPE_JPX);
+        return LongValue.create(ImageModule.IMAGETYPE_JPX);
       if (formatName.equals("jb2"))
-	return LongValue.create(ImageModule.IMAGETYPE_JB2);
+        return LongValue.create(ImageModule.IMAGETYPE_JB2);
       if (formatName.equals("swc"))
-	return LongValue.create(ImageModule.IMAGETYPE_SWC);
+        return LongValue.create(ImageModule.IMAGETYPE_SWC);
       if (formatName.equals("iff"))
-	return LongValue.create(ImageModule.IMAGETYPE_IFF);
+        return LongValue.create(ImageModule.IMAGETYPE_IFF);
       if (formatName.equals("wbmp"))
-	return LongValue.create(ImageModule.IMAGETYPE_WBMP);
+        return LongValue.create(ImageModule.IMAGETYPE_WBMP);
       if (formatName.equals("xbm"))
-	return LongValue.create(ImageModule.IMAGETYPE_XBM);
+        return LongValue.create(ImageModule.IMAGETYPE_XBM);
       env.warning(L.l("ImageIO returned unknown image type: " + formatName));
       return BooleanValue.FALSE;
     }
     catch (IOException e)
       {
-	throw new QuercusException(e);
+        throw new QuercusException(e);
       }
   }
 

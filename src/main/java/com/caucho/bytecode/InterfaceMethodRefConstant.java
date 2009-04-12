@@ -41,7 +41,7 @@ public class InterfaceMethodRefConstant extends ConstantPoolEntry {
    * Creates a new field ref constant.
    */
   InterfaceMethodRefConstant(ConstantPool pool, int index,
-			     int classIndex, int nameAndTypeIndex)
+                             int classIndex, int nameAndTypeIndex)
   {
     super(pool, index);
 

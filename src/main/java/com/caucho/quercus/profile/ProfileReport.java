@@ -155,7 +155,7 @@ public class ProfileReport
   {
     for (ProfileMethod method : _methodMap.values()) {
       if (id == method.getId())
-	return method;
+        return method;
     }
 
     return null;
@@ -204,7 +204,7 @@ public class ProfileReport
       int len = method.getName().length();
 
       if (maxNameLength < len)
-	maxNameLength = len;
+        maxNameLength = len;
       
       totalMicros += method.getSelfMicros();
     }
@@ -269,19 +269,19 @@ public class ProfileReport
       out.println();
 
       ArrayList<ProfileItem> parentList
-	= new ArrayList<ProfileItem>(method.getParentItems());
+        = new ArrayList<ProfileItem>(method.getParentItems());
 
       Collections.sort(parentList, new ItemMicrosComparator());
 
       for (ProfileItem item : parentList) {
-	out.print("        ");
-	out.print(String.format(" %7dus", item.getMicros()));
-	out.print(String.format(" %6d", item.getCount()));
-	
-	out.print(String.format("     %-19s", item.getParent()));
-	out.print(String.format("%6.2f%%",
-				100.0 * item.getMicros() / ownTotalMicros));
-	out.println();
+        out.print("        ");
+        out.print(String.format(" %7dus", item.getMicros()));
+        out.print(String.format(" %6d", item.getCount()));
+        
+        out.print(String.format("     %-19s", item.getParent()));
+        out.print(String.format("%6.2f%%",
+                                100.0 * item.getMicros() / ownTotalMicros));
+        out.println();
       }
       
       out.print(String.format(" %6.2f%%", 100.0 * ownTotalMicros / totalMicros));
@@ -289,24 +289,24 @@ public class ProfileReport
       out.print(String.format(" %6d", method.getCount()));
       out.print(String.format("  %-22s", name));
       out.print(String.format("%6.2f%%",
-			      100.0 * selfMicros / ownTotalMicros));
+                              100.0 * selfMicros / ownTotalMicros));
       out.print(String.format(" %7dus", method.getSelfMicros()));
       out.println();
 
       ArrayList<ProfileItem> childList
-	= new ArrayList<ProfileItem>(method.getChildItems());
+        = new ArrayList<ProfileItem>(method.getChildItems());
 
       Collections.sort(childList, new ItemMicrosComparator());
       
       for (ProfileItem item : childList) {
-	out.print("        ");
-	out.print(String.format(" %7dus", item.getMicros()));
-	out.print(String.format(" %6d", item.getCount()));
-	
-	out.print(String.format("     %-19s", item.getName()));
-	out.print(String.format("%6.2f%%",
-				100.0 * item.getMicros() / ownTotalMicros));
-	out.println();
+        out.print("        ");
+        out.print(String.format(" %7dus", item.getMicros()));
+        out.print(String.format(" %6d", item.getCount()));
+        
+        out.print(String.format("     %-19s", item.getName()));
+        out.print(String.format("%6.2f%%",
+                                100.0 * item.getMicros() / ownTotalMicros));
+        out.println();
       }
     }
 
@@ -327,11 +327,11 @@ public class ProfileReport
       long delta = b.getSelfMicros() - a.getSelfMicros();
 
       if (delta == 0)
-	return 0;
+        return 0;
       else if (delta < 0)
-	return -1;
+        return -1;
       else
-	return 1;
+        return 1;
     }
   }
 
@@ -341,11 +341,11 @@ public class ProfileReport
       long delta = b.getTotalMicros() - a.getTotalMicros();
 
       if (delta == 0)
-	return 0;
+        return 0;
       else if (delta < 0)
-	return -1;
+        return -1;
       else
-	return 1;
+        return 1;
     }
   }
 
@@ -355,11 +355,11 @@ public class ProfileReport
       long delta = b.getMicros() - a.getMicros();
 
       if (delta == 0)
-	return 0;
+        return 0;
       else if (delta < 0)
-	return -1;
+        return -1;
       else
-	return 1;
+        return 1;
     }
   }
 }

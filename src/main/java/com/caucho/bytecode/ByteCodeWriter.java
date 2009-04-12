@@ -213,15 +213,15 @@ public class ByteCodeWriter {
       int ch = value.charAt(i);
 
       if (ch > 0 && ch < 0x80)
-	bb.append(ch);
+        bb.append(ch);
       else if (ch < 0x800) {
-	bb.append(0xc0 + (ch >> 6));
-	bb.append(0x80 + (ch & 0x3f));
+        bb.append(0xc0 + (ch >> 6));
+        bb.append(0x80 + (ch & 0x3f));
       }
       else {
-	bb.append(0xe0 + (ch >> 12));
-	bb.append(0x80 + ((ch >> 6) & 0x3f));
-	bb.append(0x80 + ((ch) & 0x3f));
+        bb.append(0xe0 + (ch >> 12));
+        bb.append(0x80 + ((ch >> 6) & 0x3f));
+        bb.append(0x80 + ((ch) & 0x3f));
       }
     }
   }

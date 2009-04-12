@@ -620,7 +620,7 @@ public class MathModule extends AbstractQuercusModule {
   }
 
   public static long rand(@Optional int min,
-			  @Optional("RAND_MAX") int max)
+                          @Optional("RAND_MAX") int max)
   {
     return mt_rand(min, max);
   }

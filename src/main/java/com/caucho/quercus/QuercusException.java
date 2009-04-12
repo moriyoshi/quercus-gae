@@ -59,7 +59,7 @@ public class QuercusException extends RuntimeException
   }
 
   public static QuercusException create(Throwable e,
-					ArrayList<String> stackTrace)
+                                        ArrayList<String> stackTrace)
   {
     QuercusException qExn;
     
@@ -67,7 +67,7 @@ public class QuercusException extends RuntimeException
       qExn = (QuercusException) e;
     else {
       if (e instanceof InvocationTargetException && e.getCause() != null)
-	e = e.getCause();
+        e = e.getCause();
       
       qExn = new QuercusException(e);
     }
@@ -88,7 +88,7 @@ public class QuercusException extends RuntimeException
       sb.append("\n");
 
       for (int i = 0; i < _quercusStackTrace.size(); i++) {
-	sb.append("   " + _quercusStackTrace.get(i) + "\n");
+        sb.append("   " + _quercusStackTrace.get(i) + "\n");
       }
 
       return sb.toString();

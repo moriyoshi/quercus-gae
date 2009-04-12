@@ -68,22 +68,22 @@ abstract public class AbstractBinaryOutput
 
     try {
       while (length > 0) {
-	int sublen;
+        int sublen;
 
-	if (length < buffer.length)
-	  sublen = length;
-	else
-	  sublen = buffer.length;
+        if (length < buffer.length)
+          sublen = length;
+        else
+          sublen = buffer.length;
 
-	sublen = is.read(buffer, 0, sublen);
+        sublen = is.read(buffer, 0, sublen);
 
-	if (sublen < 0)
-	  break;
+        if (sublen < 0)
+          break;
 
-	write(buffer, 0, sublen);
+        write(buffer, 0, sublen);
 
-	writeLength += sublen;
-	length -= sublen;
+        writeLength += sublen;
+        length -= sublen;
       }
 
       return writeLength;

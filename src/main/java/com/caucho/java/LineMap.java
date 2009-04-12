@@ -120,9 +120,9 @@ public class LineMap implements Serializable {
   }
   
   public boolean add(String srcFilename,
-		     int srcLine,
-		     int dstLine,
-		     boolean isPreferLast)
+                     int srcLine,
+                     int dstLine,
+                     boolean isPreferLast)
   {
     _lastSrcFilename = srcFilename;
 
@@ -130,23 +130,23 @@ public class LineMap implements Serializable {
       Line line = _lines.get(_lines.size() - 1);
 
       if (line.add(srcFilename, srcLine, dstLine, isPreferLast)) {
-	if (_lines.size() > 1) {
-	  Line prevLine = _lines.get(_lines.size() - 2);
+        if (_lines.size() > 1) {
+          Line prevLine = _lines.get(_lines.size() - 2);
 
-	  if (prevLine.merge(line)) {
-	    _lines.remove(_lines.size() - 1);
-	  }
-	}
+          if (prevLine.merge(line)) {
+            _lines.remove(_lines.size() - 1);
+          }
+        }
 
-	return true;
+        return true;
       }
 
       if (line.getLastDestinationLine() + 1 < dstLine) {
-	_lines.add(new Line(line.getLastSourceLine(),
-			    line.getSourceFilename(),
-			    1,
-			    line.getLastDestinationLine() + 1,
-			    dstLine - line.getLastDestinationLine()));
+        _lines.add(new Line(line.getLastSourceLine(),
+                            line.getSourceFilename(),
+                            1,
+                            line.getLastDestinationLine() + 1,
+                            dstLine - line.getLastDestinationLine()));
       }
     }
     
@@ -159,10 +159,10 @@ public class LineMap implements Serializable {
    * Adds a line from the smap
    */
   public void addLine(int startLine, String sourceFile, int repeatCount,
-		      int outputLine, int outputIncrement)
+                      int outputLine, int outputIncrement)
   {
     _lines.add(new Line(startLine, sourceFile, repeatCount,
-			outputLine, outputIncrement));
+                        outputLine, outputIncrement));
   }
   
   public void add(int srcLine, int dstLine)
@@ -203,7 +203,7 @@ public class LineMap implements Serializable {
    * the source.
    */
   public String convertError(String filename, int line,
-			     int column, String message)
+                             int column, String message)
   {
     String srcFilename = null;
     int destLine = 0;
@@ -215,8 +215,8 @@ public class LineMap implements Serializable {
       if (filename != null && ! filename.endsWith(_dstFilename)) {
       }
       else if (map._dstLine <= line && line <= map.getLastDestinationLine()) {
-	srcFilename = map._srcFilename;
-	srcLine = map.getSourceLine(line);
+        srcFilename = map._srcFilename;
+        srcLine = map.getSourceLine(line);
       }
     }
 
@@ -255,7 +255,7 @@ public class LineMap implements Serializable {
       byte []b = cb.toString().getBytes();
 
       try {
-	os.write(b, 0, b.length);
+        os.write(b, 0, b.length);
       } catch (IOException e1) {
       }
     } else
@@ -303,23 +303,23 @@ public class LineMap implements Serializable {
       }
 
       for (; i < end && Character.isWhitespace(array[i]); i++) {
-	fun.append(array[i]);
+        fun.append(array[i]);
       }
 
       // skip 'at'
       for (; i < end && ! Character.isWhitespace(array[i]); i++) {
-	fun.append(array[i]);
+        fun.append(array[i]);
       }
 
       if (! fun.endsWith("at")) {
-	for (i = start; i < end; i++) {
-	  buf.append(array[i]);
-	}
-	i = end + 1;
+        for (i = start; i < end; i++) {
+          buf.append(array[i]);
+        }
+        i = end + 1;
 
-	buf.append('\n');
-	
-	continue;
+        buf.append('\n');
+        
+        continue;
       }
 
       for (; i < end && Character.isWhitespace(array[i]); i++) {
@@ -327,29 +327,29 @@ public class LineMap implements Serializable {
 
       fun.clear();
       for (; i < end && ! Character.isWhitespace(array[i]) &&
-	     array[i] != '('; i++) {
-	fun.append(array[i]);
+             array[i] != '('; i++) {
+        fun.append(array[i]);
       }
 
       if (i < end && array[i] == '(')
-	i++;
+        i++;
 
       for (; i < end && ! Character.isWhitespace(array[i]) &&
-	     array[i] != ':' && array[i] != ')'; i++) {
-	file.append(array[i]);
+             array[i] != ':' && array[i] != ')'; i++) {
+        file.append(array[i]);
       }
       
       int line = -1;
       if (i < end && array[i] == ':') {
-	line = 0;
-	for (i++; i < end && array[i] >= '0' && array[i] <= '9'; i++) {
-	  line = 10 * line + array[i] - '0';
-	}
+        line = 0;
+        for (i++; i < end && array[i] >= '0' && array[i] <= '9'; i++) {
+          line = 10 * line + array[i] - '0';
+        }
       }
 
       for (; i < end && ! Character.isWhitespace(array[i]) &&
-	     array[i] != ':' && array[i] != ')'; i++) {
-	file.append(array[i]);
+             array[i] != ':' && array[i] != ')'; i++) {
+        file.append(array[i]);
       }
 
       buf.append("\tat ");
@@ -358,14 +358,14 @@ public class LineMap implements Serializable {
       String dstFile = file.toString();
 
       if (dstFile.equals(_dstFilename)) {
-	convertError(buf, line);
+        convertError(buf, line);
       }
       else {
-	buf.append(file);
-	if (line > 0) {
-	  buf.append(":");
-	  buf.append(line);
-	}
+        buf.append(file);
+        if (line > 0) {
+          buf.append(":");
+          buf.append(line);
+        }
       }
       buf.append(array, i, end - i);
       buf.append('\n');
@@ -392,10 +392,10 @@ public class LineMap implements Serializable {
       Line map = (Line) _lines.get(i);
 
       if (map._dstLine <= line && line <= map.getLastDestinationLine()) {
-	srcFilename = map._srcFilename;
-	destLine = map._dstLine;
-	srcLine = map.getSourceLine(line);
-	break;
+        srcFilename = map._srcFilename;
+        destLine = map._dstLine;
+        srcLine = map.getSourceLine(line);
+        break;
       }
     }
 
@@ -437,7 +437,7 @@ public class LineMap implements Serializable {
     }
 
     Line(int srcLine, String srcFilename, int repeat,
-	 int dstLine, int dstIncrement)
+         int dstLine, int dstIncrement)
     {
       _srcFilename = srcFilename;
       _srcLine = srcLine;
@@ -450,54 +450,54 @@ public class LineMap implements Serializable {
      * Tries to add a new location.
      */
     boolean add(String srcFilename, int srcLine, int dstLine,
-		boolean isPreferLast)
+                boolean isPreferLast)
     {
       if (_srcFilename != null
-	  && (! _srcFilename.equals(srcFilename) || srcFilename == null))
-	return false;
+          && (! _srcFilename.equals(srcFilename) || srcFilename == null))
+        return false;
 
       if (dstLine <= _dstLine) {
-	// php/180u
-	if (! isPreferLast)
-	  return true;
-	else if (_dstIncrement == 1 && _repeat == 1) {
-	  _srcLine = srcLine;
-	  return true;
-	}
-	else if (_repeat > 1) {
-	  _repeat--;
-	  return false;
-	}
-	else if (_dstIncrement > 1) {
-	  _dstIncrement--;
-	  return false;
-	}
-	else
-	  return true;
+        // php/180u
+        if (! isPreferLast)
+          return true;
+        else if (_dstIncrement == 1 && _repeat == 1) {
+          _srcLine = srcLine;
+          return true;
+        }
+        else if (_repeat > 1) {
+          _repeat--;
+          return false;
+        }
+        else if (_dstIncrement > 1) {
+          _dstIncrement--;
+          return false;
+        }
+        else
+          return true;
       }
 
       if (srcLine == _srcLine) {
-	_dstIncrement = dstLine - _dstLine + 1;
+        _dstIncrement = dstLine - _dstLine + 1;
 
-	return true;
+        return true;
       }
       else if (dstLine - _dstLine == (srcLine - _srcLine) * _dstIncrement) {
-	_repeat = srcLine - _srcLine + 1;
+        _repeat = srcLine - _srcLine + 1;
 
-	return true;
+        return true;
       }
       else if (srcLine == _srcLine + 1 && _repeat == 1) {
-	_dstIncrement = dstLine - _dstLine;
+        _dstIncrement = dstLine - _dstLine;
 
-	return false;
+        return false;
       }
       /*
       else if (_repeat == 1 && _dstIncrement <= 1) {
-	_dstIncrement = dstLine - 1 - _dstLine;
-	if (_dstIncrement < 0)
-	  _dstIncrement = 1;
+        _dstIncrement = dstLine - 1 - _dstLine;
+        if (_dstIncrement < 0)
+          _dstIncrement = 1;
 
-	return true;
+        return true;
       }
       */
 
@@ -510,18 +510,18 @@ public class LineMap implements Serializable {
     boolean merge(Line next)
     {
       if (_srcFilename != null && ! _srcFilename.equals(next._srcFilename))
-	return false;
+        return false;
 
       else if (_dstIncrement != next._dstIncrement)
-	return false;
+        return false;
       else if (getLastDestinationLine() + 1 != next._dstLine)
-	return false;
+        return false;
       else if (getLastSourceLine() + 1 != next._srcLine)
-	return false;
+        return false;
       else {
-	_repeat += next._repeat;
+        _repeat += next._repeat;
 
-	return true;
+        return true;
       }
     }
 

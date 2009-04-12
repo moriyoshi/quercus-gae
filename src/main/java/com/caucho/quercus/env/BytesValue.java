@@ -111,11 +111,11 @@ abstract public class BytesValue
       char ch = charAt(i);
 
       if (0x20 <= ch && ch < 0x7f)
-	out.print(ch);
+        out.print(ch);
       else if (ch == '\r' || ch == '\n' || ch == '\t')
-	out.print(ch);
+        out.print(ch);
       else
-	out.print("\\x" + Integer.toHexString(ch >> 4) + Integer.toHexString(ch % 16));
+        out.print("\\x" + Integer.toHexString(ch >> 4) + Integer.toHexString(ch % 16));
     }
 
     out.print("\"");

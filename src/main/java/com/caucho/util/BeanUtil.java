@@ -325,7 +325,7 @@ public class BeanUtil {
     // jsp/184c, jsp/184z, jsp/18o1 bug #2634, #3066
 
     Method method = getSetMethod(info.getBeanDescriptor().getBeanClass(),
-				 propertyName);
+                                 propertyName);
     
     PropertyDescriptor []pds = info.getPropertyDescriptors();
 
@@ -333,16 +333,16 @@ public class BeanUtil {
 
     for (int i = 0; i < pds.length; i++) {
       if (pds[i].getName().equals(propertyName)
-	  && pds[i].getWriteMethod() != null) {
+          && pds[i].getWriteMethod() != null) {
         Method writeMethod = pds[i].getWriteMethod();
 
-	if (method != null && writeMethod.getName().equals(method.getName()))
-	  continue;
+        if (method != null && writeMethod.getName().equals(method.getName()))
+          continue;
 
         if (writeMethod.getParameterTypes()[0].equals(String.class))
           return writeMethod;
-	else
-	  bestMethod = writeMethod;
+        else
+          bestMethod = writeMethod;
       }
     }
 
@@ -443,16 +443,16 @@ public class BeanUtil {
       
       // It must return void
       if (! method.getReturnType().equals(void.class))
-	continue;
+        continue;
 
       Class paramType = method.getParameterTypes()[0];
       
       if (paramType.equals(String.class))
-	return method;
+        return method;
       else if (bestMethod == null)
-	bestMethod = method;
+        bestMethod = method;
       else if (paramType.getName().compareTo(bestMethod.getParameterTypes()[0].getName()) < 0)
-	bestMethod = method;
+        bestMethod = method;
     }
 
     return bestMethod;
@@ -468,14 +468,14 @@ public class BeanUtil {
     for (int i = 0; i < pds.length; i++) {
       if (pds[i].getName().equals(propertyName) &&
           pds[i].getReadMethod() != null) {
-	if (! Modifier.isPublic(pds[i].getReadMethod().getDeclaringClass().getModifiers())) {
-	  try {
-	    pds[i].getReadMethod().setAccessible(true);
-	  } catch (Throwable e) {
-	    continue;
-	  }
-	}
-	
+        if (! Modifier.isPublic(pds[i].getReadMethod().getDeclaringClass().getModifiers())) {
+          try {
+            pds[i].getReadMethod().setAccessible(true);
+          } catch (Throwable e) {
+            continue;
+          }
+        }
+        
         return pds[i].getReadMethod();
     }
     }
@@ -515,11 +515,11 @@ public class BeanUtil {
 
       Class []interfaces = ptrCl.getInterfaces();
       for (int i = 0; i < interfaces.length; i++) {
-	method = getGetMethod(interfaces[i].getDeclaredMethods(),
-			      getName, isName, ignoreCase);
+        method = getGetMethod(interfaces[i].getDeclaredMethods(),
+                              getName, isName, ignoreCase);
 
-	if (method != null)
-	  return method;
+        if (method != null)
+          return method;
       }
     }
 

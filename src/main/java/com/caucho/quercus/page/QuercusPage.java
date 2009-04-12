@@ -231,7 +231,7 @@ abstract public class QuercusPage
       AbstractFunction fun = entry.getValue();
 
       if (fun.isGlobal())
-	env.addFunction(entry.getKey(), entry.getValue());
+        env.addFunction(entry.getKey(), entry.getValue());
     }
     
     for (Map.Entry<String,ClassDef> entry : _classMap.entrySet()) {

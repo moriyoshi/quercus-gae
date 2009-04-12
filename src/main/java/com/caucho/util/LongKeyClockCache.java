@@ -89,9 +89,9 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
         E item = _values[i];
 
         if (item != null) {
-	  if (listeners == null)
-	    listeners = new ArrayList<E>();
-	  listeners.add(item);
+          if (listeners == null)
+            listeners = new ArrayList<E>();
+          listeners.add(item);
         }
         
         _values[i] = null;
@@ -125,7 +125,7 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
           return null;
 
         if (_keys[hash] == key) {
-	  item.setUsed();
+          item.setUsed();
 
           return item;
         }
@@ -155,22 +155,22 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
     // forced resizing if 3/4 full
     if (3 * _values.length <= 4 * _size) {
       synchronized (this) {
-	long []oldKeys = _keys;
-	E []oldValues = _values;
-	
-	_keys = new long[2 * oldKeys.length];
-	_values = (E []) new Object[2 * oldValues.length];
+        long []oldKeys = _keys;
+        E []oldValues = _values;
+        
+        _keys = new long[2 * oldKeys.length];
+        _values = (E []) new Object[2 * oldValues.length];
 
-	_mask = _values.length - 1;
-	_size = 0;
+        _mask = _values.length - 1;
+        _size = 0;
 
-	for (int i = oldValues.length - 1; i >= 0; i--) {
-	  long oldKey = oldKeys[i];
-	  E oldValue = oldValues[i];
+        for (int i = oldValues.length - 1; i >= 0; i--) {
+          long oldKey = oldKeys[i];
+          E oldValue = oldValues[i];
 
-	  if (oldValue != null)
-	    putImpl(oldKey, oldValue);
-	}
+          if (oldValue != null)
+            putImpl(oldKey, oldValue);
+        }
       }
     }
 
@@ -189,27 +189,27 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	item = _values[hash];
+        item = _values[hash];
 
-	// No matching item, so create one
-	if (item == null) {
-	  _keys[hash] = key;
-	  _values[hash] = value;
-	  _size++;
+        // No matching item, so create one
+        if (item == null) {
+          _keys[hash] = key;
+          _values[hash] = value;
+          _size++;
 
-	  return null;
-	}
+          return null;
+        }
 
-	// matching item gets replaced
-	if (_keys[hash] == key) {
-	  item.setUsed();
+        // matching item gets replaced
+        if (_keys[hash] == key) {
+          item.setUsed();
 
-	  _values[hash] = value;
+          _values[hash] = value;
 
-	  return item;
-	}
+          return item;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -237,21 +237,21 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
 
     for (int i = 0; i < length; i++) {
       synchronized (this) {
-	item = _values[clock];
+        item = _values[clock];
 
-	if (item != null && ! item.isUsed()) {
-	  _clock = clock;
-	  _values[clock] = null;
-	  _size--;
+        if (item != null && ! item.isUsed()) {
+          _clock = clock;
+          _values[clock] = null;
+          _size--;
 
-	  refillEntries(clock);
+          refillEntries(clock);
 
-	  break;
-	}
+          break;
+        }
       }
 
       if (item != null)
-	item.clearUsed();
+        item.clearUsed();
 
       clock = (clock + 1) % length;
       item = null;
@@ -283,20 +283,20 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	item = _values[hash];
+        item = _values[hash];
 
-	if (item == null)
-	  return null;
+        if (item == null)
+          return null;
 
-	if (_keys[hash] == key) {
-	  _values[hash] = null;
-	  _size--; 
+        if (_keys[hash] == key) {
+          _values[hash] = null;
+          _size--; 
 
-	  refillEntries(hash);
-	  break;
-	}
+          refillEntries(hash);
+          break;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -317,7 +317,7 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
       hash = (hash + 1) & _mask;
 
       if (_values[hash] == null)
-	return;
+        return;
 
       refillEntry(hash);
     }
@@ -337,9 +337,9 @@ public class LongKeyClockCache<E extends ClockCacheItem> {
     
     for (int count = _size; count >= 0; count--) {
       if (_values[hash] == null) {
-	_keys[hash] = key;
-	_values[hash] = value;
-	return;
+        _keys[hash] = key;
+        _values[hash] = value;
+        return;
       }
 
       hash = (hash + 1) & _mask;

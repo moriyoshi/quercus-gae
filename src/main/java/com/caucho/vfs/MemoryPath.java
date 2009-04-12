@@ -103,10 +103,10 @@ public class MemoryPath extends FilesystemPath {
       int tail = fullPath.indexOf('/', head);
 
       if (tail == -1) {
-	if (head < fullPath.length())
-	  return node.lookup(fullPath.substring(head));
-	else
-	  return node;
+        if (head < fullPath.length())
+          return node.lookup(fullPath.substring(head));
+        else
+          return node;
       }
 
       if (head != tail)

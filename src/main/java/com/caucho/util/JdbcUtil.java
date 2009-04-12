@@ -43,7 +43,7 @@ public class JdbcUtil {
   {
     try {
       if (conn != null)
-	conn.close();
+        conn.close();
     } catch (SQLException e) {
       log.log(Level.FINER, e.toString(), e);
     }
@@ -53,7 +53,7 @@ public class JdbcUtil {
   {
     try {
       if (stmt != null)
-	stmt.close();
+        stmt.close();
     } catch (SQLException e) {
       log.log(Level.FINER, e.toString(), e);
     }

@@ -153,8 +153,8 @@ public class CodeAttribute extends Attribute {
       Attribute attr = _attributes.get(i);
 
       if (attr.getName().equals(name)) {
-	_attributes.remove(i);
-	return attr;
+        _attributes.remove(i);
+        return attr;
       }
     }
 
@@ -285,12 +285,12 @@ public class CodeAttribute extends Attribute {
       int type = exn.getType();
       
       if (type != 0)
-	type = cp.addClass(source.getConstantPool().getClass(type).getName()).getIndex();
+        type = cp.addClass(source.getConstantPool().getClass(type).getName()).getIndex();
 
       ExceptionItem newExn = new ExceptionItem(type,
-					       exn.getStart(),
-					       exn.getEnd(),
-					       exn.getHandler());
+                                               exn.getStart(),
+                                               exn.getEnd(),
+                                               exn.getHandler());
     
       attr._exceptions.add(newExn);
     }
@@ -449,30 +449,30 @@ public class CodeAttribute extends Attribute {
       case CodeVisitor.NEW:
       case CodeVisitor.PUTFIELD:
       case CodeVisitor.PUTSTATIC:
-	index = visitor.getShortArg(1);
-	
-	entry = sourcePool.getEntry(index);
-	int targetIndex = entry.export(targetPool);
+        index = visitor.getShortArg(1);
+        
+        entry = sourcePool.getEntry(index);
+        int targetIndex = entry.export(targetPool);
 
-	visitor.setShortArg(1, targetIndex);
-	break;
+        visitor.setShortArg(1, targetIndex);
+        break;
 
       case CodeVisitor.LDC:
-	index = visitor.getByteArg(1);
-	entry = sourcePool.getEntry(index);
-	index = entry.export(targetPool);
-	if (index <= 0xff)
-	  visitor.setByteArg(1, index);
-	else {
-	  CodeEnhancer enhancer = (CodeEnhancer) visitor;
-	  enhancer.setByteArg(0, CodeVisitor.LDC_W);
-	  enhancer.addByte(enhancer.getOffset() + 2, 0);
-	  enhancer.setShortArg(1, index);
-	}
-	break;
+        index = visitor.getByteArg(1);
+        entry = sourcePool.getEntry(index);
+        index = entry.export(targetPool);
+        if (index <= 0xff)
+          visitor.setByteArg(1, index);
+        else {
+          CodeEnhancer enhancer = (CodeEnhancer) visitor;
+          enhancer.setByteArg(0, CodeVisitor.LDC_W);
+          enhancer.addByte(enhancer.getOffset() + 2, 0);
+          enhancer.setShortArg(1, index);
+        }
+        break;
 
       default:
-	break;
+        break;
       }
     }
   }

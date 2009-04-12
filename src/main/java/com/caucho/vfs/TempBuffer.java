@@ -181,11 +181,11 @@ public class TempBuffer implements java.io.Serializable {
       for (TempBuffer ptr = head; ptr.getNext() != null; ptr = ptr.getNext()) {
         TempBuffer next = ptr.getNext();
 
-	if (next.getNext() == null) {
-	  TempBuffer.free(next);
+        if (next.getNext() == null) {
+          TempBuffer.free(next);
           next = null;
-	  ptr._next = null;
-	}
+          ptr._next = null;
+        }
       }
     }
     else
@@ -203,10 +203,10 @@ public class TempBuffer implements java.io.Serializable {
 
     if (buf._buf.length == SIZE) {
       if (buf._isFree) {
-	RuntimeException e
-	  = new IllegalStateException("illegal TempBuffer.free.  Please report at http://bugs.caucho.com");
-	log().log(Level.SEVERE, e.toString(), e);
-	throw e;
+        RuntimeException e
+          = new IllegalStateException("illegal TempBuffer.free.  Please report at http://bugs.caucho.com");
+        log().log(Level.SEVERE, e.toString(), e);
+        throw e;
       }
 
       buf._isFree = true;
@@ -222,17 +222,17 @@ public class TempBuffer implements java.io.Serializable {
       buf._next = null;
       
       if (buf._buf.length == SIZE) {
-	if (buf._isFree) {
-	  RuntimeException e
-	    = new IllegalStateException("illegal TempBuffer.free.  Please report at http://bugs.caucho.com");
-	  
-	  log().log(Level.SEVERE, e.toString(), e);
-	  throw e;
-	}
+        if (buf._isFree) {
+          RuntimeException e
+            = new IllegalStateException("illegal TempBuffer.free.  Please report at http://bugs.caucho.com");
+          
+          log().log(Level.SEVERE, e.toString(), e);
+          throw e;
+        }
 
-	buf._isFree = true;
+        buf._isFree = true;
       
-	_freeList.free(buf);
+        _freeList.free(buf);
       }
       
       buf = next;

@@ -103,16 +103,16 @@ public class JDKWriter extends EncodingWriter {
       throws UnsupportedEncodingException
     {
       try {
-	_encoding = javaEncoding;
-	
-	if (Charset.isSupported(javaEncoding))
-	  _charset = Charset.forName(javaEncoding);
-	else {
-	  // server/054i
-	  throw new UnsupportedEncodingException(javaEncoding);
-	}
+        _encoding = javaEncoding;
+        
+        if (Charset.isSupported(javaEncoding))
+          _charset = Charset.forName(javaEncoding);
+        else {
+          // server/054i
+          throw new UnsupportedEncodingException(javaEncoding);
+        }
       } catch (java.nio.charset.UnsupportedCharsetException e) {
-	throw new UnsupportedEncodingException(e.getMessage());
+        throw new UnsupportedEncodingException(e.getMessage());
       }
     }
 
@@ -123,12 +123,12 @@ public class JDKWriter extends EncodingWriter {
       throws IOException
     {
       if (_os != os) {
-	if (_charset != null)
-	  _writer = new OutputStreamWriter(os, _charset);
-	else
-	  _writer = new OutputStreamWriter(os, _encoding);
+        if (_charset != null)
+          _writer = new OutputStreamWriter(os, _charset);
+        else
+          _writer = new OutputStreamWriter(os, _encoding);
 
-	_os = os;
+        _os = os;
       }
       
       _writer.write(ch);
@@ -139,16 +139,16 @@ public class JDKWriter extends EncodingWriter {
      * Writes a char buffer.
      */
     public void write(OutputStreamWithBuffer os,
-		      char []buf, int offset, int length)
+                      char []buf, int offset, int length)
       throws IOException
     {
       if (_os != os) {
-	if (_charset != null)
-	  _writer = new OutputStreamWriter(os, _charset);
-	else
-	  _writer = new OutputStreamWriter(os, _encoding);
+        if (_charset != null)
+          _writer = new OutputStreamWriter(os, _charset);
+        else
+          _writer = new OutputStreamWriter(os, _encoding);
 
-	_os = os;
+        _os = os;
       }
       
       _writer.write(buf, offset, length);

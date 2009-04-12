@@ -187,7 +187,7 @@ public class Depend implements PersistentDependency {
     else if (sourceLength != _length) {
       if (log.isLoggable(Level.FINE))
         log.fine(_source.getNativePath() + " length is modified (" +
-		 _length + " -> " + sourceLength + ")");
+                 _length + " -> " + sourceLength + ")");
 
       return true;
     }
@@ -223,7 +223,7 @@ public class Depend implements PersistentDependency {
     // if the length changed
     else if (sourceLength != _length) {
       log.info(_source.getNativePath() + " length is modified (" +
-	       _length + " -> " + sourceLength + ")");
+               _length + " -> " + sourceLength + ")");
 
       return true;
     }
@@ -274,8 +274,8 @@ public class Depend implements PersistentDependency {
   public String toString()
   {
     return ("Depend[" + _source + ",time=" + _lastModified
-	    + ",time-ch=" + (_source.getLastModified() - _lastModified)
-	    + ",len-ch=" + (_source.getLength() - _length)
-	    + "]");
+            + ",time-ch=" + (_source.getLastModified() - _lastModified)
+            + ",len-ch=" + (_source.getLength() - _length)
+            + "]");
   }
 }

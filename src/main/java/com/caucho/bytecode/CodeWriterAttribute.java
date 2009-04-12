@@ -189,10 +189,10 @@ public class CodeWriterAttribute extends CodeAttribute {
   }
 
   public void invoke(String className,
-		     String methodName,
-		     String signature,
-		     int argStack,
-		     int returnStack)
+                     String methodName,
+                     String signature,
+                     int argStack,
+                     int returnStack)
   {
     _stack += returnStack - argStack;
 
@@ -233,10 +233,10 @@ public class CodeWriterAttribute extends CodeAttribute {
   }
 
   public void invokespecial(String className,
-			    String methodName,
-			    String signature,
-			    int argStack,
-			    int returnStack)
+                            String methodName,
+                            String signature,
+                            int argStack,
+                            int returnStack)
   {
     _stack += returnStack - argStack;
 

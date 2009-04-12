@@ -129,7 +129,7 @@ public class StreamImpl {
    * @return the number of bytes read or -1 on end of file.
    */
   public int readTimeout(byte []buffer, int offset, int length,
-			 long timeout)
+                         long timeout)
     throws IOException
   {
     return 0;
@@ -203,8 +203,8 @@ public class StreamImpl {
    * @param isEnd true when the write is flushing a close.
    */
   public boolean write(byte []buf1, int off1, int len1,
-		       byte []buf2, int off2, int len2,
-		       boolean isEnd)
+                       byte []buf2, int off2, int len2,
+                       boolean isEnd)
     throws IOException
   {
     if (len1 == 0) {

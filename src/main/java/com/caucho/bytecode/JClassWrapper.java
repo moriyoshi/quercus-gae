@@ -219,7 +219,7 @@ public class JClassWrapper extends JClass {
     if (jMethodsRef != null) {
       jMethods = jMethodsRef.get();
       if (jMethods != null)
-	return jMethods;
+        return jMethods;
     }
 
     Method []methods = _class.getDeclaredMethods();
@@ -262,7 +262,7 @@ public class JClassWrapper extends JClass {
   }
 
   private static JMethod getMethod(Class cl, String name, JClass []types,
-				   JClassLoader jClassLoader)
+                                   JClassLoader jClassLoader)
   {
     if (cl == null)
       return null;
@@ -270,15 +270,15 @@ public class JClassWrapper extends JClass {
     loop:
     for (Method method : cl.getDeclaredMethods()) {
       if (! method.getName().equals(name))
-	continue;
+        continue;
 
       Class []paramTypes = method.getParameterTypes();
       if (types.length != paramTypes.length)
-	continue;
+        continue;
 
       for (int i = 0; i < types.length; i++) {
-	if (! types[i].getName().equals(paramTypes[i].getName()))
-	  continue loop;
+        if (! types[i].getName().equals(paramTypes[i].getName()))
+          continue loop;
       }
 
       return new JMethodWrapper(method, jClassLoader);
@@ -288,7 +288,7 @@ public class JClassWrapper extends JClass {
       JMethod method = getMethod(ifc, name, types, jClassLoader);
 
       if (method != null)
-	return method;
+        return method;
     }
 
     return getMethod(cl.getSuperclass(), name, types, jClassLoader);
@@ -352,7 +352,7 @@ public class JClassWrapper extends JClass {
 
     for (int i = 0; i < ann.length; i++) {
       if (ann[i].annotationType().getName().equals(name))
-	return new JAnnotationWrapper(ann[i]);
+        return new JAnnotationWrapper(ann[i]);
     }
 
     return null;

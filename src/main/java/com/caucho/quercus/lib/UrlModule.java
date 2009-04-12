@@ -265,7 +265,7 @@ public class UrlModule
 
     try {
       BinaryStream stream
-	= FileModule.fopen(env, filename, "r", use_include_path, null);
+        = FileModule.fopen(env, filename, "r", use_include_path, null);
 
       if (stream == null || ! (stream instanceof BinaryInput))
         return result;
@@ -315,8 +315,8 @@ public class UrlModule
   
   public static Value http_build_query(Env env,
                                        Value formdata, 
-		                               @Optional StringValue numeric_prefix,
-		                               @Optional("'&'") StringValue separator)
+                                               @Optional StringValue numeric_prefix,
+                                               @Optional("'&'") StringValue separator)
   {
     StringValue result = env.createUnicodeBuilder();
 
@@ -650,7 +650,7 @@ public class UrlModule
     if (sb.length() == 0) {
     }
     else if (state == ParseUrlState.USER
-	     || state == ParseUrlState.HOST)
+             || state == ParseUrlState.HOST)
       value.put(env.createString("host"), sb);
     else if (state == ParseUrlState.PASS) {
       value.put(env.createString("host"), user);

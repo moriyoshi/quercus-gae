@@ -37,8 +37,8 @@ public class MemoryScheme extends MemoryPath {
   }
 
   public Path fsWalk(String userPath,
-		     Map<String,Object> attributes,
-		     String path)
+                     Map<String,Object> attributes,
+                     String path)
   {
     return Vfs.lookup().lookup(path);
   }

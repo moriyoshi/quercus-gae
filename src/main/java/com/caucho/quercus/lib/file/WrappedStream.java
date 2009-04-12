@@ -229,7 +229,7 @@ public class WrappedStream implements BinaryInput, BinaryOutput {
       int ch;
     
       while ((ch = read()) >= 0) {
-	builder.append((char) ch);
+        builder.append((char) ch);
       }
 
       return builder;

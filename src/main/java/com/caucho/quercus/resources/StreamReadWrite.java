@@ -191,7 +191,7 @@ public class StreamReadWrite extends StreamResource
   {
     try {
       if (_os != null)
-	_os.flush();
+        _os.flush();
     } catch (IOException e) {
       throw new QuercusException(e);
     }
@@ -227,7 +227,7 @@ public class StreamReadWrite extends StreamResource
 
     try {
       if (os != null)
-	os.close();
+        os.close();
     } catch (IOException e) {
     }
   }
@@ -258,7 +258,7 @@ public class StreamReadWrite extends StreamResource
 
     try {
       if (os != null)
-	os.close();
+        os.close();
     } catch (IOException e) {
     }
   }

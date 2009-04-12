@@ -188,7 +188,7 @@ public final class DefinitionState {
       UnsetFunction unsetFun = (UnsetFunction) fun;
 
       if (_crc == unsetFun.getCrc())
-	return null;
+        return null;
     }
     else {
       return fun;
@@ -395,9 +395,9 @@ public final class DefinitionState {
       _defRef = new WeakReference<ClassDef>(def);
 
       if (parent != null)
-	_parentRef = new WeakReference<QuercusClass>(parent);
+        _parentRef = new WeakReference<QuercusClass>(parent);
       else
-	_parentRef = null;
+        _parentRef = null;
     }
 
     public int hashCode()
@@ -408,13 +408,13 @@ public final class DefinitionState {
       
       QuercusClass parent = null;
       if (_parentRef != null)
-	parent = _parentRef.get();
+        parent = _parentRef.get();
 
       if (def != null)
-	hash = 65521 * hash + def.hashCode();
+        hash = 65521 * hash + def.hashCode();
 
       if (parent != null)
-	hash = 65521 * hash + parent.hashCode();
+        hash = 65521 * hash + parent.hashCode();
 
       return hash;
     }
@@ -427,16 +427,16 @@ public final class DefinitionState {
       ClassDef bDef = key._defRef.get();
 
       if (aDef != bDef)
-	return false;
+        return false;
 
       if (_parentRef == key._parentRef)
-	return true;
+        return true;
       
       else if (_parentRef != null && key._parentRef != null)
-	return _parentRef.get() == key._parentRef.get();
+        return _parentRef.get() == key._parentRef.get();
 
       else
-	return false;
+        return false;
     }
   }
 }

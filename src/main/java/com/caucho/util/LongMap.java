@@ -109,13 +109,13 @@ public class LongMap<K> {
       K mapKey = _keys[hash];
 
       if (mapKey == key)
-	return _values[hash];
+        return _values[hash];
       else if (mapKey == null) {
-	if ((_flags[hash] & DELETED) == 0)
-	  return NULL;
+        if ((_flags[hash] & DELETED) == 0)
+          return NULL;
       }
       else if (mapKey.equals(key))
-	return _values[hash];
+        return _values[hash];
 
       hash = (hash + 1) & _mask;
     }
@@ -134,18 +134,18 @@ public class LongMap<K> {
 
     for (int i = 0; i < _keys.length; i++) {
       if (_keys[i] == null || (_flags[i] & DELETED) != 0)
-	continue;
+        continue;
 
       int hash = _keys[i].hashCode() & _mask;
 
       while (true) {
-	if (newKeys[hash] == null) {
-	  newKeys[hash] = _keys[i];
-	  newValues[hash] = _values[i];
-	  newFlags[hash] = _flags[i];
-	  break;
-	}
-	hash = (hash + 1) & _mask;
+        if (newKeys[hash] == null) {
+          newKeys[hash] = _keys[i];
+          newValues[hash] = _values[i];
+          newFlags[hash] = _flags[i];
+          break;
+        }
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -187,30 +187,30 @@ public class LongMap<K> {
       K testKey = _keys[hash];
 
       if (testKey == null || (_flags[hash] & DELETED) != 0) {
-	_keys[hash] = key;
-	_values[hash] = value;
-	_flags[hash] = 0;
+        _keys[hash] = key;
+        _values[hash] = value;
+        _flags[hash] = 0;
 
-	_size++;
+        _size++;
 
-	if (_keys.length <= 2 * _size)
-	  resize(2 * _keys.length);
+        if (_keys.length <= 2 * _size)
+          resize(2 * _keys.length);
 
-	return NULL;
+        return NULL;
       }
       else if (key != testKey && ! testKey.equals(key)) {
-	hash = (hash + 1) & _mask;
-	continue;
+        hash = (hash + 1) & _mask;
+        continue;
       }
       else if (ifNew) {
-	return _values[hash];
+        return _values[hash];
       }
       else {
-	long old = _values[hash];
+        long old = _values[hash];
 
-	_values[hash] = value;
+        _values[hash] = value;
 
-	return old;
+        return old;
       }
     }
   }
@@ -232,15 +232,15 @@ public class LongMap<K> {
       Object mapKey = _keys[hash];
 
       if (mapKey == null)
-	return NULL;
+        return NULL;
       else if (mapKey.equals(key)) {
-	_flags[hash] |= DELETED;
+        _flags[hash] |= DELETED;
 
-	_size--;
+        _size--;
 
-	_keys[hash] = null;
+        _keys[hash] = null;
 
-	return _values[hash];
+        return _values[hash];
       }
 
       hash = (hash + 1) & _mask;
@@ -285,12 +285,12 @@ public class LongMap<K> {
     
     for (int i = 0; i <= _mask; i++) {
       if ((_flags[i] & DELETED) == 0 && _keys[i] != null) {
-	if (! isFirst)
-	  sbuf.append(", ");
-	isFirst = false;
-	sbuf.append(_keys[i]);
-	sbuf.append(":");
-	sbuf.append(_values[i]);
+        if (! isFirst)
+          sbuf.append(", ");
+        isFirst = false;
+        sbuf.append(_keys[i]);
+        sbuf.append(":");
+        sbuf.append(_values[i]);
       }
     }
     sbuf.append("]");
@@ -304,8 +304,8 @@ public class LongMap<K> {
     public boolean hasNext()
     {
       for (; _index < _keys.length; _index++)
-	if (_keys[_index] != null && (_flags[_index] & DELETED) == 0)
-	  return true;
+        if (_keys[_index] != null && (_flags[_index] & DELETED) == 0)
+          return true;
 
       return false;
     }
@@ -313,8 +313,8 @@ public class LongMap<K> {
     public Object next()
     {
       for (; _index < _keys.length; _index++)
-	if (_keys[_index] != null && (_flags[_index] & DELETED) == 0)
-	  return _keys[_index++];
+        if (_keys[_index] != null && (_flags[_index] & DELETED) == 0)
+          return _keys[_index++];
 
       return null;
     }

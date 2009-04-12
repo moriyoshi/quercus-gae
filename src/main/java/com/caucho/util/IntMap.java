@@ -85,7 +85,7 @@ public class IntMap {
 
     for (Item item : entries) {
       for (; item != null; item = item._next) {
-	put(item._key, item._value);
+        put(item._key, item._value);
       }
     }
   }
@@ -124,7 +124,7 @@ public class IntMap {
       Object itemKey = item._key;
       
       if (itemKey == key || itemKey.equals(key))
-	return item._value;
+        return item._value;
     }
 
     return NULL;
@@ -142,15 +142,15 @@ public class IntMap {
       int hash = key.hashCode() & _mask;
 
       for (Item item = _entries[hash]; item != null; item = item._next) {
-	Object testKey = item._key;
+        Object testKey = item._key;
 
-	if (testKey == key || testKey.equals(key)) {
-	  int oldValue = item._value;
-	
-	  item._value = value;
+        if (testKey == key || testKey.equals(key)) {
+          int oldValue = item._value;
+        
+          item._value = value;
 
-	  return oldValue;
-	}
+          return oldValue;
+        }
       }
 
       Item item = new Item(key, value);
@@ -177,22 +177,22 @@ public class IntMap {
     synchronized (this) {
       Item prev = null;
       for (Item item = _entries[hash]; item != null; item = item._next) {
-	Object itemKey = item._key;
+        Object itemKey = item._key;
       
-	if (itemKey == key || itemKey.equals(key)) {
-	  int oldValue = item._value;
-	
-	  if (prev != null)
-	    prev._next = item._next;
-	  else
-	    _entries[hash] = item._next;
+        if (itemKey == key || itemKey.equals(key)) {
+          int oldValue = item._value;
+        
+          if (prev != null)
+            prev._next = item._next;
+          else
+            _entries[hash] = item._next;
 
-	  _size--;
+          _size--;
 
-	  return oldValue;
-	}
+          return oldValue;
+        }
 
-	prev = item;
+        prev = item;
       }
     }
 
@@ -223,12 +223,12 @@ public class IntMap {
     boolean isFirst = true;
     for (int i = 0; i <= _mask; i++) {
       if (_keys[i] != null) {
-	if (! isFirst)
-	  sbuf.append(", ");
-	isFirst = false;
-	sbuf.append(_keys[i]);
-	sbuf.append(":");
-	sbuf.append(_values[i]);
+        if (! isFirst)
+          sbuf.append(", ");
+        isFirst = false;
+        sbuf.append(_keys[i]);
+        sbuf.append(":");
+        sbuf.append(_values[i]);
       }
     }
     sbuf.append("]");
@@ -243,13 +243,13 @@ public class IntMap {
     public boolean hasNext()
     {
       if (_item != null)
-	return true;
+        return true;
       
       for (_index++; _index < _entries.length; _index++) {
-	_item = _entries[_index];
+        _item = _entries[_index];
       
-	if (_item != null)
-	  return true;
+        if (_item != null)
+          return true;
       }
 
       return false;
@@ -258,21 +258,21 @@ public class IntMap {
     public Object next()
     {
       if (_item != null) {
-	Object key = _item._key;
-	_item = _item._next;
+        Object key = _item._key;
+        _item = _item._next;
 
-	return key;
+        return key;
       }
       
       for (_index++; _index < _entries.length; _index++) {
-	_item = _entries[_index];
+        _item = _entries[_index];
       
-	if (_item != null) {
-	  Object key = _item._key;
-	  _item = _item._next;
-	  
-	  return key;
-	}
+        if (_item != null) {
+          Object key = _item._key;
+          _item = _item._next;
+          
+          return key;
+        }
       }
 
       return null;

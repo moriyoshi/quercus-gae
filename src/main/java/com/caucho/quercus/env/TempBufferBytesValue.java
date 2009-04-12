@@ -113,7 +113,7 @@ public class TempBufferBytesValue
       int sublen = ptr.getLength();
 
       if (index < len + sublen) {
-	return (char) (ptr.getBuffer()[index - len] & 0xff);
+        return (char) (ptr.getBuffer()[index - len] & 0xff);
       }
       
       len += sublen;
@@ -144,12 +144,12 @@ public class TempBufferBytesValue
 
       int i = 0;
       for (TempBuffer ptr = _head; ptr != null; ptr = ptr.getNext()) {
-	byte []buf = ptr.getBuffer();
+        byte []buf = ptr.getBuffer();
 
-	int len = ptr.getLength();
+        int len = ptr.getLength();
 
-	for (int j = 0; j < len; j++)
-	  cbuf[i++] = (char) (buf[j] & 0xff);
+        for (int j = 0; j < len; j++)
+          cbuf[i++] = (char) (buf[j] & 0xff);
       }
 
       _string = new String(cbuf);
@@ -172,7 +172,7 @@ public class TempBufferBytesValue
       int length = ptr.getLength();
 
       for (int i = 0; i < length; i++)
-	hash = 65521 * hash + (buffer[i] & 0xff);
+        hash = 65521 * hash + (buffer[i] & 0xff);
     }
 
     return hash;
@@ -192,22 +192,22 @@ public class TempBufferBytesValue
       TempBuffer ptrB = tb._head;
       
       while (ptrA != null && ptrB != null) {
-	byte []bufferA = ptrA.getBuffer();
-	int lengthA = ptrA.getLength();
-	
-	byte []bufferB = ptrB.getBuffer();
-	int lengthB = ptrB.getLength();
+        byte []bufferA = ptrA.getBuffer();
+        int lengthA = ptrA.getLength();
+        
+        byte []bufferB = ptrB.getBuffer();
+        int lengthB = ptrB.getLength();
 
-	if (lengthA != lengthB)
-	  return false;
+        if (lengthA != lengthB)
+          return false;
 
-	while (--lengthA >= 0) {
-	  if (bufferA[lengthA] != bufferB[lengthA])
-	    return false;
-	}
+        while (--lengthA >= 0) {
+          if (bufferA[lengthA] != bufferB[lengthA])
+            return false;
+        }
 
-	ptrA = ptrA.getNext();
-	ptrB = ptrB.getNext();
+        ptrA = ptrA.getNext();
+        ptrB = ptrB.getNext();
       }
 
       return ptrA == null && ptrB == null;

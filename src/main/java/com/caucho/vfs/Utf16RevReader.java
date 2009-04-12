@@ -71,7 +71,7 @@ class Utf16RevReader extends Reader {
       int ch2 = is.read();
 
       if (ch1 < 0)
-	return i == 0 ? -1 : i;
+        return i == 0 ? -1 : i;
 
       cbuf[off + i] = (char) ((ch2 << 8) + ch1);
     }

@@ -166,7 +166,7 @@ public class StaticFunction extends JavaInvoker {
 
     for (int i = 0; i < javaArgs.length; i++) {
       if (i != 0)
-	sb.append(", ");
+        sb.append(", ");
 
       sb.append(javaArgs[i]);
     }

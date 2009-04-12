@@ -139,21 +139,21 @@ public class LongKeyHashMap<E> {
     // forced resizing if 1/2 full
     if (_values.length <= 2 * _size) {
       synchronized (this) {
-	long []oldKeys = _keys;
-	E []oldValues = _values;
-	
-	_keys = new long[2 * oldKeys.length];
-	_values = (E []) new Object[2 * oldValues.length];
+        long []oldKeys = _keys;
+        E []oldValues = _values;
+        
+        _keys = new long[2 * oldKeys.length];
+        _values = (E []) new Object[2 * oldValues.length];
 
-	_mask = _values.length - 1;
+        _mask = _values.length - 1;
 
-	for (int i = oldValues.length - 1; i >= 0; i--) {
-	  long oldKey = oldKeys[i];
-	  E oldValue = oldValues[i];
+        for (int i = oldValues.length - 1; i >= 0; i--) {
+          long oldKey = oldKeys[i];
+          E oldValue = oldValues[i];
 
-	  if (oldValue != null)
-	    putImpl(oldKey, oldValue);
-	}
+          if (oldValue != null)
+            putImpl(oldKey, oldValue);
+        }
       }
     }
 
@@ -172,25 +172,25 @@ public class LongKeyHashMap<E> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	item = _values[hash];
+        item = _values[hash];
 
-	// No matching item, so create one
-	if (item == null) {
-	  _keys[hash] = key;
-	  _values[hash] = value;
-	  _size++;
+        // No matching item, so create one
+        if (item == null) {
+          _keys[hash] = key;
+          _values[hash] = value;
+          _size++;
 
-	  return null;
-	}
+          return null;
+        }
 
-	// matching item gets replaced
-	if (_keys[hash] == key) {
-	  _values[hash] = value;
+        // matching item gets replaced
+        if (_keys[hash] == key) {
+          _values[hash] = value;
 
-	  return item;
-	}
+          return item;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -213,20 +213,20 @@ public class LongKeyHashMap<E> {
 
     synchronized (this) {
       for (; count > 0; count--) {
-	item = _values[hash];
+        item = _values[hash];
 
-	if (item == null)
-	  return null;
+        if (item == null)
+          return null;
 
-	if (_keys[hash] == key) {
-	  _values[hash] = null;
-	  _size--; 
+        if (_keys[hash] == key) {
+          _values[hash] = null;
+          _size--; 
 
-	  refillEntries(hash);
-	  break;
-	}
+          refillEntries(hash);
+          break;
+        }
 
-	hash = (hash + 1) & _mask;
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -245,7 +245,7 @@ public class LongKeyHashMap<E> {
       hash = (hash + 1) & _mask;
 
       if (_values[hash] == null)
-	return;
+        return;
 
       _values[hash] = null;
       refillEntry(hash);
@@ -264,9 +264,9 @@ public class LongKeyHashMap<E> {
     
     for (int count = _size; count >= 0; count--) {
       if (_values[hash] == null) {
-	_keys[hash] = key;
-	_values[hash] = value;
-	return;
+        _keys[hash] = key;
+        _values[hash] = value;
+        return;
       }
 
       hash = (hash + 1) & _mask;
@@ -322,9 +322,9 @@ public class LongKeyHashMap<E> {
       _value = null;
 
       for (_index++; _index < _values.length; _index++) {
-	_value = _values[_index];
-	if (_value != null)
-	  return;
+        _value = _values[_index];
+        if (_value != null)
+          return;
       }
     }
   }

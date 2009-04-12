@@ -131,7 +131,7 @@ public class CallbackObjectMethod extends Callback {
    */
   @Override
   public Value call(Env env, Value a1, Value a2, Value a3,
-			     Value a4)
+                             Value a4)
   {
     if (_fun != null)
       return _fun.callMethod(env, _obj,
@@ -148,7 +148,7 @@ public class CallbackObjectMethod extends Callback {
    */
   @Override
   public Value call(Env env, Value a1, Value a2, Value a3,
-		    Value a4, Value a5)
+                    Value a4, Value a5)
   {
     if (_fun != null)
       return _fun.callMethod(env, _obj,

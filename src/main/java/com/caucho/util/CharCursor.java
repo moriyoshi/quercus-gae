@@ -110,7 +110,7 @@ public abstract class CharCursor implements CharacterIterator {
     char ch = current();
     for (int i = 0; i < length; i++) {
       if (ch != DONE)
-	cb.append(ch);
+        cb.append(ch);
       ch = next();
     }
   }
@@ -127,8 +127,8 @@ public abstract class CharCursor implements CharacterIterator {
     char ch = current();
     for (int i = 0; i < length; i++) {
       if (cb[i + offset] != ch) {
-	setIndex(pos);
-	return false;
+        setIndex(pos);
+        return false;
       }
       ch = next();
     }
@@ -148,13 +148,13 @@ public abstract class CharCursor implements CharacterIterator {
     char ch = current();
     for (int i = 0; i < length; i++) {
       if (ch == DONE) {
-	setIndex(pos);
-	return false;
+        setIndex(pos);
+        return false;
       }
 
       if (Character.toLowerCase(cb[i + offset]) != Character.toLowerCase(ch)) {
-	setIndex(pos);
-	return false;
+        setIndex(pos);
+        return false;
       }
 
       ch = next();

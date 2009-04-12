@@ -45,10 +45,10 @@ public class LocaleUtil {
 
     int i = 0;
     for (;
-	 i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
-		     || 'A' <= ch && ch <= 'Z'
-		     || '0' <= ch && ch <= '9');
-	 i++) {
+         i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+                     || 'A' <= ch && ch <= 'Z'
+                     || '0' <= ch && ch <= '9');
+         i++) {
     }
 
     String language = s.substring(0, i);
@@ -59,10 +59,10 @@ public class LocaleUtil {
       int head = ++i;
       
       for (;
-	   i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
-		       || 'A' <= ch && ch <= 'Z'
-		       || '0' <= ch && ch <= '9');
-	   i++) {
+           i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+                       || 'A' <= ch && ch <= 'Z'
+                       || '0' <= ch && ch <= '9');
+           i++) {
       }
       
       country = s.substring(head, i);
@@ -72,10 +72,10 @@ public class LocaleUtil {
       int head = ++i;
       
       for (;
-	   i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
-		       || 'A' <= ch && ch <= 'Z'
-		       || '0' <= ch && ch <= '9');
-	   i++) {
+           i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+                       || 'A' <= ch && ch <= 'Z'
+                       || '0' <= ch && ch <= '9');
+           i++) {
       }
       
       var = s.substring(head, i);

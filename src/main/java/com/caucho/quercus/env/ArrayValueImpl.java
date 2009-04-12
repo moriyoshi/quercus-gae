@@ -143,8 +143,8 @@ public class ArrayValueImpl extends ArrayValue
   }
 
   public ArrayValueImpl(Env env,
-			IdentityHashMap<Value,Value> map,
-			ArrayValue copy)
+                        IdentityHashMap<Value,Value> map,
+                        ArrayValue copy)
   {
     this();
     
@@ -234,22 +234,22 @@ public class ArrayValueImpl extends ArrayValue
       Entry ptrCopy = new Entry(ptr);
 
       if (entries != null) {
-	int hash = ptr._key.hashCode() & _hashMask;
-	
-	Entry head = entries[hash];
+        int hash = ptr._key.hashCode() & _hashMask;
+        
+        Entry head = entries[hash];
 
-	if (head != null) {
-	  ptrCopy._nextHash = head;
-	}
+        if (head != null) {
+          ptrCopy._nextHash = head;
+        }
 
-	entries[hash] = ptrCopy;
+        entries[hash] = ptrCopy;
       }
 
       if (prev == null)
-	_head = _current = ptrCopy;
+        _head = _current = ptrCopy;
       else {
-	prev._next = ptrCopy;
-	ptrCopy._prev = prev;
+        prev._next = ptrCopy;
+        ptrCopy._prev = prev;
       }
 
       prev = ptrCopy;
@@ -443,7 +443,7 @@ public class ArrayValueImpl extends ArrayValue
 
     Entry []entries = _entries;
     if ((entries == null && _size >= MIN_HASH)
-	|| (entries != null && entries.length <= 2 * _size)) {
+        || (entries != null && entries.length <= 2 * _size)) {
       expand();
     }
 
@@ -487,54 +487,54 @@ public class ArrayValueImpl extends ArrayValue
       if (index < start) {
       }
       else if (index < end) {
-	_size--;
-	
-	if (ptr._prev != null)
-	  ptr._prev._next = ptr._next;
-	else
-	  _head = ptr._next;
-	
-	if (ptr._next != null)
-	  ptr._next._prev = ptr._prev;
-	else
-	  _tail = ptr._prev;
+        _size--;
+        
+        if (ptr._prev != null)
+          ptr._prev._next = ptr._next;
+        else
+          _head = ptr._next;
+        
+        if (ptr._next != null)
+          ptr._next._prev = ptr._prev;
+        else
+          _tail = ptr._prev;
 
-	if (ptr.getKey().isString())
-	  result.put(ptr.getKey(), ptr.getValue());
-	else
-	  result.put(ptr.getValue());
+        if (ptr.getKey().isString())
+          result.put(ptr.getKey(), ptr.getValue());
+        else
+          result.put(ptr.getValue());
       }
       else if (replace == null) {
-	return result;
+        return result;
       }
       else {
-	for (Entry replaceEntry = replace.getHead();
-	     replaceEntry != null;
-	     replaceEntry = replaceEntry._next) {
-	  _size++;
+        for (Entry replaceEntry = replace.getHead();
+             replaceEntry != null;
+             replaceEntry = replaceEntry._next) {
+          _size++;
 
-	  Entry []entries = _entries;
-	  if ((entries == null && _size >= MIN_HASH)
-	      || (entries != null && entries.length <= 2 * _size)) {
-	    expand();
-	  }
+          Entry []entries = _entries;
+          if ((entries == null && _size >= MIN_HASH)
+              || (entries != null && entries.length <= 2 * _size)) {
+            expand();
+          }
 
-	  Entry entry = new Entry(createTailKey(), replaceEntry.getValue());
+          Entry entry = new Entry(createTailKey(), replaceEntry.getValue());
 
-	  addEntry(entry);
+          addEntry(entry);
 
-	  entry._next = ptr;
-	  entry._prev = ptr._prev;
+          entry._next = ptr;
+          entry._prev = ptr._prev;
 
-	  if (ptr._prev != null)
-	    ptr._prev._next = entry;
-	  else
-	    _head = entry;
+          if (ptr._prev != null)
+            ptr._prev._next = entry;
+          else
+            _head = entry;
 
-	  ptr._prev = entry;
-	}
+          ptr._prev = entry;
+        }
 
-	return result;
+        return result;
       }
 
       index++;
@@ -542,9 +542,9 @@ public class ArrayValueImpl extends ArrayValue
 
     if (replace != null) {
       for (Entry replaceEntry = replace.getHead();
-	   replaceEntry != null;
-	   replaceEntry = replaceEntry._next) {
-	put(replaceEntry.getValue());
+           replaceEntry != null;
+           replaceEntry = replaceEntry._next) {
+        put(replaceEntry.getValue());
       }
     }
 
@@ -711,28 +711,28 @@ public class ArrayValueImpl extends ArrayValue
       int hash = key.hashCode() & _hashMask;
 
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key)) {
-	  Var var = entry._var;
-	
-	  return var != null ? var.toValue() : entry._value;
-	
-	  // return entry._value.toValue(); // php/39a1
-	}
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key)) {
+          Var var = entry._var;
+        
+          return var != null ? var.toValue() : entry._value;
+        
+          // return entry._value.toValue(); // php/39a1
+        }
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key)) {
-	  Var var = entry._var;
-	
-	  return var != null ? var.toValue() : entry._value;
-	
-	  // return entry._value.toValue(); // php/39a1
-	}
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key)) {
+          Var var = entry._var;
+        
+          return var != null ? var.toValue() : entry._value;
+        
+          // return entry._value.toValue(); // php/39a1
+        }
       }
     }
 
@@ -754,24 +754,24 @@ public class ArrayValueImpl extends ArrayValue
       int hash = key.hashCode() & hashMask;
 
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key)) {
-	  Var var = entry._var;
-	
-	  return var != null ? var : entry._value;
-	}
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key)) {
+          Var var = entry._var;
+        
+          return var != null ? var : entry._value;
+        }
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key)) {
-	  Var var = entry._var;
-	
-	  return var != null ? var : entry._value;
-	}
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key)) {
+          Var var = entry._var;
+        
+          return var != null ? var : entry._value;
+        }
       }
     }
 
@@ -844,18 +844,18 @@ public class ArrayValueImpl extends ArrayValue
       int hash = key.hashCode() & _hashMask;
 
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key))
-	  return entry;
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key))
+          return entry;
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key))
-	  return entry;
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key))
+          return entry;
       }
     }
 
@@ -875,18 +875,18 @@ public class ArrayValueImpl extends ArrayValue
       int hash = key.hashCode() & _hashMask;
 
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key))
-	  return true;
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key))
+          return true;
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key))
-	  return true;
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key))
+          return true;
       }
     }
 
@@ -912,27 +912,27 @@ public class ArrayValueImpl extends ArrayValue
       Entry prevHash = null;
 
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key)) {
-	  if (prevHash != null)
-	    prevHash._nextHash = entry._nextHash;
-	  else
-	    entries[hash] = entry._nextHash;
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key)) {
+          if (prevHash != null)
+            prevHash._nextHash = entry._nextHash;
+          else
+            entries[hash] = entry._nextHash;
 
-	  return removeEntry(key, entry);
-	}
+          return removeEntry(key, entry);
+        }
 
-	prevHash = entry;
+        prevHash = entry;
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key)) {
-	  return removeEntry(key, entry);
-	}
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key)) {
+          return removeEntry(key, entry);
+        }
       }
     }
     
@@ -948,7 +948,7 @@ public class ArrayValueImpl extends ArrayValue
       prev._next = next;
     else
       _head = next;
-	
+        
     if (next != null)
       next._prev = prev;
     else
@@ -1015,18 +1015,18 @@ public class ArrayValueImpl extends ArrayValue
     Entry []entries = _entries;
     if (entries != null) {
       for (Entry entry = entries[hash];
-	   entry != null;
-	   entry = entry._nextHash) {
-	if (key.equals(entry._key))
-	  return entry;
+           entry != null;
+           entry = entry._nextHash) {
+        if (key.equals(entry._key))
+          return entry;
       }
     }
     else {
       for (Entry entry = _head;
-	   entry != null;
-	   entry = entry._next) {
-	if (key.equals(entry._key))
-	  return entry;
+           entry != null;
+           entry = entry._next) {
+        if (key.equals(entry._key))
+          return entry;
       }
     }
     
@@ -1040,8 +1040,8 @@ public class ArrayValueImpl extends ArrayValue
     }
     else {
       if (_entries == null || _entries.length <= 2 * _size) {
-	expand();
-	hash = key.hashCode() & _hashMask;
+        expand();
+        hash = key.hashCode() & _hashMask;
       }
     
       Entry head = _entries[hash];
@@ -1175,9 +1175,9 @@ public class ArrayValueImpl extends ArrayValue
     
     for (i = 0; i < length; i++) {
       if (i > 0)
-	values[i]._prev = values[i - 1];
+        values[i]._prev = values[i - 1];
       if (i < length - 1)
-	values[i]._next = values[i + 1];
+        values[i]._next = values[i + 1];
     }
 
     _current = _head;

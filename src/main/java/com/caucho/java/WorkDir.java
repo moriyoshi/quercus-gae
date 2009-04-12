@@ -89,9 +89,9 @@ public class WorkDir {
   {
     try {
       if (path instanceof MemoryPath) {
-	String pathName = path.getPath();
+        String pathName = path.getPath();
 
-	path = Vfs.lookup("file:/tmp/caucho/qa/" + pathName);
+        path = Vfs.lookup("file:/tmp/caucho/qa/" + pathName);
       }
     
       // path.mkdirs();

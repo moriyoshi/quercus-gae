@@ -99,12 +99,12 @@ public class TypeSignatureParser {
     int end = begin;
 
     int ch;
-	
+        
     for (ch = read();
-	 ch >= 0 &&
-	   ch != ';' && ch != ')' &&
-	   ch != ',' && ch != '<' && ch != '>';
-	 ch = read()) {
+         ch >= 0 &&
+           ch != ';' && ch != ')' &&
+           ch != ',' && ch != '<' && ch != '>';
+         ch = read()) {
       end = _index;
     }
 

@@ -460,10 +460,10 @@ abstract public class ObjectValue extends Value {
       return -1;
     else {
       TreeSet<Map.Entry<Value,Value>> aTree
-	= new TreeSet<Map.Entry<Value,Value>>(aSet);
+        = new TreeSet<Map.Entry<Value,Value>>(aSet);
 
       TreeSet<Map.Entry<Value,Value>> bTree
-	= new TreeSet<Map.Entry<Value,Value>>(bSet);
+        = new TreeSet<Map.Entry<Value,Value>>(bSet);
 
       Iterator<Map.Entry<Value,Value>> iterA = aTree.iterator();
       Iterator<Map.Entry<Value,Value>> iterB = bTree.iterator();

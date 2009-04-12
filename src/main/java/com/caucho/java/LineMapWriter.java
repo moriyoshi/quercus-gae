@@ -88,10 +88,10 @@ public class LineMapWriter {
           _os.println("+ " + index + " " + filename.substring(p + 1));
           // XXX: _os.println(filename);
 
-	  if (filename.startsWith("/"))
-	    _os.println(filename.substring(1));
-	  else
-	    _os.println(filename);
+          if (filename.startsWith("/"))
+            _os.println(filename.substring(1));
+          else
+            _os.println(filename);
         }
         else
           _os.println(index + " " + filename);
@@ -113,12 +113,12 @@ public class LineMapWriter {
       _os.print("#" + index);
 
       if (line.getRepeatCount() > 1)
-	_os.print("," + line.getRepeatCount());
+        _os.print("," + line.getRepeatCount());
 
       _os.print(":");
       _os.print(line.getDestinationLine());
       if (line.getDestinationIncrement() > 1)
-	_os.print("," + line.getDestinationIncrement());
+        _os.print("," + line.getDestinationIncrement());
       _os.println();
     }
     

@@ -303,7 +303,7 @@ public class SessionModule extends AbstractQuercusModule
       Value value = session.get(nameV);
 
       if (value.isset())
-	var.set(value);
+        var.set(value);
 
       session.put(nameV, var);
     } else if (nameV.isArray()) {
@@ -436,7 +436,7 @@ public class SessionModule extends AbstractQuercusModule
     //
 
     if (env.getIniBoolean("session.use_trans_sid")
-	&& ! env.getIniBoolean("session.use_only_cookies")) {
+        && ! env.getIniBoolean("session.use_only_cookies")) {
       if (sessionId == null) {
         if (sessionIdValue != null)
           sessionId = sessionIdValue.toString();
@@ -516,8 +516,8 @@ public class SessionModule extends AbstractQuercusModule
     String cookieName = env.getIni("session.name").toString();
     
     env.addConstant("SID", 
-		    env.createString(cookieName + '=' + sessionId),
-		    false);
+                    env.createString(cookieName + '=' + sessionId),
+                    false);
 
     Cookie cookie = new Cookie(cookieName, sessionId);
     // #2649

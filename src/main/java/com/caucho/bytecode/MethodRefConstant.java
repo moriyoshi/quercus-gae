@@ -43,7 +43,7 @@ public class MethodRefConstant extends ConstantPoolEntry {
    * Creates a new field ref constant.
    */
   MethodRefConstant(ConstantPool pool, int index,
-		    int classIndex, int nameAndTypeIndex)
+                    int classIndex, int nameAndTypeIndex)
   {
     super(pool, index);
 

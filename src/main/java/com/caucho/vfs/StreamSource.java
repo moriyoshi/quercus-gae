@@ -77,7 +77,7 @@ public class StreamSource
       return _out.openInputStream();
     else
       throw new IllegalStateException(L.l("{0}: no input stream is available",
-					  this));
+                                          this));
   }
 
   /**
@@ -92,7 +92,7 @@ public class StreamSource
       return _out.openInputStreamNoFree();
     else
       throw new IllegalStateException(L.l("{0}: no input stream is available",
-					  this));
+                                          this));
   }
 
   /**

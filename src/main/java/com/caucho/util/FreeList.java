@@ -118,7 +118,7 @@ public final class FreeList<T> {
 
     for (int i = top - 1; i >= 0; i--) {
       if (_freeStack.get(i) == obj)
-	return true;
+        return true;
     }
 
     return false;

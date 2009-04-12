@@ -53,7 +53,7 @@ public final class ByteBuffer {
       _capacity = (minimumCapacity + 0xfff) & ~0xfff;
     } else {
       while (_capacity < minimumCapacity) {
-	_capacity += _capacity;
+        _capacity += _capacity;
       }
     }
 
@@ -99,7 +99,7 @@ public final class ByteBuffer {
       _capacity = (minimumCapacity + 0xfff) & ~0xfff;
     } else {
       while (_capacity < minimumCapacity) {
-	_capacity += _capacity;
+        _capacity += _capacity;
       }
     }
 
@@ -472,7 +472,7 @@ public final class ByteBuffer {
   public void remove(int begin, int length)
   {
     System.arraycopy(_buffer, begin + length, _buffer, begin,
-		     _capacity - length - begin);
+                     _capacity - length - begin);
 
     _length -= length;
   }
@@ -518,7 +518,7 @@ public final class ByteBuffer {
       throw new RuntimeException("out of bounds: " + i + " len: " + _length);
 
     return (short) (((_buffer[i] & 0xff) << 8) + 
-		    (_buffer[i + 1] & 0xff));
+                    (_buffer[i + 1] & 0xff));
   }
 
   public int getInt(int i)
@@ -527,9 +527,9 @@ public final class ByteBuffer {
       throw new RuntimeException("out of bounds: " + i + " len: " + _length);
 
     return (((_buffer[i + 0] & 0xff) << 24) +
-	    ((_buffer[i + 1] & 0xff) << 16) +
-	    ((_buffer[i + 2] & 0xff) << 8) +
-	    ((_buffer[i + 3] & 0xff)));
+            ((_buffer[i + 1] & 0xff) << 16) +
+            ((_buffer[i + 2] & 0xff) << 8) +
+            ((_buffer[i + 3] & 0xff)));
   }
 
   public void print(int i)
@@ -570,16 +570,16 @@ public final class ByteBuffer {
 
     for (int i = 0; i <= end; i++) {
       if (testBuffer[i] != first)
-	continue;
+        continue;
 
       int j = length - 1;
       for (; j > 0; j--) {
-	if (testBuffer[i + j] != buffer[offset + j])
-	  break;
+        if (testBuffer[i + j] != buffer[offset + j])
+          break;
       }
 
       if (j == 0)
-	return i;
+        return i;
     }
 
     return -1;
@@ -608,7 +608,7 @@ public final class ByteBuffer {
 
     for (int i = _length - 1; i >= 0; i--)
       if (bb._buffer[i] != _buffer[i])
-	return false;
+        return false;
 
     return true;
   }
@@ -670,9 +670,9 @@ public final class ByteBuffer {
     public int read() throws IOException
     {
       if (_index >= _buf._length)
-	return -1;
+        return -1;
       else
-	return _buf._buffer[_index++] & 0xff;
+        return _buf._buffer[_index++] & 0xff;
     }
 
     BBInputStream(ByteBuffer buf)

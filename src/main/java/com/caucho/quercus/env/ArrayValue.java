@@ -263,17 +263,17 @@ abstract public class ArrayValue extends Value {
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
-	
+        
         env.warning(L.l("Can't assign array to {0}",
-			            type.getName()));
+                                    type.getName()));
 
-	return null;
+        return null;
       }
     }
 
     for (Entry entry = getHead(); entry != null; entry = entry._next) {
       map.put(entry.getKey().toJavaObject(),
-	          entry.getValue().toJavaObject());
+                  entry.getValue().toJavaObject());
     }
 
     return map;
@@ -709,7 +709,7 @@ abstract public class ArrayValue extends Value {
   public void put(Env env, String key, boolean value)
   {
     put(env.createString(key),
-	value ? BooleanValue.TRUE : BooleanValue.FALSE);
+        value ? BooleanValue.TRUE : BooleanValue.FALSE);
   }
 
   /**
@@ -1296,11 +1296,11 @@ abstract public class ArrayValue extends Value {
       Value oldValue = _value;
 
       if (value instanceof Var)
-	_var = (Var) value;
+        _var = (Var) value;
       else if (_var != null)
-	_var.set(value);
+        _var.set(value);
       else
-	_value = value;
+        _value = value;
 
       return oldValue;
     }

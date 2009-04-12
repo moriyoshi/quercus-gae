@@ -157,47 +157,47 @@ public class CodeVisitor {
 
     case TABLESWITCH:
       {
-	int arg = _offset + 1;
-	arg += (4 - arg % 4) % 4;
+        int arg = _offset + 1;
+        arg += (4 - arg % 4) % 4;
 
-	int low = getInt(arg + 4);
-	int high = getInt(arg + 8);
+        int low = getInt(arg + 4);
+        int high = getInt(arg + 8);
 
-	return arg + 12 + (high - low + 1) * 4;
+        return arg + 12 + (high - low + 1) * 4;
       }
 
     case LOOKUPSWITCH:
       {
-	return -1;
-	
-	/*
-	int arg = _offset + 1;
-	arg += (4 - arg % 4) % 4;
+        return -1;
+        
+        /*
+        int arg = _offset + 1;
+        arg += (4 - arg % 4) % 4;
 
-	int n = getInt(arg + 4);
+        int n = getInt(arg + 4);
 
-	int next = arg + 12 + n * 8;
+        int next = arg + 12 + n * 8;
 
-	return next;
-	*/
+        return next;
+        */
       }
 
     case WIDE:
       {
-	int op2 = getCode()[_offset + 1] & 0xff;
+        int op2 = getCode()[_offset + 1] & 0xff;
 
-	if (op2 == IINC)
-	  length = 5;
-	else
-	  length = 3;
-	break;
+        if (op2 == IINC)
+          length = 5;
+        else
+          length = 3;
+        break;
       }
     }
     
     if (length < 0 || length > 0x10)
       throw new UnsupportedOperationException(L.l("{0}: can't handle opcode {1}",
-						  "" + _offset,
-						  "" + getOpcode()));
+                                                  "" + _offset,
+                                                  "" + getOpcode()));
 
     return _offset + length + 1;
   }
@@ -291,39 +291,39 @@ public class CodeVisitor {
     switch (getOpcode()) {
     case TABLESWITCH:
       {
-	int arg = _offset + 1;
-	arg += (4 - arg % 4) % 4;
-	
-	int low = getInt(arg + 4);
-	int high = getInt(arg + 8);
+        int arg = _offset + 1;
+        arg += (4 - arg % 4) % 4;
+        
+        int low = getInt(arg + 4);
+        int high = getInt(arg + 8);
 
-	int []targets = new int[high - low + 2];
-	targets[0] = getInt(arg) + _offset;
-	
-	for (int i = 0; i <= high - low; i++) {
-	  targets[i + 1] = getInt(arg + 12 + i * 4) + _offset;
-	}
+        int []targets = new int[high - low + 2];
+        targets[0] = getInt(arg) + _offset;
+        
+        for (int i = 0; i <= high - low; i++) {
+          targets[i + 1] = getInt(arg + 12 + i * 4) + _offset;
+        }
 
-	return targets;
+        return targets;
       }
       
     case LOOKUPSWITCH:
       {
-	int arg = _offset + 1;
-	arg += (4 - arg % 4) % 4;
+        int arg = _offset + 1;
+        arg += (4 - arg % 4) % 4;
 
-	int n = getInt(arg + 4);
+        int n = getInt(arg + 4);
 
-	int []targets = new int[n + 1];
-	targets[0] = getInt(arg) + _offset;
-	
-	for (int i = 0; i < n; i++) {
-	  int off = arg + 8 + i * 8 + 4;
-	  
-	  targets[i + 1] = getInt(off) + _offset;
-	}
+        int []targets = new int[n + 1];
+        targets[0] = getInt(arg) + _offset;
+        
+        for (int i = 0; i < n; i++) {
+          int off = arg + 8 + i * 8 + 4;
+          
+          targets[i + 1] = getInt(off) + _offset;
+        }
 
-	return targets;
+        return targets;
       }
 
     default:
@@ -484,8 +484,8 @@ public class CodeVisitor {
    * Analyzes the code for a method
    */
   protected void analyzeImpl(Analyzer analyzer, boolean allowFlow,
-			     IntArray pendingTargets,
-			     IntArray completedTargets)
+                             IntArray pendingTargets,
+                             IntArray completedTargets)
     throws Exception
   {
     setOffset(0);
@@ -508,9 +508,9 @@ public class CodeVisitor {
    * Analyzes the code for a basic block.
    */
   private void analyze(Analyzer analyzer,
-		       boolean allowFlow,
-		       IntArray pendingTargets,
-		       IntArray completedTargets)
+                       boolean allowFlow,
+                       IntArray pendingTargets,
+                       IntArray completedTargets)
     throws Exception
   {
     pending:
@@ -518,44 +518,44 @@ public class CodeVisitor {
       int pc = pendingTargets.pop();
 
       if (allowFlow) {
-	if (completedTargets.contains(pc))
-	  continue pending;
+        if (completedTargets.contains(pc))
+          continue pending;
 
-	completedTargets.add(pc);
+        completedTargets.add(pc);
       }
 
       setOffset(pc);
 
       flow:
       do {
-	pc = getOffset();
+        pc = getOffset();
 
-	if (pc < 0)
-	  throw new IllegalStateException();
+        if (pc < 0)
+          throw new IllegalStateException();
     
-	if (! allowFlow) {
-	  if (completedTargets.contains(pc))
-	    break flow;
+        if (! allowFlow) {
+          if (completedTargets.contains(pc))
+            break flow;
 
-	  completedTargets.add(pc);
-	}
+          completedTargets.add(pc);
+        }
 
-	if (isBranch()) {
-	  int targetPC = getBranchTarget();
+        if (isBranch()) {
+          int targetPC = getBranchTarget();
 
-	  if (! pendingTargets.contains(targetPC))
-	    pendingTargets.add(targetPC);
-	}
-	else if (isSwitch()) {
-	  int []switchTargets = getSwitchTargets();
+          if (! pendingTargets.contains(targetPC))
+            pendingTargets.add(targetPC);
+        }
+        else if (isSwitch()) {
+          int []switchTargets = getSwitchTargets();
 
-	  for (int i = 0; i < switchTargets.length; i++) {
-	    if (! pendingTargets.contains(switchTargets[i]))
-	      pendingTargets.add(switchTargets[i]);
-	  }
-	}
+          for (int i = 0; i < switchTargets.length; i++) {
+            if (! pendingTargets.contains(switchTargets[i]))
+              pendingTargets.add(switchTargets[i]);
+          }
+        }
 
-	analyzer.analyze(this);
+        analyzer.analyze(this);
       } while (next());
     }
   }

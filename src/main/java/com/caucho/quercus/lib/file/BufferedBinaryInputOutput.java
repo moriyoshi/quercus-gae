@@ -96,15 +96,15 @@ abstract public class BufferedBinaryInputOutput
   {
     try {
       if (_is != null) {
-	int c = _is.read();
+        int c = _is.read();
 
-	if (c < 0)
-	  _isEOF = true;
+        if (c < 0)
+          _isEOF = true;
 
-	return c;
+        return c;
       }
       else
-	return -1;
+        return -1;
     } catch (IOException e) {
       _isTimeout = true;
       _isEOF = true;
@@ -123,17 +123,17 @@ abstract public class BufferedBinaryInputOutput
   {
     try {
       if (_is != null) {
-	int c = _is.read(buffer, offset, length);
+        int c = _is.read(buffer, offset, length);
 
-	if (c == -1)
-	  _isEOF = true;
-	else
-	  _isEOF = false;
+        if (c == -1)
+          _isEOF = true;
+        else
+          _isEOF = false;
 
-	return c;
+        return c;
       }
       else
-	return -1;
+        return -1;
     } catch (IOException e) {
       _isTimeout = true;
       _isEOF = true;
@@ -149,7 +149,7 @@ abstract public class BufferedBinaryInputOutput
   {
     try {
       if (_is != null) {
-	_is.writeToStream(os, length);
+        _is.writeToStream(os, length);
       }
     } catch (IOException e) {
       _isTimeout = true;

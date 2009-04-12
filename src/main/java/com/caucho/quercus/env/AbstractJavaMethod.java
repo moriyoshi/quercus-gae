@@ -88,11 +88,11 @@ abstract public class AbstractJavaMethod extends AbstractFunction
     // same method can occur for interfaces and overrides
     if (isSameMethod(this, fun)) {
       if (getJavaDeclaringClass().isAssignableFrom(fun.getJavaDeclaringClass()))
-	return this;
+        return this;
       else if (fun.getJavaDeclaringClass().isAssignableFrom(getJavaDeclaringClass()))
-	return fun;
+        return fun;
       else
-	return this;
+        return this;
     }
       
     AbstractJavaMethod method = new JavaOverloadMethod(this);
@@ -107,7 +107,7 @@ abstract public class AbstractJavaMethod extends AbstractFunction
    * the same method.
    */
   private boolean isSameMethod(AbstractJavaMethod funA,
-			       AbstractJavaMethod funB)
+                               AbstractJavaMethod funB)
   {
     Class []paramTypesA = funA.getJavaParameterTypes();
     Class []paramTypesB = funB.getJavaParameterTypes();
@@ -120,7 +120,7 @@ abstract public class AbstractJavaMethod extends AbstractFunction
 
     for (int i = 0; i < paramTypesA.length; i++) {
       if (! paramTypesA[i].equals(paramTypesB[i]))
-	return false;
+        return false;
     }
 
     return true;
@@ -170,14 +170,14 @@ abstract public class AbstractJavaMethod extends AbstractFunction
 
   @Override
   public Value call(Env env,
-		    Value a1, Value a2, Value a3, Value a4)
+                    Value a1, Value a2, Value a3, Value a4)
   {
     return callMethod(env, null, new Value[] {a1, a2, a3, a4});
   }
 
   @Override
   public Value call(Env env,
-		    Value a1, Value a2, Value a3, Value a4, Value a5)
+                    Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     return callMethod(env, null, new Value[] {a1, a2, a3, a4, a5});
   }
@@ -208,14 +208,14 @@ abstract public class AbstractJavaMethod extends AbstractFunction
 
   @Override
   public Value callMethod(Env env, Value qThis,
-			  Value a1, Value a2, Value a3, Value a4)
+                          Value a1, Value a2, Value a3, Value a4)
   {
     return callMethod(env, qThis, new Value[] {a1, a2, a3, a4});
   }
 
   @Override
   public Value callMethod(Env env, Value qThis,
-			  Value a1, Value a2, Value a3, Value a4, Value a5)
+                          Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     return callMethod(env, qThis, new Value[] {a1, a2, a3, a4, a5});
   }

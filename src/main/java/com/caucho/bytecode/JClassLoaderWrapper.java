@@ -67,9 +67,9 @@ public class JClassLoaderWrapper extends JClassLoader {
       Class cl;
 
       if (_loader != null)
-	cl = Class.forName(name, false, _loader);
+        cl = Class.forName(name, false, _loader);
       else
-	cl = Class.forName(name);
+        cl = Class.forName(name);
 
       return new JClassWrapper(cl, this);
     } catch (ClassNotFoundException e) {

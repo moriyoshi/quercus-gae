@@ -226,12 +226,12 @@ public final class ReadStream extends InputStream
       _readLength = _readOffset = 0;
 
       if (_source != null) {
-	_source.seekStart(pos);
+        _source.seekStart(pos);
 
-	return true;
+        return true;
       }
       else
-	return false;
+        return false;
     }
     else {
       // Seek forward in the stream, skip any buffered bytes
@@ -331,7 +331,7 @@ public final class ReadStream extends InputStream
   {
     if (_readLength <= _readOffset) {
       if (! readBuffer())
-	return false;
+        return false;
     }
 
     return true;
@@ -378,7 +378,7 @@ public final class ReadStream extends InputStream
       _readLength = 0;
 
       if (! readBuffer())
-	return buffered;
+        return buffered;
     }
 
     _readOffset += (int) (n - buffered);
@@ -410,15 +410,15 @@ public final class ReadStream extends InputStream
 
         int len = _source.read(buf, offset, length);
 
-	if (len > 0) {
-	  _position += len;
-	}
+        if (len > 0) {
+          _position += len;
+        }
 
-	return len;
+        return len;
       }
         
       if (! readBuffer())
-	return -1;
+        return -1;
 
       readOffset = _readOffset;
       readLength = _readLength;
@@ -454,7 +454,7 @@ public final class ReadStream extends InputStream
       int sublen = read(buf, offset, length);
 
       if (sublen < 0)
-	return readLength == 0 ? -1 : readLength;
+        return readLength == 0 ? -1 : readLength;
 
       offset += sublen;
       readLength += sublen;
@@ -538,7 +538,7 @@ public final class ReadStream extends InputStream
 
     if (sublen <= 0) {
       if (! readBuffer()) {
-	return -1;
+        return -1;
       }
       readLength = _readLength;
       readOffset = _readOffset;
@@ -573,7 +573,7 @@ public final class ReadStream extends InputStream
       int sublen = read(buf, offset, length);
 
       if (sublen <= 0)
-	return readLength > 0 ? readLength : -1;
+        return readLength > 0 ? readLength : -1;
 
       offset += sublen;
       readLength += sublen;
@@ -715,9 +715,9 @@ public final class ReadStream extends InputStream
       for (; sublen > 0; sublen--) {
         int ch = readBuffer[readOffset++] & 0xff;
 
-	if (ch != '\n') {
-	  buf[offset++] = (char) ch;
-	}
+        if (ch != '\n') {
+          buf[offset++] = (char) ch;
+        }
         else if (isChop) {
           if (offset > 0 && buf[offset - 1] == '\r')
             cb.setLength(offset - 1);
@@ -728,30 +728,30 @@ public final class ReadStream extends InputStream
 
           return true;
         }
-	else {
-	  buf[offset++] = (char) '\n';
+        else {
+          buf[offset++] = (char) '\n';
 
-	  cb.setLength(offset);
+          cb.setLength(offset);
 
-	  _readOffset = readOffset;
+          _readOffset = readOffset;
 
-	  return true;
-	}
+          return true;
+        }
       }
 
       _readOffset = readOffset;
 
       if (_readLength <= readOffset) {
-	if (! readBuffer()) {
-	  cb.setLength(offset);
-	  return offset > 0;
-	}
+        if (! readBuffer()) {
+          cb.setLength(offset);
+          return offset > 0;
+        }
       }
 
       if (capacity <= offset) {
-	cb.setLength(offset + 1);
-	capacity = cb.getCapacity();
-	buf = cb.getBuffer();
+        cb.setLength(offset + 1);
+        capacity = cb.getCapacity();
+        buf = cb.getBuffer();
       }
     }
   }
@@ -795,8 +795,8 @@ public final class ReadStream extends InputStream
       for (; sublen > 0; sublen--) {
         int ch = readBuffer[readOffset++] & 0xff;
 
-	if (ch != '\n') {
-	}
+        if (ch != '\n') {
+        }
         else if (isChop) {
           _readOffset = readOffset;
           
@@ -806,11 +806,11 @@ public final class ReadStream extends InputStream
             return offset;
         }
         else {
-	  buf[offset++] = (char) ch;
-	  
+          buf[offset++] = (char) ch;
+          
           _readOffset = readOffset;
-	  
-	  return offset + 1;
+          
+          return offset + 1;
         }
 
         buf[offset++] = (char) ch;
@@ -818,9 +818,9 @@ public final class ReadStream extends InputStream
       _readOffset = readOffset;
 
       if (readOffset <= _readLength) {
-	if (! readBuffer()) {
-	  return offset;
-	}
+        if (! readBuffer()) {
+          return offset;
+        }
       }
 
       if (length <= offset)
@@ -835,20 +835,20 @@ public final class ReadStream extends InputStream
       int ch = readChar();
 
       if (ch < 0)
-	return cb.length() > 0;
+        return cb.length() > 0;
 
       if (ch != '\n') {
       }
       else if (isChop) {
-	if (cb.length() > 0 && cb.getLastChar() == '\r')
-	  cb.setLength(cb.getLength() - 1);
+        if (cb.length() > 0 && cb.getLastChar() == '\r')
+          cb.setLength(cb.getLength() - 1);
 
-	return true;
+        return true;
       }
       else {
-	cb.append('\n');
+        cb.append('\n');
 
-	return true;
+        return true;
       }
 
       cb.append((char) ch);
@@ -867,15 +867,15 @@ public final class ReadStream extends InputStream
   {
     if (_readOffset + 4 < _readLength) {
       return (((_readBuffer[_readOffset++] & 0xff) << 24)
-	      + ((_readBuffer[_readOffset++] & 0xff) << 16)
-	      + ((_readBuffer[_readOffset++] & 0xff) << 8)
-	      + ((_readBuffer[_readOffset++] & 0xff)));
+              + ((_readBuffer[_readOffset++] & 0xff) << 16)
+              + ((_readBuffer[_readOffset++] & 0xff) << 8)
+              + ((_readBuffer[_readOffset++] & 0xff)));
     }
     else {
       return ((read() << 24)
-	      + (read() << 16)
-	      + (read() << 8)
-	      + (read()));
+              + (read() << 16)
+              + (read() << 8)
+              + (read()));
     }
   }
  
@@ -904,26 +904,26 @@ public final class ReadStream extends InputStream
     int k = 0;
     for (int i = 0; i < byteLength; i++) {
       if (_readLength <= _readOffset) {
-	readBuffer();
+        readBuffer();
       }
 
       int ch = _readBuffer[_readOffset++];
 
       if (ch < 0x80)
-	buffer[k++] = (char) ch;
+        buffer[k++] = (char) ch;
       else if ((ch & 0xe0) == 0xc0) {
-	int c2 = read();
-	i += 1;
-	buffer[k++] = (char) (((ch & 0x1f) << 6) + (c2 & 0x3f));
+        int c2 = read();
+        i += 1;
+        buffer[k++] = (char) (((ch & 0x1f) << 6) + (c2 & 0x3f));
       }
       else {
-	int c2 = read();
-	int c3 = read();
-	
-	i += 2;
-	buffer[k++] = (char) (((ch & 0x1f) << 12)
-			      + ((c2 & 0x3f) << 6)
-			      + ((c3 & 0x3f)));
+        int c2 = read();
+        int c3 = read();
+        
+        i += 2;
+        buffer[k++] = (char) (((ch & 0x1f) << 12)
+                              + ((c2 & 0x3f) << 6)
+                              + ((c3 & 0x3f)));
       }
     }
 
@@ -958,13 +958,13 @@ public final class ReadStream extends InputStream
   {
     while (len > 0) {
       if (_readLength <= _readOffset) {
-	if (! readBuffer())
-	  return;
+        if (! readBuffer())
+          return;
       }
 
       int sublen = _readLength - _readOffset;
       if (len < sublen)
-	sublen = len;
+        sublen = len;
 
       os.write(_readBuffer, _readOffset, sublen);
       _readOffset += sublen;
@@ -1049,7 +1049,7 @@ public final class ReadStream extends InputStream
 
     _readOffset = 0;
     _readLength = _source.readTimeout(_readBuffer, 0, _readBuffer.length,
-				      timeout);
+                                      timeout);
     
     // Setting to 0 is needed to avoid int to long conversion errors with AIX
     if (_readLength > 0) {
@@ -1145,26 +1145,26 @@ public final class ReadStream extends InputStream
   {
     try {
       if (_disableClose)
-	return;
+        return;
 
       if (! _reuseBuffer) {
-	if (_tempRead != null) {
-	  TempBuffer.free(_tempRead);
+        if (_tempRead != null) {
+          TempBuffer.free(_tempRead);
           _tempRead = null;
-	}
-	_readBuffer = null;
+        }
+        _readBuffer = null;
       }
 
       if (_readEncoding != null) {
-	Reader reader = _readEncoding;
-	_readEncoding = null;
-	reader.close();
+        Reader reader = _readEncoding;
+        _readEncoding = null;
+        reader.close();
       }
     
       if (_source != null && ! _isDisableCloseSource) {
-	StreamImpl s = _source;
-	_source = null;
-	s.close();
+        StreamImpl s = _source;
+        _source = null;
+        s.close();
       }
     } catch (IOException e) {
       log().log(Level.FINE, e.toString(), e);

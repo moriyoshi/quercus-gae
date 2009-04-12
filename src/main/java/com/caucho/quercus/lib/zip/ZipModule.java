@@ -184,8 +184,8 @@ public class ZipModule extends AbstractQuercusModule {
    */
   @ReturnNullAsFalse
   public StringValue zip_entry_read(Env env,
-				    @NotNull QuercusZipEntry entry,
-				    @Optional("1024") int length)
+                                    @NotNull QuercusZipEntry entry,
+                                    @Optional("1024") int length)
   {
     if (entry == null)
       return null;

@@ -76,8 +76,8 @@ public class ClassScope extends Scope
    */
   @Override
   public void addFunction(String name,
-			  Function function,
-			  boolean isTop)
+                          Function function,
+                          boolean isTop)
   {
     _cl.addFunction(name, function);
   }
@@ -146,7 +146,7 @@ public class ClassScope extends Scope
                                       String parentName,
                                       ArrayList<String> ifaceList,
                                       int index,
-				      boolean isTop)
+                                      boolean isTop)
   {
     throw new UnsupportedOperationException();
   }

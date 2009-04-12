@@ -175,11 +175,11 @@ public class WindowsHackReader extends EncodingReader {
       int ch = is.read();
 
       if (ch < 0)
-	return i == 0 ? -1 : i;
+        return i == 0 ? -1 : i;
 
       switch (ch) {
       case -1:
-	return i == 0 ? -1 : i;
+        return i == 0 ? -1 : i;
         
       case 130: // unicode 8218
         cbuf[off + i] = ',';

@@ -186,28 +186,28 @@ public class CodeEnhancer extends CodeVisitor {
       CodeAttribute.ExceptionItem exn = exns.get(i);
 
       if (offset <= exn.getStart())
-	exn.setStart(exn.getStart() + count);
+        exn.setStart(exn.getStart() + count);
       
       if (offset <= exn.getEnd())
-	exn.setEnd(exn.getEnd() + count);
+        exn.setEnd(exn.getEnd() + count);
       
       if (offset <= exn.getHandler())
-	exn.setHandler(exn.getHandler() + count);
+        exn.setHandler(exn.getHandler() + count);
     }
 
     if (_pendingTargets != null) {
       for (int i = _pendingTargets.size() - 1; i >= 0; i--) {
-	int target = _pendingTargets.get(i);
+        int target = _pendingTargets.get(i);
 
-	if (offset <= target)
-	  _pendingTargets.set(i, target + count);
+        if (offset <= target)
+          _pendingTargets.set(i, target + count);
       }
       
       for (int i = _completedTargets.size() - 1; i >= 0; i--) {
-	int target = _completedTargets.get(i);
+        int target = _completedTargets.get(i);
 
-	if (offset <= target)
-	  _completedTargets.set(i, target + count);
+        if (offset <= target)
+          _completedTargets.set(i, target + count);
       }
     }
 
@@ -255,15 +255,15 @@ public class CodeEnhancer extends CodeVisitor {
 
     if (_pendingTargets != null) {
       for (int i = _pendingTargets.size() - 1; i >= 0; i--) {
-	int target = _pendingTargets.get(i);
+        int target = _pendingTargets.get(i);
 
-	_pendingTargets.set(i, remove(target, offset, count));
+        _pendingTargets.set(i, remove(target, offset, count));
       }
       
       for (int i = _completedTargets.size() - 1; i >= 0; i--) {
-	int target = _completedTargets.get(i);
+        int target = _completedTargets.get(i);
 
-	_completedTargets.set(i, remove(target, offset, count));
+        _completedTargets.set(i, remove(target, offset, count));
       }
     }
 
@@ -315,10 +315,10 @@ public class CodeEnhancer extends CodeVisitor {
       // XXX: really need more sophisticated solution
       ArrayList<Attribute> attrList = getCodeAttribute().getAttributes();
       for (int i = attrList.size() - 1; i >= 0; i--) {
-	Attribute attr = attrList.get(i);
+        Attribute attr = attrList.get(i);
 
-	if (attr.getName().equals("LineNumberTable"))
-	  attrList.remove(i);
+        if (attr.getName().equals("LineNumberTable"))
+          attrList.remove(i);
       }
     }
   }
@@ -352,18 +352,18 @@ public class CodeEnhancer extends CodeVisitor {
     {
       // offset is before the jump
       if (offset <= _src && offset <= _src + _delta) {
-	_src += count;
+        _src += count;
       }
       // offset is inside a forward jump
       else if (_src < offset && offset < _src + _delta) {
-	_delta += count;
-	enhancer.setShort(_src + 1, _delta);
+        _delta += count;
+        enhancer.setShort(_src + 1, _delta);
       }
       // offset is inside a backward jump
       else if (_src + _delta <= offset && offset <= _src) {
-	_delta -= count;
-	enhancer.setShort(_src + 1, _delta);
-	_src += count;
+        _delta -= count;
+        enhancer.setShort(_src + 1, _delta);
+        _src += count;
       }
     }
 
@@ -371,18 +371,18 @@ public class CodeEnhancer extends CodeVisitor {
     {
       // offset is before the jump
       if (offset <= _src && offset <= _src + _delta) {
-	_src -= count;
+        _src -= count;
       }
       // offset is inside a forward jump
       else if (_src < offset && offset < _src + _delta) {
-	_delta -= count;
-	enhancer.setShort(_src + 1, _delta);
+        _delta -= count;
+        enhancer.setShort(_src + 1, _delta);
       }
       // offset is inside a backward jump
       else if (_src + _delta <= offset && offset <= _src) {
-	_delta += count;
-	enhancer.setShort(_src + 1, _delta);
-	_src -= count;
+        _delta += count;
+        enhancer.setShort(_src + 1, _delta);
+        _src -= count;
       }
     }
   }
@@ -406,52 +406,52 @@ public class CodeEnhancer extends CodeVisitor {
     void insert(CodeEnhancer enhancer, int offset, int count)
     {
       for (int i = 0; i < _offsets.length; i++) {
-	int delta = enhancer.getInt(_offsets[i]);
-	
-	if (offset <= _src && _src + delta <= offset)
-	  enhancer.setInt(_offsets[i], delta - count);
-	else if (_src < offset && offset < _src + delta)
-	  enhancer.setInt(_offsets[i], delta + count);
+        int delta = enhancer.getInt(_offsets[i]);
+        
+        if (offset <= _src && _src + delta <= offset)
+          enhancer.setInt(_offsets[i], delta - count);
+        else if (_src < offset && offset < _src + delta)
+          enhancer.setInt(_offsets[i], delta + count);
 
-	if (offset <= _src + 1)
-	  _offsets[i] += count;
+        if (offset <= _src + 1)
+          _offsets[i] += count;
       }
       
       if (offset < _src)
-	_src += count;
+        _src += count;
     }
 
     void remove(CodeEnhancer enhancer, int offset, int count)
     {
       for (int i = 0; i < _offsets.length; i++) {
-	int delta = enhancer.getInt(_offsets[i]);
-	
-	if (offset <= _src && _src + delta <= offset)
-	  enhancer.setInt(_offsets[i], delta + count);
-	else if (_src < offset && offset < _src + delta)
-	  enhancer.setInt(_offsets[i], delta - count);
-	
-	if (offset <= _src + 1)
-	  _offsets[i] -= count;
+        int delta = enhancer.getInt(_offsets[i]);
+        
+        if (offset <= _src && _src + delta <= offset)
+          enhancer.setInt(_offsets[i], delta + count);
+        else if (_src < offset && offset < _src + delta)
+          enhancer.setInt(_offsets[i], delta - count);
+        
+        if (offset <= _src + 1)
+          _offsets[i] -= count;
       }
       
       if (offset < _src)
-	_src -= count;
+        _src -= count;
     }
 
     void insertPad(CodeEnhancer enhancer, int offset, int count)
     {
       // offset is before the jump
       if (_oldSrc != _src) {
-	int oldPad = (4 - (_oldSrc + 1) % 4) % 4;
-	int newPad = (4 - (_src + 1) % 4) % 4;
+        int oldPad = (4 - (_oldSrc + 1) % 4) % 4;
+        int newPad = (4 - (_src + 1) % 4) % 4;
 
-	_oldSrc = _src;
-	
-	if (newPad < oldPad)
-	  enhancer.remove(_src + 1, oldPad - newPad);
-	else if (oldPad < newPad)
-	  enhancer.addNulls(_src + 1, newPad - oldPad);
+        _oldSrc = _src;
+        
+        if (newPad < oldPad)
+          enhancer.remove(_src + 1, oldPad - newPad);
+        else if (oldPad < newPad)
+          enhancer.addNulls(_src + 1, newPad - oldPad);
       }
     }
 
@@ -459,22 +459,22 @@ public class CodeEnhancer extends CodeVisitor {
     {
       // offset is before the jump
       if (_oldSrc != _src) {
-	int oldPad = (4 - (_oldSrc + 1) % 4) % 4;
-	int newPad = (4 - (_src + 1) % 4) % 4;
+        int oldPad = (4 - (_oldSrc + 1) % 4) % 4;
+        int newPad = (4 - (_src + 1) % 4) % 4;
 
-	_oldSrc = _src;
-	
-	if (newPad < oldPad)
-	  enhancer.remove(_src + 1, oldPad - newPad);
-	else if (oldPad < newPad)
-	  enhancer.addNulls(_src + 1, newPad - oldPad);
+        _oldSrc = _src;
+        
+        if (newPad < oldPad)
+          enhancer.remove(_src + 1, oldPad - newPad);
+        else if (oldPad < newPad)
+          enhancer.addNulls(_src + 1, newPad - oldPad);
       }
     }
 
     public boolean equals(Object v)
     {
       if (! (v instanceof Switch))
-	return false;
+        return false;
       
       Switch s = (Switch) v;
 
@@ -489,16 +489,16 @@ public class CodeEnhancer extends CodeVisitor {
       
       int arg = src + 1;
       arg += (4 - arg % 4) % 4;
-	
+        
       int low = visitor.getInt(arg + 4);
       int high = visitor.getInt(arg + 8);
 
       int []offsets = new int[high - low + 2];
 
       offsets[0] = arg;
-	
+        
       for (int i = 0; i <= high - low; i++) {
-	offsets[i + 1] = arg + 12 + i * 4;
+        offsets[i + 1] = arg + 12 + i * 4;
       }
 
       setOffsets(offsets);
@@ -517,9 +517,9 @@ public class CodeEnhancer extends CodeVisitor {
 
       int []offsets = new int[n + 1];
       offsets[0] = arg;
-	
+        
       for (int i = 0; i < n; i++) {
-	offsets[i + 1] = arg + 8 + i * 8 + 4;
+        offsets[i + 1] = arg + 8 + i * 8 + 4;
       }
 
       setOffsets(offsets);
@@ -531,31 +531,31 @@ public class CodeEnhancer extends CodeVisitor {
       throws Exception
     {
       if (visitor.isSwitch()) {
-	int src = visitor.getOffset();
+        int src = visitor.getOffset();
 
-	switch (visitor.getOpcode()) {
-	case TABLESWITCH:
-	  {
-	    TableSwitch branch = new TableSwitch(src, visitor);
-	    if (! _switches.contains(branch))
-	      _switches.add(branch);
-	    break;
-	  }
-	  
-	case LOOKUPSWITCH:
-	  {
-	    LookupSwitch branch = new LookupSwitch(src, visitor);
-	    if (! _switches.contains(branch))
-	      _switches.add(branch);
-	    break;
-	  }
-	}
+        switch (visitor.getOpcode()) {
+        case TABLESWITCH:
+          {
+            TableSwitch branch = new TableSwitch(src, visitor);
+            if (! _switches.contains(branch))
+              _switches.add(branch);
+            break;
+          }
+          
+        case LOOKUPSWITCH:
+          {
+            LookupSwitch branch = new LookupSwitch(src, visitor);
+            if (! _switches.contains(branch))
+              _switches.add(branch);
+            break;
+          }
+        }
       }
       else if (visitor.isBranch()) {
-	int src = visitor.getOffset();
-	int offset = visitor.getShortArg(1);
+        int src = visitor.getOffset();
+        int offset = visitor.getShortArg(1);
 
-	_jumps.add(new Jump(src, offset));
+        _jumps.add(new Jump(src, offset));
       }
     }
   }

@@ -88,13 +88,13 @@ public class TempStream extends StreamImpl implements java.io.Serializable
   {
     while (length > 0) {
       if (_tail == null)
-	addBuffer(TempBuffer.allocate());
+        addBuffer(TempBuffer.allocate());
       else if (_tail._buf.length <= _tail._length)
-	addBuffer(TempBuffer.allocate());
+        addBuffer(TempBuffer.allocate());
 
       int sublen = _tail._buf.length - _tail._length;
       if (length < sublen)
-	sublen = length;
+        sublen = length;
 
       System.arraycopy(buf, offset, _tail._buf, _tail._length, sublen);
 
@@ -262,9 +262,9 @@ public class TempStream extends StreamImpl implements java.io.Serializable
       TempBuffer newPtr = TempBuffer.allocate();
       
       if (newStream._tail != null)
-	newStream._tail.setNext(newPtr);
+        newStream._tail.setNext(newPtr);
       else
-	newStream._head = newPtr;
+        newStream._head = newPtr;
       newStream._tail = newPtr;
 
       newPtr.write(ptr.getBuffer(), 0, ptr.getLength());

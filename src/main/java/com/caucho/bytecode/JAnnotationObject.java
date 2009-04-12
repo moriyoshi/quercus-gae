@@ -48,7 +48,7 @@ abstract public class JAnnotationObject {
   {
     for (JAnnotation ann : getDeclaredAnnotations()) {
       if (ann.getType().equals(className))
-	return ann;
+        return ann;
     }
     
     return null;

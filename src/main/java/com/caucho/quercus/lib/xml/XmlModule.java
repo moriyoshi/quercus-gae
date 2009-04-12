@@ -109,15 +109,15 @@ public class XmlModule extends AbstractQuercusModule {
       int ch = str.charAt(i);
 
       if (ch < 0x80)
-	sb.append((char) ch);
+        sb.append((char) ch);
       else if (ch < 0x800) {
-	sb.append((char) (0xc0 + (ch >> 6)));
-	sb.append((char) (0x80 + (ch & 0x3f)));
+        sb.append((char) (0xc0 + (ch >> 6)));
+        sb.append((char) (0x80 + (ch & 0x3f)));
       }
       else {
-	sb.append((char) (0xe0 + (ch >> 12)));
-	sb.append((char) (0x80 + ((ch >> 6) & 0x3f)));
-	sb.append((char) (0x80 + ((ch) & 0x3f)));
+        sb.append((char) (0xe0 + (ch >> 12)));
+        sb.append((char) (0x80 + ((ch >> 6) & 0x3f)));
+        sb.append((char) (0x80 + ((ch) & 0x3f)));
       }
     }
 
@@ -136,19 +136,19 @@ public class XmlModule extends AbstractQuercusModule {
       int ch = str.charAt(i) & 0xff;
 
       if (ch < 0x80)
-	sb.append((char) ch);
+        sb.append((char) ch);
       else if ((ch & 0xe0) == 0xc0) {
-	int d1 = (ch & 0x1f) << 6;
-	int d2 = str.charAt(++i) & 0x3f;
+        int d1 = (ch & 0x1f) << 6;
+        int d2 = str.charAt(++i) & 0x3f;
 
-	sb.append((char) (d1 + d2));
+        sb.append((char) (d1 + d2));
       }
       else {
-	int d1 = (ch & 0xf) << 12;
-	int d2 = (str.charAt(++i) & 0x3f) << 6;
-	int d3 = (str.charAt(++i) & 0x3f);
+        int d1 = (ch & 0xf) << 12;
+        int d2 = (str.charAt(++i) & 0x3f) << 6;
+        int d3 = (str.charAt(++i) & 0x3f);
 
-	sb.append((char) (d1 + d2 + d3));
+        sb.append((char) (d1 + d2 + d3));
       }
     }
 

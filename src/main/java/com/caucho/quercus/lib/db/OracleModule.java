@@ -646,13 +646,13 @@ public class OracleModule extends AbstractQuercusModule {
     }
 
     if (sessionMode == OCI_DEFAULT
-	|| sessionMode == OCI_SYSOPER
-	|| sessionMode == OCI_SYSDBA) {
+        || sessionMode == OCI_SYSOPER
+        || sessionMode == OCI_SYSDBA) {
       throw new UnimplementedException("oci_connect with session mode");
     }
 
     return connectInternal(env, true, username, password, db,
-			   charset, sessionMode);
+                           charset, sessionMode);
   }
 
   /**
@@ -874,12 +874,12 @@ public class OracleModule extends AbstractQuercusModule {
       resource = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       ArrayValue value
-	= resource.fetchArray(env, JdbcResultResource.FETCH_ASSOC);
+        = resource.fetchArray(env, JdbcResultResource.FETCH_ASSOC);
 
       int curr = 0;
 
       if (maxrows == 0)
-	maxrows = Integer.MAX_VALUE / 2;
+        maxrows = Integer.MAX_VALUE / 2;
 
       while (value != null && curr < maxrows) {
         newArray.put(LongValue.create(curr), value);
@@ -916,7 +916,7 @@ public class OracleModule extends AbstractQuercusModule {
     try {
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       switch (mode) {
       case OCI_ASSOC:
@@ -946,7 +946,7 @@ public class OracleModule extends AbstractQuercusModule {
         return null;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
       
       ArrayValue arrayValue = resource.fetchArray(env, JdbcResultResource.FETCH_ASSOC);
 
@@ -969,7 +969,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
       
       return resource.fetchObject(env);
     } catch (Exception ex) {
@@ -991,7 +991,7 @@ public class OracleModule extends AbstractQuercusModule {
         return null;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
       
       return resource.fetchArray(env, JdbcResultResource.FETCH_NUM);
 
@@ -1013,7 +1013,7 @@ public class OracleModule extends AbstractQuercusModule {
         return false;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       Value result = resource.fetchArray(env, JdbcResultResource.FETCH_BOTH);
 
@@ -1068,7 +1068,7 @@ public class OracleModule extends AbstractQuercusModule {
       ResultSet rs = stmt.getResultSet();
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, rs, null);
+        = new JdbcResultResource(env, null, rs, null);
 
       int fieldNumber = resource.getColumnNumber(fieldNameOrNumber, 1);
 
@@ -1097,7 +1097,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       return resource.getFieldName(env, fieldNumber);
     } catch (Exception ex) {
@@ -1175,7 +1175,7 @@ public class OracleModule extends AbstractQuercusModule {
       ResultSet rs = stmt.getResultSet();
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, rs, null);
+        = new JdbcResultResource(env, null, rs, null);
 
       int fieldNumber = resource.getColumnNumber(fieldNameOrNumber, 1);
 
@@ -1205,7 +1205,7 @@ public class OracleModule extends AbstractQuercusModule {
         return -1;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       Value typeV = resource.getJdbcType(--field);
 
@@ -1265,7 +1265,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       return resource.getFieldType(env, fieldNumber);
     } catch (Exception ex) {
@@ -1396,13 +1396,13 @@ public class OracleModule extends AbstractQuercusModule {
                                       @Optional("0") int sessionMode)
   {
     if ((sessionMode == OCI_DEFAULT)
-	|| (sessionMode == OCI_SYSOPER)
-	|| (sessionMode == OCI_SYSDBA)) {
+        || (sessionMode == OCI_SYSOPER)
+        || (sessionMode == OCI_SYSDBA)) {
       log.warning(L.l("oci_new_connect with session mode '{0}'", sessionMode));
     }
 
     return connectInternal(env, false, username, password, db,
-			   charset, sessionMode);
+                           charset, sessionMode);
   }
 
   /**
@@ -1469,7 +1469,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-	= new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
 
       return LongValue.create(resource.getFieldCount());
     } catch (Exception ex) {
@@ -2243,7 +2243,7 @@ public class OracleModule extends AbstractQuercusModule {
       = (ConnectionInfo) env.getSpecialValue("caucho.oracle");
 
     if (reuseConnection && connectionInfo != null
-	&& url.equals(connectionInfo.getUrl())) {
+        && url.equals(connectionInfo.getUrl())) {
       // Reuse the cached connection
       conn = connectionInfo.getConnection();
     } else {

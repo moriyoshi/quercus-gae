@@ -102,10 +102,10 @@ public class LongKeyMap {
       long mapKey = keys[hash];
 
       if (mapKey == key)
-	return values[hash];
+        return values[hash];
       else if (mapKey == DEAD_KEY) {
-	if ((flags[hash] & DELETED) == 0)
-	  return null;
+        if ((flags[hash] & DELETED) == 0)
+          return null;
       }
 
       hash = (hash + 1) & mask;
@@ -128,18 +128,18 @@ public class LongKeyMap {
 
     for (int i = 0; i < keys.length; i++) {
       if (keys[i] == DEAD_KEY || (flags[i] & DELETED) != 0)
-	continue;
+        continue;
 
       int hash = (int) keys[i] & mask;
 
       while (true) {
-	if (newKeys[hash] == DEAD_KEY) {
-	  newKeys[hash] = keys[i];
-	  newValues[hash] = values[i];
-	  newFlags[hash] = flags[i];
-	  break;
-	}
-	hash = (hash + 1) & mask;
+        if (newKeys[hash] == DEAD_KEY) {
+          newKeys[hash] = keys[i];
+          newValues[hash] = values[i];
+          newFlags[hash] = flags[i];
+          break;
+        }
+        hash = (hash + 1) & mask;
       }
     }
 
@@ -160,27 +160,27 @@ public class LongKeyMap {
       long testKey = keys[hash];
 
       if (testKey == DEAD_KEY || (flags[hash] & DELETED) != 0) {
-	keys[hash] = key;
-	values[hash] = value;
-	flags[hash] = 0;
+        keys[hash] = key;
+        values[hash] = value;
+        flags[hash] = 0;
 
-	size++;
+        size++;
 
-	if (keys.length <= 2 * size)
-	  resize(2 * keys.length);
+        if (keys.length <= 2 * size)
+          resize(2 * keys.length);
 
-	return null;
+        return null;
       }
       else if (key != testKey) {
-	hash = (hash + 1) & mask;
-	continue;
+        hash = (hash + 1) & mask;
+        continue;
       }
       else {
-	Object old = values[hash];
+        Object old = values[hash];
 
-	values[hash] = value;
+        values[hash] = value;
 
-	return old;
+        return old;
       }
     }
 
@@ -198,15 +198,15 @@ public class LongKeyMap {
       long mapKey = keys[hash];
 
       if (mapKey == DEAD_KEY)
-	return null;
+        return null;
       else if (mapKey == key) {
-	flags[hash] |= DELETED;
+        flags[hash] |= DELETED;
 
-	size--;
+        size--;
 
-	keys[hash] = DEAD_KEY;
+        keys[hash] = DEAD_KEY;
 
-	return values[hash];
+        return values[hash];
       }
 
       hash = (hash + 1) & mask;
@@ -247,12 +247,12 @@ public class LongKeyMap {
     boolean isFirst = true;
     for (int i = 0; i <= mask; i++) {
       if ((flags[i] & DELETED) == 0 && keys[i] != DEAD_KEY) {
-	if (! isFirst)
-	  sbuf.append(", ");
-	isFirst = false;
-	sbuf.append(keys[i]);
-	sbuf.append(":");
-	sbuf.append(values[i]);
+        if (! isFirst)
+          sbuf.append(", ");
+        isFirst = false;
+        sbuf.append(keys[i]);
+        sbuf.append(":");
+        sbuf.append(values[i]);
       }
     }
     sbuf.append("]");
@@ -265,8 +265,8 @@ public class LongKeyMap {
     public boolean hasNext()
     {
       for (; index < keys.length; index++)
-	if (keys[index] != DEAD_KEY && (flags[index] & DELETED) == 0)
-	  return true;
+        if (keys[index] != DEAD_KEY && (flags[index] & DELETED) == 0)
+          return true;
 
       return false;
     }
@@ -274,8 +274,8 @@ public class LongKeyMap {
     public Object next()
     {
       for (; index < keys.length; index++)
-	if (keys[index] != DEAD_KEY && (flags[index] & DELETED) == 0)
-	  return new Long(keys[index++]);
+        if (keys[index] != DEAD_KEY && (flags[index] & DELETED) == 0)
+          return new Long(keys[index++]);
 
       return null;
     }

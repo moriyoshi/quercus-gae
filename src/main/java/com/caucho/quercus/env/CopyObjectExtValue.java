@@ -159,8 +159,8 @@ public class CopyObjectExtValue extends ObjectExtValue
    */
   @Override
   public void initField(StringValue key,
-			Value value,
-			FieldVisibility visibility)
+                        Value value,
+                        FieldVisibility visibility)
   {
     _root.setModified();
 

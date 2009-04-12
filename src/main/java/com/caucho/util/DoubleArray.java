@@ -41,7 +41,7 @@ public class DoubleArray {
       double []next = new double[data.length * 2];
 
       for (int i = 0; i < data.length; i++)
-	next[i] = data[i];
+        next[i] = data[i];
 
       data = next;
     }
@@ -103,7 +103,7 @@ public class DoubleArray {
   {
     for (int i = 0; i < size; i++)
       if (data[i] == test)
-	return true;
+        return true;
 
     return false;
   }
@@ -112,7 +112,7 @@ public class DoubleArray {
   {
     for (int i = 0; i < subset.size; i++)
       if (! contains(subset.data[i]))
-	return false;
+        return false;
 
     return true;
   }
@@ -121,7 +121,7 @@ public class DoubleArray {
   {
     for (int i = 0; i < newArray.size; i++) {
       if (! contains(newArray.data[i]))
-	append(newArray.data[i]);
+        append(newArray.data[i]);
     }
   }
 

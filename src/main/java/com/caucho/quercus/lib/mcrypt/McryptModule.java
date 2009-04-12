@@ -88,11 +88,11 @@ public class McryptModule extends AbstractQuercusModule {
    * Encrypt with cbc
    */
   public static StringValue mcrypt_cbc(Env env,
-				       String cipher,
-				       byte []key,
-				       byte []data,
-				       int mode,
-				       @Optional byte []iv)
+                                       String cipher,
+                                       byte []key,
+                                       byte []data,
+                                       int mode,
+                                       @Optional byte []iv)
   {
     try {
       Mcrypt mcrypt = new Mcrypt(env, cipher, "cbc");
@@ -116,11 +116,11 @@ public class McryptModule extends AbstractQuercusModule {
    * Encrypt with cfb
    */
   public static StringValue mcrypt_cfb(Env env,
-				       String cipher,
-				       byte []key,
-				       byte []data,
-				       int mode,
-				       @Optional byte []iv)
+                                       String cipher,
+                                       byte []key,
+                                       byte []data,
+                                       int mode,
+                                       @Optional byte []iv)
   {
     try {
       Mcrypt mcrypt = new Mcrypt(env, cipher, "cfb");
@@ -144,8 +144,8 @@ public class McryptModule extends AbstractQuercusModule {
    * Creates the IV vector.
    */
   public static StringValue mcrypt_create_iv(Env env,
-					     int size,
-					     @Optional int randomMode)
+                                             int size,
+                                             @Optional int randomMode)
   {
     StringValue bb = env.createBinaryBuilder(size);
 

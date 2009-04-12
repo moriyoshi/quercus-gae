@@ -118,7 +118,7 @@ public class InetNetwork {
       if (i < len && ch == '.')
         i++;
       else if (i < len)
-	break;
+        break;
     }
 
     int mask = 8 * digits;
@@ -158,66 +158,66 @@ public class InetNetwork {
 
       int digit = 0;
       for (; i < len; i++) {
-	ch = network.charAt(i);
-	int v = 0;
+        ch = network.charAt(i);
+        int v = 0;
 
-	if ('0' <= ch && ch <= '9')
-	  v = ch - '0';
-	else if ('a' <= ch && ch <= 'f')
-	  v = ch - 'a';
-	else if ('A' <= ch && ch <= 'F')
-	  v = ch - 'A';
-	else
-	  break;
+        if ('0' <= ch && ch <= '9')
+          v = ch - '0';
+        else if ('a' <= ch && ch <= 'f')
+          v = ch - 'a';
+        else if ('A' <= ch && ch <= 'F')
+          v = ch - 'A';
+        else
+          break;
 
-	if (isIPv4)
-	  digit = 10 * digit + v;
-	else
-	  digit = 16 * digit + v;
+        if (isIPv4)
+          digit = 10 * digit + v;
+        else
+          digit = 16 * digit + v;
       }
 
       if (ch == '.' && ! isIPv4) {
-	digit = (digit / 256) * 100 + (digit / 16 % 16) * 10 + digit % 16;
-	isIPv4 = true;
+        digit = (digit / 256) * 100 + (digit / 16 % 16) * 10 + digit % 16;
+        isIPv4 = true;
       }
 
       if (isIPv4) {
-	hi = (hi << 8) + (lo >> 56);
-	lo = (lo << 8) + digit;
-	digits++;
+        hi = (hi << 8) + (lo >> 56);
+        lo = (lo << 8) + digit;
+        digits++;
       }
       else {
-	hi = (hi << 16) + (lo >> 48);
-	lo = (lo << 16) + digit;
-	
-	digits += 2;
+        hi = (hi << 16) + (lo >> 48);
+        lo = (lo << 16) + digit;
+        
+        digits += 2;
       }
 
       if (len <= i)
-	break;
+        break;
       else if (ch == '/')
         break;
       else if (ch == '.')
         i++;
       else if (ch == ':' && i + 1 < len && network.charAt(i + 1) == ':') {
-	i += 2;
+        i += 2;
 
-	int shift = 16 - digits;
+        int shift = 16 - digits;
 
-	topHi += hi << (8 * shift);
+        topHi += hi << (8 * shift);
 
-	if (shift < 8)
-	  topHi += lo >> (8 * (8 - shift));
-	else
-	  topHi += lo << 8 * (shift - 8);
+        if (shift < 8)
+          topHi += lo >> (8 * (8 - shift));
+        else
+          topHi += lo << 8 * (shift - 8);
 
-	hi = 0;
-	lo = 0;
+        hi = 0;
+        lo = 0;
       }
       else if (ch == ':')
-	i++;
+        i++;
       else
-	break;
+        break;
     }
 
     hi += topHi;

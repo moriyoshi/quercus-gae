@@ -107,9 +107,9 @@ public class ConfigException
   public static RuntimeException createLine(String line, Throwable e)
   {
     while (e.getCause() != null
-	   && (e instanceof InstantiationException
-	       || e instanceof InvocationTargetException
-	       || e.getClass().equals(ConfigRuntimeException.class))) {
+           && (e instanceof InstantiationException
+               || e instanceof InvocationTargetException
+               || e.getClass().equals(ConfigRuntimeException.class))) {
       e = e.getCause();
     }
     
@@ -145,9 +145,9 @@ public class ConfigException
   public static RuntimeException create(Throwable e)
   {
     while (e.getCause() != null
-	   && (e instanceof InstantiationException
-	       || e instanceof InvocationTargetException
-	       || e.getClass().equals(ConfigRuntimeException.class))) {
+           && (e instanceof InstantiationException
+               || e instanceof InvocationTargetException
+               || e.getClass().equals(ConfigRuntimeException.class))) {
       e = e.getCause();
     }
     
@@ -156,7 +156,7 @@ public class ConfigException
     else if (e instanceof LineCompileException)
       return new LineConfigException(e.getMessage(), e);
     else if (e instanceof DisplayableException
-	     || e instanceof CompileException)
+             || e instanceof CompileException)
       return new ConfigException(e.getMessage(), e);
     else
       return new ConfigRuntimeException(e);

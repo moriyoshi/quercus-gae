@@ -69,35 +69,35 @@ public class ZipScanner
       ReadStream is = path.openRead();
 
       try {
-	// PACK200 is a standard comment, so try skipping it first
-	is.skip(length - 22 - 7);
+        // PACK200 is a standard comment, so try skipping it first
+        is.skip(length - 22 - 7);
 
-	if (is.read() != 0x50) {
-	  is.skip(6);
+        if (is.read() != 0x50) {
+          is.skip(6);
 
-	  if (is.read() != 0x50)
-	    return;
-	
-	}
+          if (is.read() != 0x50)
+            return;
+        
+        }
       
-	if (is.read() == 0x4b
-	    && is.read() == 0x05
-	    && is.read() == 0x06) {
-	  _isValid = true;
-	}
+        if (is.read() == 0x4b
+            && is.read() == 0x05
+            && is.read() == 0x06) {
+          _isValid = true;
+        }
 
-	if (_isValid) {
-	  is.skip(6);
+        if (_isValid) {
+          is.skip(6);
 
-	  _entries = is.read() + (is.read() << 8);
-	  is.skip(4);
-	  _offset = (is.read()
-		     + (is.read() << 8)
-		     + (is.read() << 16)
-		     + (is.read() << 24));
-	}
+          _entries = is.read() + (is.read() << 8);
+          is.skip(4);
+          _offset = (is.read()
+                     + (is.read() << 8)
+                     + (is.read() << 16)
+                     + (is.read() << 24));
+        }
       } finally {
-	is.close();
+        is.close();
       }
     } catch (Exception e) {
       log().log(Level.FINER, e.toString(), e);
@@ -152,7 +152,7 @@ public class ZipScanner
 
       // win32 canonicalize 
       if (ch == '\\')
-	cbuf[i] = '/';
+        cbuf[i] = '/';
     }
 
     _name = null; // new String(cbuf, 0, k);
@@ -188,9 +188,9 @@ public class ZipScanner
 
     if (is != null) {
       try {
-	is.close();
+        is.close();
       } catch (Exception e) {
-	throw new RuntimeException(e);
+        throw new RuntimeException(e);
       }
     }
   }

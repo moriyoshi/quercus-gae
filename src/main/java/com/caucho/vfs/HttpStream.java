@@ -209,19 +209,19 @@ class HttpStream extends StreamImpl {
       if (path instanceof HttpsPath) {
         SSLContext context = SSLContext.getInstance("TLS");
 
-	javax.net.ssl.TrustManager tm =
-	  new javax.net.ssl.X509TrustManager() {
-	    public java.security.cert.X509Certificate[]
-	      getAcceptedIssuers() {
-	      return null;
-	    }
-	    public void checkClientTrusted(
-					   java.security.cert.X509Certificate[] cert, String foo) {
-	    }
-	    public void checkServerTrusted(
-					   java.security.cert.X509Certificate[] cert, String foo) {
-	    }
-	  };
+        javax.net.ssl.TrustManager tm =
+          new javax.net.ssl.X509TrustManager() {
+            public java.security.cert.X509Certificate[]
+              getAcceptedIssuers() {
+              return null;
+            }
+            public void checkClientTrusted(
+                                           java.security.cert.X509Certificate[] cert, String foo) {
+            }
+            public void checkServerTrusted(
+                                           java.security.cert.X509Certificate[] cert, String foo) {
+            }
+          };
 
       
         context.init(null, new javax.net.ssl.TrustManager[] { tm }, null);
@@ -381,16 +381,16 @@ class HttpStream extends StreamImpl {
       Object oldValue = _attributes.put(name.toLowerCase(), value);
 
       if (oldValue instanceof String[]) {
-	String []old = (String []) oldValue;
-	String []newValue = new String[old.length + 1];
-	System.arraycopy(old, 0, newValue, 0, old.length);
-	newValue[old.length] = String.valueOf(value);
-	_attributes.put(name.toLowerCase(), newValue);
+        String []old = (String []) oldValue;
+        String []newValue = new String[old.length + 1];
+        System.arraycopy(old, 0, newValue, 0, old.length);
+        newValue[old.length] = String.valueOf(value);
+        _attributes.put(name.toLowerCase(), newValue);
       }
       else if (oldValue != null) {
-	String []newValue = new String[] { String.valueOf(oldValue),
-					   String.valueOf(value) };
-	_attributes.put(name.toLowerCase(), newValue);
+        String []newValue = new String[] { String.valueOf(oldValue),
+                                           String.valueOf(value) };
+        _attributes.put(name.toLowerCase(), newValue);
       }
     }
   }
@@ -482,51 +482,51 @@ class HttpStream extends StreamImpl {
       int len = length;
 
       if (_isChunked) {
-	if (_chunkLength == 0) {
-	  int ch;
+        if (_chunkLength == 0) {
+          int ch;
 
-	  for (ch = _rs.read();
-	       ch >= 0 && (ch == '\r' || ch == '\n' || ch == ' ');
-	       ch = _rs.read()) {
-	  }
+          for (ch = _rs.read();
+               ch >= 0 && (ch == '\r' || ch == '\n' || ch == ' ');
+               ch = _rs.read()) {
+          }
         
-	  for (; ch >= 0 && ch != '\n'; ch = _rs.read()) {
-	    if (ch >= '0' && ch <= '9')
-	      _chunkLength = 16 * _chunkLength + ch - '0';
-	    else if (ch >= 'a' && ch <= 'f')
-	      _chunkLength = 16 * _chunkLength + ch - 'a' + 10;
-	    else if (ch >= 'A' && ch <= 'F')
-	      _chunkLength = 16 * _chunkLength + ch - 'A' + 10;
-	  }
+          for (; ch >= 0 && ch != '\n'; ch = _rs.read()) {
+            if (ch >= '0' && ch <= '9')
+              _chunkLength = 16 * _chunkLength + ch - '0';
+            else if (ch >= 'a' && ch <= 'f')
+              _chunkLength = 16 * _chunkLength + ch - 'a' + 10;
+            else if (ch >= 'A' && ch <= 'F')
+              _chunkLength = 16 * _chunkLength + ch - 'A' + 10;
+          }
 
-	  if (_chunkLength == 0) {
-	    _isRequestDone = true;
-	    return -1;
-	  }
-	}
-	else if (_chunkLength < 0)
-	  return -1;
+          if (_chunkLength == 0) {
+            _isRequestDone = true;
+            return -1;
+          }
+        }
+        else if (_chunkLength < 0)
+          return -1;
       
-	if (_chunkLength < len)
-	  len = _chunkLength;
+        if (_chunkLength < len)
+          len = _chunkLength;
       }
       else if (_contentLength < 0) {
       }
       else if (_contentLength == 0) {
-	_isRequestDone = true;
-	return -1;
+        _isRequestDone = true;
+        return -1;
       }
       else if (_contentLength < len)
-	len = _contentLength;
+        len = _contentLength;
 
       len = _rs.read(buf, offset, len);
 
       if (len < 0) {
       }
       else if (_isChunked)
-	_chunkLength -= len;
+        _chunkLength -= len;
       else if (_contentLength > 0)
-	_contentLength -= len;
+        _contentLength -= len;
 
       return len;
     } catch (IOException e) {
@@ -621,15 +621,15 @@ class HttpStream extends StreamImpl {
     while (iter.hasNext()) {
       String name = (String) iter.next();
       if (_reserved.get(name.toLowerCase()) == null) {
-	Object value = getAttribute(name);
-	if (value instanceof String[]) {
-	  String []values = (String []) value;
-	  for (int i = 0; i < values.length; i++) {
-	    _ws.print(name + ": " + values[i] + "\r\n");
-	  }
-	}
-	else
-	  _ws.print(name + ": " + value + "\r\n");
+        Object value = getAttribute(name);
+        if (value instanceof String[]) {
+          String []values = (String []) value;
+          for (int i = 0; i < values.length; i++) {
+            _ws.print(name + ": " + values[i] + "\r\n");
+          }
+        }
+        else
+          _ws.print(name + ": " + value + "\r\n");
       }
     }
     if (! _isKeepalive)
@@ -660,11 +660,11 @@ class HttpStream extends StreamImpl {
           }
         }
         
-	// server/1963
+        // server/1963
         if (len != writeLength) {
-	  throw new IOException(L.l("Content-Length={0} but only received {1}",
-				    len, "" + writeLength));
-	}
+          throw new IOException(L.l("Content-Length={0} but only received {1}",
+                                    len, "" + writeLength));
+        }
       }
 
       _ws.print("Content-Length: " + writeLength);
@@ -676,8 +676,8 @@ class HttpStream extends StreamImpl {
       MemoryStream tempStream = _tempStream;
       _tempStream = null;
       if (tempStream != null) {
-	tempStream.writeToStream(_ws);
-	tempStream.destroy();
+        tempStream.writeToStream(_ws);
+        tempStream.destroy();
       }
     }
 
@@ -714,20 +714,20 @@ class HttpStream extends StreamImpl {
     if (line.startsWith("HTTP/1.1 100")) {
       count = 100;
       do {
-	line.clear();
-	if (! _rs.readln(line)) {
-	  _isKeepalive = false;
-	  return;
-	}
+        line.clear();
+        if (! _rs.readln(line)) {
+          _isKeepalive = false;
+          return;
+        }
       } while (line.length() != 0 && count-- > 0);
       
       count = 100;
       do {
-	line.clear();
-	if (! _rs.readln(line)) {
-	  _isKeepalive = false;
-	  return;
-	}
+        line.clear();
+        if (! _rs.readln(line)) {
+          _isKeepalive = false;
+          return;
+        }
       } while (line.length() == 0 && count-- > 0);
     }
 
@@ -763,7 +763,7 @@ class HttpStream extends StreamImpl {
     while (true) {
       line.clear();
       if (! _rs.readln(line) || line.length() == 0)
-  	break;
+        break;
 
       int lineLength = line.length();
       
@@ -818,8 +818,8 @@ class HttpStream extends StreamImpl {
       String oldValue = (String) _attributes.put(keyString, value);
 
       if (oldValue != null) {
-	value = oldValue + '\n' + value;
-	_attributes.put(keyString, value);
+        value = oldValue + '\n' + value;
+        _attributes.put(keyString, value);
       }
     }
   }
@@ -894,7 +894,7 @@ class HttpStream extends StreamImpl {
       _is = null;
     } finally {
       if (_s != null)
-	_s.close();
+        _s.close();
       _s = null;
     }
   }

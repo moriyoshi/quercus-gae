@@ -101,13 +101,13 @@ public class IdentityIntMap {
       Object mapKey = keys[hash];
 
       if (mapKey == key)
-	return values[hash];
+        return values[hash];
       else if (mapKey == null) {
-	if ((flags[hash] & DELETED) == 0)
-	  return NULL;
+        if ((flags[hash] & DELETED) == 0)
+          return NULL;
       }
       else if (mapKey.equals(key))
-	return values[hash];
+        return values[hash];
 
       hash = (hash + 1) & mask;
     }
@@ -126,18 +126,18 @@ public class IdentityIntMap {
 
     for (int i = 0; i < keys.length; i++) {
       if (keys[i] == null || (flags[i] & DELETED) != 0)
-	continue;
+        continue;
 
       int hash = System.identityHashCode(keys[i]) & mask;
 
       while (true) {
-	if (newKeys[hash] == null) {
-	  newKeys[hash] = keys[i];
-	  newValues[hash] = values[i];
-	  newFlags[hash] = flags[i];
-	  break;
-	}
-	hash = (hash + 1) & mask;
+        if (newKeys[hash] == null) {
+          newKeys[hash] = keys[i];
+          newValues[hash] = values[i];
+          newFlags[hash] = flags[i];
+          break;
+        }
+        hash = (hash + 1) & mask;
       }
     }
 
@@ -163,27 +163,27 @@ public class IdentityIntMap {
       Object testKey = keys[hash];
 
       if (testKey == null || (flags[hash] & DELETED) != 0) {
-	keys[hash] = key;
-	values[hash] = value;
-	flags[hash] = 0;
+        keys[hash] = key;
+        values[hash] = value;
+        flags[hash] = 0;
 
-	size++;
+        size++;
 
-	if (keys.length <= 2 * size)
-	  resize(2 * keys.length);
+        if (keys.length <= 2 * size)
+          resize(2 * keys.length);
 
-	return NULL;
+        return NULL;
       }
       else if (key != testKey && ! testKey.equals(key)) {
-	hash = (hash + 1) & mask;
-	continue;
+        hash = (hash + 1) & mask;
+        continue;
       }
       else {
-	int old = values[hash];
+        int old = values[hash];
 
-	values[hash] = value;
+        values[hash] = value;
 
-	return old;
+        return old;
       }
     }
   }
@@ -205,15 +205,15 @@ public class IdentityIntMap {
       Object mapKey = keys[hash];
 
       if (mapKey == null)
-	return NULL;
+        return NULL;
       else if (mapKey.equals(key)) {
-	flags[hash] |= DELETED;
+        flags[hash] |= DELETED;
 
-	size--;
+        size--;
 
-	keys[hash] = null;
+        keys[hash] = null;
 
-	return values[hash];
+        return values[hash];
       }
 
       hash = (hash + 1) & mask;
@@ -235,12 +235,12 @@ public class IdentityIntMap {
     boolean isFirst = true;
     for (int i = 0; i <= mask; i++) {
       if ((flags[i] & DELETED) == 0 && keys[i] != null) {
-	if (! isFirst)
-	  sbuf.append(", ");
-	isFirst = false;
-	sbuf.append(keys[i]);
-	sbuf.append(":");
-	sbuf.append(values[i]);
+        if (! isFirst)
+          sbuf.append(", ");
+        isFirst = false;
+        sbuf.append(keys[i]);
+        sbuf.append(":");
+        sbuf.append(values[i]);
       }
     }
     sbuf.append("]");
@@ -253,8 +253,8 @@ public class IdentityIntMap {
     public boolean hasNext()
     {
       for (; index < keys.length; index++)
-	if (keys[index] != null && (flags[index] & DELETED) == 0)
-	  return true;
+        if (keys[index] != null && (flags[index] & DELETED) == 0)
+          return true;
 
       return false;
     }
@@ -262,8 +262,8 @@ public class IdentityIntMap {
     public Object next()
     {
       for (; index < keys.length; index++)
-	if (keys[index] != null && (flags[index] & DELETED) == 0)
-	  return keys[index++];
+        if (keys[index] != null && (flags[index] & DELETED) == 0)
+          return keys[index++];
 
       return null;
     }

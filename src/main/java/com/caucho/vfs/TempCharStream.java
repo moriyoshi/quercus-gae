@@ -81,16 +81,16 @@ public class TempCharStream extends StreamImpl {
     int index = 0;
     while (index < length) {
       if (_tail == null)
-	addBuffer(TempCharBuffer.allocate());
+        addBuffer(TempCharBuffer.allocate());
       else if (_tail._buf.length <= _tail._length) {
-	addBuffer(TempCharBuffer.allocate());
+        addBuffer(TempCharBuffer.allocate());
 
-	// XXX: see TempStream for backing files
+        // XXX: see TempStream for backing files
       }
 
       int sublen = _tail._buf.length - _tail._length;
       if (length - index < sublen)
-	sublen = length - index;
+        sublen = length - index;
 
       System.arraycopy(buf, index + offset, _tail._buf, _tail._length, sublen);
 
@@ -107,16 +107,16 @@ public class TempCharStream extends StreamImpl {
   {
     while (length > 0) {
       if (_tail == null)
-	addBuffer(TempCharBuffer.allocate());
+        addBuffer(TempCharBuffer.allocate());
       else if (_tail._buf.length <= _tail._length) {
-	addBuffer(TempCharBuffer.allocate());
+        addBuffer(TempCharBuffer.allocate());
 
-	// XXX: see TempStream for backing files
+        // XXX: see TempStream for backing files
       }
 
       int sublen = _tail._buf.length - _tail._length;
       if (length < sublen)
-	sublen = length;
+        sublen = length;
 
       s.getChars(offset, offset + sublen, _tail._buf, _tail._length);
 

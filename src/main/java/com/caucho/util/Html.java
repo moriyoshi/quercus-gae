@@ -52,12 +52,12 @@ public class Html {
       lineCharacter++;
       
       if (ch == '<')
-	cb.append("&lt;");
+        cb.append("&lt;");
       else if (ch == '&')
-	cb.append("&amp;");
+        cb.append("&amp;");
       else if (ch == '\n' || ch == '\r') {
         lineCharacter = 0;
-	cb.append(ch);
+        cb.append(ch);
         startsWithSpace = false;
       }
       else if (lineCharacter > 70 && ch == ' ' && ! startsWithSpace) {
@@ -71,7 +71,7 @@ public class Html {
         startsWithSpace = true;
       }
       else
-	cb.append(ch);
+        cb.append(ch);
     }
 
     return cb.toString();

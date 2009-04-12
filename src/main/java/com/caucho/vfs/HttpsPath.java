@@ -62,8 +62,8 @@ public class HttpsPath extends HttpPath {
    * @param query any query string
    */
   public HttpsPath(FilesystemPath root, String userPath,
-		   Map<String,Object> newAttributes,
-		   String path, String query)
+                   Map<String,Object> newAttributes,
+                   String path, String query)
   {
     super(root, userPath, newAttributes, path, query);
   }
@@ -75,7 +75,7 @@ public class HttpsPath extends HttpPath {
 
   protected HttpPath create(FilesystemPath root,
                             String userPath,
-			    Map<String,Object> newAttributes,
+                            Map<String,Object> newAttributes,
                             String path, String query)
   {
     return new HttpsPath(root, userPath, newAttributes, path, query);

@@ -104,7 +104,7 @@ public class StringUtility
 
         if (isRef) {
           Post.addFormValue(env, result, key,
-			    new String[] { value }, isMagicQuotes);
+                            new String[] { value }, isMagicQuotes);
         } else {
           // If key is an exsiting array, then append this value to existing array
           // Only use extract(EXTR_OVERWRITE) on non-array variables or
@@ -122,7 +122,7 @@ public class StringUtility
                 env.warning(L.l("invalid array " + key));
                 return NullValue.NULL;
               }
-	      
+              
               if (closeBracketIndex > openBracketIndex + 1) {
                 String index = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
                 v.put(env.createString(index), env.createString(value));
@@ -131,19 +131,19 @@ public class StringUtility
               }
             } else {
               Post.addFormValue(env, result, key,
-				new String[] { value }, isMagicQuotes);
+                                new String[] { value }, isMagicQuotes);
             }
           } else {
             Post.addFormValue(env, result, key,
-			      new String[] { value }, isMagicQuotes);
+                              new String[] { value }, isMagicQuotes);
           }
         }
       }
 
       if (! isRef) {
         ArrayModule.extract(env, result,
-			    ArrayModule.EXTR_OVERWRITE,
-			    null);
+                            ArrayModule.EXTR_OVERWRITE,
+                            null);
       }
 
       return NullValue.NULL;

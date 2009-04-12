@@ -63,16 +63,16 @@ import java.util.logging.Logger;
  */
 public class JavaArrayClassDef extends JavaClassDef {
   public JavaArrayClassDef(ModuleContext moduleContext,
-			   String name,
-			   Class type)
+                           String name,
+                           Class type)
   {
     super(moduleContext, name, type);
   }
   
   public JavaArrayClassDef(ModuleContext moduleContext,
-			   String name,
-			   Class type,
-			   String extension)
+                           String name,
+                           Class type,
+                           String extension)
   {
     super(moduleContext, name, type, extension);
   }

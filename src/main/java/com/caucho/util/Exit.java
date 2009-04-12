@@ -111,10 +111,10 @@ public class Exit {
       Object object = queue._objects.get(i);
 
       if (listener != null) {
-	try {
-	  listener.handleExit(object);
-	} catch (Exception e) {
-	}
+        try {
+          listener.handleExit(object);
+        } catch (Exception e) {
+        }
       }
     }
 
@@ -141,7 +141,7 @@ public class Exit {
     static Queue allocate()
     {
       if (_freeList == null) 
-	return new Queue();
+        return new Queue();
 
       Queue queue = _freeList;
       _freeList = _freeList._next;

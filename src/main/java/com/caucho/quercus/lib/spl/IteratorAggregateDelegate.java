@@ -66,7 +66,7 @@ public class IteratorAggregateDelegate
     }
     else
       throw new QuercusException(L.l("'{0}' is not a valid Traversable",
-				     qThis));
+                                     qThis));
   }
 
   public Iterator<Value> getKeyIterator(Env env, ObjectValue qThis)
@@ -77,7 +77,7 @@ public class IteratorAggregateDelegate
       return _iteratorDelegate.getKeyIterator(env, (ObjectValue) target);
     else
       throw new QuercusException(L.l("'{0}' is not a valid Traversable",
-				     qThis));
+                                     qThis));
   }
 
   public Iterator<Value> getValueIterator(Env env, ObjectValue qThis)
@@ -88,7 +88,7 @@ public class IteratorAggregateDelegate
       return _iteratorDelegate.getValueIterator(env, (ObjectValue) target);
     else
       throw new QuercusException(L.l("'{0}' is not a valid Traversable",
-				     qThis));
+                                     qThis));
   }
 
   private Value getTarget(Env env, ObjectValue qThis)

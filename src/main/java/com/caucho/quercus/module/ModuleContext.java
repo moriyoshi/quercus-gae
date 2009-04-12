@@ -186,8 +186,8 @@ public class ModuleContext
       ModuleInfo info = _moduleInfoMap.get(name);
 
       if (info == null) {
-	info = new ModuleInfo(this, name, module);
-	_moduleInfoMap.put(name, info);
+        info = new ModuleInfo(this, name, module);
+        _moduleInfoMap.put(name, info);
       }
 
       return info;
@@ -195,48 +195,48 @@ public class ModuleContext
   }
 
   public JavaClassDef addClass(String name, Class type,
-			       String extension, Class javaClassDefClass)
+                               String extension, Class javaClassDefClass)
     throws NoSuchMethodException,
-	   InvocationTargetException,
-	   IllegalAccessException,
-	   InstantiationException
+           InvocationTargetException,
+           IllegalAccessException,
+           InstantiationException
   {
     synchronized (_javaClassWrappers) {
       JavaClassDef def = _javaClassWrappers.get(name);
 
       if (def == null) {
-	if (log.isLoggable(Level.FINEST)) {
-	  if (extension == null)
-	    log.finest(L.l("PHP loading class {0} with type {1}", name, type.getName()));
-	  else
-	    log.finest(L.l("PHP loading class {0} with type {1} providing extension {2}", name, type.getName(), extension));
-	}
+        if (log.isLoggable(Level.FINEST)) {
+          if (extension == null)
+            log.finest(L.l("PHP loading class {0} with type {1}", name, type.getName()));
+          else
+            log.finest(L.l("PHP loading class {0} with type {1} providing extension {2}", name, type.getName(), extension));
+        }
 
-	if (javaClassDefClass != null) {
-	  Constructor constructor
-	    = javaClassDefClass.getConstructor(ModuleContext.class,
-					       String.class,
-					       Class.class);
+        if (javaClassDefClass != null) {
+          Constructor constructor
+            = javaClassDefClass.getConstructor(ModuleContext.class,
+                                               String.class,
+                                               Class.class);
 
-	  def = (JavaClassDef) constructor.newInstance(this, name, type);
-	}
-	else {
-	  def = JavaClassDef.create(this, name, type);
+          def = (JavaClassDef) constructor.newInstance(this, name, type);
+        }
+        else {
+          def = JavaClassDef.create(this, name, type);
 
-	  if (def == null)
-	    def = createDefaultJavaClassDef(name, type, extension);
-	}
+          if (def == null)
+            def = createDefaultJavaClassDef(name, type, extension);
+        }
 
-	_javaClassWrappers.put(name, def);
-	// _lowerJavaClassWrappers.put(name.toLowerCase(), def);
+        _javaClassWrappers.put(name, def);
+        // _lowerJavaClassWrappers.put(name.toLowerCase(), def);
 
-	_staticClasses.put(name, def);
-	// _lowerStaticClasses.put(name.toLowerCase(), def);
+        _staticClasses.put(name, def);
+        // _lowerStaticClasses.put(name.toLowerCase(), def);
 
-	// def.introspect();
+        // def.introspect();
 
-	if (extension != null)
-	  _extensionSet.add(extension);
+        if (extension != null)
+          _extensionSet.add(extension);
       }
 
       return def;
@@ -254,12 +254,12 @@ public class ModuleContext
       def = _javaClassWrappers.get(className);
 
       if (def != null)
-	return def;
+        return def;
 
       def = JavaClassDef.create(this, className, type);
 
       if (def == null)
-	def = createDefaultJavaClassDef(className, type);
+        def = createDefaultJavaClassDef(className, type);
 
       _javaClassWrappers.put(className, def);
     }
@@ -280,32 +280,32 @@ public class ModuleContext
       JavaClassDef def = _javaClassWrappers.get(className);
 
       if (def != null)
-	return def;
+        return def;
 
       try {
-	Class type;
+        Class type;
 
-	try {
-	  type = Class.forName(className, false, _loader);
-	}
-	catch (ClassNotFoundException e) {
-	  throw new ClassNotFoundException(L.l("'{0}' is not a known Java class: {1}", className, e.toString()), e);
-	}
+        try {
+          type = Class.forName(className, false, _loader);
+        }
+        catch (ClassNotFoundException e) {
+          throw new ClassNotFoundException(L.l("'{0}' is not a known Java class: {1}", className, e.toString()), e);
+        }
 
-	def = JavaClassDef.create(this, className, type);
+        def = JavaClassDef.create(this, className, type);
 
-	if (def == null)
-	  def = createDefaultJavaClassDef(className, type);
+        if (def == null)
+          def = createDefaultJavaClassDef(className, type);
 
-	_javaClassWrappers.put(className, def);
+        _javaClassWrappers.put(className, def);
 
-	// def.introspect();
+        // def.introspect();
 
-	return def;
+        return def;
       } catch (RuntimeException e) {
-	throw e;
+        throw e;
       } catch (Exception e) {
-	throw new QuercusRuntimeException(e);
+        throw new QuercusRuntimeException(e);
       }
     }
   }
@@ -350,7 +350,7 @@ public class ModuleContext
       ClassDef def = _javaClassWrappers.get(name);
 
       if (def != null)
-	return def;
+        return def;
 
       return _lowerJavaClassWrappers.get(name.toLowerCase());
     }
@@ -368,8 +368,8 @@ public class ModuleContext
   }
   
   public Marshal createMarshal(Class type,
-			       boolean isNotNull,
-			       boolean isNullAsFalse)
+                               boolean isNotNull,
+                               boolean isNullAsFalse)
   {
     return getMarshalFactory().create(type, isNotNull, isNullAsFalse);
   }
@@ -384,7 +384,7 @@ public class ModuleContext
 
     synchronized (_staticFunctions) {
       for (String name : _staticFunctions.keySet()) {
-	internal.put(name);
+        internal.put(name);
       }
     }
 
@@ -410,7 +410,7 @@ public class ModuleContext
       ClassDef def = _staticClasses.get(name);
 
       if (def == null)
-	def = _lowerStaticClasses.get(name.toLowerCase());
+        def = _lowerStaticClasses.get(name.toLowerCase());
 
       return def;
     }
@@ -493,7 +493,7 @@ public class ModuleContext
    * Creates a static function.
    */
   public StaticFunction createStaticFunction(QuercusModule module,
-					     Method method)
+                                             Method method)
   {
     return new StaticFunction(this, module, method);
   }
@@ -527,11 +527,11 @@ public class ModuleContext
       while (urls.hasMoreElements()) {
         URL url = urls.nextElement();
 
-	if (! hasServiceModule(url)) {
-	  addServiceModule(url);
+        if (! hasServiceModule(url)) {
+          addServiceModule(url);
 
-	  urlSet.add(url);
-	}
+          urlSet.add(url);
+        }
       }
 
       for (URL url : urlSet) {
@@ -539,7 +539,7 @@ public class ModuleContext
         ReadStream rs = null;
         try {
           is = url.openStream();
-	  
+          
           rs = new ReadStream(new VfsStream(is, null));
 
           parseServicesModule(rs);
@@ -617,7 +617,7 @@ public class ModuleContext
   {
     synchronized (_moduleInfoMap) {
       if (_moduleInfoMap.get(cl.getName()) != null)
-	return;
+        return;
       
       log.finest("Quercus loading module " + cl.getName());
 
@@ -629,31 +629,31 @@ public class ModuleContext
       _modules.put(cl.getName(), info);
 
       if (info.getModule() instanceof ModuleStartupListener)
-	_moduleStartupListeners.add((ModuleStartupListener)info.getModule());
+        _moduleStartupListeners.add((ModuleStartupListener)info.getModule());
 
       for (String ext : info.getLoadedExtensions())
-	_extensionSet.add(ext);
+        _extensionSet.add(ext);
 
       Map<String, Value> map = info.getConstMap();
 
       if (map != null)
-	_constMap.putAll(map);
+        _constMap.putAll(map);
 
       _iniDefinitions.addAll(info.getIniDefinitions());
 
       synchronized (_staticFunctionMap) {
-	for (Map.Entry<String, AbstractFunction> entry
-	       : info.getFunctions().entrySet()) {
-	  String funName = entry.getKey();
-	  AbstractFunction fun = entry.getValue();
+        for (Map.Entry<String, AbstractFunction> entry
+               : info.getFunctions().entrySet()) {
+          String funName = entry.getKey();
+          AbstractFunction fun = entry.getValue();
       
-	  _staticFunctionMap.put(funName, fun);
-	  
-	  // _lowerFunMap.put(funName.toLowerCase(), fun);
+          _staticFunctionMap.put(funName, fun);
+          
+          // _lowerFunMap.put(funName.toLowerCase(), fun);
 
-	  int id = getFunctionId(funName);
-	  _functionMap[id] = fun;
-	}
+          int id = getFunctionId(funName);
+          _functionMap[id] = fun;
+        }
       }
       */
     }
@@ -678,11 +678,11 @@ public class ModuleContext
       while (urls.hasMoreElements()) {
         URL url = urls.nextElement();
 
-	if (! hasServiceClass(url)) {
-	  addServiceClass(url);
+        if (! hasServiceClass(url)) {
+          addServiceClass(url);
 
-	  urlSet.add(url);
-	}
+          urlSet.add(url);
+        }
       }
 
       for (URL url : urlSet) {
@@ -690,9 +690,9 @@ public class ModuleContext
         ReadStream rs = null;
         try {
           is = url.openStream();
-	  
+          
           rs = new ReadStream(new VfsStream(is, null));
-	  
+          
           parseClassServicesModule(rs);
         } catch (Throwable e) {
           log.log(Level.WARNING, e.toString(), e);
@@ -799,7 +799,7 @@ public class ModuleContext
    * @param javaClassDefClass
    */
   public void introspectJavaClass(String name, Class type, String extension,
-				  Class javaClassDefClass)
+                                  Class javaClassDefClass)
     throws IllegalAccessException, InstantiationException, ConfigException,
            NoSuchMethodException, InvocationTargetException
   {
@@ -822,8 +822,8 @@ public class ModuleContext
    * @param extension the extension provided by the class, or null
    */
   public void introspectJavaImplClass(String name,
-				      Class type,
-				      String extension)
+                                      Class type,
+                                      String extension)
     throws IllegalAccessException, InstantiationException, ConfigException
   {
     if (log.isLoggable(Level.FINEST)) {
@@ -855,13 +855,13 @@ public class ModuleContext
     _lowerStaticClasses.put(_stdClass.getName().toLowerCase(), _stdClassDef);
 
     InterpretedClassDef exn = new InterpretedClassDef("Exception",
-						      null,
-						      new String[0]);
+                                                      null,
+                                                      new String[0]);
 
     try {
       exn.setConstructor(new StaticFunction(_moduleContext,
-					    null,
-					    Quercus.class.getMethod("exnConstructor", new Class[] { Env.class, Value.class, String.class })));
+                                            null,
+                                            Quercus.class.getMethod("exnConstructor", new Class[] { Env.class, Value.class, String.class })));
     } catch (Exception e) {
       throw new QuercusException(e);
     }
@@ -878,12 +878,12 @@ public class ModuleContext
     if (obj == null)
       return NullValue.NULL;
     else if (Byte.class.equals(obj.getClass())
-	     || Short.class.equals(obj.getClass())
-	     || Integer.class.equals(obj.getClass())
-	     || Long.class.equals(obj.getClass())) {
+             || Short.class.equals(obj.getClass())
+             || Integer.class.equals(obj.getClass())
+             || Long.class.equals(obj.getClass())) {
       return LongValue.create(((Number) obj).longValue());
     } else if (Float.class.equals(obj.getClass())
-	       || Double.class.equals(obj.getClass())) {
+               || Double.class.equals(obj.getClass())) {
       return DoubleValue.create(((Number) obj).doubleValue());
     } else if (String.class.equals(obj.getClass())) {
       // XXX: i18n

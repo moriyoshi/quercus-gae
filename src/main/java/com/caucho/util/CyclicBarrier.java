@@ -48,11 +48,11 @@ public class CyclicBarrier {
   {
     synchronized (this) {
       if (++_waiting == _parties) {
-	_waiting = 0;
-	notifyAll();
+        _waiting = 0;
+        notifyAll();
       }
       else {
-	wait(600 * 1000);
+        wait(600 * 1000);
       }
     }
 

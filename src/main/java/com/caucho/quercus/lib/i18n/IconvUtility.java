@@ -45,34 +45,34 @@ public class IconvUtility {
     = Logger.getLogger(IconvUtility.class.getName());
 
   public static StringValue decodeEncode(Env env,
-					StringValue str,
-					String inCharset,
-					String outCharset)
+                                        StringValue str,
+                                        String inCharset,
+                                        String outCharset)
     throws UnsupportedEncodingException
   {
     return decodeEncode(env, str, inCharset, outCharset, 0, Integer.MAX_VALUE);
   }
 
   public static StringValue decodeEncode(Env env,
-					 StringValue str,
-					 String inCharset,
-					 String outCharset,
-					 int offset)
+                                         StringValue str,
+                                         String inCharset,
+                                         String outCharset,
+                                         int offset)
     throws UnsupportedEncodingException
   {
     return decodeEncode(env, str, inCharset, outCharset,
-			offset, Integer.MAX_VALUE);
+                        offset, Integer.MAX_VALUE);
   }
 
   /**
    * Decodes and encodes to specified charsets at the same time.
    */
   public static StringValue decodeEncode(Env env,
-					 StringValue str,
-					 String inCharset,
-					 String outCharset,
-					 int offset,
-					 int length)
+                                         StringValue str,
+                                         String inCharset,
+                                         String outCharset,
+                                         int offset,
+                                         int length)
     throws UnsupportedEncodingException
   {
     TempCharBuffer tb = TempCharBuffer.allocate();

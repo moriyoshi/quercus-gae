@@ -60,7 +60,7 @@ public class JMSQueue
    * Connects to a named queue.
    */
   public JMSQueue(ConnectionFactory connectionFactory,
-		  Destination queue)
+                  Destination queue)
     throws Exception
   {
     _connection = connectionFactory.createConnection();
@@ -176,12 +176,12 @@ public class JMSQueue
       int sublen;
 
       while (true) {
-	sublen = bytesMessage.readBytes(tempBuffer.getBuffer());
+        sublen = bytesMessage.readBytes(tempBuffer.getBuffer());
 
-	if (sublen > 0)
-	  bb.append(tempBuffer.getBuffer(), 0, sublen);
-	else
-	  break;
+        if (sublen > 0)
+          bb.append(tempBuffer.getBuffer(), 0, sublen);
+        else
+          break;
       }
 
       TempBuffer.free(tempBuffer);

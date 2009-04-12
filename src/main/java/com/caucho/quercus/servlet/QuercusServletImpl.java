@@ -203,7 +203,7 @@ public class QuercusServletImpl
       }
       catch (QuercusValueException e) {
         log.log(Level.FINE, e.toString(), e);
-	
+        
         ws.println(e.toString());
 
       //  return;
@@ -275,7 +275,7 @@ public class QuercusServletImpl
   {
     synchronized (this) {
       if (_quercus == null)
-	_quercus = new Quercus();
+        _quercus = new Quercus();
     }
 
     return _quercus;

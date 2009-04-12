@@ -81,7 +81,7 @@ public class FileValue extends StreamResource {
       sb.append((char) ch);
 
       if (ch == '\n')
-	return sb;
+        return sb;
       // XXX: issues with mac
     }
 

@@ -237,7 +237,7 @@ public class Post {
       error = FileModule.UPLOAD_ERR_OK;
 
     addFormValue(env, entry, "name" + index, env.createString(fileName),
-		 null, addSlashesToValues);
+                 null, addSlashesToValues);
 
     long size;
 
@@ -252,19 +252,19 @@ public class Post {
 
     if (mimeType != null) {
       addFormValue(env, entry, "type" + index, env.createString(mimeType),
-		   null, addSlashesToValues);
+                   null, addSlashesToValues);
 
       entry.put("type", mimeType);
     }
 
     addFormValue(env, entry, "tmp_name" + index, env.createString(tmpName),
-		 null, addSlashesToValues);
+                 null, addSlashesToValues);
 
     addFormValue(env, entry, "error" + index, LongValue.create(error),
-		 null, addSlashesToValues);
+                 null, addSlashesToValues);
 
     addFormValue(env, entry, "size" + index, LongValue.create(size),
-		 null, addSlashesToValues);
+                 null, addSlashesToValues);
 
     addFormValue(env, files, name, entry, null, addSlashesToValues);
   }
@@ -365,13 +365,13 @@ public class Post {
       if (index.equals("")) {
         if (formValueList != null) {
           for (int i = 0; i < formValueList.length; i++) {
-	    Value value;
+            Value value;
 
-	    if (formValueList[i] != null)
-	      value = env.createString(formValueList[i]);
-	    else
-	      value = NullValue.NULL;
-	    
+            if (formValueList[i] != null)
+              value = env.createString(formValueList[i]);
+            else
+              value = NullValue.NULL;
+            
             put(array, null, value, addSlashesToValues);
           }
         }
@@ -391,9 +391,9 @@ public class Post {
   }
 
   private static void put(ArrayValue array,
-			  Value key,
-			  Value value,
-			  boolean addSlashes)
+                          Value key,
+                          Value value,
+                          boolean addSlashes)
   {
     if (addSlashes && (value instanceof StringValue)) {
       value = StringModule.addslashes(value.toStringValue());

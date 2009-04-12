@@ -45,7 +45,7 @@ public class JavaParameterizedType implements JType {
     _rawClass = rawClass;
     _typeArgs = args;
   }
-			
+                        
   /**
    * Returns the type name.
    */
@@ -67,7 +67,7 @@ public class JavaParameterizedType implements JType {
     cb.append('<');
     for (int i = 0; i < _typeArgs.length; i++) {
       if (i != 0)
-	cb.append(',');
+        cb.append(',');
       
       cb.append(_typeArgs[i].getPrintName());
     }

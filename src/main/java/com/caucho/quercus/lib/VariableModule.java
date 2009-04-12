@@ -116,9 +116,9 @@ public class VariableModule extends AbstractQuercusModule {
    * @param value the constant value
    */
   public static Value define(Env env,
-			     StringValue name,
-			     Value value,
-			     @Optional boolean isCaseInsensitive)
+                             StringValue name,
+                             Value value,
+                             @Optional boolean isCaseInsensitive)
   {
     return env.addConstant(name, value, isCaseInsensitive);
   }
@@ -194,14 +194,14 @@ public class VariableModule extends AbstractQuercusModule {
 
     for (Map.Entry<String,EnvVar> entry : map.entrySet()) {
       result.append(env.createString(entry.getKey()),
-		    entry.getValue().get());
+                    entry.getValue().get());
     }
 
     Map<String,EnvVar> globalMap = env.getGlobalEnv();
     if (map != globalMap) {
       for (Map.Entry<String,EnvVar> entry : globalMap.entrySet()) {
-	result.append(env.createString(entry.getKey()),
-		      entry.getValue().get());
+        result.append(env.createString(entry.getKey()),
+                      entry.getValue().get());
       }
     }
 
@@ -232,8 +232,8 @@ public class VariableModule extends AbstractQuercusModule {
    * @param prefix the prefix
    */
   public static boolean import_request_variables(Env env,
-						 String types,
-						 @Optional String prefix)
+                                                 String types,
+                                                 @Optional String prefix)
   {
     if ("".equals(prefix))
       env.notice(L.l("import_request_variables should use a prefix argument"));
@@ -244,22 +244,22 @@ public class VariableModule extends AbstractQuercusModule {
       Value value = null;
 
       if (ch == 'c' || ch == 'C')
-	value = env.getGlobalValue("_COOKIE");
+        value = env.getGlobalValue("_COOKIE");
       else if (ch == 'g' || ch == 'G')
-	value = env.getGlobalValue("_GET");
+        value = env.getGlobalValue("_GET");
       else if (ch == 'p' || ch == 'P')
-	value = env.getGlobalValue("_POST");
+        value = env.getGlobalValue("_POST");
 
       if (! (value instanceof ArrayValue))
-	continue;
+        continue;
 
       ArrayValue array = (ArrayValue) value;
 
       for (Map.Entry<Value,Value> entry : array.entrySet()) {
-	String key = entry.getKey().toString();
+        String key = entry.getKey().toString();
 
-	env.setGlobalValue(prefix + key,
-			 array.getRef(entry.getKey()));
+        env.setGlobalValue(prefix + key,
+                         array.getRef(entry.getKey()));
       }
     }
 
@@ -299,13 +299,13 @@ public class VariableModule extends AbstractQuercusModule {
       int digit;
 
       if ('0' <= ch && ch <= '9')
-	digit = ch - '0';
+        digit = ch - '0';
       else if ('a' <= ch && ch <= 'z')
-	digit = ch - 'a' + 10;
+        digit = ch - 'a' + 10;
       else if ('A' <= ch && ch <= 'Z')
-	digit = ch - 'A' + 10;
+        digit = ch - 'A' + 10;
       else
-	digit = 0;
+        digit = 0;
 
       value = value * base + digit;
     }
@@ -337,8 +337,8 @@ public class VariableModule extends AbstractQuercusModule {
   public static Value is_bool(@ReadOnly Value v)
   {
     return (v.toValue() instanceof BooleanValue
-	    ? BooleanValue.TRUE
-	    : BooleanValue.FALSE);
+            ? BooleanValue.TRUE
+            : BooleanValue.FALSE);
   }
 
   // XXX: is_buffer
@@ -347,47 +347,47 @@ public class VariableModule extends AbstractQuercusModule {
    * Returns the type string for the variable
    */
   public static boolean is_callable(Env env,
-				    Value v,
-				    @Optional boolean isSyntaxOnly,
-				    @Optional @Reference Value nameRef)
+                                    Value v,
+                                    @Optional boolean isSyntaxOnly,
+                                    @Optional @Reference Value nameRef)
   {
     if (v instanceof StringValue) {
       if (nameRef != null)
-	nameRef.set(v);
+        nameRef.set(v);
 
       if (isSyntaxOnly)
-	return true;
+        return true;
       else
-	return env.findFunction(v.toString()) != null;
+        return env.findFunction(v.toString()) != null;
     }
     else if (v instanceof ArrayValue) {
       Value obj = v.get(LongValue.ZERO);
       Value name = v.get(LongValue.ONE);
 
       if (! (name instanceof StringValue))
-	return false;
+        return false;
 
       if (nameRef != null)
-	nameRef.set(name);
+        nameRef.set(name);
 
       if (obj instanceof StringValue) {
-	if (isSyntaxOnly)
-	  return true;
+        if (isSyntaxOnly)
+          return true;
 
-	QuercusClass cl = env.findClass(obj.toString());
-	if (cl == null)
-	  return false;
+        QuercusClass cl = env.findClass(obj.toString());
+        if (cl == null)
+          return false;
 
-	return (cl.findFunction(name.toString()) != null);
+        return (cl.findFunction(name.toString()) != null);
       }
       else if (obj.isObject()) {
-	if (isSyntaxOnly)
-	  return true;
+        if (isSyntaxOnly)
+          return true;
 
-	return obj.findFunction(name.toString()) != null;
+        return obj.findFunction(name.toString()) != null;
       }
       else
-	return false;
+        return false;
     }
     else
       return false;
@@ -427,8 +427,8 @@ public class VariableModule extends AbstractQuercusModule {
   public static Value is_int(@ReadOnly Value v)
   {
     return (v.toValue() instanceof LongValue
-	    ? BooleanValue.TRUE
-	    : BooleanValue.FALSE);
+            ? BooleanValue.TRUE
+            : BooleanValue.FALSE);
   }
 
   /**
@@ -561,8 +561,8 @@ public class VariableModule extends AbstractQuercusModule {
    * @return the string that was supposed to be printed, or true
    */
   public static Value print_r(Env env,
-			      @ReadOnly Value v,
-			      @Optional boolean isReturn)
+                              @ReadOnly Value v,
+                              @Optional boolean isReturn)
   {
     try {
       WriteStream out;
@@ -689,7 +689,7 @@ public class VariableModule extends AbstractQuercusModule {
       v = entry.getValue(env);
 
       if (v != null)
-	return v;
+        return v;
     }
 
     UnserializeReader is = null;
@@ -762,8 +762,8 @@ public class VariableModule extends AbstractQuercusModule {
    * Serializes the value to a string.
    */
   public static Value var_export(Env env,
-				 @ReadOnly Value v,
-				 @Optional boolean isReturn)
+                                 @ReadOnly Value v,
+                                 @Optional boolean isReturn)
   {
     StringBuilder sb = new StringBuilder();
 
@@ -807,9 +807,9 @@ public class VariableModule extends AbstractQuercusModule {
     }
     else if (v instanceof BooleanValue) {
       if (v.toBoolean())
-	out.print("bool(true)");
+        out.print("bool(true)");
       else
-	out.print("bool(false)");
+        out.print("bool(false)");
     }
     else if (v instanceof LongValue) {
       out.print("int(" + v.toLong() + ")");
@@ -847,9 +847,9 @@ public class VariableModule extends AbstractQuercusModule {
     public boolean equals(Object o)
     {
       if (this == o)
-	return true;
+        return true;
       else if (! (o instanceof UnserializeKey))
-	return false;
+        return false;
 
       UnserializeKey key = (UnserializeKey) o;
 
@@ -857,7 +857,7 @@ public class VariableModule extends AbstractQuercusModule {
       StringValue b = key._stringRef.get();
 
       if (a == null || b == null)
-	return false;
+        return false;
 
       return a.equals(b);
     }

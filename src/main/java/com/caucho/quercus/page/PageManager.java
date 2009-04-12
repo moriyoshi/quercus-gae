@@ -248,15 +248,15 @@ public class PageManager
       if (program == null || isModified) {
         clearProgram(path, program);
 
-	program = preloadProgram(path, fileName);
+        program = preloadProgram(path, fileName);
 
-	if (program == null) {
-	  program = QuercusParser.parse(_quercus,
-					path,
-					_quercus.getScriptEncoding(),
-					fileName,
-					line);
-	}
+        if (program == null) {
+          program = QuercusParser.parse(_quercus,
+                                        path,
+                                        _quercus.getScriptEncoding(),
+                                        fileName,
+                                        line);
+        }
         
         _programCache.put(path, program);
       }

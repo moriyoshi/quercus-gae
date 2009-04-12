@@ -122,33 +122,33 @@ public class UTF8Writer extends EncodingWriter {
     
     for (int i = 0; i < len; i++) {
       if (capacity <= length + 2) {
-	buffer = os.nextBuffer(length);
-	length = os.getBufferOffset();
+        buffer = os.nextBuffer(length);
+        length = os.getBufferOffset();
       }
       
       char ch = cbuf[off + i];
 
       if (ch < 0x80)
-	buffer[length++] = (byte) ch;
+        buffer[length++] = (byte) ch;
       else if (ch < 0x800) {
-	buffer[length++] = (byte) (0xc0 + (ch >> 6));
-	buffer[length++] = (byte) (0x80 + (ch & 0x3f));
+        buffer[length++] = (byte) (0xc0 + (ch >> 6));
+        buffer[length++] = (byte) (0x80 + (ch & 0x3f));
       }
       else if (ch < 0xd800 || 0xdfff < ch) {
-	buffer[length++] = (byte) (0xe0 + (ch >> 12));
-	buffer[length++] = (byte) (0x80 + ((ch >> 6) & 0x3f));
-	buffer[length++] = (byte) (0x80 + (ch & 0x3f));
+        buffer[length++] = (byte) (0xe0 + (ch >> 12));
+        buffer[length++] = (byte) (0x80 + ((ch >> 6) & 0x3f));
+        buffer[length++] = (byte) (0x80 + (ch & 0x3f));
       }
       else {
-	char ch2 = cbuf[off + i + 1];
-	int v = 0x10000 + (ch & 0x3ff) * 0x400 + (ch2 & 0x3ff);
-	
-	i += 1;
-	
-	buffer[length++] = (byte) (0xf0 + (v >> 18));
-	buffer[length++] = (byte) (0x80 + ((v >> 12) & 0x3f));
-	buffer[length++] = (byte) (0x80 + ((v >> 6) & 0x3f));
-	buffer[length++] = (byte) (0x80 + (v & 0x3f));
+        char ch2 = cbuf[off + i + 1];
+        int v = 0x10000 + (ch & 0x3ff) * 0x400 + (ch2 & 0x3ff);
+        
+        i += 1;
+        
+        buffer[length++] = (byte) (0xf0 + (v >> 18));
+        buffer[length++] = (byte) (0x80 + ((v >> 12) & 0x3f));
+        buffer[length++] = (byte) (0x80 + ((v >> 6) & 0x3f));
+        buffer[length++] = (byte) (0x80 + (v & 0x3f));
       }
     }
 

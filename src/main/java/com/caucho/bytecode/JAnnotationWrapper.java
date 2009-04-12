@@ -62,22 +62,22 @@ public class JAnnotationWrapper extends JAnnotation
   {
     try {
       if (_values == null) {
-	_values = new HashMap<String,Object>();
+        _values = new HashMap<String,Object>();
 
-	Method []methods = _ann.annotationType().getMethods();
+        Method []methods = _ann.annotationType().getMethods();
 
-	for (int i = 0; i < methods.length; i++) {
-	  Method method = methods[i];
+        for (int i = 0; i < methods.length; i++) {
+          Method method = methods[i];
 
-	  if (method.getDeclaringClass().equals(Class.class))
-	    continue;
-	  if (method.getDeclaringClass().equals(Object.class))
-	    continue;
-	  if (method.getParameterTypes().length != 0)
-	    continue;
+          if (method.getDeclaringClass().equals(Class.class))
+            continue;
+          if (method.getDeclaringClass().equals(Object.class))
+            continue;
+          if (method.getParameterTypes().length != 0)
+            continue;
 
-	  _values.put(method.getName(), method.invoke(_ann));
-	}
+          _values.put(method.getName(), method.invoke(_ann));
+        }
       }
 
       return _values;

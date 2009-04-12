@@ -53,14 +53,14 @@ public class Hex {
       int d2 = (bytes[offset + i]) & 0xf;
 
       if (d1 < 10)
-	sb.append((char) ('0' + d1));
+        sb.append((char) ('0' + d1));
       else
-	sb.append((char) ('a' + d1 - 10));
+        sb.append((char) ('a' + d1 - 10));
 
       if (d2 < 10)
-	sb.append((char) ('0' + d2));
+        sb.append((char) ('0' + d2));
       else
-	sb.append((char) ('a' + d2 - 10));
+        sb.append((char) ('a' + d2 - 10));
     }
 
     return sb.toString();
@@ -85,20 +85,20 @@ public class Hex {
       char ch = hex.charAt(i);
 
       if ('0' <= ch && ch <= '9')
-	digit = ch - '0';
+        digit = ch - '0';
       else if ('a' <= ch && ch <= 'f')
-	digit = ch - 'a' + 10;
+        digit = ch - 'a' + 10;
       else if ('A' <= ch && ch <= 'F')
-	digit = ch - 'A' + 10;
+        digit = ch - 'A' + 10;
 
       ch = hex.charAt(i + 1);
 
       if ('0' <= ch && ch <= '9')
-	digit = 16 * digit + ch - '0';
+        digit = 16 * digit + ch - '0';
       else if ('a' <= ch && ch <= 'f')
-	digit = 16 * digit + ch - 'a' + 10;
+        digit = 16 * digit + ch - 'a' + 10;
       else if ('A' <= ch && ch <= 'F')
-	digit = 16 * digit + ch - 'A' + 10;
+        digit = 16 * digit + ch - 'A' + 10;
 
       bytes[k++] = (byte) digit;
     }

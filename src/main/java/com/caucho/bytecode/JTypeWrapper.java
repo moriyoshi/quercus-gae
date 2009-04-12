@@ -89,7 +89,7 @@ public class JTypeWrapper implements JType {
     cb.append('<');
     for (int i = 0; i < typeArgs.length; i++) {
       if (i != 0)
-	cb.append(',');
+        cb.append(',');
       
       cb.append(typeArgs[i].getPrintName());
     }
@@ -111,14 +111,14 @@ public class JTypeWrapper implements JType {
       Type type = rawArgs[i];
 
       if (type instanceof Class) {
-	args[i] = _loader.forName(((Class) type).getName());
+        args[i] = _loader.forName(((Class) type).getName());
       }
       else if (type instanceof ParameterizedType)
-	args[i] = new JTypeWrapper(_loader, (ParameterizedType) type);
+        args[i] = new JTypeWrapper(_loader, (ParameterizedType) type);
       else {
-	args[i] = _loader.forName("java.lang.Object");
-	// jpa/0gg0
-	// throw new IllegalStateException(type.toString());
+        args[i] = _loader.forName("java.lang.Object");
+        // jpa/0gg0
+        // throw new IllegalStateException(type.toString());
       }
     }
 

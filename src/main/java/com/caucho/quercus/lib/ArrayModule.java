@@ -147,7 +147,7 @@ public class ArrayModule
    * Changes the key case
    */
   public Value array_change_key_case(Env env,
-				     ArrayValue array,
+                                     ArrayValue array,
                                      @Optional("CASE_LOWER") int toCase)
   {
     if (array == null)
@@ -292,8 +292,8 @@ public class ArrayModule
    * Returns the size of the array.
    */
   public static long count(Env env,
-			   @ReadOnly Value value,
-			   @Optional("false") boolean recursive)
+                           @ReadOnly Value value,
+                           @Optional("false") boolean recursive)
   {
     if (! recursive)
       return value.getCount(env);
@@ -539,11 +539,11 @@ public class ArrayModule
       Value entryValue = entry.getValue();
 
       if (entryValue.isLongConvertible()
-	  || entryValue instanceof StringValue)
+          || entryValue instanceof StringValue)
         newArray.put(entryValue, entry.getKey());
       else {
         env.warning(L.l("Can only flip string and integer values at '{0}'",
-			entryValue));
+                        entryValue));
       }
     }
 
@@ -1699,7 +1699,7 @@ public class ArrayModule
     if (start.eq(end)) {
     }
     else if (start instanceof StringValue
-	     && (Math.abs(end.toChar() - start.toChar()) < step)) {
+             && (Math.abs(end.toChar() - start.toChar()) < step)) {
       env.warning("steps exceeds the specified range");
 
       return BooleanValue.FALSE;
@@ -2749,8 +2749,8 @@ public class ArrayModule
    * Sorts the array.
    */
   /*public Value asort(Env env,
-		     Value value,
-		     @Optional int mode)
+                     Value value,
+                     @Optional int mode)
   {
     if (! (value instanceof ArrayValue)) {
       env.warning(L.l("asort requires array at '{0}'", value));
@@ -2769,8 +2769,8 @@ public class ArrayModule
    * Sorts the array.
    */
   /*public Value ksort(Env env,
-		     Value value,
-		     @Optional int mode)
+                     Value value,
+                     @Optional int mode)
   {
     if (! (value instanceof ArrayValue)) {
       env.warning(L.l("asort requires array at '{0}'", value));
@@ -3431,8 +3431,8 @@ public class ArrayModule
    * Returns the size of the array.
    */
   public static long sizeof(Env env,
-			    @ReadOnly Value value,
-			    @Optional("false") boolean recursive)
+                            @ReadOnly Value value,
+                            @Optional("false") boolean recursive)
   {
     return count(env, value, recursive);
   }

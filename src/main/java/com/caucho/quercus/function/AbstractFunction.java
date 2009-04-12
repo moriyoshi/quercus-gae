@@ -369,7 +369,7 @@ abstract public class AbstractFunction {
             errorPrivateAccess(env, oldThis);
           }
         }
-	*/
+        */
       }
 
       return call(env, args);
@@ -469,9 +469,9 @@ abstract public class AbstractFunction {
     for (int i = 0; i < exprs.length; i++) {
       // quercus/0d19
       if (i < args.length && args[i].isReference())
-	argValues[i] = exprs[i].evalArg(env, true);
+        argValues[i] = exprs[i].evalArg(env, true);
       else
-	argValues[i] = exprs[i].eval(env);
+        argValues[i] = exprs[i].eval(env);
     }
 
     return call(env, argValues);
@@ -529,7 +529,7 @@ abstract public class AbstractFunction {
    * Evaluates the function with arguments
    */
   public Value callRef(Env env,
-		       Value a1, Value a2, Value a3, Value a4, Value a5)
+                       Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     return callRef(env, new Value[] { a1, a2, a3, a4, a5 });
   }
@@ -545,9 +545,9 @@ abstract public class AbstractFunction {
     for (int i = 0; i < exprs.length; i++) {
       // quercus/0d19
       if (i < args.length && args[i].isReference())
-	argValues[i] = exprs[i].evalArg(env, true);
+        argValues[i] = exprs[i].evalArg(env, true);
       else
-	argValues[i] = exprs[i].eval(env);
+        argValues[i] = exprs[i].eval(env);
     }
 
     return callRef(env, argValues);
@@ -581,7 +581,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethod(Env env, Value obj,
-			  Value a1, Value a2, Value a3)
+                          Value a1, Value a2, Value a3)
   {
     return callMethod(env, obj, new Value[] { a1, a2, a3 });
   }
@@ -590,7 +590,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethod(Env env, Value obj,
-			  Value a1, Value a2, Value a3, Value a4)
+                          Value a1, Value a2, Value a3, Value a4)
   {
     return callMethod(env, obj, new Value[] { a1, a2, a3, a4 });
   }
@@ -599,7 +599,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethod(Env env, Value obj,
-			  Value a1, Value a2, Value a3, Value a4, Value a5)
+                          Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     return callMethod(env, obj, new Value[] { a1, a2, a3, a4, a5 });
   }
@@ -614,10 +614,10 @@ abstract public class AbstractFunction {
 
     for (int i = 0; i < exprs.length; i++) {
       if (i < args.length && args[i].isReference()) {
-	argValues[i] = exprs[i].evalArg(env, true);
+        argValues[i] = exprs[i].evalArg(env, true);
       }
       else
-	argValues[i] = exprs[i].eval(env);
+        argValues[i] = exprs[i].eval(env);
     }
 
     return callMethod(env, obj, argValues);
@@ -651,7 +651,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethodRef(Env env, Value obj,
-			     Value a1, Value a2, Value a3)
+                             Value a1, Value a2, Value a3)
   {
     return callMethodRef(env, obj, new Value[] { a1, a2, a3 });
   }
@@ -660,7 +660,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethodRef(Env env, Value obj,
-			     Value a1, Value a2, Value a3, Value a4)
+                             Value a1, Value a2, Value a3, Value a4)
   {
     return callMethodRef(env, obj, new Value[] { a1, a2, a3, a4 });
   }
@@ -669,7 +669,7 @@ abstract public class AbstractFunction {
    * Evaluates the function as a method call.
    */
   public Value callMethodRef(Env env, Value obj,
-			     Value a1, Value a2, Value a3, Value a4, Value a5)
+                             Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     return callMethodRef(env, obj, new Value[] { a1, a2, a3, a4, a5 });
   }
@@ -684,9 +684,9 @@ abstract public class AbstractFunction {
 
     for (int i = 0; i < exprs.length; i++) {
       if (i < args.length && args[i].isReference())
-	argValues[i] = exprs[i].evalArg(env, true);
+        argValues[i] = exprs[i].evalArg(env, true);
       else
-	argValues[i] = exprs[i].eval(env);
+        argValues[i] = exprs[i].eval(env);
     }
 
     return callMethodRef(env, obj, argValues);

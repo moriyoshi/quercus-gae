@@ -75,7 +75,7 @@ public class CompiledObjectValue extends ObjectValue
 
     for (int i = 0; i < _fields.length; i++) {
       if (_fields[i] != UnsetValue.UNSET)
-	size++;
+        size++;
     }
 
     if (_object != null)
@@ -94,7 +94,7 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0)
-	return _fields[index].toValue();
+        return _fields[index].toValue();
     }
     
     if (_object != null) {
@@ -114,11 +114,11 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	Var var = _fields[index].toRefVar();
-	
-	_fields[index] = var;
+        Var var = _fields[index].toRefVar();
+        
+        _fields[index] = var;
 
-	return var;
+        return var;
       }
     }
 
@@ -138,11 +138,11 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	Var var = _fields[index].toRefVar();
-	
-	_fields[index] = var;
+        Var var = _fields[index].toRefVar();
+        
+        _fields[index] = var;
 
-	return var;
+        return var;
       }
     }
 
@@ -162,11 +162,11 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	Var var = _fields[index].toRefVar();
-	
-	_fields[index] = var;
+        Var var = _fields[index].toRefVar();
+        
+        _fields[index] = var;
 
-	return var;
+        return var;
       }
     }
 
@@ -186,9 +186,9 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	_fields[index] = _fields[index].toAutoArray();
-	
-	return _fields[index];
+        _fields[index] = _fields[index].toAutoArray();
+        
+        return _fields[index];
       }
     }
 
@@ -208,9 +208,9 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	_fields[index] = _fields[index].toAutoObject(env);
-	
-	return _fields[index];
+        _fields[index] = _fields[index].toAutoObject(env);
+        
+        return _fields[index];
       }
     }
 
@@ -230,9 +230,9 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	_fields[index] = _fields[index].set(value);
+        _fields[index] = _fields[index].set(value);
 
-	return value;
+        return value;
       }
     }
     
@@ -252,9 +252,9 @@ public class CompiledObjectValue extends ObjectValue
       int index = _quercusClass.findFieldIndex(key);
 
       if (index >= 0) {
-	_fields[index] = UnsetValue.UNSET;
+        _fields[index] = UnsetValue.UNSET;
 
-	return;
+        return;
       }
     }
     
@@ -503,34 +503,34 @@ public class CompiledObjectValue extends ObjectValue
       int index = 0;
 
       for (int i = 0; i < names.size(); i++) {
-	StringValue key = names.get(i);
-	
-	if (_fields[i] == UnsetValue.UNSET)
-	  continue;
-	
-	sb.append("s:");
-	sb.append(key.length());
-	sb.append(":\"");
-	sb.append(key);
-	sb.append("\";");
+        StringValue key = names.get(i);
+        
+        if (_fields[i] == UnsetValue.UNSET)
+          continue;
+        
+        sb.append("s:");
+        sb.append(key.length());
+        sb.append(":\"");
+        sb.append(key);
+        sb.append("\";");
 
-	_fields[i].serialize(env, sb, map);
+        _fields[i].serialize(env, sb, map);
       }
     }
 
     if (_object != null) {
       for (Map.Entry<Value,Value> mapEntry : _object.sortedEntrySet()) {
-	ObjectExtValue.Entry entry = (ObjectExtValue.Entry) mapEntry;
+        ObjectExtValue.Entry entry = (ObjectExtValue.Entry) mapEntry;
 
-	StringValue key = entry.getKey().toStringValue();
-	
-	sb.append("s:");
-	sb.append(key.length());
-	sb.append(":\"");
-	sb.append(key);
-	sb.append("\";");
+        StringValue key = entry.getKey().toStringValue();
+        
+        sb.append("s:");
+        sb.append(key.length());
+        sb.append(":\"");
+        sb.append(key);
+        sb.append("\";");
 
-	entry.getValue().serialize(env, sb, map);
+        entry.getValue().serialize(env, sb, map);
       }
     }
 

@@ -41,7 +41,7 @@ public class IntSet {
       int []next = new int[data.length * 2];
 
       for (int i = 0; i < data.length; i++)
-	next[i] = data[i];
+        next[i] = data[i];
 
       data = next;
     }
@@ -76,24 +76,24 @@ public class IntSet {
   public void union(int min, int max) {
     for (int i = 1; i < size; i += 2) {
       if (max < data[i - 1] - 1) {
-	insert(i - 1, min, max);
-	return;
+        insert(i - 1, min, max);
+        return;
       }
 
       if (min > data[i] + 1)
-	continue;
+        continue;
 
       if (min < data[i - 1])
-	data[i - 1] = min;
+        data[i - 1] = min;
       if (max > data[i])
-	data[i] = max;
+        data[i] = max;
 
       int j = i + 2;
       while (j < size && max > data[j - 1] + 1) {
-	if (max < data[j - 1])
-	  data[i] = data[j - 1];
+        if (max < data[j - 1])
+          data[i] = data[j - 1];
 
-	delete(j - 1);
+        delete(j - 1);
       }
       return;
     }
@@ -137,9 +137,9 @@ public class IntSet {
       max = data[1];
       delete(0);
       if (max == maxValue)
-	return;
+        return;
       else
-	max++;
+        max++;
     }
 
     for (int i = 1; i < size; i += 2) {
@@ -148,7 +148,7 @@ public class IntSet {
       data[i - 1] = max;
 
       if (newMax == maxValue)
-	return;
+        return;
       max = newMax + 1;
     }
 
@@ -182,40 +182,40 @@ public class IntSet {
       //       aaaa
       //  bbbb
       if (bMax < aMin) {
-	j += 2;
+        j += 2;
       }
       //  aaaa
       //       bbbb
       else if (aMax < bMin) {
-	i += 2;
+        i += 2;
       }
       //   aaaa
       //  bbbbbb
       else if (bMin <= aMin && aMax <= bMax) {
-	delete(i - 1);
+        delete(i - 1);
       }
       //  aaaaaa
       //   bbbb
       else if (aMin < bMin && bMax < aMax) {
-	insert(i + 1, bMax + 1, aMax);
-	data[i] = bMin - 1;
-	i += 2;
-	j += 2;
+        insert(i + 1, bMax + 1, aMax);
+        data[i] = bMin - 1;
+        i += 2;
+        j += 2;
       }
       //  aaaa
       //   bbbb
       else if (aMin < bMin) {
-	data[i] = bMin - 1;
-	i += 2;
+        data[i] = bMin - 1;
+        i += 2;
       }
       //  aaaa
       // bbbb
       else if (aMax > bMax) {
-	data[i - 1] = bMax + 1;
-	j += 2;
+        data[i - 1] = bMax + 1;
+        j += 2;
       } 
       else {
-	throw new RuntimeException("Impossible case");
+        throw new RuntimeException("Impossible case");
       }
     }
 
@@ -242,43 +242,43 @@ public class IntSet {
       //       aaaa
       //  bbbb
       if (bMax < aMin) {
-	j += 2;
+        j += 2;
       }
       //  aaaa
       //       bbbb
       else if (aMax < bMin) {
-	delete(i - 1);
+        delete(i - 1);
       }
       //   aaaa
       //  bbbbbb
       else if (bMin <= aMin && aMax <= bMax) {
-	i += 2;
+        i += 2;
       }
       //  aaaaaa
       //   bbbb
       else if (aMin <= bMin && bMax <= aMax) {
-	data[i - 1] = bMin;
-	data[i] = bMax;
-	if (bMax < aMax)
-	  insert(i + 1, bMax + 1, aMax);
-	i += 2;
-	j += 2;
+        data[i - 1] = bMin;
+        data[i] = bMax;
+        if (bMax < aMax)
+          insert(i + 1, bMax + 1, aMax);
+        i += 2;
+        j += 2;
       }
       //  aaaa
       //   bbbb
       else if (aMin <= bMin) {
-	data[i - 1] = bMin;
-	i += 2;
+        data[i - 1] = bMin;
+        i += 2;
       }
       //  aaaa
       // bbbb
       else if (bMin < aMin) {
-	data[i] = bMax;
-	insert(i + 1, bMax + 1, aMax);
-	i += 2;
+        data[i] = bMax;
+        insert(i + 1, bMax + 1, aMax);
+        i += 2;
       }
       else {
-	throw new RuntimeException("case");
+        throw new RuntimeException("case");
       }
     }
 
@@ -295,9 +295,9 @@ public class IntSet {
   {
     for (int i = 1; i < size; i += 2) {
       if (test < data[i - 1])
-	return false;
+        return false;
       if (test <= data[i])
-	return true;
+        return true;
     }
 
     return false;
@@ -313,11 +313,11 @@ public class IntSet {
 
     while (i < size && j < subset.size) {
       if (data[i] < subset.data[j - 1])
-	i += 2;
+        i += 2;
       else if (subset.data[j - 1] < data[i - 1] || subset.data[j] > data[i])
-	return false;
+        return false;
       else
-	j += 2;
+        j += 2;
     }
 
     return true;
@@ -333,11 +333,11 @@ public class IntSet {
 
     while (i < size && j < set.size) {
       if (data[i] < set.data[j - 1])
-	i += 2;
+        i += 2;
       else if (set.data[j] < data[i - 1])
-	j += 2;
+        j += 2;
       else
-	return false;
+        return false;
     }
 
     return true;
@@ -353,12 +353,12 @@ public class IntSet {
     sbuf.append("IntSet[");
     for (int i = 1; i < size; i += 1) {
       if (i != 1)
-	sbuf.append(" ");
+        sbuf.append(" ");
 
       sbuf.append(data[i - 1]);
       if (data[i - 1] != data[i]) {
-	sbuf.append(",");
-	sbuf.append(data[i]);
+        sbuf.append(",");
+        sbuf.append(data[i]);
       }
     }
     sbuf.append("]");

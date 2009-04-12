@@ -59,7 +59,7 @@ public class QuercusScriptEngine
   }
 
   public QuercusScriptEngine(QuercusScriptEngineFactory factory,
-			     Quercus quercus)
+                             Quercus quercus)
   {
     _factory = factory;
     _quercus = quercus;

@@ -101,8 +101,8 @@ public class JavaAnnotation extends JAnnotation {
    * Parses the annotation from an annotation block.
    */
   static JavaAnnotation []parseAnnotations(InputStream is,
-					   ConstantPool cp,
-					   JavaClassLoader loader)
+                                           ConstantPool cp,
+                                           JavaClassLoader loader)
     throws IOException
   {
     int n = readShort(is);
@@ -117,8 +117,8 @@ public class JavaAnnotation extends JAnnotation {
   }
 
   private static JavaAnnotation parseAnnotation(InputStream is,
-						ConstantPool cp,
-						JavaClassLoader loader)
+                                                ConstantPool cp,
+                                                JavaClassLoader loader)
     throws IOException
   {
     JavaAnnotation ann = new JavaAnnotation();
@@ -137,15 +137,15 @@ public class JavaAnnotation extends JAnnotation {
       Class aClass = Class.forName(typeName, false, Thread.currentThread().getContextClassLoader());
 
       for (Method method : aClass.getDeclaredMethods()) {
-	Object value = method.getDefaultValue();
+        Object value = method.getDefaultValue();
 
-	if (value instanceof Class) {
-	  String className = ((Class) value).getName();
-	  
-	  ann.putValue(method.getName(), loader.forName(className));
-	}
-	else if (value != null)
-	  ann.putValue(method.getName(), value);
+        if (value instanceof Class) {
+          String className = ((Class) value).getName();
+          
+          ann.putValue(method.getName(), loader.forName(className));
+        }
+        else if (value != null)
+          ann.putValue(method.getName(), value);
       }
     } catch (Exception e) {
       log.log(Level.FINER, e.toString(), e);
@@ -156,7 +156,7 @@ public class JavaAnnotation extends JAnnotation {
       int nameIndex = readShort(is);
 
       String name = cp.getUtf8(nameIndex).getValue();
-	  
+          
       Object value = parseElementValue(is, cp, loader);
 
       ann.putValue(name, value);
@@ -166,8 +166,8 @@ public class JavaAnnotation extends JAnnotation {
   }
 
   private static Object parseElementValue(InputStream is,
-					  ConstantPool cp,
-					  JavaClassLoader loader)
+                                          ConstantPool cp,
+                                          JavaClassLoader loader)
     throws IOException
   {
     int tag = is.read();
@@ -175,58 +175,58 @@ public class JavaAnnotation extends JAnnotation {
     switch (tag) {
     case 'Z':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return cp.getInteger(i).getValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+        return cp.getInteger(i).getValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
       }
       
     case 'B':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Byte((byte) cp.getInteger(i).getValue());
+        return new Byte((byte) cp.getInteger(i).getValue());
       }
       
     case 'S':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Short((short) cp.getInteger(i).getValue());
+        return new Short((short) cp.getInteger(i).getValue());
       }
       
     case 'I':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Integer(cp.getInteger(i).getValue());
+        return new Integer(cp.getInteger(i).getValue());
       }
       
     case 'J':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Long(cp.getLong(i).getValue());
+        return new Long(cp.getLong(i).getValue());
       }
       
     case 'F':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Float(cp.getFloat(i).getValue());
+        return new Float(cp.getFloat(i).getValue());
       }
       
     case 'D':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Double(cp.getDouble(i).getValue());
+        return new Double(cp.getDouble(i).getValue());
       }
       
     case 'C':
       {
-	int i = readShort(is);
+        int i = readShort(is);
 
-	return new Character((char) cp.getInteger(i).getValue());
+        return new Character((char) cp.getInteger(i).getValue());
       }
       
     case 's':
@@ -234,43 +234,43 @@ public class JavaAnnotation extends JAnnotation {
       return cp.getUtf8(i).getValue();
     case 'e':
       {
-	int type = readShort(is);
-	int value = readShort(is);
-	String enumClassName = cp.getUtf8(type).getValue();
-	enumClassName = enumClassName.substring(1, enumClassName.length() - 1);
-	enumClassName = enumClassName.replace('/', '.');
+        int type = readShort(is);
+        int value = readShort(is);
+        String enumClassName = cp.getUtf8(type).getValue();
+        enumClassName = enumClassName.substring(1, enumClassName.length() - 1);
+        enumClassName = enumClassName.replace('/', '.');
 
-	try {
-	  Class enumClass = Class.forName(enumClassName, false, Thread.currentThread().getContextClassLoader());
-	  String enumName = cp.getUtf8(value).getValue();
+        try {
+          Class enumClass = Class.forName(enumClassName, false, Thread.currentThread().getContextClassLoader());
+          String enumName = cp.getUtf8(value).getValue();
 
-	  return _enumValueOf.invoke(null, enumClass, enumName);
-	  
-	} catch (Exception e) {
-	  log.log(Level.FINE, e.toString(), e);
+          return _enumValueOf.invoke(null, enumClass, enumName);
+          
+        } catch (Exception e) {
+          log.log(Level.FINE, e.toString(), e);
 
-	  return null;
-	}
+          return null;
+        }
       }
     case 'c':
       // class
       {
-	String className = cp.getUtf8(readShort(is)).getValue();
+        String className = cp.getUtf8(readShort(is)).getValue();
 
-	return loader.descriptorToClass(className, 0);
+        return loader.descriptorToClass(className, 0);
       }
     case '@':
       return parseAnnotation(is, cp, loader);
     case '[':
       {
-	int n = readShort(is);
-	
-	Object []array = new Object[n];
-	for (int j = 0; j < n; j++) {
-	  array[j] = parseElementValue(is, cp, loader);
-	}
+        int n = readShort(is);
+        
+        Object []array = new Object[n];
+        for (int j = 0; j < n; j++) {
+          array[j] = parseElementValue(is, cp, loader);
+        }
 
-	return array;
+        return array;
       }
     default:
       throw new IllegalStateException();
@@ -281,16 +281,16 @@ public class JavaAnnotation extends JAnnotation {
     throws IOException
   {
     return (((is.read() & 0xff) << 8) +
-	    (is.read() & 0xff));
+            (is.read() & 0xff));
   }
 
   static int readInt(InputStream is)
     throws IOException
   {
     return (((is.read() & 0xff) << 24) +
-	    ((is.read() & 0xff) << 16) +
-	    ((is.read() & 0xff) << 8) +
-	    ((is.read() & 0xff)));
+            ((is.read() & 0xff) << 16) +
+            ((is.read() & 0xff) << 8) +
+            ((is.read() & 0xff)));
   }
 
   public String toString()
@@ -302,7 +302,7 @@ public class JavaAnnotation extends JAnnotation {
     try {
       Class cl = Class.forName("java.lang.Enum");
       _enumValueOf = cl.getMethod("valueOf",
-				  new Class[] { Class.class, String.class });
+                                  new Class[] { Class.class, String.class });
     } catch (Throwable e) {
       e.printStackTrace();
     }

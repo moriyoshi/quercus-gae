@@ -61,11 +61,11 @@ public class MemoryStream extends StreamImpl {
   {
     while (offset < length) {
       if (_tail == null || _tail._length >= _tail._buf.length)
-	addBuffer(TempBuffer.allocate());
+        addBuffer(TempBuffer.allocate());
 
       int sublen = _tail._buf.length - _tail._length;
       if (length - offset < sublen)
-	sublen = length - offset;
+        sublen = length - offset;
 
       System.arraycopy(buf, offset, _tail._buf, _tail._length, sublen);
 

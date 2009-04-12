@@ -45,7 +45,7 @@ public class ConstPath extends Path
   }
 
   protected Path schemeWalk(String userPath, Map<String,Object> attributes,
-			    String path, int offset)
+                            String path, int offset)
   {
     return this;
   }

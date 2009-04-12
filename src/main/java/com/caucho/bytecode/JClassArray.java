@@ -219,9 +219,9 @@ public class JClassArray extends JClass {
       int p = name.lastIndexOf('.');
 
       if (p >= 0)
-	return name.substring(p + 1);
+        return name.substring(p + 1);
       else
-	return name;
+        return name;
     }
   }
   

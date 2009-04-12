@@ -55,9 +55,9 @@ public class JdbcTableMetaData {
     = new HashMap<String,JdbcColumnMetaData>();
 
   public JdbcTableMetaData(String catalog,
-			   String schema,
-			   String name,
-			   DatabaseMetaData md)
+                           String schema,
+                           String name,
+                           DatabaseMetaData md)
     throws SQLException
   {
     _catalog = catalog;
@@ -68,40 +68,40 @@ public class JdbcTableMetaData {
     ResultSet rs = md.getColumns(_catalog, _schema, _name, null);
     try {
       while (rs.next()) {
-	// COLUMN_NAME
-	String columnName = rs.getString(4);
+        // COLUMN_NAME
+        String columnName = rs.getString(4);
 
-	JdbcColumnMetaData column = new JdbcColumnMetaData(this, rs);
+        JdbcColumnMetaData column = new JdbcColumnMetaData(this, rs);
 
-	_columnMap.put(columnName, column);
+        _columnMap.put(columnName, column);
       }
 
       rs.close();
 
       try {
-	rs = md.getPrimaryKeys(_catalog, _schema, _name);
-	while (rs.next()) {
-	  // COLUMN_NAME
-	  String columnName = rs.getString(4);
+        rs = md.getPrimaryKeys(_catalog, _schema, _name);
+        while (rs.next()) {
+          // COLUMN_NAME
+          String columnName = rs.getString(4);
 
-	  JdbcColumnMetaData column = _columnMap.get(columnName);
+          JdbcColumnMetaData column = _columnMap.get(columnName);
 
-	  column.setPrimaryKey(true);
-	}
+          column.setPrimaryKey(true);
+        }
       } catch (SQLException e) {
-	log.log(Level.FINE, e.toString(), e);
+        log.log(Level.FINE, e.toString(), e);
       } finally {
-	rs.close();
+        rs.close();
       }
 
       rs = md.getIndexInfo(_catalog, _schema, _name, false, true);
       while (rs.next()) {
-	// COLUMN_NAME
-	String columnName = rs.getString(9);
+        // COLUMN_NAME
+        String columnName = rs.getString(9);
 
-	JdbcColumnMetaData column = _columnMap.get(columnName);
+        JdbcColumnMetaData column = _columnMap.get(columnName);
 
-	column.setIndex(true);
+        column.setIndex(true);
       }
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);

@@ -70,23 +70,23 @@ public class QuercusServlet
 
     if (_impl == null) {
       try {
-	Class cl = Class.forName("com.caucho.quercus.servlet.ProQuercusServlet");
-	_impl = (QuercusServletImpl) cl.newInstance();
+        Class cl = Class.forName("com.caucho.quercus.servlet.ProQuercusServlet");
+        _impl = (QuercusServletImpl) cl.newInstance();
       } catch (ConfigException e) {
-	log.log(Level.FINEST, e.toString(), e);
-	log.info("Quercus compiled mode requires Resin personal or professional licenses");
-	log.info(e.getMessage());
+        log.log(Level.FINEST, e.toString(), e);
+        log.info("Quercus compiled mode requires Resin personal or professional licenses");
+        log.info(e.getMessage());
       } catch (Exception e) {
-	log.log(Level.FINEST, e.toString(), e);
+        log.log(Level.FINEST, e.toString(), e);
       }
     }
     
     if (_impl == null) {
       try {
-	Class cl = Class.forName("com.caucho.quercus.servlet.ResinQuercusServlet");
-	_impl = (QuercusServletImpl) cl.newInstance();
+        Class cl = Class.forName("com.caucho.quercus.servlet.ResinQuercusServlet");
+        _impl = (QuercusServletImpl) cl.newInstance();
       } catch (Exception e) {
-	log.log(Level.FINEST, e.toString(), e);
+        log.log(Level.FINEST, e.toString(), e);
       }
     }
     

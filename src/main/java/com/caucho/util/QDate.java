@@ -510,7 +510,7 @@ public class QDate {
       int nextWw1Monday = 3 - dowNext4th;
 
       if (days <= _dayOfYear - nextWw1Monday)
-	return 1;
+        return 1;
     }
 
     return week;
@@ -784,7 +784,7 @@ public class QDate {
     sb.append(':');
     sb.append((time / 600) % 6);
     sb.append((time / 60) % 10);
-	
+        
     sb.append(':');
     sb.append((time / 10) % 6);
     sb.append((time / 1) % 10);
@@ -969,136 +969,136 @@ public class QDate {
     for (int i = 0; i < length; i++) {
       char ch = format.charAt(i);
       if (ch != '%') {
-	cb.append(ch);
-	continue;
+        cb.append(ch);
+        continue;
       }
 
       switch (format.charAt(++i)) {
       case 'a':
-	cb.append(SHORT_WEEKDAY[getDayOfWeek() - 1]);
-	break;
+        cb.append(SHORT_WEEKDAY[getDayOfWeek() - 1]);
+        break;
 
       case 'A':
-	cb.append(LONG_WEEKDAY[getDayOfWeek() - 1]);
-	break;
+        cb.append(LONG_WEEKDAY[getDayOfWeek() - 1]);
+        break;
 
       case 'h':
       case 'b':
-	cb.append(SHORT_MONTH[(int) _month]);
-	break;
+        cb.append(SHORT_MONTH[(int) _month]);
+        break;
 
       case 'B':
-	cb.append(LONG_MONTH[(int) _month]);
-	break;
+        cb.append(LONG_MONTH[(int) _month]);
+        break;
 
       case 'c':
-	cb.append(printLocaleDate());
-	break;
+        cb.append(printLocaleDate());
+        break;
 
       case 'd':
-	cb.append((_dayOfMonth + 1) / 10);
-	cb.append((_dayOfMonth + 1) % 10);
-	break;
+        cb.append((_dayOfMonth + 1) / 10);
+        cb.append((_dayOfMonth + 1) % 10);
+        break;
 
       case 'D':
-	cb.append((_month + 1) / 10);
-	cb.append((_month + 1) % 10);
-	cb.append('/');
-	cb.append((_dayOfMonth + 1) / 10);
-	cb.append((_dayOfMonth + 1) % 10);
-	cb.append('/');
-	cb.append(_year / 10 % 10);
-	cb.append(_year % 10);
-	break;
+        cb.append((_month + 1) / 10);
+        cb.append((_month + 1) % 10);
+        cb.append('/');
+        cb.append((_dayOfMonth + 1) / 10);
+        cb.append((_dayOfMonth + 1) % 10);
+        cb.append('/');
+        cb.append(_year / 10 % 10);
+        cb.append(_year % 10);
+        break;
 
       case 'e':
-	if ((_dayOfMonth + 1) / 10 == 0)
-	  cb.append(' ');
-	else
-	  cb.append((_dayOfMonth + 1) / 10);
-	cb.append((_dayOfMonth + 1) % 10);
-	break;
+        if ((_dayOfMonth + 1) / 10 == 0)
+          cb.append(' ');
+        else
+          cb.append((_dayOfMonth + 1) / 10);
+        cb.append((_dayOfMonth + 1) % 10);
+        break;
 
-	// ISO year
+        // ISO year
 
       case 'H':
-	{
-	  int hour = (int) (_timeOfDay / 3600000) % 24;
-	  cb.append(hour / 10);
-	  cb.append(hour % 10);
-	  break;
-	}
+        {
+          int hour = (int) (_timeOfDay / 3600000) % 24;
+          cb.append(hour / 10);
+          cb.append(hour % 10);
+          break;
+        }
 
       case 'I':
-	{
-	  int hour = (int) (_timeOfDay / 3600000) % 12;
-	  if (hour == 0)
-	    hour = 12;
-	  cb.append(hour / 10);
-	  cb.append(hour % 10);
-	  break;
-	}
+        {
+          int hour = (int) (_timeOfDay / 3600000) % 12;
+          if (hour == 0)
+            hour = 12;
+          cb.append(hour / 10);
+          cb.append(hour % 10);
+          break;
+        }
 
       case 'j':
-	cb.append((_dayOfYear + 1) / 100);
-	cb.append((_dayOfYear + 1) / 10 % 10);
-	cb.append((_dayOfYear + 1) % 10);
-	break;
+        cb.append((_dayOfYear + 1) / 100);
+        cb.append((_dayOfYear + 1) / 10 % 10);
+        cb.append((_dayOfYear + 1) % 10);
+        break;
 
       case 'm':
-	cb.append((_month + 1) / 10);
-	cb.append((_month + 1) % 10);
-	break;
+        cb.append((_month + 1) / 10);
+        cb.append((_month + 1) % 10);
+        break;
 
       case 'M':
-	cb.append((_timeOfDay / 600000) % 6);
-	cb.append((_timeOfDay / 60000) % 10);
-	break;
+        cb.append((_timeOfDay / 600000) % 6);
+        cb.append((_timeOfDay / 60000) % 10);
+        break;
 
       case 'p':
-	{
-	  int hour = (int) (_timeOfDay / 3600000) % 24;
-	  if (hour < 12)
-	    cb.append("am");
-	  else
-	    cb.append("pm");
-	  break;
-	}
+        {
+          int hour = (int) (_timeOfDay / 3600000) % 24;
+          if (hour < 12)
+            cb.append("am");
+          else
+            cb.append("pm");
+          break;
+        }
 
       case 'S':
-	cb.append((_timeOfDay / 10000) % 6);
-	cb.append((_timeOfDay / 1000) % 10);
-	break;
+        cb.append((_timeOfDay / 10000) % 6);
+        cb.append((_timeOfDay / 1000) % 10);
+        break;
 
       case 's':
-	cb.append((_timeOfDay / 100) % 10);
-	cb.append((_timeOfDay / 10) % 10);
-	cb.append(_timeOfDay % 10);
-	break;
+        cb.append((_timeOfDay / 100) % 10);
+        cb.append((_timeOfDay / 10) % 10);
+        cb.append(_timeOfDay % 10);
+        break;
 
       case 'T':
-	{
-	  int hour = (int) (_timeOfDay / 3600000) % 24;
-	  cb.append(hour / 10);
-	  cb.append(hour % 10);
-	  cb.append(':');
-	  cb.append((_timeOfDay / 600000) % 6);
-	  cb.append((_timeOfDay / 60000) % 10);
-	  cb.append(':');
-	  cb.append((_timeOfDay / 10000) % 6);
-	  cb.append((_timeOfDay / 1000) % 10);
-	  break;
-	}
+        {
+          int hour = (int) (_timeOfDay / 3600000) % 24;
+          cb.append(hour / 10);
+          cb.append(hour % 10);
+          cb.append(':');
+          cb.append((_timeOfDay / 600000) % 6);
+          cb.append((_timeOfDay / 60000) % 10);
+          cb.append(':');
+          cb.append((_timeOfDay / 10000) % 6);
+          cb.append((_timeOfDay / 1000) % 10);
+          break;
+        }
 
       case 'W':
-	int week = getWeek();
-	cb.append((week + 1) / 10);
-	cb.append((week + 1) % 10);
-	break;
+        int week = getWeek();
+        cb.append((week + 1) / 10);
+        cb.append((week + 1) % 10);
+        break;
 
       case 'w':
-	cb.append(getDayOfWeek() - 1);
-	break;
+        cb.append(getDayOfWeek() - 1);
+        break;
 
       case 'x':
         cb.append(printShortLocaleDate());
@@ -1109,23 +1109,23 @@ public class QDate {
         break;
     
       case 'y':
-	cb.append(_year / 10 % 10);
-	cb.append(_year % 10);
-	break;
+        cb.append(_year / 10 % 10);
+        cb.append(_year % 10);
+        break;
 
       case 'Y':
-	cb.append(_year / 1000 % 10);
-	cb.append(_year / 100 % 10);
-	cb.append(_year / 10 % 10);
-	cb.append(_year % 10);
-	break;
+        cb.append(_year / 1000 % 10);
+        cb.append(_year / 100 % 10);
+        cb.append(_year / 10 % 10);
+        cb.append(_year % 10);
+        break;
 
       case 'Z':
         if (_zoneName == null)
           cb.append("GMT");
         else
           cb.append(_zoneName);
-	break;
+        break;
 
       case 'z':
         long offset = _zoneOffset;
@@ -1141,14 +1141,14 @@ public class QDate {
         cb.append((offset / 3600000) % 10);
         cb.append((offset / 600000) % 6);
         cb.append((offset / 60000) % 10);
-	break;
+        break;
 
       case '%':
-	cb.append('%');
-	break;
+        cb.append('%');
+        break;
 
       default:
-	cb.append(format.charAt(i));
+        cb.append(format.charAt(i));
       }
     }
 
@@ -1231,8 +1231,8 @@ public class QDate {
 
       int ch = string.charAt(i);
       if (ch >= '0' && ch <= '9'
-	  || (ch == 'T' && i + 1 < strlen
-	      && string.charAt(i + 1) >= '0' && string.charAt(i + 1) <= '9'))
+          || (ch == 'T' && i + 1 < strlen
+              && string.charAt(i + 1) >= '0' && string.charAt(i + 1) <= '9'))
         return parseISO8601Date(string, i);
 
       CharBuffer cb = new CharBuffer();
@@ -1450,12 +1450,12 @@ public class QDate {
     if (year > 0) {
       year -= 1601;
       return (365 * year + year / 4 - year / 100 + year / 400 -
-	      ((1970 - 1601) * 365 + (1970 - 1601) / 4 - 3));
+              ((1970 - 1601) * 365 + (1970 - 1601) / 4 - 3));
     } else {
       year = 2000 - year;
 
       return ((2000 - 1970) * 365 + (2000 - 1970) / 4 -
-	      (365 * year + year / 4 - year / 100 + year / 400));
+              (365 * year + year / 4 - year / 100 + year / 400));
     }
   }
 

@@ -117,14 +117,14 @@ public class PDOStatement
 
       int ch;
       if (query.length() > 4
-	  && ((ch = query.charAt(0)) == 'c' || ch == 'C')
-	  && ((ch = query.charAt(1)) == 'a' || ch == 'A')
-	  && ((ch = query.charAt(2)) == 'l' || ch == 'L')
-	  && ((ch = query.charAt(3)) == 'l' || ch == 'L')) {
-	_preparedStatement = conn.prepareCall(query);
+          && ((ch = query.charAt(0)) == 'c' || ch == 'C')
+          && ((ch = query.charAt(1)) == 'a' || ch == 'A')
+          && ((ch = query.charAt(2)) == 'l' || ch == 'L')
+          && ((ch = query.charAt(3)) == 'l' || ch == 'L')) {
+        _preparedStatement = conn.prepareCall(query);
       }
       else
-	_preparedStatement = conn.prepareStatement(query);
+        _preparedStatement = conn.prepareStatement(query);
 
       // php/1s41 - oracle can't handle this
       //_preparedStatement.setEscapeProcessing(false);
@@ -1380,9 +1380,9 @@ public class PDOStatement
         _preparedStatement.setDouble(index, value.toDouble());
       }
       else if (value instanceof LongValue) {
-	long v = value.toLong();
+        long v = value.toLong();
 
-	_preparedStatement.setLong(index, v);
+        _preparedStatement.setLong(index, v);
       }
       else if (value instanceof StringValue) {
         String string = value.toString();
@@ -1533,15 +1533,15 @@ public class PDOStatement
       case PDO.PARAM_BOOL:
       case PDO.PARAM_INT:
       case PDO.PARAM_STR:
-	return setParameter(_index, _value.toValue(), _length);
+        return setParameter(_index, _value.toValue(), _length);
       case PDO.PARAM_LOB:
-	return setLobParameter(_index, _value.toValue(), _length);
+        return setLobParameter(_index, _value.toValue(), _length);
       case PDO.PARAM_NULL:
-	return setParameter(_index, NullValue.NULL, _length);
+        return setParameter(_index, NullValue.NULL, _length);
       case PDO.PARAM_STMT:
-	throw new UnimplementedException("PDO.PARAM_STMT");
+        throw new UnimplementedException("PDO.PARAM_STMT");
       default:
-	throw new AssertionError();
+        throw new AssertionError();
       }
     }
   }

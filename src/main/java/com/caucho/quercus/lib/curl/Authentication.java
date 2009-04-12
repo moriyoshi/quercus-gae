@@ -255,7 +255,7 @@ public class Authentication
     for (int i = 0; i < digest.length; i++) {
       int d1 = (digest[i] >> 4) & 0xf;
       int d2 = (digest[i] & 0xf);
-	
+        
       resultDigest.update((byte)toHexChar(d1));
       resultDigest.update((byte)toHexChar(d2));
     }
@@ -270,7 +270,7 @@ public class Authentication
     for (int i = 0; i < digest.length; i++) {
       int d1 = (digest[i] >> 4) & 0xf;
       int d2 = (digest[i] & 0xf);
-	
+        
       sb.append(toHexChar(d1));
       sb.append(toHexChar(d2));
     }

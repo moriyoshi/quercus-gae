@@ -222,8 +222,8 @@ public class QuercusSessionManager {
     if (reuse == null)
       _reuseSessionId = COOKIE;
     else if (reuse.equalsIgnoreCase("true") ||
-	     reuse.equalsIgnoreCase("yes") ||
-	     reuse.equalsIgnoreCase("cookie"))
+             reuse.equalsIgnoreCase("yes") ||
+             reuse.equalsIgnoreCase("cookie"))
       _reuseSessionId = COOKIE;
     else if (reuse.equalsIgnoreCase("false") || reuse.equalsIgnoreCase("no"))
       _reuseSessionId = FALSE;
@@ -231,7 +231,7 @@ public class QuercusSessionManager {
       _reuseSessionId = TRUE;
     else
       throw new ConfigException(L.l("'{0}' is an invalid value for reuse-session-id.  'true' or 'false' are the allowed values.",
-				    reuse));
+                                    reuse));
   }
 
   /**
@@ -439,7 +439,7 @@ public class QuercusSessionManager {
    * Creates a new SessionArrayValue instance.
    */
   protected SessionArrayValue createSessionValue(String key, long now,
-						 long sessionTimeout)
+                                                 long sessionTimeout)
   {
     return new SessionArrayValue(key, now, _sessionTimeout);
   }
@@ -520,7 +520,7 @@ public class QuercusSessionManager {
           long maxIdleTime = session.getMaxInactiveInterval();
           _sessions.remove(session.getId());
 
-	  session.invalidate();
+          session.invalidate();
         } catch (Throwable e) {
           log.log(Level.FINER, e.toString(), e);
         }

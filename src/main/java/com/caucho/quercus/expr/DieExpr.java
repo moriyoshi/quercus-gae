@@ -75,7 +75,7 @@ public class DieExpr extends Expr {
   {
     if (_value != null) {
       String msg = _value.evalString(env);
-	  return env.die(msg);
+          return env.die(msg);
     }
     else
       return env.die();

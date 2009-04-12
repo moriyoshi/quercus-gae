@@ -122,12 +122,12 @@ public class LongKeyLruCache<V> {
       int capacity;
 
       for (capacity = _entries.length;
-	   capacity < 8 * newCapacity;
-	   capacity *= 2) {
+           capacity < 8 * newCapacity;
+           capacity *= 2) {
       }
 
       if (capacity == _entries.length)
-	return;
+        return;
 
       CacheItem []oldEntries = _entries;
       
@@ -142,11 +142,11 @@ public class LongKeyLruCache<V> {
       _head2 = _tail2 = null;
 
       for (int i = 0; i < oldEntries.length; i++) {
-	for (CacheItem item = oldEntries[i];
-	     item != null;
-	     item = item._next) {
-	  put(item._key, (V) item._value);
-	}
+        for (CacheItem item = oldEntries[i];
+             item != null;
+             item = item._next) {
+          put(item._key, (V) item._value);
+        }
       }
     }
   }
@@ -169,7 +169,7 @@ public class LongKeyLruCache<V> {
               listeners = new ArrayList<CacheListener>();
             listeners.add((CacheListener) item._value);
           }
-	  
+          
           if (item._value instanceof SyncCacheListener) {
             if (syncListeners == null)
               syncListeners = new ArrayList<SyncCacheListener>();
@@ -211,12 +211,12 @@ public class LongKeyLruCache<V> {
 
     synchronized (this) {
       for (CacheItem<V> item = _entries[hash];
-	   item != null;
-	   item = item._next) {
+           item != null;
+           item = item._next) {
         if (item._key == key) {
           updateLru(item);
 
-	  _hitCount++;
+          _hitCount++;
 
           return item._value;
         }
@@ -279,8 +279,8 @@ public class LongKeyLruCache<V> {
   {
     // remove LRU items until we're below capacity
     for (int max = 32;
-	 max > 0 && _capacity <= _size1 + _size2 && removeTail();
-	 max--) {
+         max > 0 && _capacity <= _size1 + _size2 && removeTail();
+         max--) {
     }
 
     int hash = hash(key) & _mask;
@@ -291,45 +291,45 @@ public class LongKeyLruCache<V> {
     synchronized (this) {
       CacheItem<V> item = _entries[hash];
       for (;
-	   item != null;
-	   item = item._next) {
-	// matching item gets replaced
-	if (item._key == key) {
-	  updateLru(item);
+           item != null;
+           item = item._next) {
+        // matching item gets replaced
+        if (item._key == key) {
+          updateLru(item);
 
-	  oldValue = item._value;
+          oldValue = item._value;
 
-	  if (replace)
-	    item._value = value;
+          if (replace)
+            item._value = value;
 
-	  break;
-	}
+          break;
+        }
       }
 
       // No matching item, so create one
       if (item == null) {
-	item = new CacheItem<V>(key, value);
-	item._next = _entries[hash];
+        item = new CacheItem<V>(key, value);
+        item._next = _entries[hash];
 
-	if (_entries[hash] != null)
-	  _entries[hash]._prev = item;
+        if (_entries[hash] != null)
+          _entries[hash]._prev = item;
 
-	_entries[hash] = item;
-	_size1++;
-	  
-	item._nextLru = _head1;
-	if (_head1 != null)
-	  _head1._prevLru = item;
-	else
-	  _tail1 = item;
-	
-	_head1 = item;
+        _entries[hash] = item;
+        _size1++;
+          
+        item._nextLru = _head1;
+        if (_head1 != null)
+          _head1._prevLru = item;
+        else
+          _tail1 = item;
+        
+        _head1 = item;
 
-	return null;
+        return null;
       }
 
       if (replace && oldValue instanceof SyncCacheListener)
-	((SyncCacheListener) oldValue).syncRemoveEvent();
+        ((SyncCacheListener) oldValue).syncRemoveEvent();
     }
 
     if (replace && oldValue instanceof CacheListener)
@@ -351,20 +351,20 @@ public class LongKeyLruCache<V> {
       item._isOnce = false;
 
       if (prevLru != null)
-	prevLru._nextLru = nextLru;
+        prevLru._nextLru = nextLru;
       else
-	_head1 = nextLru;
+        _head1 = nextLru;
 
       if (nextLru != null)
-	nextLru._prevLru = prevLru;
+        nextLru._prevLru = prevLru;
       else
-	_tail1 = prevLru;
+        _tail1 = prevLru;
 
       item._prevLru = null;
       if (_head2 != null)
-	_head2._prevLru = item;
+        _head2._prevLru = item;
       else
-	_tail2 = item;
+        _tail2 = item;
       
       item._nextLru = _head2;
       _head2 = item;
@@ -374,7 +374,7 @@ public class LongKeyLruCache<V> {
     }
     else {
       if (prevLru == null)
-	return;
+        return;
       
       prevLru._nextLru = nextLru;
 
@@ -385,9 +385,9 @@ public class LongKeyLruCache<V> {
       _head2 = item;
       
       if (nextLru != null)
-	nextLru._prevLru = prevLru;
+        nextLru._prevLru = prevLru;
       else
-	_tail2 = prevLru;
+        _tail2 = prevLru;
     }
   }
 
@@ -405,30 +405,30 @@ public class LongKeyLruCache<V> {
 
     for (int max = 32; max > 0; max--) {
       if (tail == null)
-	return false;
+        return false;
 
       Object value = tail._value;
 
       synchronized (this) {
-	// check the item for its use
-	if (value instanceof ClockCacheItem) {
-	  ClockCacheItem item = (ClockCacheItem) value;
-	  item.clearUsed();
+        // check the item for its use
+        if (value instanceof ClockCacheItem) {
+          ClockCacheItem item = (ClockCacheItem) value;
+          item.clearUsed();
 
-	  if (item.isUsed()) {
-	    tail = tail._prevLru;
-	    continue;
-	  }
-	}
+          if (item.isUsed()) {
+            tail = tail._prevLru;
+            continue;
+          }
+        }
       
-	value = removeImpl(tail._key);
+        value = removeImpl(tail._key);
 
-	if (value instanceof SyncCacheListener)
-	  ((SyncCacheListener) value).syncRemoveEvent();
+        if (value instanceof SyncCacheListener)
+          ((SyncCacheListener) value).syncRemoveEvent();
       }
 
       if (value instanceof CacheListener)
-	((CacheListener) value).removeEvent();
+        ((CacheListener) value).removeEvent();
     
       return true;
     }
@@ -453,7 +453,7 @@ public class LongKeyLruCache<V> {
       value = removeImpl(key);
 
       if (value instanceof SyncCacheListener)
-	((SyncCacheListener) value).syncRemoveEvent();
+        ((SyncCacheListener) value).syncRemoveEvent();
     }
 
     if (value instanceof CacheListener)
@@ -475,51 +475,51 @@ public class LongKeyLruCache<V> {
     int count = _size1 + _size2 + 1;
 
     for (CacheItem<V> item = _entries[hash];
-	 item != null;
-	 item = item._next) {
+         item != null;
+         item = item._next) {
       if (item._key == key) {
-	CacheItem<V> prev = item._prev;
-	CacheItem<V> next = item._next;
+        CacheItem<V> prev = item._prev;
+        CacheItem<V> next = item._next;
 
-	if (prev != null)
-	  prev._next = next;
-	else
-	  _entries[hash] = next;
+        if (prev != null)
+          prev._next = next;
+        else
+          _entries[hash] = next;
 
-	if (next != null)
-	  next._prev = prev;
+        if (next != null)
+          next._prev = prev;
 
-	CacheItem<V> prevLru = item._prevLru;
-	CacheItem<V> nextLru = item._nextLru;
+        CacheItem<V> prevLru = item._prevLru;
+        CacheItem<V> nextLru = item._nextLru;
 
-	if (item._isOnce) {
-	  _size1--; 
+        if (item._isOnce) {
+          _size1--; 
 
-	  if (prevLru != null)
-	    prevLru._nextLru = nextLru;
-	  else
-	    _head1 = nextLru;
+          if (prevLru != null)
+            prevLru._nextLru = nextLru;
+          else
+            _head1 = nextLru;
 
-	  if (nextLru != null)
-	    nextLru._prevLru = prevLru;
-	  else
-	    _tail1 = prevLru;
-	}
-	else {
-	  _size2--; 
+          if (nextLru != null)
+            nextLru._prevLru = prevLru;
+          else
+            _tail1 = prevLru;
+        }
+        else {
+          _size2--; 
 
-	  if (prevLru != null)
-	    prevLru._nextLru = nextLru;
-	  else
-	    _head2 = nextLru;
+          if (prevLru != null)
+            prevLru._nextLru = nextLru;
+          else
+            _head2 = nextLru;
 
-	  if (nextLru != null)
-	    nextLru._prevLru = prevLru;
-	  else
-	    _tail2 = prevLru;
-	}
+          if (nextLru != null)
+            nextLru._prevLru = prevLru;
+          else
+            _tail2 = prevLru;
+        }
 
-	return item._value;
+        return item._value;
       }
     }
 
@@ -622,11 +622,11 @@ public class LongKeyLruCache<V> {
 
       int i = _i + 1;
       for (; i < length; i++) {
-	if (entries[i] != null) {
-	  _i = i - 1;
-	  
-	  return true;
-	}
+        if (entries[i] != null) {
+          _i = i - 1;
+          
+          return true;
+        }
       }
       _i = i;
       
@@ -643,12 +643,12 @@ public class LongKeyLruCache<V> {
 
       int i = _i + 1;
       for (; i < length; i++) {
-	CacheItem<V> entry = entries[i];
-	
-	if (entry != null) {
-	  _i = i;
-	  return entry._value;
-	}
+        CacheItem<V> entry = entries[i];
+        
+        if (entry != null) {
+          _i = i;
+          return entry._value;
+        }
       }
       _i = i;
 

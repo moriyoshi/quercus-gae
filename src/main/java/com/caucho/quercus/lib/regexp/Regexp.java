@@ -234,7 +234,7 @@ public class Regexp {
     
     _groupNames = new StringValue[_nGroup + 1];
     for (Map.Entry<Integer,StringValue> entry
-	   : comp._groupNameMap.entrySet()) {
+           : comp._groupNameMap.entrySet()) {
       StringValue groupName = entry.getValue();
 
       if (_isUnicode) {

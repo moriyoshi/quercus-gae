@@ -316,8 +316,8 @@ public class UnicodeBuilderValue
 
     Env env = Env.getInstance();
     String charset = (env != null
-		      ? env.getRuntimeEncoding().toString()
-		      : null);
+                      ? env.getRuntimeEncoding().toString()
+                      : null);
 
     // ...
 
@@ -818,13 +818,13 @@ public class UnicodeBuilderValue
       char ch = srcBuffer[i];
       
       if ('A' <= ch && ch <= 'Z')
-	dstBuffer[i] = (char) (ch + 'a' - 'A');
+        dstBuffer[i] = (char) (ch + 'a' - 'A');
       else if (ch < 0x80)
-	dstBuffer[i] = ch;
+        dstBuffer[i] = ch;
       else if (Character.isUpperCase(ch))
-	dstBuffer[i] = Character.toLowerCase(ch);
+        dstBuffer[i] = Character.toLowerCase(ch);
       else
-	dstBuffer[i] = ch;
+        dstBuffer[i] = ch;
     }
 
     string._length = length;
@@ -851,11 +851,11 @@ public class UnicodeBuilderValue
       if ('a' <= ch && ch <= 'z')
         dstBuffer[i] = (char) (ch + 'A' - 'a');
       else if (ch < 0x80)
-	dstBuffer[i] = ch;
+        dstBuffer[i] = ch;
       else if (Character.isLowerCase(ch))
         dstBuffer[i] = Character.toUpperCase(ch);
       else
-	dstBuffer[i] = ch;
+        dstBuffer[i] = ch;
     }
 
     string._length = length;
@@ -1124,7 +1124,7 @@ public class UnicodeBuilderValue
       }
 
       if (i == 1)
-	return 0;
+        return 0;
     }
 
     if (ch == 'e' || ch == 'E') {

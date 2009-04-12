@@ -83,9 +83,9 @@ public class ZlibModule extends AbstractQuercusModule {
    */
   @ReturnNullAsFalse
   public static BinaryStream gzopen(Env env,
-				    StringValue fileName,
-				    String mode,
-				    @Optional("false") boolean useIncludePath)
+                                    StringValue fileName,
+                                    String mode,
+                                    @Optional("false") boolean useIncludePath)
   {
     String filemode = getFileMode(mode);
     int compressionLevel = getCompressionLevel(mode);
@@ -105,18 +105,18 @@ public class ZlibModule extends AbstractQuercusModule {
       }
       else if (ch == 'w') {
         return new ZlibOutputStream(((BinaryOutput) val).getOutputStream(),
-				    compressionLevel,
-				    compressionStrategy);
+                                    compressionLevel,
+                                    compressionStrategy);
       }
       else if (ch == 'a') {
         return new ZlibOutputStream(((BinaryOutput) val).getOutputStream(),
-				    compressionLevel,
-				    compressionStrategy);
+                                    compressionLevel,
+                                    compressionStrategy);
       }
       else if (ch == 'x') {
         return new ZlibOutputStream(((BinaryOutput) val).getOutputStream(),
-				    compressionLevel,
-				    compressionStrategy);
+                                    compressionLevel,
+                                    compressionStrategy);
       }
     }
     catch (IOException e) {
@@ -136,8 +136,8 @@ public class ZlibModule extends AbstractQuercusModule {
    */
   @ReturnNullAsFalse
   public static ArrayValue gzfile(Env env,
-				  StringValue fileName,
-				  @Optional boolean useIncludePath)
+                                  StringValue fileName,
+                                  @Optional boolean useIncludePath)
   {
     BinaryInput is = (BinaryInput) gzopen(env, fileName, "r", useIncludePath);
 
@@ -149,8 +149,8 @@ public class ZlibModule extends AbstractQuercusModule {
 
       StringValue line;
       while ((line = is.readLine(Integer.MAX_VALUE)) != null &&
-	     line.length() > 0)
-	result.put(line);
+             line.length() > 0)
+        result.put(line);
 
       return result;
     } catch (IOException e) {
@@ -176,8 +176,8 @@ public class ZlibModule extends AbstractQuercusModule {
    * @return number of bytes read from file, or FALSE if an error occurred
    */
   public static Value readgzfile(Env env,
-				 StringValue fileName,
-				 @Optional boolean useIncludePath)
+                                 StringValue fileName,
+                                 @Optional boolean useIncludePath)
   {
     BinaryInput is = (BinaryInput) gzopen(env, fileName, "r", useIncludePath);
 
@@ -197,8 +197,8 @@ public class ZlibModule extends AbstractQuercusModule {
    * Writes a string to the gzip stream.
    */
   public static int gzwrite(@NotNull BinaryOutput os,
-			    InputStream is,
-			    @Optional("0x7fffffff") int length)
+                            InputStream is,
+                            @Optional("0x7fffffff") int length)
   {
     if (os == null)
       return 0;
@@ -271,10 +271,10 @@ public class ZlibModule extends AbstractQuercusModule {
       if (ch < 0)
         return BooleanValue.FALSE;
       else {
-	StringValue sb = env.createBinaryBuilder(1);
+        StringValue sb = env.createBinaryBuilder(1);
 
-	sb.appendByte(ch);
-	
+        sb.appendByte(ch);
+        
         return sb;
       }
     } catch (IOException e) {
@@ -302,8 +302,8 @@ public class ZlibModule extends AbstractQuercusModule {
    * Reads a line from the input stream.
    */
   public static Value gzgets(Env env,
-			      @NotNull BinaryInput is,
-			      int length)
+                              @NotNull BinaryInput is,
+                              int length)
   {
     return FileModule.fgets(env, is, length);
   }
@@ -432,7 +432,7 @@ public class ZlibModule extends AbstractQuercusModule {
    * @return compressed string
    */
   public Value gzcompress(Env env,
-			  InputStream data,
+                          InputStream data,
                           @Optional("6") int level)
   {
     TempBuffer tempBuf = TempBuffer.allocate();
@@ -497,7 +497,7 @@ public class ZlibModule extends AbstractQuercusModule {
       TempBuffer.free(tempBuf);
 
       if (deflater != null)
-	deflater.end();
+        deflater.end();
     }
   }
 
@@ -508,7 +508,7 @@ public class ZlibModule extends AbstractQuercusModule {
    * @return uncompressed string
    */
   public Value gzuncompress(Env env,
-			    InputStream is,
+                            InputStream is,
                             @Optional("0") long length)
   {
     TempBuffer tempBuf = TempBuffer.allocate();
@@ -535,8 +535,8 @@ public class ZlibModule extends AbstractQuercusModule {
       TempBuffer.free(tempBuf);
 
       try {
-	if (in != null)
-	  in.close();
+        if (in != null)
+          in.close();
       } catch (Exception e) {
       }
     }
@@ -587,7 +587,7 @@ public class ZlibModule extends AbstractQuercusModule {
       TempBuffer.free(tempBuf);
 
       if (deflater != null)
-	deflater.end();
+        deflater.end();
     }
   }
 
@@ -641,7 +641,7 @@ public class ZlibModule extends AbstractQuercusModule {
       TempBuffer.free(tempBuf);
 
       if (inflater != null)
-	inflater.end();
+        inflater.end();
     }
   }
 
@@ -670,8 +670,8 @@ public class ZlibModule extends AbstractQuercusModule {
 
     try {
       gzOut = new ZlibOutputStream(out, level,
-				   Deflater.DEFAULT_STRATEGY,
-				   encodingMode);
+                                   Deflater.DEFAULT_STRATEGY,
+                                   encodingMode);
 
       int len;
       while ((len = is.read(buffer, 0, buffer.length)) > 0) {
@@ -681,7 +681,7 @@ public class ZlibModule extends AbstractQuercusModule {
 
       StringValue sb = env.createBinaryBuilder();
       for (TempBuffer ptr = ts.getHead(); ptr != null; ptr = ptr.getNext())
-	sb.append(ptr.getBuffer(), 0, ptr.getLength());
+        sb.append(ptr.getBuffer(), 0, ptr.getLength());
 
       return sb;
     } catch(IOException e) {
@@ -692,7 +692,7 @@ public class ZlibModule extends AbstractQuercusModule {
       ts.destroy();
 
       if (gzOut != null)
-	gzOut.close();
+        gzOut.close();
     }
   }
 
@@ -761,7 +761,7 @@ public class ZlibModule extends AbstractQuercusModule {
       switch (ch) {
       case 'f':
         return Deflater.FILTERED;
-	
+        
       case 'h':
         return Deflater.HUFFMAN_ONLY;
       }

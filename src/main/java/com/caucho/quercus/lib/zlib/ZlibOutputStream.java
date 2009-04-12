@@ -87,9 +87,9 @@ public class ZlibOutputStream extends AbstractBinaryOutput {
    *    write crc32 trailer
    */
   public ZlibOutputStream(OutputStream os,
-			  int compressionLevel,
-			  int strategy,
-			  int encodingMode)
+                          int compressionLevel,
+                          int strategy,
+                          int encodingMode)
     throws IOException
   {
     this(os, createDeflater(compressionLevel, strategy, encodingMode));
@@ -115,9 +115,9 @@ public class ZlibOutputStream extends AbstractBinaryOutput {
     throws IOException
   {
     this(os,
-	 Deflater.DEFAULT_COMPRESSION,
-	 Deflater.DEFAULT_STRATEGY,
-	 ZlibModule.FORCE_GZIP);
+         Deflater.DEFAULT_COMPRESSION,
+         Deflater.DEFAULT_STRATEGY,
+         ZlibModule.FORCE_GZIP);
   }
 
   /**

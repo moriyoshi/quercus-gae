@@ -91,7 +91,7 @@ public class LineConfigException extends ConfigException
   }
 
   public LineConfigException(String filename, int line,
-			     String message, Throwable cause)
+                             String message, Throwable cause)
   {
     super(filename + ":" + line + ": " + message, cause);
 
@@ -120,9 +120,9 @@ public class LineConfigException extends ConfigException
     
     if (e instanceof LineException) {
       if (e instanceof RuntimeException)
-	throw (RuntimeException) e;
+        throw (RuntimeException) e;
       else
-	return new LineConfigException(filename, line, e.getMessage(), e);
+        return new LineConfigException(filename, line, e.getMessage(), e);
     }
     else if (e instanceof DisplayableException)
       return new LineConfigException(filename, line, e.getMessage(), e);
@@ -144,9 +144,9 @@ public class LineConfigException extends ConfigException
   {
     if (e instanceof LineException) {
       if (e instanceof RuntimeException)
-	return (RuntimeException) e;
+        return (RuntimeException) e;
       else
-	return new LineConfigException(e.getMessage(), e);
+        return new LineConfigException(e.getMessage(), e);
     }
     else if (e instanceof DisplayableException)
       return new LineConfigException(loc + e.getMessage(), e);

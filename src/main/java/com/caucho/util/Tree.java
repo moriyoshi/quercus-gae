@@ -73,7 +73,7 @@ public class Tree {
 
     for (Tree ptr = this; ptr != null; ptr = ptr.parent) {
       if (ptr.next != null)
-	return ptr.next;
+        return ptr.next;
     }
 
     return null;
@@ -165,7 +165,7 @@ public class Tree {
       Tree next = node;
 
       if (node != null)
-	node = node.getNext();
+        node = node.getNext();
 
       return next;
     }
@@ -194,7 +194,7 @@ public class Tree {
       Tree next = node;
 
       if (node != null)
-	node = node.getNext();
+        node = node.getNext();
 
       return next == null ? null : next.data;
     }
@@ -225,7 +225,7 @@ public class Tree {
       Tree next = node;
 
       if (node != null)
-	node = node.getNextPreorder();
+        node = node.getNextPreorder();
 
       return next;
     }

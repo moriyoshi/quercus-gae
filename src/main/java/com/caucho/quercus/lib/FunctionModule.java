@@ -146,7 +146,7 @@ public class FunctionModule extends AbstractQuercusModule {
     ArrayValue result = new ArrayValueImpl();
     if (args != null) {
       for (int i = 0; i < args.length; i++)
-	result.put(args[i]);
+        result.put(args[i]);
     }
 
     return result;
@@ -189,8 +189,8 @@ public class FunctionModule extends AbstractQuercusModule {
    * Registers a shutdown function.
    */
   public static Value register_shutdown_function(Env env,
-						 Callback fun,
-						 Value []args)
+                                                 Callback fun,
+                                                 Value []args)
   {
     env.addShutdown(fun, args);
 

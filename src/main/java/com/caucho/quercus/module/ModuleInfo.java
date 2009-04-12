@@ -180,10 +180,10 @@ public class ModuleInfo {
 
     for (Method method : cl.getMethods()) {
       if (method.getDeclaringClass().equals(Object.class))
-	continue;
+        continue;
       
       if (method.getDeclaringClass().isAssignableFrom(AbstractQuercusModule.class))
-	continue;
+        continue;
       
       if (! Modifier.isPublic(method.getModifiers()))
         continue;
@@ -206,10 +206,10 @@ public class ModuleInfo {
         continue;
 
       if (hasCheckedException(method)) {
-	log.warning(L.l("Module method '{0}.{1}' may not throw checked exceptions",
-			method.getDeclaringClass().getName(),
-			method.getName()));
-	continue;
+        log.warning(L.l("Module method '{0}.{1}' may not throw checked exceptions",
+                        method.getDeclaringClass().getName(),
+                        method.getName()));
+        continue;
       }
 
       try {
@@ -239,7 +239,7 @@ public class ModuleInfo {
   {
     for (Class exnCl : method.getExceptionTypes()) {
       if (! RuntimeException.class.isAssignableFrom(exnCl))
-	return true;
+        return true;
     }
 
     return false;

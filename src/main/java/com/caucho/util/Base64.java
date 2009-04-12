@@ -181,7 +181,7 @@ public class Base64 {
   }
 
   public static void oldEncode(CharBuffer cb, byte []buffer,
-			       int offset, int length)
+                               int offset, int length)
   {
     while (length >= 3) {
       int data = (buffer[offset] & 0xff) << 16;
@@ -253,8 +253,8 @@ public class Base64 {
   }
 
   public static String encodeFromByteArray(byte[] value,
-					   int offset,
-					   int length)
+                                           int offset,
+                                           int length)
   {
     try {
       StringWriter sw = new StringWriter();
@@ -275,35 +275,35 @@ public class Base64 {
       int value3 = i.read();
 
       if (value3 >= 0) {
-	long chunk = (value1 & 0xff);
-	chunk = (chunk << 8) + (value2 & 0xff);
-	chunk = (chunk << 8) + (value3 & 0xff);
+        long chunk = (value1 & 0xff);
+        chunk = (chunk << 8) + (value2 & 0xff);
+        chunk = (chunk << 8) + (value3 & 0xff);
         
-	w.write(encode(chunk >> 18));
-	w.write(encode(chunk >> 12));
-	w.write(encode(chunk >> 6));
-	w.write(encode(chunk));
-	continue;
+        w.write(encode(chunk >> 18));
+        w.write(encode(chunk >> 12));
+        w.write(encode(chunk >> 6));
+        w.write(encode(chunk));
+        continue;
       }
     
       if (value2 >= 0) {
-	long chunk = (value1 & 0xff);
-	chunk = (chunk << 8) + (value2 & 0xff);
-	chunk <<= 8;
-	
-	w.write(encode(chunk >> 18));
-	w.write(encode(chunk >> 12));
-	w.write(encode(chunk >> 6));
-	w.write('=');
+        long chunk = (value1 & 0xff);
+        chunk = (chunk << 8) + (value2 & 0xff);
+        chunk <<= 8;
+        
+        w.write(encode(chunk >> 18));
+        w.write(encode(chunk >> 12));
+        w.write(encode(chunk >> 6));
+        w.write('=');
       }
       else if (value1 >= 0) {
-	long chunk = (value1 & 0xff);
-	chunk <<= 16;
-	
-	w.write(encode(chunk >> 18));
-	w.write(encode(chunk >> 12));
-	w.write('=');
-	w.write('=');
+        long chunk = (value1 & 0xff);
+        chunk <<= 16;
+        
+        w.write(encode(chunk >> 18));
+        w.write(encode(chunk >> 12));
+        w.write('=');
+        w.write('=');
       }
       break;
     }
@@ -326,7 +326,7 @@ public class Base64 {
   {
     try {
       if (value == null)
-	return new byte[0];
+        return new byte[0];
       
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       decode(new StringReader(value), baos);
@@ -356,16 +356,16 @@ public class Base64 {
       int ch3 = value.charAt(i + 3) & 0xff;
 
       int chunk = ((_decode[ch0] << 18) +
-		   (_decode[ch1] << 12) +
-		   (_decode[ch2] << 6) +
-		   (_decode[ch3]));
+                   (_decode[ch1] << 12) +
+                   (_decode[ch2] << 6) +
+                   (_decode[ch3]));
 
       cb.append((char) ((chunk >> 16) & 0xff));
 
       if (ch2 != '=')
-	cb.append((char) ((chunk >> 8) & 0xff));
+        cb.append((char) ((chunk >> 8) & 0xff));
       if (ch3 != '=')
-	cb.append((char) ((chunk & 0xff)));
+        cb.append((char) ((chunk & 0xff)));
     }
 
     return cb.toString();
@@ -378,7 +378,7 @@ public class Base64 {
       int ret = r.read();
       // skip whitespace
       if (ret == ' ' || ret == '\n' || ret == '\r')
-	continue;
+        continue;
       return ret;
     }
   }
@@ -393,25 +393,25 @@ public class Base64 {
       int ch3 = r.read();
 
       if (ch1 < 0)
-	break;
+        break;
       if (ch2 < 0)
-	ch2 = '=';
+        ch2 = '=';
       if (ch3 < 0)
-	ch3 = '=';
+        ch3 = '=';
       
       int chunk = ((_decode[ch0] << 18)
-		   + (_decode[ch1] << 12)
-		   + (_decode[ch2] << 6)
-		   + (_decode[ch3]));
+                   + (_decode[ch1] << 12)
+                   + (_decode[ch2] << 6)
+                   + (_decode[ch3]));
       
       os.write((byte) ((chunk >> 16) & 0xff));
       
       if (ch2 != '='  && ch2 != -1)
-	os.write((byte) ((chunk >> 8) & 0xff));
+        os.write((byte) ((chunk >> 8) & 0xff));
       if (ch3 != '=' && ch3 != -1)
-	os.write((byte) ((chunk & 0xff)));
+        os.write((byte) ((chunk & 0xff)));
       else
-	break;
+        break;
     }
     os.flush();
   }

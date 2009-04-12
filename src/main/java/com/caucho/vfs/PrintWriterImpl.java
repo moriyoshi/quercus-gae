@@ -153,28 +153,28 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (i < 0) {
-	out.write('-');
-	i = -i;
+        out.write('-');
+        i = -i;
       } else if (i < 9) {
-	out.write('0' + i);
-	return;
+        out.write('0' + i);
+        return;
       }
 
       int length = 0;
       int exp = 10;
 
       if (i >= 1000000000)
-	length = 9;
+        length = 9;
       else {
-	for (; i >= exp; length++)
-	  exp = 10 * exp;
+        for (; i >= exp; length++)
+          exp = 10 * exp;
       }
 
       int j = 31;
     
       while (i > 0) {
-	_tempCharBuffer[--j] = (char) ((i % 10) + '0');
-	i /= 10;
+        _tempCharBuffer[--j] = (char) ((i % 10) + '0');
+        i /= 10;
       }
 
       out.write(_tempCharBuffer, j, 31 - j);
@@ -199,18 +199,18 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (v < 0) {
-	out.write('-');
-	v = -v;
+        out.write('-');
+        v = -v;
       } else if (v == 0) {
-	out.write('0');
-	return;
+        out.write('0');
+        return;
       }
 
       int j = 31;
     
       while (v > 0) {
-	_tempCharBuffer[--j] = (char) ((v % 10) + '0');
-	v /= 10;
+        _tempCharBuffer[--j] = (char) ((v % 10) + '0');
+        v /= 10;
       }
 
       out.write(_tempCharBuffer, j, 31 - j);
@@ -284,9 +284,9 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (s == null)
-	out.write(_nullChars, 0, _nullChars.length);
+        out.write(_nullChars, 0, _nullChars.length);
       else
-	out.write(s, 0, s.length());
+        out.write(s, 0, s.length());
     } catch (IOException e) {
       log.log(Level.FINE, e.toString(), e);
     }
@@ -303,11 +303,11 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (v == null)
-	out.write(_nullChars, 0, _nullChars.length);
+        out.write(_nullChars, 0, _nullChars.length);
       else {
-	String s = v.toString();
+        String s = v.toString();
       
-	out.write(s, 0, s.length());
+        out.write(s, 0, s.length());
       }
     } catch (IOException e) {
       log.log(Level.FINE, e.toString(), e);
@@ -478,9 +478,9 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (s == null)
-	out.write(_nullChars, 0, _nullChars.length);
+        out.write(_nullChars, 0, _nullChars.length);
       else
-	out.write(s, 0, s.length());
+        out.write(s, 0, s.length());
 
       out.write(_newline, 0, _newline.length);
     } catch (IOException e) {
@@ -499,11 +499,11 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (v == null)
-	out.write(_nullChars, 0, _nullChars.length);
+        out.write(_nullChars, 0, _nullChars.length);
       else {
-	String s = v.toString();
+        String s = v.toString();
 
-	out.write(s, 0, s.length());
+        out.write(s, 0, s.length());
       }
     
       out.write(_newline, 0, _newline.length);
@@ -539,7 +539,7 @@ public class PrintWriterImpl extends PrintWriter implements FlushBuffer {
 
     try {
       if (out instanceof FlushBuffer)
-	((FlushBuffer) out).flushBuffer();
+        ((FlushBuffer) out).flushBuffer();
     } catch (IOException e) {
       log.log(Level.FINE, e.toString(), e);
     }

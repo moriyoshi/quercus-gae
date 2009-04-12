@@ -142,11 +142,11 @@ public abstract class PathWrapper extends Path {
    * @return the found path
    */
   protected Path schemeWalk(String userPath,
-			    Map<String,Object> newAttributes,
-			    String newPath, int offset)
+                            Map<String,Object> newAttributes,
+                            String newPath, int offset)
   {
     return getWrappedPath().schemeWalk(userPath, newAttributes,
-				       newPath, offset);
+                                       newPath, offset);
   }
 
   /**

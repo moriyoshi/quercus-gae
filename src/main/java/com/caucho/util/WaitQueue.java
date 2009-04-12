@@ -41,7 +41,7 @@ public class WaitQueue {
   {
     for (Item item = _head; item != null; item = item.getNext()) {
       if (item.unpark())
-	return true;
+        return true;
     }
 
     return false;
@@ -72,14 +72,14 @@ public class WaitQueue {
       Item prev = null;
 
       for (Item ptr = _head; ptr != null; ptr = ptr.getNext()) {
-	if (ptr == item) {
-	  if (prev != null) {
-	    prev.setNext(ptr.getNext());
-	  }
-	  else {
-	    _head = ptr.getNext();
-	  }
-	}
+        if (ptr == item) {
+          if (prev != null) {
+            prev.setNext(ptr.getNext());
+          }
+          else {
+            _head = ptr.getNext();
+          }
+        }
       }
     }
   }
@@ -124,7 +124,7 @@ public class WaitQueue {
       boolean isParked = _isParked;
 
       LockSupport.unpark(_thread);
-	
+        
       return isParked;
     }
 

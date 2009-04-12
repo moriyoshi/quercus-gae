@@ -52,7 +52,7 @@ abstract public class FilesystemPath extends Path {
    */
   protected FilesystemPath(FilesystemPath root,
                            String userPath,
-			   String pathname)
+                           String pathname)
   {
     super(root);
 
@@ -101,14 +101,14 @@ abstract public class FilesystemPath extends Path {
    */
   protected Path schemeWalk(String userPath,
                             Map<String,Object> attributes,
-			    String filePath,
+                            String filePath,
                             int offset)
   {
     String canonicalPath;
 
     if (filePath.length() > offset
-	&& (filePath.charAt(offset) == '/'
-	    || filePath.charAt(offset) == _separatorChar))
+        && (filePath.charAt(offset) == '/'
+            || filePath.charAt(offset) == _separatorChar))
       canonicalPath = normalizePath("/", filePath, offset, _separatorChar);
     else
       canonicalPath = normalizePath(_pathname, filePath, offset,
@@ -130,7 +130,7 @@ abstract public class FilesystemPath extends Path {
    */
   abstract public Path fsWalk(String userPath,
                                  Map<String,Object> newAttributes, 
-				 String newPath);
+                                 String newPath);
 
   /**
    * wrapper for the real normalize path routine to use CharBuffer.
@@ -192,23 +192,23 @@ abstract public class FilesystemPath extends Path {
 
       case '/':
         // "//" -> "/"
-	if (cb.getLastChar() != '/')
-	  cb.append('/');
-	i++;
-	break;
+        if (cb.getLastChar() != '/')
+          cb.append('/');
+        i++;
+        break;
 
       case '.':
-	if (cb.getLastChar() != '/') {
-	  cb.append('.');
-	  i++;
-	  break;
-	}
+        if (cb.getLastChar() != '/') {
+          cb.append('.');
+          i++;
+          break;
+        }
 
         // "/." -> ""
-	if (i + 1 >= length) {
-	  i += 2;
-	  break;
-	}
+        if (i + 1 >= length) {
+          i += 2;
+          break;
+        }
 
         switch (newPath.charAt(i + 1)) {
         default:

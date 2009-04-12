@@ -141,7 +141,7 @@ public class TryStatement extends Statement {
       _block = block;
 
       if (id == null)
-	throw new NullPointerException();
+        throw new NullPointerException();
     }
 
     public String getId()

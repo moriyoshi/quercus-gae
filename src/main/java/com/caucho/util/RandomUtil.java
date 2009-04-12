@@ -122,7 +122,7 @@ public class RandomUtil {
   {
     if (_isTest) {
       if (_testRandom == null)
-	_testRandom = new Random(_seed);
+        _testRandom = new Random(_seed);
 
       return _testRandom;
     }

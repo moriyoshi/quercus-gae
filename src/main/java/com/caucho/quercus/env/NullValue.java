@@ -180,7 +180,7 @@ public class NullValue extends Value
   public Object toJavaObjectNotNull(Env env, Class type)
   {
     env.warning(L.l("null is an unexpected argument; expected '{0}'",
-		    type.getName()));
+                    type.getName()));
     
     return null;
   }
@@ -498,11 +498,11 @@ public class NullValue extends Value
       double r = rValue.toDouble();
 
       if (l == r)
-	return 0;
+        return 0;
       else if (l < r)
-	return -1;
+        return -1;
       else
-	return 1;
+        return 1;
     }
     else
       return "".compareTo(rValue.toString());

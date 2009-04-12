@@ -339,7 +339,7 @@ public class JavaClass extends JClass {
       JavaField field = fieldList.get(i);
 
       if (field.getName().equals(name))
-	return field;
+        return field;
     }
 
     return null;
@@ -409,7 +409,7 @@ public class JavaClass extends JClass {
       JavaMethod method = methodList.get(i);
 
       if (method.getName().equals(name))
-	return method;
+        return method;
     }
 
     return null;
@@ -426,8 +426,8 @@ public class JavaClass extends JClass {
       JavaMethod method = methodList.get(i);
 
       if (method.getName().equals(name) &&
-	  method.getDescriptor().equals(descriptor))
-	return method;
+          method.getDescriptor().equals(descriptor))
+        return method;
     }
 
     return null;
@@ -464,7 +464,7 @@ public class JavaClass extends JClass {
       Attribute attr = attributeList.get(i);
 
       if (attr.getName().equals(name))
-	return attr;
+        return attr;
     }
 
     return null;
@@ -494,7 +494,7 @@ public class JavaClass extends JClass {
 
     for (int i = 0; i < ifc.length; i++) {
       if (isAssignableFrom(ifc[i]))
-	return true;
+        return true;
     }
 
     if (cl.getSuperClass() != null)
@@ -515,7 +515,7 @@ public class JavaClass extends JClass {
 
     for (int i = 0; i < ifc.length; i++) {
       if (isAssignableFrom(ifc[i]))
-	return true;
+        return true;
     }
 
     if (cl.getSuperclass() != null)
@@ -536,7 +536,7 @@ public class JavaClass extends JClass {
 
     for (int i = 0; i < ifc.length; i++) {
       if (ifc[i].isAssignableTo(cl))
-	return true;
+        return true;
     }
 
     if (getSuperClass() != null)
@@ -568,7 +568,7 @@ public class JavaClass extends JClass {
     
     for (JavaMethod method : getMethodList()) {
       if (method.getName().equals("<init>"))
-	ctorList.add(method);
+        ctorList.add(method);
     }
     
     JMethod[] methods = new JMethod[ctorList.size()];
@@ -586,15 +586,15 @@ public class JavaClass extends JClass {
     loop:
     for (JMethod method : getMethods()) {
       if (! method.getName().equals(name))
-	continue;
+        continue;
 
       JClass []mParamTypes = method.getParameterTypes();
       if (mParamTypes.length != paramTypes.length)
-	continue;
+        continue;
 
       for (int i = 0; i < paramTypes.length; i++) {
-	if (! paramTypes[i].getName().equals(mParamTypes[i].getName()))
-	  continue loop;
+        if (! paramTypes[i].getName().equals(mParamTypes[i].getName()))
+          continue loop;
       }
 
 
@@ -626,13 +626,13 @@ public class JavaClass extends JClass {
   {
     for (JMethod method : getDeclaredMethods()) {
       if (! methodList.contains(method))
-	methodList.add(method);
+        methodList.add(method);
     }
 
     if (getSuperClass() != null) {
       for (JMethod method : getSuperClass().getMethods()) {
-	if (! methodList.contains(method))
-	  methodList.add(method);
+        if (! methodList.contains(method))
+          methodList.add(method);
       }
     }
   }
@@ -673,13 +673,13 @@ public class JavaClass extends JClass {
   {
     for (JField field : getDeclaredFields()) {
       if (! fieldList.contains(field))
-	fieldList.add(field);
+        fieldList.add(field);
     }
 
     if (getSuperClass() != null) {
       for (JField field : getSuperClass().getFields()) {
-	if (! fieldList.contains(field))
-	  fieldList.add(field);
+        if (! fieldList.contains(field))
+          fieldList.add(field);
       }
     }
   }
@@ -693,22 +693,22 @@ public class JavaClass extends JClass {
       Attribute attr = getAttribute("RuntimeVisibleAnnotations");
 
       if (attr instanceof OpaqueAttribute) {
-	byte []buffer = ((OpaqueAttribute) attr).getValue();
-	
-	try {
-	  ByteArrayInputStream is = new ByteArrayInputStream(buffer);
+        byte []buffer = ((OpaqueAttribute) attr).getValue();
+        
+        try {
+          ByteArrayInputStream is = new ByteArrayInputStream(buffer);
 
-	  ConstantPool cp = getConstantPool();
+          ConstantPool cp = getConstantPool();
 
-	  _annotations = JavaAnnotation.parseAnnotations(is, cp,
-							 getClassLoader());
-	} catch (IOException e) {
-	  log.log(Level.FINER, e.toString(), e);
-	}
+          _annotations = JavaAnnotation.parseAnnotations(is, cp,
+                                                         getClassLoader());
+        } catch (IOException e) {
+          log.log(Level.FINER, e.toString(), e);
+        }
       }
 
       if (_annotations == null) {
-	_annotations = new JavaAnnotation[0];
+        _annotations = new JavaAnnotation[0];
       }
     }
     
@@ -724,7 +724,7 @@ public class JavaClass extends JClass {
 
     for (int i = 0; i < annList.length; i++) {
       if (annList[i].getType().equals(className))
-	return annList[i];
+        return annList[i];
     }
     
     return null;
@@ -740,21 +740,21 @@ public class JavaClass extends JClass {
 
     try {
       if (_url == null)
-	throw new IllegalStateException();
+        throw new IllegalStateException();
       
       InputStream is = _url.openStream();
       ReadStream rs = Vfs.openRead(is);
       try {
-	_major = 1;
-	
-	ByteCodeParser parser = new ByteCodeParser();
-	parser.setClassLoader(_loader);
-	parser.setJavaClass(this);
+        _major = 1;
+        
+        ByteCodeParser parser = new ByteCodeParser();
+        parser.setClassLoader(_loader);
+        parser.setJavaClass(this);
 
-	parser.parse(rs);
+        parser.parse(rs);
       } finally {
-	rs.close();
-	is.close();
+        rs.close();
+        is.close();
       }
     } catch (RuntimeException e) {
       throw e;

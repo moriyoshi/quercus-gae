@@ -330,10 +330,10 @@ public class MultipartStream extends StreamImpl {
         if ((b = read()) == '-') {
           if ((b = read()) == '-') {
             _isDone = true;
-	    _isComplete = true;
-	  }
-	}
-	
+            _isComplete = true;
+          }
+        }
+        
         for (; b > 0 && b != '\r' && b != '\n'; b = read()) {
         }
         if (b == '\r' && (b = read()) != '\n') {

@@ -165,7 +165,7 @@ public class UrlRewriterCallback extends CallbackFunction {
         _sessionName = _env.getIni("session.name").toString();
         _sessionId = _env.getSession().getId();
 
-	_javaSessionName = _env.getQuercus().getCookieName();
+        _javaSessionName = _env.getQuercus().getCookieName();
 
         _javaSessionId = _env.getJavaSession().getId();
       }

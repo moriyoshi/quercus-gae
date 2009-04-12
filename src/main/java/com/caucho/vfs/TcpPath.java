@@ -49,8 +49,8 @@ public class TcpPath extends Path {
   protected long _timeout = 5000L;
 
   public TcpPath(TcpPath root, String userPath,
-		 Map<String,Object> newAttributes,
-		 String host, int port)
+                 Map<String,Object> newAttributes,
+                 String host, int port)
   {
     super(root);
 
@@ -63,12 +63,12 @@ public class TcpPath extends Path {
       Object timeout = newAttributes.get("connect-timeout");
 
       if (timeout instanceof Number)
-	_timeout = ((Number) timeout).longValue();
+        _timeout = ((Number) timeout).longValue();
       
       timeout = newAttributes.get("timeout");
 
       if (timeout instanceof Number)
-	_timeout = ((Number) timeout).longValue();
+        _timeout = ((Number) timeout).longValue();
     }
   }
 
@@ -77,7 +77,7 @@ public class TcpPath extends Path {
    */
   protected Path schemeWalk(String userPath,
                             Map<String,Object> newAttributes,
-			    String uri,
+                            String uri,
                             int offset)
   {
     int length = uri.length();
@@ -91,7 +91,7 @@ public class TcpPath extends Path {
     int i = 2 + offset;
     int ch = 0;
     for (; i < length && (ch = uri.charAt(i)) != ':' && ch != '/' && ch != '?';
-	 i++) {
+         i++) {
       buf.append((char) ch);
     }
 
@@ -102,7 +102,7 @@ public class TcpPath extends Path {
     int port = 0;
     if (ch == ':') {
       for (i++; i < length && (ch = uri.charAt(i)) >= '0' && ch <= '9'; i++) {
-	port = 10 * port + uri.charAt(i) - '0';
+        port = 10 * port + uri.charAt(i) - '0';
       }
     }
 
@@ -110,8 +110,8 @@ public class TcpPath extends Path {
   }
 
   protected TcpPath create(TcpPath root,
-			   String userPath, Map<String,Object> newAttributes,
-			   String host, int port)
+                           String userPath, Map<String,Object> newAttributes,
+                           String host, int port)
   {
     return new TcpPath(root, userPath, newAttributes, host, port);
   }

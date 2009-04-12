@@ -177,16 +177,16 @@ public class Mysqli extends JdbcConnectionResource {
    */
   @Override
   protected ConnectionEntry connectImpl(Env env,
-					String host,
-					String userName,
-					String password,
-					String dbname,
-					int port,
-					String socket,
-					int flags,
-					String driver,
-					String url,
-					boolean isNewLink)
+                                        String host,
+                                        String userName,
+                                        String password,
+                                        String dbname,
+                                        int port,
+                                        String socket,
+                                        int flags,
+                                        String driver,
+                                        String url,
+                                        boolean isNewLink)
   {
     if (isConnected()) {
       env.warning(L.l("Connection is already opened to '{0}'", this));
@@ -818,57 +818,57 @@ public class Mysqli extends JdbcConnectionResource {
       SqlParseToken tok = parseSqlToken(sql, null);
 
       if (tok != null) {
-	switch (tok.getFirstChar()) {
-	case 'u': case 'U':
-	  if (tok.matchesToken("USE")) {
-	    // Mysql "USE DBNAME" statement.
-	    //
-	    // The Mysql JDBC driver does not properly implement getCatalog()
-	    // when calls to setCatalog() are mixed with SQL USE statements.
-	    // Work around this problem by translating a SQL USE statement
-	    // into a JDBC setCatalog() invocation. The setCatalog() API in
-	    // the ConnectorJ implementation just creates a USE statement
-	    // anyway. This also makes sure the database pool logic knows
-	    // which database is currently selected. If a second call to
-	    // select the current database is found, it is a no-op.
+        switch (tok.getFirstChar()) {
+        case 'u': case 'U':
+          if (tok.matchesToken("USE")) {
+            // Mysql "USE DBNAME" statement.
+            //
+            // The Mysql JDBC driver does not properly implement getCatalog()
+            // when calls to setCatalog() are mixed with SQL USE statements.
+            // Work around this problem by translating a SQL USE statement
+            // into a JDBC setCatalog() invocation. The setCatalog() API in
+            // the ConnectorJ implementation just creates a USE statement
+            // anyway. This also makes sure the database pool logic knows
+            // which database is currently selected. If a second call to
+            // select the current database is found, it is a no-op.
 
-	    tok = parseSqlToken(sql, tok);
+            tok = parseSqlToken(sql, tok);
 
-	    if (tok != null) {
-	      String dbname = tok.toUnquotedString();
+            if (tok != null) {
+              String dbname = tok.toUnquotedString();
 
-	      setCatalog(dbname);
+              setCatalog(dbname);
 
-	      return BooleanValue.TRUE;
-	    }
-	  }
-	  else if (tok != null && tok.matchesToken("UPDATE")) {
-	    // SQL UPDATE statement
+              return BooleanValue.TRUE;
+            }
+          }
+          else if (tok != null && tok.matchesToken("UPDATE")) {
+            // SQL UPDATE statement
 
-	    _lastSql = LastSqlType.UPDATE;
-	  }
-	  break;
+            _lastSql = LastSqlType.UPDATE;
+          }
+          break;
 
-	case 'd': case 'D':
-	  if (tok.matchesToken("DESCRIBE")) {
-	    // SQL DESCRIBE statement
+        case 'd': case 'D':
+          if (tok.matchesToken("DESCRIBE")) {
+            // SQL DESCRIBE statement
 
-	    _lastSql = LastSqlType.DESCRIBE;
-	  }
-	  break;
+            _lastSql = LastSqlType.DESCRIBE;
+          }
+          break;
 
-	case 's': case 'S':
-	  if (tok.matchesToken("SET")) {
-	    // SQL SET statement
+        case 's': case 'S':
+          if (tok.matchesToken("SET")) {
+            // SQL SET statement
 
-	    String lower = sql.toLowerCase();
-	    if (lower.indexOf(" names ") >= 0) {
-	      // php/1469 - need to control i18n 'names'
-	      return LongValue.ONE;
-	    }
-	  }
-	  break;
-	}
+            String lower = sql.toLowerCase();
+            if (lower.indexOf(" names ") >= 0) {
+              // php/1469 - need to control i18n 'names'
+              return LongValue.ONE;
+            }
+          }
+          break;
+        }
       }
 
       return super.realQuery(env, sql);
@@ -1257,7 +1257,7 @@ public class Mysqli extends JdbcConnectionResource {
    */
   @Override
   protected JdbcResultResource createResult(Env env,
-					    Statement stmt,
+                                            Statement stmt,
                                             ResultSet rs)
   {
     return new MysqliResult(env, stmt, rs, this);
@@ -1316,7 +1316,7 @@ public class Mysqli extends JdbcConnectionResource {
 
       if (stmt.execute(sql)) {
         MysqliResult result
-	  = (MysqliResult) createResult(getEnv(), stmt, stmt.getResultSet());
+          = (MysqliResult) createResult(getEnv(), stmt, stmt.getResultSet());
         conn.setCatalog(currentCatalog.toString());
         return result;
       } else {
@@ -1512,9 +1512,9 @@ public class Mysqli extends JdbcConnectionResource {
       MysqlMetaDataMethod metaDataMethod = _lastMetaDataMethod;
       
       if (metaDataMethod == null
-	  || metaDataMethod.getMetaDataClass() != metaDataClass) {
-	metaDataMethod = new MysqlMetaDataMethod(metaDataClass);
-	_lastMetaDataMethod = metaDataMethod;
+          || metaDataMethod.getMetaDataClass() != metaDataClass) {
+        metaDataMethod = new MysqlMetaDataMethod(metaDataClass);
+        _lastMetaDataMethod = metaDataMethod;
       }
 
       _metaDataMethod = metaDataMethod;
@@ -1529,7 +1529,7 @@ public class Mysqli extends JdbcConnectionResource {
    * and suffer from encoding related bugs.
    */
   protected static void checkDriverVersion(Env env,
-					   ConnectionEntry connEntry)
+                                           ConnectionEntry connEntry)
     throws SQLException
   {
     if (_checkedDriverVersion != null)
@@ -1684,11 +1684,11 @@ public class Mysqli extends JdbcConnectionResource {
       _resultSetMetaDataClass = resultSetMetaDataClass;
       
       try {
-	_getColumnCharacterSetMethod
-	  = _resultSetMetaDataClass.getMethod("getColumnCharacterSet",
-					      new Class[] { int.class });
+        _getColumnCharacterSetMethod
+          = _resultSetMetaDataClass.getMethod("getColumnCharacterSet",
+                                              new Class[] { int.class });
       } catch (Exception e) {
-	log.log(Level.FINER, e.toString(), e);
+        log.log(Level.FINER, e.toString(), e);
       }
     }
 

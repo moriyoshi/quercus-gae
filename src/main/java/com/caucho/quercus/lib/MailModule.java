@@ -107,15 +107,15 @@ public class MailModule extends AbstractQuercusModule {
       if (user != null && ! user.toString().equals("")) {
         String userString = user.toString();
 
-	/*
-	int p = userString.indexOf('<');
-	int q = userString.indexOf('>');
-	
-	if (p >= 0 && q >= 0) {
-	  userString = userString.substring(p + 1, q);
-	}
-	*/
-	
+        /*
+        int p = userString.indexOf('<');
+        int q = userString.indexOf('>');
+        
+        if (p >= 0 && q >= 0) {
+          userString = userString.substring(p + 1, q);
+        }
+        */
+        
         props.put("mail.from", userString);
       }
       else if (System.getProperty("mail.from") != null)
@@ -337,16 +337,16 @@ public class MailModule extends AbstractQuercusModule {
 
       for (;
            i < len && (! Character.isWhitespace(ch = headers.charAt(i))
-		       && ch != ':');
+                       && ch != ':');
            i++) {
         buffer.append((char) ch);
       }
 
       for (;
            i < len && ((ch = headers.charAt(i)) == ' '
-		       || ch == '\t'
-		       || ch == '\f'
-		       || ch == ':');
+                       || ch == '\t'
+                       || ch == '\f'
+                       || ch == ':');
            i++) {
       }
 
@@ -355,7 +355,7 @@ public class MailModule extends AbstractQuercusModule {
 
       for (;
            i < len
-	     && ((ch = headers.charAt(i)) != '\r' && ch != '\n');
+             && ((ch = headers.charAt(i)) != '\r' && ch != '\n');
            i++) {
         buffer.append((char) ch);
       }

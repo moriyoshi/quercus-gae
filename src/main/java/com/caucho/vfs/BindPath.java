@@ -48,8 +48,8 @@ class BindPath extends FilesystemPath {
    * @param path canonical path
    */
   private BindPath(BindPath root,
-		   String userPath, Map<String,Object> attributes,
-		   String path, Node node, Path backing)
+                   String userPath, Map<String,Object> attributes,
+                   String path, Node node, Path backing)
   {
     super(root, userPath, path);
 
@@ -70,27 +70,27 @@ class BindPath extends FilesystemPath {
   }
 
   public Path fsWalk(String userPath,
-			Map<String,Object> attributes,
-			String path)
+                        Map<String,Object> attributes,
+                        String path)
   {
     Node ptr = _node;
 
     int offset = 0;
     while (offset + 1 < path.length()) {
       if (ptr.firstChild == null)
-	return ptr._backing.lookup(path.substring(offset), attributes);
+        return ptr._backing.lookup(path.substring(offset), attributes);
 
       int p = path.indexOf(_separatorChar, offset + 1);
       String segment;
       if (p == -1)
-	segment = path.substring(offset + 1);
+        segment = path.substring(offset + 1);
       else
-	segment = path.substring(offset + 1, p);
+        segment = path.substring(offset + 1, p);
 
       Node next = ptr.findChild(segment);
 
       if (next == null)
-	return ptr._backing.lookup(path.substring(offset), attributes);
+        return ptr._backing.lookup(path.substring(offset), attributes);
 
       offset = p;
       ptr = next;
@@ -211,14 +211,14 @@ class BindPath extends FilesystemPath {
       int p = path.indexOf(_separatorChar, offset + 1);
       String segment;
       if (p == -1)
-	segment = path.substring(offset + 1);
+        segment = path.substring(offset + 1);
       else
-	segment = path.substring(offset + 1, p);
+        segment = path.substring(offset + 1, p);
 
       Node next = ptr.findChild(segment);
 
       if (next == null)
-	next = ptr.addChild(segment, ptr._backing);
+        next = ptr.addChild(segment, ptr._backing);
     }
 
     ptr._backing = context;
@@ -258,7 +258,7 @@ class BindPath extends FilesystemPath {
       int size = 0;
 
       for (Node ptr = firstChild; ptr != null; ptr = ptr.next)
-	size++;
+        size++;
 
       return size;
     }
@@ -266,8 +266,8 @@ class BindPath extends FilesystemPath {
     Node findChild(String name)
     {
       for (Node ptr = firstChild; ptr != null; ptr = ptr.next) {
-	if (ptr.name.equals(name))
-	  return ptr;
+        if (ptr.name.equals(name))
+          return ptr;
       }
 
       return null;
@@ -276,10 +276,10 @@ class BindPath extends FilesystemPath {
     Node addChild(String name, Path backing)
     {
       for (Node ptr = firstChild; ptr != null; ptr = ptr.next) {
-	if (ptr.name.equals(name)) {
-	  ptr._backing = backing;
-	  return ptr;
-	}
+        if (ptr.name.equals(name)) {
+          ptr._backing = backing;
+          return ptr;
+        }
       }
 
       Node node = new Node(name, backing);

@@ -67,7 +67,7 @@ public class StaticStatement extends Statement {
       String staticName = _staticName;
       
       if (cls != null)
-	staticName = cls.getName() + "::" + staticName;
+        staticName = cls.getName() + "::" + staticName;
 
       Var var = env.getStaticVar(staticName);
       

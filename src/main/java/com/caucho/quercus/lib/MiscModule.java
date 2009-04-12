@@ -107,19 +107,19 @@ public class MiscModule extends AbstractQuercusModule {
       case '^': case '(': case ')': case '[': case ']':
       case '{': case '}': case '$': case '\\': case ',':
       case 0x0a: case 0xff:
-	sb.append('\\');
-	sb.append(ch);
-	break;
+        sb.append('\\');
+        sb.append(ch);
+        break;
       case '\'':
-	hasApos = ! hasApos;
-	sb.append(ch);
-	break;
+        hasApos = ! hasApos;
+        sb.append(ch);
+        break;
       case '\"':
-	hasQuot = ! hasQuot;
-	sb.append(ch);
-	break;
+        hasQuot = ! hasQuot;
+        sb.append(ch);
+        break;
       default:
-	sb.append(ch);
+        sb.append(ch);
       }
     }
 
@@ -204,8 +204,8 @@ public class MiscModule extends AbstractQuercusModule {
    * Execute a system command.
    */
   public static String exec(Env env, String command,
-			    @Optional Value output,
-			    @Optional @Reference Value result)
+                            @Optional Value output,
+                            @Optional @Reference Value result)
   {
     try {
       String []args = new String[3];
@@ -372,14 +372,14 @@ public class MiscModule extends AbstractQuercusModule {
 
     if (regExpMatched == null)
       capabilities.put(env.createString("browser_name_regex"),
-		       patternMatched);
+                       patternMatched);
     else
       capabilities.put("browser_name_regex", regExpMatched);
     capabilities.put(env.createString("browser_name_pattern"), patternMatched);
 
     addBrowserCapabilities(env, browsers,
-			   capabilities.get(env.createString("parent")),
-			   capabilities);
+                           capabilities.get(env.createString("parent")),
+                           capabilities);
 
     if (return_array) {
       ArrayValue array = new ArrayValueImpl();
@@ -510,7 +510,7 @@ public class MiscModule extends AbstractQuercusModule {
 
       int i = 0;
       for (PackSegment segment : segments) {
-	i = segment.pack(env, bb, i, args);
+        i = segment.pack(env, bb, i, args);
       }
 
       return bb;
@@ -570,10 +570,10 @@ public class MiscModule extends AbstractQuercusModule {
 
       WriteStream out = env.getPwd().lookup("stderr:").openWrite();
       try {
-	e.printStackTrace(out.getPrintWriter());
-	//ScriptStackTrace.printStackTrace(e, out.getPrintWriter());
+        e.printStackTrace(out.getPrintWriter());
+        //ScriptStackTrace.printStackTrace(e, out.getPrintWriter());
       } finally {
-	out.close();
+        out.close();
       }
 
       return NullValue.NULL;
@@ -648,7 +648,7 @@ public class MiscModule extends AbstractQuercusModule {
    * Execute a system command.
    */
   public static void passthru(Env env, String command,
-			       @Optional @Reference Value result)
+                               @Optional @Reference Value result)
   {
 
     try {
@@ -932,7 +932,7 @@ public class MiscModule extends AbstractQuercusModule {
    * Execute a system command.
    */
   public static String system(Env env, String command,
-			      @Optional @Reference Value result)
+                              @Optional @Reference Value result)
   {
     return exec(env, command, null, result);
   }
@@ -948,70 +948,70 @@ public class MiscModule extends AbstractQuercusModule {
       int count = 0;
       char ch1 = ' ';
       for (i++;
-	   i < length && '0' <= (ch1 = format.charAt(i)) && ch1 <= '9';
-	   i++) {
-	count = 10 * count + ch1 - '0';
+           i < length && '0' <= (ch1 = format.charAt(i)) && ch1 <= '9';
+           i++) {
+        count = 10 * count + ch1 - '0';
       }
 
       if (ch1 == '*' && count == 0) {
-	i++;
-	count = Integer.MAX_VALUE;
+        i++;
+        count = Integer.MAX_VALUE;
       }
       else if (count == 0)
-	count = 1;
+        count = 1;
 
       if (i < length)
-	i--;
+        i--;
 
       switch (ch) {
       case 'a':
-	segments.add(new SpacePackSegment(env, count, (byte) 0));
-	break;
+        segments.add(new SpacePackSegment(env, count, (byte) 0));
+        break;
       case 'A':
-	segments.add(new SpacePackSegment(env, count, (byte) 0x20));
-	break;
+        segments.add(new SpacePackSegment(env, count, (byte) 0x20));
+        break;
       case 'h':
-	segments.add(new RevHexPackSegment(count));
-	break;
+        segments.add(new RevHexPackSegment(count));
+        break;
       case 'H':
-	segments.add(new HexPackSegment(env, count));
-	break;
+        segments.add(new HexPackSegment(env, count));
+        break;
       case 'c':
       case 'C':
-	segments.add(new BigEndianPackSegment(count, 1));
-	break;
+        segments.add(new BigEndianPackSegment(count, 1));
+        break;
       case 's':
       case 'n':
       case 'S':
-	segments.add(new BigEndianPackSegment(count, 2));
-	break;
+        segments.add(new BigEndianPackSegment(count, 2));
+        break;
       case 'v':
-	segments.add(new LittleEndianPackSegment(count, 2));
-	break;
+        segments.add(new LittleEndianPackSegment(count, 2));
+        break;
       case 'l':
       case 'L':
       case 'N':
-	segments.add(new BigEndianPackSegment(count, 4));
-	break;
+        segments.add(new BigEndianPackSegment(count, 4));
+        break;
       case 'V':
-	segments.add(new LittleEndianPackSegment(count, 4));
-	break;
+        segments.add(new LittleEndianPackSegment(count, 4));
+        break;
       case 'i':
       case 'I':
-	segments.add(new BigEndianPackSegment(count, 8));
-	break;
+        segments.add(new BigEndianPackSegment(count, 8));
+        break;
       case 'd':
-	segments.add(new DoublePackSegment(count));
-	break;
+        segments.add(new DoublePackSegment(count));
+        break;
       case 'f':
-	segments.add(new FloatPackSegment(count));
-	break;
+        segments.add(new FloatPackSegment(count));
+        break;
       case 'x':
-	segments.add(new NullPackSegment(count));
-	break;
+        segments.add(new NullPackSegment(count));
+        break;
       case '@':
-	segments.add(new PositionPackSegment(count));
-	break;
+        segments.add(new PositionPackSegment(count));
+        break;
       }
     }
 
@@ -1019,7 +1019,7 @@ public class MiscModule extends AbstractQuercusModule {
   }
 
   private static ArrayList<PackSegment> parseUnpackFormat(Env env,
-							  String format)
+                                                          String format)
   {
     ArrayList<PackSegment> segments = new ArrayList<PackSegment>();
 
@@ -1062,59 +1062,59 @@ public class MiscModule extends AbstractQuercusModule {
 
       switch (ch) {
       case 'a':
-	segments.add(new SpacePackSegment(env, name, count, (byte) 0));
-	break;
+        segments.add(new SpacePackSegment(env, name, count, (byte) 0));
+        break;
       case 'A':
-	segments.add(new SpacePackSegment(env, name, count, (byte) 0x20));
-	break;
+        segments.add(new SpacePackSegment(env, name, count, (byte) 0x20));
+        break;
       case 'h':
-	segments.add(new RevHexPackSegment(name, count));
-	break;
+        segments.add(new RevHexPackSegment(name, count));
+        break;
       case 'H':
-	segments.add(new HexPackSegment(env, name, count));
-	break;
+        segments.add(new HexPackSegment(env, name, count));
+        break;
       case 'c':
-	segments.add(new BigEndianPackSegment(name, count, 1, true));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 1, true));
+        break;
       case 'C':
-	segments.add(new BigEndianPackSegment(name, count, 1, false));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 1, false));
+        break;
       case 's':
-	segments.add(new BigEndianPackSegment(name, count, 2, true));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 2, true));
+        break;
       case 'n':
       case 'S':
-	segments.add(new BigEndianPackSegment(name, count, 2, false));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 2, false));
+        break;
       case 'v':
-	segments.add(new LittleEndianPackSegment(name, count, 2));
-	break;
+        segments.add(new LittleEndianPackSegment(name, count, 2));
+        break;
       case 'l':
-	segments.add(new BigEndianPackSegment(name, count, 4, true));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 4, true));
+        break;
       case 'L':
       case 'N':
-	segments.add(new BigEndianPackSegment(name, count, 4, true));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 4, true));
+        break;
       case 'V':
-	segments.add(new LittleEndianPackSegment(name, count, 4));
-	break;
+        segments.add(new LittleEndianPackSegment(name, count, 4));
+        break;
       case 'i':
       case 'I':
-	segments.add(new BigEndianPackSegment(name, count, 8, false));
-	break;
+        segments.add(new BigEndianPackSegment(name, count, 8, false));
+        break;
       case 'd':
-	segments.add(new DoublePackSegment(name, count));
-	break;
+        segments.add(new DoublePackSegment(name, count));
+        break;
       case 'f':
-	segments.add(new FloatPackSegment(name, count));
-	break;
+        segments.add(new FloatPackSegment(name, count));
+        break;
       case 'x':
-	segments.add(new NullPackSegment(name, count));
-	break;
+        segments.add(new NullPackSegment(name, count));
+        break;
       case '@':
-	segments.add(new PositionPackSegment(name, count));
-	break;
+        segments.add(new PositionPackSegment(name, count));
+        break;
       }
     }
 
@@ -1123,7 +1123,7 @@ public class MiscModule extends AbstractQuercusModule {
 
   abstract static class PackSegment {
     abstract public int pack(Env env, StringValue bb,
-			      int i, Value []args)
+                              int i, Value []args)
       throws IOException;
     
     abstract public void unpack(Env env, ArrayValue array, InputStream is)
@@ -1154,13 +1154,13 @@ public class MiscModule extends AbstractQuercusModule {
       Value arg;
 
       if (i < args.length) {
-	arg = args[i];
-	i++;
+        arg = args[i];
+        i++;
       }
       else {
-	env.warning("a: not enough arguments");
+        env.warning("a: not enough arguments");
 
-	return i;
+        return i;
       }
 
       InputStream is = arg.toInputStream();
@@ -1168,14 +1168,14 @@ public class MiscModule extends AbstractQuercusModule {
       int length = _length;
 
       for (int j = 0; j < length; j++) {
-	int ch = is.read();
+        int ch = is.read();
 
-	if (ch >= 0)
-	  bb.appendByte(ch);
-	else if (length == Integer.MAX_VALUE)
-	  return i;
-	else
-	  bb.appendByte(_pad);
+        if (ch >= 0)
+          bb.appendByte(ch);
+        else if (length == Integer.MAX_VALUE)
+          return i;
+        else
+          bb.appendByte(_pad);
       }
 
       return i;
@@ -1239,13 +1239,13 @@ public class MiscModule extends AbstractQuercusModule {
       Value arg;
 
       if (i < args.length) {
-	arg = args[i];
-	i++;
+        arg = args[i];
+        i++;
       }
       else {
-	env.warning("a: not enough arguments");
+        env.warning("a: not enough arguments");
 
-	return i;
+        return i;
       }
 
       StringValue s = arg.toStringValue();
@@ -1255,32 +1255,32 @@ public class MiscModule extends AbstractQuercusModule {
       if (_length == Integer.MAX_VALUE) {
       }
       else if (strlen < _length) {
-	env.warning("not enough characters in hex string");
+        env.warning("not enough characters in hex string");
 
-	return i;
+        return i;
       }
       else if (_length < strlen)
-	strlen = _length;
+        strlen = _length;
       
       int tail = strlen / 2;
       for (int j = 0; j < tail; j++) {
-	int d = 0;
-	
-	char ch = s.charAt(2 * j);
+        int d = 0;
+        
+        char ch = s.charAt(2 * j);
 
-	d += 16 * hexToDigit(env, ch);
-	
-	ch = s.charAt(2 * j + 1);
+        d += 16 * hexToDigit(env, ch);
+        
+        ch = s.charAt(2 * j + 1);
 
-	d += hexToDigit(env, ch);
+        d += hexToDigit(env, ch);
 
-	bb.appendByte(d);
+        bb.appendByte(d);
       }
       
       if ((strlen & 1) == 1) {
-	int d = 16 * hexToDigit(env, s.charAt(strlen - 1));
+        int d = 16 * hexToDigit(env, s.charAt(strlen - 1));
 
-	bb.appendByte(d);
+        bb.appendByte(d);
       }
 
       return i;
@@ -1327,13 +1327,13 @@ public class MiscModule extends AbstractQuercusModule {
       Value arg;
 
       if (i < args.length) {
-	arg = args[i];
-	i++;
+        arg = args[i];
+        i++;
       }
       else {
-	env.warning("a: not enough arguments");
+        env.warning("a: not enough arguments");
 
-	return i;
+        return i;
       }
 
       StringValue s = arg.toStringValue();
@@ -1343,32 +1343,32 @@ public class MiscModule extends AbstractQuercusModule {
       if (_length == Integer.MAX_VALUE) {
       }
       else if (strlen < _length) {
-	env.warning("not enough characters in hex string");
+        env.warning("not enough characters in hex string");
 
-	return i;
+        return i;
       }
       else if (_length < strlen)
-	strlen = _length;
+        strlen = _length;
       
       int tail = strlen / 2;
       for (int j = 0; j < tail; j++) {
-	int d = 0;
-	
-	char ch = s.charAt(2 * j);
+        int d = 0;
+        
+        char ch = s.charAt(2 * j);
 
-	d += hexToDigit(env, ch);
-	
-	ch = s.charAt(2 * j + 1);
+        d += hexToDigit(env, ch);
+        
+        ch = s.charAt(2 * j + 1);
 
-	d += 16 * hexToDigit(env, ch);
+        d += 16 * hexToDigit(env, ch);
 
-	bb.appendByte(d);
+        bb.appendByte(d);
       }
       
       if ((strlen & 1) == 1) {
-	int d = hexToDigit(env, s.charAt(strlen - 1));
+        int d = hexToDigit(env, s.charAt(strlen - 1));
 
-	bb.appendByte(d);
+        bb.appendByte(d);
       }
 
       return i;
@@ -1420,25 +1420,25 @@ public class MiscModule extends AbstractQuercusModule {
       throws IOException
     {
       for (int j = 0; j < _length; j++) {
-	Value arg;
+        Value arg;
 
-	if (i < args.length) {
-	  arg = args[i];
-	  i++;
-	}
-	else if (_length == Integer.MAX_VALUE)
-	  return i;
-	else {
-	  env.warning("a: not enough arguments");
+        if (i < args.length) {
+          arg = args[i];
+          i++;
+        }
+        else if (_length == Integer.MAX_VALUE)
+          return i;
+        else {
+          env.warning("a: not enough arguments");
 
-	  return i;
-	}
+          return i;
+        }
  
-	long v = arg.toLong();
+        long v = arg.toLong();
 
-	for (int k = _bytes - 1; k >= 0; k--) {
-	  bb.appendByte((int) (v >> (8 * k)));
-	}
+        for (int k = _bytes - 1; k >= 0; k--) {
+          bb.appendByte((int) (v >> (8 * k)));
+        }
       }
 
       return i;
@@ -1521,25 +1521,25 @@ public class MiscModule extends AbstractQuercusModule {
       throws IOException
     {
       for (int j = 0; j < _length; j++) {
-	Value arg;
+        Value arg;
 
-	if (i < args.length) {
-	  arg = args[i];
-	  i++;
-	}
-	else if (_length == Integer.MAX_VALUE)
-	  return i;
-	else {
-	  env.warning("a: not enough arguments");
+        if (i < args.length) {
+          arg = args[i];
+          i++;
+        }
+        else if (_length == Integer.MAX_VALUE)
+          return i;
+        else {
+          env.warning("a: not enough arguments");
 
-	  return i;
-	}
+          return i;
+        }
  
-	long v = arg.toLong();
+        long v = arg.toLong();
 
-	for (int k = 0; k < _bytes; k++) {
-	  bb.appendByte((int) (v >> (8 * k)));
-	}
+        for (int k = 0; k < _bytes; k++) {
+          bb.appendByte((int) (v >> (8 * k)));
+        }
       }
 
       return i;
@@ -1759,7 +1759,7 @@ public class MiscModule extends AbstractQuercusModule {
       _name = name;
       
       if (length == Integer.MAX_VALUE)
-	length = 0;
+        length = 0;
       
       _length = length;
     }
@@ -1769,7 +1769,7 @@ public class MiscModule extends AbstractQuercusModule {
       throws IOException
     {
       for (int j = 0; j < _length; j++) {
-	bb.appendByte(0);
+        bb.appendByte(0);
       }
 
       return i;
@@ -1795,7 +1795,7 @@ public class MiscModule extends AbstractQuercusModule {
     PositionPackSegment(String name, int length)
     {
       if (length == Integer.MAX_VALUE)
-	length = 0;
+        length = 0;
       
       _length = length;
     }
@@ -1805,7 +1805,7 @@ public class MiscModule extends AbstractQuercusModule {
       throws IOException
     {
       while (bb.length() < _length) {
-	bb.appendByte(0);
+        bb.appendByte(0);
       }
 
       return i;

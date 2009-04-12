@@ -81,8 +81,8 @@ public class GlobalScope extends Scope {
    * Adds a function.
    */
   public void addFunction(String name,
-			  Function function,
-			  boolean isTop)
+                          Function function,
+                          boolean isTop)
   {
     if (isTop)
       _functionMap.put(name.toLowerCase(), function);
@@ -106,7 +106,7 @@ public class GlobalScope extends Scope {
                                       String parentName,
                                       ArrayList<String> ifaceList,
                                       int index,
-				      boolean isTop)
+                                      boolean isTop)
   {
     InterpretedClassDef cl = null;
 
@@ -122,9 +122,9 @@ public class GlobalScope extends Scope {
                                        index);
 
       if (isTop) {
-	cl.setTopScope(true);
-	
-	_classMap.put(name, cl);
+        cl.setTopScope(true);
+        
+        _classMap.put(name, cl);
       }
     }
     else {

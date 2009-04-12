@@ -78,9 +78,9 @@ public class GZIPOutputStream extends DeflaterOutputStream {
    * @param encodingMode FORCE_GZIP to write gzwrite compatible output; FORCE_DEFLATE to write gzip header and zlib header, but do not write crc32 trailer
    */
   public GZIPOutputStream(OutputStream out,
-			  int compressionLevel,
-			  int strategy,
-			  int encodingMode)
+                          int compressionLevel,
+                          int strategy,
+                          int encodingMode)
     throws IOException
   {
     this(out, createDeflater(compressionLevel, strategy, encodingMode));
@@ -97,8 +97,8 @@ public class GZIPOutputStream extends DeflaterOutputStream {
    * Creates a deflater based on the Zlib arguments.
    */
   private static Deflater createDeflater(int compressionLevel,
-					 int strategy,
-					 int encodingMode)
+                                         int strategy,
+                                         int encodingMode)
   {
     Deflater defl;
 

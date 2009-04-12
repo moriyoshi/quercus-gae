@@ -261,20 +261,20 @@ class JsonDecoder {
       }
 
       while (_offset < _len
-	     && '0' <= (ch = _str.charAt(_offset)) && ch <= '9') {
+             && '0' <= (ch = _str.charAt(_offset)) && ch <= '9') {
         _offset++;
       }
 
       /*
       if (_offset < _len)
         return errorReturn(env,
-			   L.l("expected 0-9 exponent at '{0}'", (char) ch));
+                           L.l("expected 0-9 exponent at '{0}'", (char) ch));
       */
     }
 
     if (isDouble) {
       String strValue
-	= _str.stringSubstring(startOffset, _offset);
+        = _str.stringSubstring(startOffset, _offset);
       
       return DoubleValue.create(Double.parseDouble(strValue));
     }
@@ -343,7 +343,7 @@ class JsonDecoder {
       skipWhitespace();
 
       if (_offset >= _len || _str.charAt(_offset) == '}') {
-	_offset++;
+        _offset++;
         break;
       }
 
@@ -386,7 +386,7 @@ class JsonDecoder {
       skipWhitespace();
 
       if (_len <= _offset || _str.charAt(_offset) == '}') {
-	_offset++;
+        _offset++;
         break;
       }
       

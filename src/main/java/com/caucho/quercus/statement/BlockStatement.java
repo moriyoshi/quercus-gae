@@ -87,11 +87,11 @@ public class BlockStatement extends Statement {
   {
     for (int i = 0; i < getStatements().length; i++) {
       Statement stmt = getStatements()[i];
-	  
+          
       int fallThrough = stmt.fallThrough();
 
       if (fallThrough != FALL_THROUGH)
-	return fallThrough;
+        return fallThrough;
     }
 
     return FALL_THROUGH;
@@ -105,7 +105,7 @@ public class BlockStatement extends Statement {
       Value value = statement.execute(env);
 
       if (value != null) {
-	return value;
+        return value;
       }
     }
 

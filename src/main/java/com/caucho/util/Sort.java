@@ -42,8 +42,8 @@ abstract public class Sort {
       Object vb = list.get(head + 1);
 
       if (lessThan(vb, va)) {
-	list.set(head, vb);
-	list.set(head + 1, va);
+        list.set(head, vb);
+        list.set(head + 1, va);
       }
 
       return;
@@ -55,10 +55,10 @@ abstract public class Sort {
       Object value = list.get(i);
       
       if (lessThan(value, pivot)) {
-	Object centerValue = list.get(center);
-	list.set(center, value);
-	list.set(i, centerValue);
-	center++;
+        Object centerValue = list.get(center);
+        list.set(center, value);
+        list.set(i, centerValue);
+        center++;
       }
     }
 

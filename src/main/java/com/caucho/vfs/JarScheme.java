@@ -44,7 +44,7 @@ public class JarScheme extends FilesystemPath {
    */
   protected Path schemeWalk(String userPath,
                             Map<String,Object> attributes,
-			    String filePath,
+                            String filePath,
                             int offset)
   {
     int p = filePath.indexOf('!', offset);
@@ -66,8 +66,8 @@ public class JarScheme extends FilesystemPath {
   }
   
   public Path fsWalk(String userPath,
-			Map<String,Object> attributes,
-			String path)
+                        Map<String,Object> attributes,
+                        String path)
   {
     return schemeWalk(userPath, attributes, path, 0);
   }

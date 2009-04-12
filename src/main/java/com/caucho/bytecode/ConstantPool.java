@@ -224,12 +224,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof StringConstant))
-	continue;
+        continue;
 
       StringConstant stringEntry = (StringConstant) entry;
 
       if (stringEntry.getString().equals(name))
-	return stringEntry;
+        return stringEntry;
     }
 
     return null;
@@ -263,12 +263,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof IntegerConstant))
-	continue;
+        continue;
 
       IntegerConstant integerEntry = (IntegerConstant) entry;
 
       if (integerEntry.getValue() == value)
-	return integerEntry;
+        return integerEntry;
     }
 
     return null;
@@ -300,12 +300,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof LongConstant))
-	continue;
+        continue;
 
       LongConstant longEntry = (LongConstant) entry;
 
       if (longEntry.getValue() == value)
-	return longEntry;
+        return longEntry;
     }
 
     return null;
@@ -338,12 +338,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof FloatConstant))
-	continue;
+        continue;
 
       FloatConstant floatEntry = (FloatConstant) entry;
 
       if (floatEntry.getValue() == value)
-	return floatEntry;
+        return floatEntry;
     }
 
     return null;
@@ -375,12 +375,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof DoubleConstant))
-	continue;
+        continue;
 
       DoubleConstant doubleEntry = (DoubleConstant) entry;
 
       if (doubleEntry.getValue() == value)
-	return doubleEntry;
+        return doubleEntry;
     }
 
     return null;
@@ -413,12 +413,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof ClassConstant))
-	continue;
+        continue;
 
       ClassConstant classEntry = (ClassConstant) entry;
 
       if (classEntry.getName().equals(name))
-	return classEntry;
+        return classEntry;
     }
 
     return null;
@@ -452,13 +452,13 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof NameAndTypeConstant))
-	continue;
+        continue;
 
       NameAndTypeConstant methodEntry = (NameAndTypeConstant) entry;
 
       if (methodEntry.getName().equals(name) &&
-	  methodEntry.getType().equals(type))
-	return methodEntry;
+          methodEntry.getType().equals(type))
+        return methodEntry;
     }
 
     return null;
@@ -478,8 +478,8 @@ public class ConstantPool {
     Utf8Constant typeEntry = addUTF8(type);
 
     entry = new NameAndTypeConstant(this, _entries.size(),
-				    nameEntry.getIndex(),
-				    typeEntry.getIndex());
+                                    nameEntry.getIndex(),
+                                    typeEntry.getIndex());
 
     addConstant(entry);
 
@@ -490,21 +490,21 @@ public class ConstantPool {
    * Gets a field ref constant.
    */
   public FieldRefConstant getFieldRef(String className,
-				      String name,
-				      String type)
+                                      String name,
+                                      String type)
   {
     for (int i = 0; i < _entries.size(); i++) {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof FieldRefConstant))
-	continue;
+        continue;
 
       FieldRefConstant fieldEntry = (FieldRefConstant) entry;
 
       if (fieldEntry.getClassName().equals(className) &&
-	  fieldEntry.getName().equals(name) &&
-	  fieldEntry.getType().equals(type))
-	return fieldEntry;
+          fieldEntry.getName().equals(name) &&
+          fieldEntry.getType().equals(type))
+        return fieldEntry;
     }
 
     return null;
@@ -519,12 +519,12 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof FieldRefConstant))
-	continue;
+        continue;
 
       FieldRefConstant fieldEntry = (FieldRefConstant) entry;
 
       if (fieldEntry.getName().equals(name))
-	return fieldEntry;
+        return fieldEntry;
     }
 
     return null;
@@ -534,8 +534,8 @@ public class ConstantPool {
    * Adds a field ref constant.
    */
   public FieldRefConstant addFieldRef(String className,
-				      String name,
-				      String type)
+                                      String name,
+                                      String type)
   {
     FieldRefConstant entry = getFieldRef(className, name, type);
 
@@ -546,8 +546,8 @@ public class ConstantPool {
     NameAndTypeConstant typeEntry = addNameAndType(name, type);
 
     entry = new FieldRefConstant(this, _entries.size(),
-				 classEntry.getIndex(),
-				 typeEntry.getIndex());
+                                 classEntry.getIndex(),
+                                 typeEntry.getIndex());
 
     addConstant(entry);
 
@@ -558,21 +558,21 @@ public class ConstantPool {
    * Gets a method ref constant.
    */
   public MethodRefConstant getMethodRef(String className,
-					String name,
-					String type)
+                                        String name,
+                                        String type)
   {
     for (int i = 0; i < _entries.size(); i++) {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof MethodRefConstant))
-	continue;
+        continue;
 
       MethodRefConstant methodEntry = (MethodRefConstant) entry;
 
       if (methodEntry.getClassName().equals(className) &&
-	  methodEntry.getName().equals(name) &&
-	  methodEntry.getType().equals(type))
-	return methodEntry;
+          methodEntry.getName().equals(name) &&
+          methodEntry.getType().equals(type))
+        return methodEntry;
     }
 
     return null;
@@ -582,8 +582,8 @@ public class ConstantPool {
    * Adds a method ref constant.
    */
   public MethodRefConstant addMethodRef(String className,
-					String name,
-					String type)
+                                        String name,
+                                        String type)
   {
     MethodRefConstant entry = getMethodRef(className, name, type);
 
@@ -594,8 +594,8 @@ public class ConstantPool {
     NameAndTypeConstant typeEntry = addNameAndType(name, type);
 
     entry = new MethodRefConstant(this, _entries.size(),
-				  classEntry.getIndex(),
-				  typeEntry.getIndex());
+                                  classEntry.getIndex(),
+                                  typeEntry.getIndex());
 
     addConstant(entry);
 
@@ -606,22 +606,22 @@ public class ConstantPool {
    * Gets an interface constant.
    */
   public InterfaceMethodRefConstant getInterfaceRef(String className,
-						    String name,
-						    String type)
+                                                    String name,
+                                                    String type)
   {
     for (int i = 0; i < _entries.size(); i++) {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (! (entry instanceof InterfaceMethodRefConstant))
-	continue;
+        continue;
 
       InterfaceMethodRefConstant methodEntry;
       methodEntry = (InterfaceMethodRefConstant) entry;
 
       if (methodEntry.getClassName().equals(className) &&
-	  methodEntry.getName().equals(name) &&
-	  methodEntry.getType().equals(type))
-	return methodEntry;
+          methodEntry.getName().equals(name) &&
+          methodEntry.getType().equals(type))
+        return methodEntry;
     }
 
     return null;
@@ -631,8 +631,8 @@ public class ConstantPool {
    * Adds an interface ref constant.
    */
   public InterfaceMethodRefConstant addInterfaceRef(String className,
-						    String name,
-						    String type)
+                                                    String name,
+                                                    String type)
   {
     InterfaceMethodRefConstant entry = getInterfaceRef(className, name, type);
 
@@ -643,8 +643,8 @@ public class ConstantPool {
     NameAndTypeConstant typeEntry = addNameAndType(name, type);
 
     entry = new InterfaceMethodRefConstant(this, _entries.size(),
-					   classEntry.getIndex(),
-					   typeEntry.getIndex());
+                                           classEntry.getIndex(),
+                                           typeEntry.getIndex());
 
     addConstant(entry);
 
@@ -663,7 +663,7 @@ public class ConstantPool {
       ConstantPoolEntry entry = _entries.get(i);
 
       if (entry != null)
-	entry.write(out);
+        entry.write(out);
     }
   }
 }

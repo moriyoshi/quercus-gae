@@ -151,9 +151,9 @@ abstract public class AbstractByteToChar extends InputStream {
       return read();
     else {
       if (readEncoding.read(_charBuffer, 0, 1) < 0)
-	return -1;
+        return -1;
       else
-	return _charBuffer[0];
+        return _charBuffer[0];
     }
   }
 

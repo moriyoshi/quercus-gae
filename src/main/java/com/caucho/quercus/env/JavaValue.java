@@ -528,7 +528,7 @@ public class JavaValue extends ObjectValue
       return _object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
-		      _object.getClass().getName(), type.getName()));
+                      _object.getClass().getName(), type.getName()));
     
       return null;
     }
@@ -546,7 +546,7 @@ public class JavaValue extends ObjectValue
       return _object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
-		      objClass.getName(), type.getName()));
+                      objClass.getName(), type.getName()));
     
       return null;
     }
@@ -562,7 +562,7 @@ public class JavaValue extends ObjectValue
       return (Map) _object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
-		      _object.getClass().getName(), type.getName()));
+                      _object.getClass().getName(), type.getName()));
     
       return null;
     }
@@ -578,13 +578,13 @@ public class JavaValue extends ObjectValue
       return (InputStream) _object;
     else if (_object instanceof File) {
       try {
-	InputStream is = new FileInputStream((File) _object);
+        InputStream is = new FileInputStream((File) _object);
 
-	Env.getCurrent().addCleanup(new EnvCloseable(is));
+        Env.getCurrent().addCleanup(new EnvCloseable(is));
 
-	return is;
+        return is;
       } catch (IOException e) {
-	throw new QuercusException(e);
+        throw new QuercusException(e);
       }
     }
     else
@@ -655,14 +655,14 @@ public class JavaValue extends ObjectValue
       ArrayValue array = null;
       
       if (! _isArray) {
-	_isArray = true;
-	Value oldValue = _value;
-	_value = new ArrayValueImpl();
-	array = (ArrayValue) _value;
-	array.append(oldValue);
+        _isArray = true;
+        Value oldValue = _value;
+        _value = new ArrayValueImpl();
+        array = (ArrayValue) _value;
+        array.append(oldValue);
       }
       else {
-	array = (ArrayValue) _value;
+        array = (ArrayValue) _value;
       }
 
       array.append(value);

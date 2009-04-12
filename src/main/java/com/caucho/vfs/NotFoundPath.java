@@ -57,7 +57,7 @@ public class NotFoundPath extends Path {
    * Dummy return.
    */
   public Path schemeWalk(String userPath,
-			 Map<String,Object> attributes,
+                         Map<String,Object> attributes,
                          String path, int offset)
   {
     return this;

@@ -107,8 +107,8 @@ public class Slist {
       
     for (Slist ptr = slist; ptr.next != null; ptr = ptr.next) {
       if (ptr.next.first == object) {
-	ptr.next = ptr.next.next;
-	break;
+        ptr.next = ptr.next.next;
+        break;
       }
     }
 

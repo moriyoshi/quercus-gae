@@ -825,9 +825,9 @@ abstract public class StringValue
         }
         else if ('a' <= ch && ch < 'z') {
           return (createStringBuilder()
-		  .append(this, 0, i)
-		  .append((char) (ch + 1))
-		  .append(tail));
+                  .append(this, 0, i)
+                  .append((char) (ch + 1))
+                  .append(tail));
         }
         else if (ch == 'Z') {
           if (i == 0)
@@ -837,9 +837,9 @@ abstract public class StringValue
         }
         else if ('A' <= ch && ch < 'Z') {
           return (createStringBuilder()
-		  .append(this, 0, i)
-		  .append((char) (ch + 1))
-		  .append(tail));
+                  .append(this, 0, i)
+                  .append((char) (ch + 1))
+                  .append(tail));
         }
         else if ('0' <= ch && ch <= '9' && i == length() - 1) {
           return LongValue.create(toLong() + incr);
@@ -1398,19 +1398,19 @@ abstract public class StringValue
       int readLength = 0;
       
       while (length > 0) {
-	int sublen = buffer.length;
-	if (length < sublen)
-	  sublen = (int) length;
+        int sublen = buffer.length;
+        if (length < sublen)
+          sublen = (int) length;
 
-	sublen = is.read(buffer, 0, sublen);
+        sublen = is.read(buffer, 0, sublen);
 
-	if (sublen > 0) {
-	  append(buffer, 0, sublen);
-	  length -= sublen;
-	  readLength += sublen;
-	}
-	else
-	  return readLength > 0 ? readLength : -1;
+        if (sublen > 0) {
+          append(buffer, 0, sublen);
+          length -= sublen;
+          readLength += sublen;
+        }
+        else
+          return readLength > 0 ? readLength : -1;
       }
 
       return readLength;
@@ -1465,19 +1465,19 @@ abstract public class StringValue
       int readLength = 0;
       
       while (length > 0) {
-	int sublen = buffer.length;
-	if (length < sublen)
-	  sublen = (int) length;
+        int sublen = buffer.length;
+        if (length < sublen)
+          sublen = (int) length;
 
-	sublen = is.read(buffer, 0, sublen);
+        sublen = is.read(buffer, 0, sublen);
 
-	if (sublen > 0) {
-	  append(buffer, 0, sublen);
-	  length -= sublen;
-	  readLength += sublen;
-	}
-	else
-	  return readLength > 0 ? readLength : -1;
+        if (sublen > 0) {
+          append(buffer, 0, sublen);
+          length -= sublen;
+          readLength += sublen;
+        }
+        else
+          return readLength > 0 ? readLength : -1;
       }
 
       return readLength;
@@ -1584,11 +1584,11 @@ abstract public class StringValue
     loop:
     for (; head <= end; head++) {
       if (charAt(head) != first)
-	continue;
+        continue;
 
       for (int i = 1; i < matchLength; i++) {
-	if (charAt(head + i) != match.charAt(i))
-	  continue loop;
+        if (charAt(head + i) != match.charAt(i))
+          continue loop;
       }
 
       return head;
@@ -1614,7 +1614,7 @@ abstract public class StringValue
     
     for (; head < length; head++) {
       if (charAt(head) == match)
-	return head;
+        return head;
     }
 
     return -1;
@@ -1640,7 +1640,7 @@ abstract public class StringValue
     
     for (; tail >= 0; tail--) {
       if (charAt(tail) == match)
-	return tail;
+        return tail;
     }
 
     return -1;
@@ -1679,7 +1679,7 @@ abstract public class StringValue
 
       for (int i = 1; i < matchLength; i++) {
         if (charAt(tail + i) != match.charAt(i))
-	      continue loop;
+              continue loop;
       }
 
       return tail;
@@ -1692,7 +1692,7 @@ abstract public class StringValue
    * Returns true if the region matches
    */
   public boolean regionMatches(int offset,
-			       char []mBuffer, int mOffset, int mLength)
+                               char []mBuffer, int mOffset, int mLength)
   {
     int length = length();
 
@@ -1701,7 +1701,7 @@ abstract public class StringValue
 
     for (int i = 0; i < mLength; i++) {
       if (charAt(offset + i) != mBuffer[mOffset + i])
-	return false;
+        return false;
     }
 
     return true;
@@ -1711,7 +1711,7 @@ abstract public class StringValue
    * Returns true if the region matches
    */
   public boolean regionMatches(int offset,
-			       StringValue match, int mOffset, int mLength)
+                               StringValue match, int mOffset, int mLength)
   {
     int length = length();
 
@@ -1720,7 +1720,7 @@ abstract public class StringValue
 
     for (int i = 0; i < mLength; i++) {
       if (charAt(offset + i) != match.charAt(mOffset + i))
-	return false;
+        return false;
     }
 
     return true;
@@ -1731,7 +1731,7 @@ abstract public class StringValue
    */
   public boolean
     regionMatchesIgnoreCase(int offset,
-			    char []match, int mOffset, int mLength)
+                            char []match, int mOffset, int mLength)
   {
     int length = length();
 
@@ -1743,7 +1743,7 @@ abstract public class StringValue
       char b = Character.toLowerCase(match[mOffset + i]);
       
       if (a != b)
-	return false;
+        return false;
     }
 
     return true;
@@ -1764,7 +1764,7 @@ abstract public class StringValue
 
     for (int i = 0; i < tailLen; i++) {
       if (charAt(offset + i) != tail.charAt(i))
-	return false;
+        return false;
     }
 
     return true;
@@ -1838,11 +1838,11 @@ abstract public class StringValue
       char ch = buffer[i];
       
       if ('A' <= ch && ch <= 'Z')
-	buffer[i] = (char) (ch + 'a' - 'A');
+        buffer[i] = (char) (ch + 'a' - 'A');
       else if (ch < 0x80) {
       }
       else if (Character.isUpperCase(ch))
-	buffer[i] = Character.toLowerCase(ch);
+        buffer[i] = Character.toLowerCase(ch);
     }
 
     string.setOffset(length);
@@ -2027,7 +2027,7 @@ abstract public class StringValue
 
     for (int i = aLength - 1; i >= 0; i--) {
       if (charAt(i) != s.charAt(i))
-	return false;
+        return false;
     }
 
     return true;

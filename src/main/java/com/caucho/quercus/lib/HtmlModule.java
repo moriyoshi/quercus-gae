@@ -366,9 +366,9 @@ public class HtmlModule extends AbstractQuercusModule {
    * @return the trimmed string
    */
   public static StringValue html_entity_decode(Env env,
-					       StringValue string,
-					       @Optional int quoteStyle,
-					       @Optional String charset)
+                                               StringValue string,
+                                               @Optional int quoteStyle,
+                                               @Optional String charset)
   {
     if (string.length() == 0)
       return env.getEmptyString();

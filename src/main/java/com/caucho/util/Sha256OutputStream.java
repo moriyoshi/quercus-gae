@@ -54,7 +54,7 @@ public class Sha256OutputStream extends OutputStream {
       _digest = _freeDigestList.allocate();
 
       if (_digest == null)
-	_digest = MessageDigest.getInstance("SHA-256");
+        _digest = MessageDigest.getInstance("SHA-256");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

@@ -79,7 +79,7 @@ abstract public class Loader {
       try {
         return new URL(path.getURL());
       } catch (Exception e) {
-	log.log(Level.FINER, e.toString(), e);
+        log.log(Level.FINER, e.toString(), e);
       }
     }
 
@@ -141,7 +141,7 @@ abstract public class Loader {
   {
     try {
       return new CodeSource(new URL(path.getURL()),
-			    (Certificate []) path.getCertificates());
+                            (Certificate []) path.getCertificates());
     } catch (Exception e) {
       log.log(Level.WARNING, e.toString(), e);
 
@@ -159,7 +159,7 @@ abstract public class Loader {
     
     for (int i = 0; i < pathList.size(); i++) {
       if (head.length() > 0)
-	head.append(java.io.File.pathSeparator);
+        head.append(java.io.File.pathSeparator);
       head.append(pathList.get(i));
     }
   }

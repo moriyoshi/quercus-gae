@@ -495,12 +495,12 @@ public final class CharBuffer extends CharSegment {
     if (len < end - start) {
       int tail = length - end;
       for (int i = 0; i < tail; i++)
-	buffer[start + len + i] = buffer[end + i];
+        buffer[start + len + i] = buffer[end + i];
     }
     else {
       int tail = length - end;
       for (int i = tail - 1; i >= 0; i--)
-	buffer[end + i] = buffer[start + len + i];
+        buffer[end + i] = buffer[start + len + i];
     }
 
     string.getChars(0, len, buffer, start);
@@ -514,7 +514,7 @@ public final class CharBuffer extends CharSegment {
    * Replaces a range with a character array
    */
   public CharBuffer replace(int start, int end,
-			    char []buffer, int offset, int len)
+                            char []buffer, int offset, int len)
   {
     if (start < 0 || end < start || _length < start)
       throw new StringIndexOutOfBoundsException();
@@ -527,12 +527,12 @@ public final class CharBuffer extends CharSegment {
     if (len < end - start) {
       int tail = _length - end;
       for (int i = 0; i < tail; i++)
-	thisBuffer[start + len + i] = thisBuffer[end + i];
+        thisBuffer[start + len + i] = thisBuffer[end + i];
     }
     else {
       int tail = _length - end;
       for (int i = tail - 1; i >= 0; i--)
-	thisBuffer[end + i] = thisBuffer[start + len + i];
+        thisBuffer[end + i] = thisBuffer[start + len + i];
     }
 
     System.arraycopy(buffer, offset, thisBuffer, start, len);
@@ -701,7 +701,7 @@ public final class CharBuffer extends CharSegment {
     public int read()
     {
       if (_length <= _index)
-	return -1;
+        return -1;
 
       return _buffer[_index++];
     }

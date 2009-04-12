@@ -70,7 +70,7 @@ public class SelectedXMLElement extends SimpleXMLElement
   private SimpleXMLElement _owner;
   
   protected SelectedXMLElement(Env env, QuercusClass cls,
-			                   SimpleXMLElement owner)
+                                           SimpleXMLElement owner)
   {
     super(env, cls, owner._parent, owner._name);
     

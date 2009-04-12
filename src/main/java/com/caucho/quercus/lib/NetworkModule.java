@@ -146,7 +146,7 @@ public class NetworkModule extends AbstractQuercusModule {
       if (p > 0) {
         String portStr = host.substring(p + 1);
         host = host.substring(0, p);
-	
+        
         if (port == 0)
           port = Integer.parseInt(portStr);
       }

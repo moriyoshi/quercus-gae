@@ -208,13 +208,13 @@ public class ServerArrayValue extends ArrayValueImpl
     _isFilled = true;
 
     for (Map.Entry<String,String> entry
-	   : System.getenv().entrySet()) {
+           : System.getenv().entrySet()) {
       super.put(_env.createString(entry.getKey()),
-		_env.createString(entry.getValue()));
+                _env.createString(entry.getValue()));
     }
 
     for (Map.Entry<Value,Value> entry
-	   : _env.getQuercus().getServerEnvMap().entrySet()) {
+           : _env.getQuercus().getServerEnvMap().entrySet()) {
       super.put(entry.getKey(), entry.getValue());
     }
     
@@ -297,12 +297,12 @@ public class ServerArrayValue extends ArrayValueImpl
         super.put(PHP_SELF_V, _env.createString(contextPath + servletPath + pathInfo));
 
       if (request.getAuthType() != null) {
-	super.put(AUTH_TYPE_V, _env.createString(request.getAuthType()));
+        super.put(AUTH_TYPE_V, _env.createString(request.getAuthType()));
 
-	if (request.getRemoteUser() != null) {
-	  super.put(PHP_AUTH_USER_V,
-		    _env.createString(request.getRemoteUser()));
-	}
+        if (request.getRemoteUser() != null) {
+          super.put(PHP_AUTH_USER_V,
+                    _env.createString(request.getRemoteUser()));
+        }
       }
 
       Enumeration e = request.getHeaderNames();
@@ -335,11 +335,11 @@ public class ServerArrayValue extends ArrayValueImpl
       char ch = key.charAt(i);
 
       if (Character.isLowerCase(ch))
-	sb.append(Character.toUpperCase(ch));
+        sb.append(Character.toUpperCase(ch));
       else if (ch == '-')
-	sb.append('_');
+        sb.append('_');
       else
-	sb.append(ch);
+        sb.append(ch);
     }
 
     return sb;

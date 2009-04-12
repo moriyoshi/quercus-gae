@@ -311,7 +311,7 @@ public class JdbcStatementResource {
   {
     try {
       if (_rs == null)
-	return NullValue.NULL;
+        return NullValue.NULL;
       
       if (_rs.next()) {
         if (_metaData == null)
@@ -345,7 +345,7 @@ public class JdbcStatementResource {
       _rs = null;
 
       if (rs != null)
-	rs.close();
+        rs.close();
 
       if (_resultResource != null) {
         _resultResource.close();

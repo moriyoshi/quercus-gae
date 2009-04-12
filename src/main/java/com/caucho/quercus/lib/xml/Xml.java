@@ -380,7 +380,7 @@ public class Xml {
         _errorString = null;
 
         _xmlHandler = new XmlHandler();
-	
+        
         SAXParser saxParser = _factory.newSAXParser();
         saxParser.parse(is, _xmlHandler);
       } catch (SAXException e) {
@@ -568,17 +568,17 @@ public class Xml {
     public int getLine()
     {
       if (_locator != null)
-	return _locator.getLineNumber();
+        return _locator.getLineNumber();
       else
-	return 0;
+        return 0;
     }
 
     public int getColumn()
     {
       if (_locator != null)
-	return _locator.getColumnNumber();
+        return _locator.getColumnNumber();
       else
-	return 0;
+        return 0;
     }
 
     /**
@@ -721,17 +721,17 @@ public class Xml {
     public int getLine()
     {
       if (_locator != null)
-	return _locator.getLineNumber();
+        return _locator.getLineNumber();
       else
-	return 0;
+        return 0;
     }
 
     public int getColumn()
     {
       if (_locator != null)
-	return _locator.getColumnNumber();
+        return _locator.getColumnNumber();
       else
-	return 0;
+        return 0;
     }
 
     /**
@@ -764,10 +764,10 @@ public class Xml {
 
       String eName = lName; // element name
       if ("".equals(eName))
-	eName = qName;
+        eName = qName;
       
       if (_xmlOptionCaseFolding)
-	eName = eName.toUpperCase();
+        eName = eName.toUpperCase();
       
       args[1] = _env.createString(eName);
 
@@ -775,13 +775,13 @@ public class Xml {
       args[2] = new ArrayValueImpl();
       for (int i = 0; i < attrs.getLength(); i++) {
         String aName = attrs.getLocalName(i); // Attr name
-	
+        
         if ("".equals(aName))
-	  aName = attrs.getQName(i);
-	
+          aName = attrs.getQName(i);
+        
         if (_xmlOptionCaseFolding)
-	  aName = aName.toUpperCase();
-	
+          aName = aName.toUpperCase();
+        
         args[2].put(_env.createString(aName), _env.createString(attrs.getValue(i)));
       }
 
@@ -819,9 +819,9 @@ public class Xml {
         if (_endElementHandler != null)
           _endElementHandler.call(_env, _parser, _env.createString(eName));
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " endElement " + sName);
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " endElement " + sName);
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));
@@ -890,13 +890,13 @@ public class Xml {
       try {
         if (_processingInstructionHandler != null) {
           _processingInstructionHandler.call(_env, _parser,
-					     _env.createString(target),
-					     _env.createString(data));
-	}
+                                             _env.createString(target),
+                                             _env.createString(data));
+        }
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " processingInstruction " + target);
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " processingInstruction " + target);
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));
@@ -917,9 +917,9 @@ public class Xml {
         if (_startNamespaceDeclHandler != null)
           _startNamespaceDeclHandler.call(_env, _env.createString(prefix), _env.createString(uri));
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " startPrefixMapping " + prefix + " " + uri);
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " startPrefixMapping " + prefix + " " + uri);
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));
@@ -939,9 +939,9 @@ public class Xml {
         if (_endNamespaceDeclHandler != null)
           _endNamespaceDeclHandler.call(_env, _env.createString(prefix));
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " endPrefixMapping");
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " endPrefixMapping");
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));
@@ -962,9 +962,9 @@ public class Xml {
                                     _env.createString(systemId),
                                     _env.createString(publicId));
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " notation " + name);
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " notation " + name);
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));
@@ -999,9 +999,9 @@ public class Xml {
         if (_unparsedEntityDeclHandler != null)
           _unparsedEntityDeclHandler.call(_env, args);
         else {
-	  if (log.isLoggable(Level.FINER))
-	    log.finer(this + " unparsedEntity " + name);
-	}
+          if (log.isLoggable(Level.FINER))
+            log.finer(this + " unparsedEntity " + name);
+        }
       } catch (Exception t) {
         log.log(Level.FINE, t.toString(), t);
         throw new SAXException(L.l(t.getMessage()));

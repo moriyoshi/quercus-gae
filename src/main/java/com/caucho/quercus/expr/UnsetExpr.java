@@ -95,14 +95,14 @@ public class UnsetExpr extends Expr {
     }
     else {
       if (_var.getVarInfo().isGlobal()) {
-	out.print(_var.getJavaVar());
-	out.print(" = env.unsetVar(\"");
-	out.printJavaString(name);
-	out.print("\")");
+        out.print(_var.getJavaVar());
+        out.print(" = env.unsetVar(\"");
+        out.printJavaString(name);
+        out.print("\")");
       }
       else {
-	out.print(_var.getJavaVar());
-	out.print(" = null");
+        out.print(_var.getJavaVar());
+        out.print(" = null");
       }
     }
   }

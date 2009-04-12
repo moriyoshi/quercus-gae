@@ -65,14 +65,14 @@ public class HashKey {
       int d2 = (hash[i]) & 0xf;
 
       if (d1 < 10)
-	sb.append((char) ('0' + d1));
+        sb.append((char) ('0' + d1));
       else
-	sb.append((char) ('a' + d1 - 10));
+        sb.append((char) ('a' + d1 - 10));
 
       if (d2 < 10)
-	sb.append((char) ('0' + d2));
+        sb.append((char) ('0' + d2));
       else
-	sb.append((char) ('a' + d2 - 10));
+        sb.append((char) ('a' + d2 - 10));
     }
 
     return sb.toString();
@@ -119,7 +119,7 @@ public class HashKey {
 
     for (int i = 0; i < len; i++) {
       if (hashA[i] != hashB[i])
-	return false;
+        return false;
     }
 
     return true;

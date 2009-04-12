@@ -71,16 +71,16 @@ public class Oracle extends JdbcConnectionResource {
    */
   @Override
     protected ConnectionEntry connectImpl(Env env,
-					  String host,
-					  String userName,
-					  String password,
-					  String dbname,
-					  int port,
-					  String socket,
-					  int flags,
-					  String driver,
-					  String url,
-					  boolean isNewLink)
+                                          String host,
+                                          String userName,
+                                          String password,
+                                          String dbname,
+                                          int port,
+                                          String socket,
+                                          int flags,
+                                          String driver,
+                                          String url,
+                                          boolean isNewLink)
   {
     if (isConnected()) {
       env.warning(L.l("Connection is already opened to '{0}'", this));
@@ -146,7 +146,7 @@ public class Oracle extends JdbcConnectionResource {
    * Creates a database-specific result.
    */
   protected JdbcResultResource createResult(Env env,
-					    Statement stmt,
+                                            Statement stmt,
                                             ResultSet rs)
   {
     return new OracleResult(env, stmt, rs, this);

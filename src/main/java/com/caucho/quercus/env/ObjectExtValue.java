@@ -95,13 +95,13 @@ public class ObjectExtValue extends ObjectValue
       Entry entry = copyEntries[i];
 
       for (; entry != null; entry = entry._next) {
-	Entry entryCopy = entry.copyTree(env, root);
+        Entry entryCopy = entry.copyTree(env, root);
 
-	entryCopy._next = _entries[i];
-	if (_entries[i] != null)
-	  _entries[i]._prev = entryCopy;
+        entryCopy._next = _entries[i];
+        if (_entries[i] != null)
+          _entries[i]._prev = entryCopy;
 
-	_entries[i] = entryCopy;
+        _entries[i] = entryCopy;
       }
     }
     
@@ -109,8 +109,8 @@ public class ObjectExtValue extends ObjectValue
   }
 
   public ObjectExtValue(Env env,
-			IdentityHashMap<Value,Value> copyMap,
-			ObjectExtValue copy)
+                        IdentityHashMap<Value,Value> copyMap,
+                        ObjectExtValue copy)
   {
     super(copy.getQuercusClass());
 
@@ -129,13 +129,13 @@ public class ObjectExtValue extends ObjectValue
       Entry entry = copyEntries[i];
 
       for (; entry != null; entry = entry._next) {
-	Entry entryCopy = new Entry(env, copyMap, entry);
+        Entry entryCopy = new Entry(env, copyMap, entry);
 
-	entryCopy._next = _entries[i];
-	if (_entries[i] != null)
-	  _entries[i]._prev = entryCopy;
+        entryCopy._next = _entries[i];
+        if (_entries[i] != null)
+          _entries[i]._prev = entryCopy;
 
-	_entries[i] = entryCopy;
+        _entries[i] = entryCopy;
       }
     }
     
@@ -528,21 +528,21 @@ public class ObjectExtValue extends ObjectValue
     int hash = name.hashCode() & _hashMask;
 
     for (Entry entry = _entries[hash];
-	 entry != null;
-	 entry = entry._next) {
+         entry != null;
+         entry = entry._next) {
       if (name.equals(entry.getKey())) {
-	Entry prev = entry._prev;
-	Entry next = entry._next;
+        Entry prev = entry._prev;
+        Entry next = entry._next;
 
-	if (prev != null)
-	  prev._next = next;
-	else
-	  _entries[hash] = next;
+        if (prev != null)
+          prev._next = next;
+        else
+          _entries[hash] = next;
 
-	if (next != null)
-	  next._prev = prev;
+        if (next != null)
+          next._prev = prev;
 
-	_size--;
+        _size--;
 
         return;
       }
@@ -599,8 +599,8 @@ public class ObjectExtValue extends ObjectValue
     int hash = name.hashCode() & _hashMask;
 
     for (Entry entry = _entries[hash];
-	 entry != null;
-	 entry = entry._next) {
+         entry != null;
+         entry = entry._next) {
       if (name.equals(entry._key))
         return entry;
     }
@@ -907,7 +907,7 @@ public class ObjectExtValue extends ObjectValue
   @Override
   public Value callMethod(Env env, 
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3)
+                          Value a1, Value a2, Value a3)
   {
     QuercusClass oldClass = env.setCallingClass(_quercusClass);
     
@@ -939,7 +939,7 @@ public class ObjectExtValue extends ObjectValue
   @Override
   public Value callMethod(Env env, 
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3, Value a4)
+                          Value a1, Value a2, Value a3, Value a4)
   {
     QuercusClass oldClass = env.setCallingClass(_quercusClass);
     
@@ -972,7 +972,7 @@ public class ObjectExtValue extends ObjectValue
   @Override
   public Value callMethod(Env env,
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3, Value a4, Value a5)
+                          Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     QuercusClass oldClass = env.setCallingClass(_quercusClass);
     
@@ -1312,8 +1312,8 @@ public class ObjectExtValue extends ObjectValue
 
     for (Map.Entry<Value,Value> entry : entrySet()) {
       newObject.putThisField(null,
-			     (StringValue) entry.getKey(),
-			     entry.getValue());
+                             (StringValue) entry.getKey(),
+                             entry.getValue());
     }
 
     return newObject;
@@ -1646,8 +1646,8 @@ public class ObjectExtValue extends ObjectValue
     
     for (int i = 0; i < size; i++) {
       putThisField(env,
-		   (StringValue) in.readObject(),
-		   (Value) in.readObject());
+                   (StringValue) in.readObject(),
+                   (Value) in.readObject());
     }
   }
 
@@ -1753,7 +1753,7 @@ public class ObjectExtValue extends ObjectValue
     public boolean hasNext()
     {
       if (_entry != null)
-	return true;
+        return true;
       
       for (; _index < _list.length && _list[_index] == null; _index++) {
       }
@@ -1764,10 +1764,10 @@ public class ObjectExtValue extends ObjectValue
     public Map.Entry<Value,Value> next()
     {
       if (_entry != null) {
-	Entry entry = _entry;
-	_entry = entry._next;
+        Entry entry = _entry;
+        _entry = entry._next;
 
-	return entry;
+        return entry;
       }
 
       for (; _index < _list.length && _list[_index] == null; _index++) {
@@ -1803,7 +1803,7 @@ public class ObjectExtValue extends ObjectValue
     public boolean hasNext()
     {
       if (_entry != null)
-	return true;
+        return true;
       
       for (; _index < _list.length && _list[_index] == null; _index++) {
       }
@@ -1814,10 +1814,10 @@ public class ObjectExtValue extends ObjectValue
     public Value next()
     {
       if (_entry != null) {
-	Entry entry = _entry;
-	_entry = entry._next;
+        Entry entry = _entry;
+        _entry = entry._next;
 
-	return entry._value;
+        return entry._value;
       }
 
       for (; _index < _list.length && _list[_index] == null; _index++) {
@@ -1853,7 +1853,7 @@ public class ObjectExtValue extends ObjectValue
     public boolean hasNext()
     {
       if (_entry != null)
-	return true;
+        return true;
       
       for (; _index < _list.length && _list[_index] == null; _index++) {
       }
@@ -1864,10 +1864,10 @@ public class ObjectExtValue extends ObjectValue
     public Value next()
     {
       if (_entry != null) {
-	Entry entry = _entry;
-	_entry = entry._next;
+        Entry entry = _entry;
+        _entry = entry._next;
 
-	return entry._key;
+        return entry._key;
       }
 
       for (; _index < _list.length && _list[_index] == null; _index++) {
@@ -2000,10 +2000,10 @@ public class ObjectExtValue extends ObjectValue
       if (value instanceof Var)
         return new RefVar((Var) value);
       else {
-	Var var = new Var(_value);
-	
-	_value = var;
-	
+        Var var = new Var(_value);
+        
+        _value = var;
+        
         return new RefVar(var);
       }
     }
@@ -2018,10 +2018,10 @@ public class ObjectExtValue extends ObjectValue
       if (value instanceof Var)
         return new RefVar((Var) value);
       else {
-	Var var = new Var(_value);
-	
-	_value = var;
-	
+        Var var = new Var(_value);
+        
+        _value = var;
+        
         return new RefVar(var);
       }
     }
@@ -2033,10 +2033,10 @@ public class ObjectExtValue extends ObjectValue
       if (value instanceof Var)
         return value;
       else {
-	Var var = new Var(_value);
-	
-	_value = var;
-	
+        Var var = new Var(_value);
+        
+        _value = var;
+        
         return var;
       }
     }
@@ -2116,7 +2116,7 @@ public class ObjectExtValue extends ObjectValue
       throws java.io.IOException
     {
       for (int i = 0; i < depth; i++)
-	out.print(' ');
+        out.print(' ');
     }
 
     @Override

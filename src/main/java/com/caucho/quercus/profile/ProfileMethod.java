@@ -163,11 +163,11 @@ public class ProfileMethod
   public String toString()
   {
     return (getClass().getSimpleName()
-	    + "[" + _name
-	    + ",count=" + _count
-	    + ",self-micros=" + _selfMicros
-	    + ",total-micros=" + _totalMicros
-	    + "]");
+            + "[" + _name
+            + ",count=" + _count
+            + ",self-micros=" + _selfMicros
+            + ",total-micros=" + _totalMicros
+            + "]");
   }
 
   static class ItemMicrosComparator implements Comparator<ProfileItem> {
@@ -176,11 +176,11 @@ public class ProfileMethod
       long delta = b.getMicros() - a.getMicros();
 
       if (delta == 0)
-	return 0;
+        return 0;
       else if (delta < 0)
-	return -1;
+        return -1;
       else
-	return 1;
+        return 1;
     }
   }
 }

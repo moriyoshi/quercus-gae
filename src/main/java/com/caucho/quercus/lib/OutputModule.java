@@ -253,8 +253,8 @@ public class OutputModule extends AbstractQuercusModule
    * in the correct order in the array.
    */
   private static void listHandlers(Env env,
-				   OutputBuffer ob,
-				   ArrayValue handlers)
+                                   OutputBuffer ob,
+                                   ArrayValue handlers)
   {
     if (ob == null)
       return;
@@ -407,7 +407,7 @@ public class OutputModule extends AbstractQuercusModule
                                  @Optional("true") boolean erase)
   {
     if (callback != null
-	&& callback.getCallbackName().equals("ob_gzhandler")) {
+        && callback.getCallbackName().equals("ob_gzhandler")) {
       OutputBuffer ob = env.getOutputBuffer();
 
       for (; ob != null; ob = ob.getNext()) {

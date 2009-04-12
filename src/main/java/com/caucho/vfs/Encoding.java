@@ -149,28 +149,28 @@ public class Encoding {
 
     if (factory == null) {
       try {
-	String javaEncoding = Encoding.getJavaName(encoding);
+        String javaEncoding = Encoding.getJavaName(encoding);
 
-	if (javaEncoding == null)
-	  javaEncoding = "ISO8859_1";
+        if (javaEncoding == null)
+          javaEncoding = "ISO8859_1";
 
-	String className = "com.caucho.vfs.i18n." + javaEncoding + "Reader";
+        String className = "com.caucho.vfs.i18n." + javaEncoding + "Reader";
         
-	Class cl = Class.forName(className);
+        Class cl = Class.forName(className);
 
-	factory = (EncodingReader) cl.newInstance();
-	factory.setJavaEncoding(javaEncoding);
+        factory = (EncodingReader) cl.newInstance();
+        factory.setJavaEncoding(javaEncoding);
       } catch (Throwable e) {
       }
 
       if (factory == null) {
-	String javaEncoding = Encoding.getJavaName(encoding);
+        String javaEncoding = Encoding.getJavaName(encoding);
 
-	if (javaEncoding == null)
-	  javaEncoding = "ISO8859_1";
+        if (javaEncoding == null)
+          javaEncoding = "ISO8859_1";
           
-	factory = new JDKReader();
-	factory.setJavaEncoding(javaEncoding);
+        factory = new JDKReader();
+        factory.setJavaEncoding(javaEncoding);
       }
 
       _readEncodingFactories.put(encKey, factory);
@@ -197,27 +197,27 @@ public class Encoding {
 
     if (factory == null) {
       try {
-	String javaEncoding = Encoding.getJavaName(encoding);
+        String javaEncoding = Encoding.getJavaName(encoding);
 
-	if (javaEncoding == null)
-	  javaEncoding = "ISO8859_1";
+        if (javaEncoding == null)
+          javaEncoding = "ISO8859_1";
 
-	String className = "com.caucho.vfs.i18n." + javaEncoding + "Writer";
+        String className = "com.caucho.vfs.i18n." + javaEncoding + "Writer";
         
-	Class cl = Class.forName(className);
+        Class cl = Class.forName(className);
 
-	factory = (EncodingWriter) cl.newInstance();
-	factory.setJavaEncoding(javaEncoding);
+        factory = (EncodingWriter) cl.newInstance();
+        factory.setJavaEncoding(javaEncoding);
       } catch (Throwable e) {
       }
 
       if (factory == null) {
-	factory = new JDKWriter();
-	String javaEncoding = Encoding.getJavaName(encoding);
+        factory = new JDKWriter();
+        String javaEncoding = Encoding.getJavaName(encoding);
 
-	if (javaEncoding == null)
-	  javaEncoding = "ISO8859_1";
-	factory.setJavaEncoding(javaEncoding);
+        if (javaEncoding == null)
+          javaEncoding = "ISO8859_1";
+        factory.setJavaEncoding(javaEncoding);
       }
 
       _writeEncodingFactories.put(encoding, factory);

@@ -130,7 +130,7 @@ public class IntArray {
       int []next = new int[_data.length * 2];
 
       for (int i = 0; i < _data.length; i++)
-	next[i] = _data[i];
+        next[i] = _data[i];
 
       _data = next;
     }
@@ -171,7 +171,7 @@ public class IntArray {
     
     for (int i = _size - 1; i >= 0; i--) {
       if (data[i] == test)
-	return true;
+        return true;
     }
 
     return false;
@@ -185,7 +185,7 @@ public class IntArray {
     
     for (int i = subset._size - 1; i >= 0; i--) {
       if (! contains(subData[i]))
-	return false;
+        return false;
     }
 
     return true;
@@ -198,7 +198,7 @@ public class IntArray {
   {
     for (int i = 0; i < newArray._size; i++) {
       if (! contains(newArray._data[i]))
-	add(newArray._data[i]);
+        add(newArray._data[i]);
     }
   }
 
@@ -221,7 +221,7 @@ public class IntArray {
     cb.append("[");
     for (int i = 0; i < _size; i++) {
       if (i != 0)
-	cb.append(", ");
+        cb.append(", ");
       cb.append(_data[i]);
     }
     cb.append("]");

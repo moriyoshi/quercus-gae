@@ -94,8 +94,8 @@ public class UTF8Reader extends EncodingReader {
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch2 & 0xc0) != 0x80)
         throw new CharConversionException("illegal utf8 encoding at"
-					  + " \\x" + Integer.toHexString(ch1)
-					  + "\\x" + Integer.toHexString(ch2));
+                                          + " \\x" + Integer.toHexString(ch1)
+                                          + "\\x" + Integer.toHexString(ch2));
       
       return ((ch1 & 0x1f) << 6) + (ch2 & 0x3f);
     }
@@ -107,18 +107,18 @@ public class UTF8Reader extends EncodingReader {
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch2 & 0xc0) != 0x80) {
         throw new CharConversionException("illegal utf8 encoding at "
-					  + "\\x" + Integer.toHexString(ch1)
-					  + "\\x" + Integer.toHexString(ch2)
-					  + "\\x" + Integer.toHexString(ch3));
+                                          + "\\x" + Integer.toHexString(ch1)
+                                          + "\\x" + Integer.toHexString(ch2)
+                                          + "\\x" + Integer.toHexString(ch3));
       }
       
       if (ch3 < 0)
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch3 & 0xc0) != 0x80)
         throw new CharConversionException("illegal utf8 encoding at "
-					  + "\\x" + Integer.toHexString(ch1)
-					  + "\\x" + Integer.toHexString(ch2)
-					  + "\\x" + Integer.toHexString(ch3));
+                                          + "\\x" + Integer.toHexString(ch1)
+                                          + "\\x" + Integer.toHexString(ch2)
+                                          + "\\x" + Integer.toHexString(ch3));
 
       int ch = ((ch1 & 0x1f) << 12) + ((ch2 & 0x3f) << 6) + (ch3 & 0x3f);
 
@@ -136,24 +136,24 @@ public class UTF8Reader extends EncodingReader {
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch2 & 0xc0) != 0x80)
         throw new CharConversionException("illegal utf8 encoding at 0x" +
-					  Integer.toHexString(ch2));
+                                          Integer.toHexString(ch2));
       
       if (ch3 < 0)
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch3 & 0xc0) != 0x80)
         throw new CharConversionException("illegal utf8 encoding at 0x" +
-					  Integer.toHexString(ch3));
+                                          Integer.toHexString(ch3));
       
       if (ch4 < 0)
         throw new EOFException("unexpected end of file in utf8 character");
       else if ((ch4 & 0xc0) != 0x80)
         throw new CharConversionException("illegal utf8 encoding at 0x" +
-					  Integer.toHexString(ch4));
+                                          Integer.toHexString(ch4));
       
       int ch = (((ch1 & 0xf) << 18) +
-		((ch2 & 0x3f) << 12) +
-		((ch3 & 0x3f) << 6) +
-		((ch4 & 0x3f)));
+                ((ch2 & 0x3f) << 12) +
+                ((ch3 & 0x3f) << 6) +
+                ((ch4 & 0x3f)));
 
       _peek = 0xdc00 + (ch & 0x3ff);
       
@@ -184,12 +184,12 @@ public class UTF8Reader extends EncodingReader {
     
     for (i = 0; i < len; i++) {
       if (i > 0 && is.available() < 1)
-	return i;
+        return i;
       
       int ch = read();
 
       if (ch < 0)
-	return i == 0 ? -1 : i;
+        return i == 0 ? -1 : i;
 
       cbuf[off + i] = (char) ch;
     }

@@ -54,7 +54,7 @@ public class JarPath extends FilesystemPath {
    * @param jarFile the underlying jar
    */
   protected JarPath(FilesystemPath root, String userPath,
-		    String path, Path backing)
+                    String path, Path backing)
   {
     super(root, userPath, path);
 
@@ -86,8 +86,8 @@ public class JarPath extends FilesystemPath {
   }
 
   public Path fsWalk(String userPath,
-		     Map<String,Object> attributes,
-		     String path)
+                     Map<String,Object> attributes,
+                     String path)
   {
     if ("/".equals(userPath) && "/".equals(path))
       return _root;
@@ -239,6 +239,6 @@ public class JarPath extends FilesystemPath {
     JarPath jarPath = (JarPath) o;
 
     return (_backing.equals(jarPath._backing)
-	    && getPath().equals(jarPath.getPath()));
+            && getPath().equals(jarPath.getPath()));
   }
 }

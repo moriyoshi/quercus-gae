@@ -126,10 +126,10 @@ public class UnicodeModule extends AbstractQuercusModule {
    * @return first occurence of needle in haystack, FALSE otherwise
    */
   public static Value iconv_strpos(Env env,
-				   StringValue haystack,
-				   StringValue needle,
-				   @Optional("0") int offset,
-				   @Optional("") String charset)
+                                   StringValue haystack,
+                                   StringValue needle,
+                                   @Optional("0") int offset,
+                                   @Optional("") String charset)
   {
     if (charset.length() == 0)
       charset = env.getIniString("iconv.internal_encoding");
@@ -165,9 +165,9 @@ public class UnicodeModule extends AbstractQuercusModule {
    * @return last occurence of needle in haystack, FALSE otherwise
    */
   public static Value iconv_strrpos(Env env,
-				    StringValue haystack,
-				    StringValue needle,
-				    @Optional("") String charset)
+                                    StringValue haystack,
+                                    StringValue needle,
+                                    @Optional("") String charset)
   {
     if (charset.length() == 0)
       charset = env.getIniString("iconv.internal_encoding");
@@ -557,9 +557,9 @@ public class UnicodeModule extends AbstractQuercusModule {
    * @param charset to encode resultant 
    */
   public static Value iconv_mime_decode(Env env,
-					StringValue encodedHeader,
-					@Optional("1") int mode,
-					@Optional("") String charset)
+                                        StringValue encodedHeader,
+                                        @Optional("1") int mode,
+                                        @Optional("") String charset)
   {
     if (charset.length() == 0)
       charset = env.getIniString("iconv.internal_encoding");

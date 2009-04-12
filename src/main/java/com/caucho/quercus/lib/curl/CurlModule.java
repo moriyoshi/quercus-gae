@@ -372,8 +372,8 @@ public class CurlModule
    * @param option type of information to return
    */
   public static Value curl_getinfo(Env env,
-				   @NotNull CurlResource curl,
-				   @Optional Value option)
+                                   @NotNull CurlResource curl,
+                                   @Optional Value option)
   {
 //    if (option instanceof DefaultValue)
 //     return curl.getAllInfo();
@@ -1021,10 +1021,10 @@ public class CurlModule
 
       default:
         env.warning(L.l("CURL option '{0}' unknown or unimplemented",
-			option));
-	
+                        option));
+        
         log.fine(L.l("CURL option '{0}' unknown or unimplemented",
-		     option));
+                     option));
         return false;
     }
 

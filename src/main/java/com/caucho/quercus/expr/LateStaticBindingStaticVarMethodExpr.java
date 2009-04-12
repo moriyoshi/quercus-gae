@@ -59,8 +59,8 @@ public class LateStaticBindingStaticVarMethodExpr extends Expr {
   protected boolean _isMethod;
 
   public LateStaticBindingStaticVarMethodExpr(Location location,
-			                                  Expr nameExpr,
-			                                  ArrayList<Expr> args)
+                                                          Expr nameExpr,
+                                                          ArrayList<Expr> args)
   {
     super(location);
 
@@ -71,8 +71,8 @@ public class LateStaticBindingStaticVarMethodExpr extends Expr {
   }
 
   public LateStaticBindingStaticVarMethodExpr(Location location,
-			                                  Expr nameExpr,
-			                                  Expr []args)
+                                                          Expr nameExpr,
+                                                          Expr []args)
   {
     super(location);
 
@@ -82,7 +82,7 @@ public class LateStaticBindingStaticVarMethodExpr extends Expr {
   }
 
   public LateStaticBindingStaticVarMethodExpr(Expr nameExpr,
-			                                  ArrayList<Expr> args)
+                                                          ArrayList<Expr> args)
   {
     this(Location.UNKNOWN, nameExpr, args);
   }

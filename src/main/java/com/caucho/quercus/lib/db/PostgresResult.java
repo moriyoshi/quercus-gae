@@ -70,7 +70,7 @@ public class PostgresResult extends JdbcResultResource {
    * @param conn the corresponding connection
    */
   public PostgresResult(Env env,
-			ResultSetMetaData metaData,
+                        ResultSetMetaData metaData,
                         Postgres conn)
   {
     super(env, metaData, conn);

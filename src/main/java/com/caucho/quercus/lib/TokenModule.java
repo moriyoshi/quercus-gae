@@ -190,15 +190,15 @@ public class TokenModule extends AbstractQuercusModule {
   }
 
   public static Value highlight_file(Env env,
-				     StringValue filename,
-				     @Optional boolean isReturn)
+                                     StringValue filename,
+                                     @Optional boolean isReturn)
   {
     StringValue v = FileModule.file_get_contents(env,
-						 filename,
-						 false,
-						 null,
-						 0,
-						 Integer.MAX_VALUE);
+                                                 filename,
+                                                 false,
+                                                 null,
+                                                 0,
+                                                 Integer.MAX_VALUE);
 
     if (v == null)
       return BooleanValue.FALSE;
@@ -207,8 +207,8 @@ public class TokenModule extends AbstractQuercusModule {
   }
 
   public static Value highlight_string(Env env,
-				       StringValue s,
-				       @Optional boolean isReturn)
+                                       StringValue s,
+                                       @Optional boolean isReturn)
   {
     try {
       StringValue sb = isReturn ? env.createUnicodeBuilder() : null;
@@ -223,48 +223,48 @@ public class TokenModule extends AbstractQuercusModule {
       highlight(sb, out, "<span style=\"color: #000000\">\n");
       
       while ((token = lexer.nextToken()) >= 0) {
-	StringValue color = getColor(env, token);
+        StringValue color = getColor(env, token);
 
-	if (color != null && ! color.equals(lastColor)) {
-	  if (! topColor.equals(lastColor))
-	    highlight(sb, out, "</span>");
-	  
-	  if (! topColor.equals(color))
-	    highlight(sb, out, "<span style=\"color: " + color + "\">");
-	  
-	  lastColor = color;
-	}
-	
-	if (0x20 <= token && token <= 0x7f) {
-	  if (sb != null)
-	    sb.append((char) token);
-	  else
-	    out.print((char) token);
-	}
-	else {
-	  StringValue lexeme = lexer.getLexeme();
+        if (color != null && ! color.equals(lastColor)) {
+          if (! topColor.equals(lastColor))
+            highlight(sb, out, "</span>");
+          
+          if (! topColor.equals(color))
+            highlight(sb, out, "<span style=\"color: " + color + "\">");
+          
+          lastColor = color;
+        }
+        
+        if (0x20 <= token && token <= 0x7f) {
+          if (sb != null)
+            sb.append((char) token);
+          else
+            out.print((char) token);
+        }
+        else {
+          StringValue lexeme = lexer.getLexeme();
 
-	  highlight(sb, out, lexeme);
-	}
+          highlight(sb, out, lexeme);
+        }
       }
       
       if (! topColor.equals(lastColor))
-	highlight(sb, out, "</span>\n");
+        highlight(sb, out, "</span>\n");
       highlight(sb, out, "</span>\n");
       highlight(sb, out, "</code>");
 
       if (sb != null)
-	return sb;
+        return sb;
       else
-	return BooleanValue.TRUE;
+        return BooleanValue.TRUE;
     } catch (IOException e) {
       throw new QuercusModuleException(e);
     }
   }
 
   private static void highlight(StringValue sb,
-				WriteStream out,
-				String string)
+                                WriteStream out,
+                                String string)
     throws IOException
   {
     if (sb != null) {
@@ -276,44 +276,44 @@ public class TokenModule extends AbstractQuercusModule {
   }
 
   private static void highlight(StringValue sb,
-				WriteStream out,
-				StringValue string)
+                                WriteStream out,
+                                StringValue string)
     throws IOException
   {
     if (sb != null) {
       int len = string.length();
       for (int i = 0; i < len; i++) {
-	char ch = string.charAt(i);
+        char ch = string.charAt(i);
 
-	switch (ch) {
-	case '<':
-	  sb.append("&lt;");
-	  break;
-	case '>':
-	  sb.append("&gt;");
-	  break;
-	default:
-	  sb.append(ch);
-	  break;
-	}
+        switch (ch) {
+        case '<':
+          sb.append("&lt;");
+          break;
+        case '>':
+          sb.append("&gt;");
+          break;
+        default:
+          sb.append(ch);
+          break;
+        }
       }
     }
     else {
       int len = string.length();
       for (int i = 0; i < len; i++) {
-	char ch = string.charAt(i);
+        char ch = string.charAt(i);
 
-	switch (ch) {
-	case '<':
-	  out.print("&lt;");
-	  break;
-	case '>':
-	  out.print("&gt;");
-	  break;
-	default:
-	  out.print(ch);
-	  break;
-	}
+        switch (ch) {
+        case '<':
+          out.print("&lt;");
+          break;
+        case '>':
+          out.print("&gt;");
+          break;
+        default:
+          out.print(ch);
+          break;
+        }
       }
     }
   }
@@ -366,12 +366,12 @@ public class TokenModule extends AbstractQuercusModule {
 
     while ((token = lexer.nextToken()) >= 0) {
       if (0x20 <= token && token <= 0x7f) {
-	result.put(env.createString((char) token));
+        result.put(env.createString((char) token));
       }
       else {
-	result.put(new ArrayValueImpl()
-		   .append(LongValue.create(token))
-		   .append(lexer.getLexeme()));
+        result.put(new ArrayValueImpl()
+                   .append(LongValue.create(token))
+                   .append(lexer.getLexeme()));
       }
     }
 
@@ -530,394 +530,394 @@ public class TokenModule extends AbstractQuercusModule {
       _lexeme = _env.createUnicodeBuilder();
 
       if (! _inPhp) {
-	_inPhp = true;
+        _inPhp = true;
 
-	if (parseHtml()) {
-	  return T_INLINE_HTML;
-	}
+        if (parseHtml()) {
+          return T_INLINE_HTML;
+        }
       }
       
       int ch = read();
 
       switch (ch) {
       case -1:
-	return -1;
+        return -1;
 
       case ' ': case '\t': case '\r': case '\n':
-	_lexeme.append((char) ch);
-	while (Character.isWhitespace((ch = read()))) {
-	  _lexeme.append((char) ch);
-	}
-	unread();
-	return T_WHITESPACE;
+        _lexeme.append((char) ch);
+        while (Character.isWhitespace((ch = read()))) {
+          _lexeme.append((char) ch);
+        }
+        unread();
+        return T_WHITESPACE;
 
       case '{': case '}': case ';': case '[': case ']': case ',':
       case '@': case '(': case ')':
-	return ch;
+        return ch;
 
       case '&':
-	if ((ch = read()) == '&') {
-	  _lexeme.append("&&");
-	  return T_BOOLEAN_AND;
-	}
-	else if (ch == '=') {
-	  _lexeme.append("&=");
-	  return T_AND_EQUAL;
-	}
-	else {
-	  unread();
-	  return '&';
-	}
+        if ((ch = read()) == '&') {
+          _lexeme.append("&&");
+          return T_BOOLEAN_AND;
+        }
+        else if (ch == '=') {
+          _lexeme.append("&=");
+          return T_AND_EQUAL;
+        }
+        else {
+          unread();
+          return '&';
+        }
 
       case '|':
-	if ((ch = read()) == '|') {
-	  _lexeme.append("||");
-	  return T_BOOLEAN_OR;
-	}
-	else if (ch == '=') {
-	  _lexeme.append("|=");
-	  return T_OR_EQUAL;
-	}
-	else {
-	  unread();
-	  return '|';
-	}
+        if ((ch = read()) == '|') {
+          _lexeme.append("||");
+          return T_BOOLEAN_OR;
+        }
+        else if (ch == '=') {
+          _lexeme.append("|=");
+          return T_OR_EQUAL;
+        }
+        else {
+          unread();
+          return '|';
+        }
 
       case '?':
-	if ((ch = read()) == '>') {
-	  _lexeme.append("?>");
-	  _inPhp = false;
-	  return T_CLOSE_TAG;
-	}
-	else {
-	  unread();
-	  return '?';
-	}
+        if ((ch = read()) == '>') {
+          _lexeme.append("?>");
+          _inPhp = false;
+          return T_CLOSE_TAG;
+        }
+        else {
+          unread();
+          return '?';
+        }
 
       case '/':
-	if ((ch = read()) == '/') {
-	  _lexeme.append("//");
-	  
-	  while ((ch = read()) >= 0 && ch != '\r' && ch != '\n') {
-	    _lexeme.append((char) ch);
-	  }
-	  unread();
-	  
-	  return T_COMMENT;
-	}
-	else if (ch == '=') {
-	  _lexeme.append("/=");
-	  return T_DIV_EQUAL;
-	}
-	else if (ch == '*') {
-	  int token = T_COMMENT;
-	  _lexeme.append("/*");
+        if ((ch = read()) == '/') {
+          _lexeme.append("//");
+          
+          while ((ch = read()) >= 0 && ch != '\r' && ch != '\n') {
+            _lexeme.append((char) ch);
+          }
+          unread();
+          
+          return T_COMMENT;
+        }
+        else if (ch == '=') {
+          _lexeme.append("/=");
+          return T_DIV_EQUAL;
+        }
+        else if (ch == '*') {
+          int token = T_COMMENT;
+          _lexeme.append("/*");
 
-	  if ((ch = read()) == '*') {
-	    token = T_DOC_COMMENT;
-	    _lexeme.append("*");
-	  }
-	  else
-	    unread();
+          if ((ch = read()) == '*') {
+            token = T_DOC_COMMENT;
+            _lexeme.append("*");
+          }
+          else
+            unread();
 
-	  while ((ch = read()) >= 0) {
-	    _lexeme.append((char) ch);
+          while ((ch = read()) >= 0) {
+            _lexeme.append((char) ch);
 
-	    if (ch != '*') {
-	    }
-	    else if ((ch = read()) == '/') {
-	      _lexeme.append((char) ch);
-	      return token;
-	    }
-	    else
-	      unread();
-	  }
+            if (ch != '*') {
+            }
+            else if ((ch = read()) == '/') {
+              _lexeme.append((char) ch);
+              return token;
+            }
+            else
+              unread();
+          }
 
-	  return token;
-	}
-	else {
-	  unread();
-	  return '/';
-	}
-	
+          return token;
+        }
+        else {
+          unread();
+          return '/';
+        }
+        
       case '#':
-	_lexeme.append((char) '#');
-	while ((ch = read()) >= 0 && ch != '\r' && ch != '\n') {
-	  _lexeme.append((char) ch);
-	}
-	unread();
-	return T_COMMENT;
+        _lexeme.append((char) '#');
+        while ((ch = read()) >= 0 && ch != '\r' && ch != '\n') {
+          _lexeme.append((char) ch);
+        }
+        unread();
+        return T_COMMENT;
 
       case '.':
-	if ((ch = read()) == '=') {
-	  _lexeme.append(".=");
-	  return T_CONCAT_EQUAL;
-	}
-	else {
-	  unread();
-	  return '.';
-	}
+        if ((ch = read()) == '=') {
+          _lexeme.append(".=");
+          return T_CONCAT_EQUAL;
+        }
+        else {
+          unread();
+          return '.';
+        }
 
       case '\'': case '"': case '`':
-	{
-	  int end = ch;
+        {
+          int end = ch;
 
-	  _lexeme.append((char) ch);
+          _lexeme.append((char) ch);
 
-	  while ((ch = read()) >= 0 && ch != end) {
-	    _lexeme.append((char) ch);
+          while ((ch = read()) >= 0 && ch != end) {
+            _lexeme.append((char) ch);
 
-	    if (ch == '\\') {
-	      _lexeme.append((char) read());
-	    }
-	  }
+            if (ch == '\\') {
+              _lexeme.append((char) read());
+            }
+          }
 
-	  if (ch > 0)
-	    _lexeme.append((char) ch);
+          if (ch > 0)
+            _lexeme.append((char) ch);
 
-	  return T_CONSTANT_ENCAPSED_STRING;
-	}
+          return T_CONSTANT_ENCAPSED_STRING;
+        }
 
       case '-':
-	if ((ch = read()) == '-') {
-	  _lexeme.append("--");
-	  return T_DEC;
-	}
-	else if (ch == '=') {
-	  _lexeme.append("-=");
-	  return T_MINUS_EQUAL;
-	}
-	else if (ch == '>') {
-	  _lexeme.append("->");
-	  return T_OBJECT_OPERATOR;
-	}
-	else {
-	  unread();
-	  return '-';
-	}
+        if ((ch = read()) == '-') {
+          _lexeme.append("--");
+          return T_DEC;
+        }
+        else if (ch == '=') {
+          _lexeme.append("-=");
+          return T_MINUS_EQUAL;
+        }
+        else if (ch == '>') {
+          _lexeme.append("->");
+          return T_OBJECT_OPERATOR;
+        }
+        else {
+          unread();
+          return '-';
+        }
 
       case '+':
-	if ((ch = read()) == '+') {
-	  _lexeme.append("++");
-	  return T_INC;
-	}
-	else if (ch == '=') {
-	  _lexeme.append("+=");
-	  return T_PLUS_EQUAL;
-	}
-	else {
-	  unread();
-	  return '+';
-	}
+        if ((ch = read()) == '+') {
+          _lexeme.append("++");
+          return T_INC;
+        }
+        else if (ch == '=') {
+          _lexeme.append("+=");
+          return T_PLUS_EQUAL;
+        }
+        else {
+          unread();
+          return '+';
+        }
 
       case '>':
-	if ((ch = read()) == '>') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append(">>=");
-	    return T_SR_EQUAL;
-	  }
-	  else {
-	    unread();
-	    _lexeme.append(">>");
-	    return T_SR;
-	  }
-	}
-	else if (ch == '=') {
-	  _lexeme.append(">=");
-	  return T_IS_GREATER_OR_EQUAL;
-	}
-	else {
-	  unread();
-	  return '>';
-	}
+        if ((ch = read()) == '>') {
+          if ((ch = read()) == '=') {
+            _lexeme.append(">>=");
+            return T_SR_EQUAL;
+          }
+          else {
+            unread();
+            _lexeme.append(">>");
+            return T_SR;
+          }
+        }
+        else if (ch == '=') {
+          _lexeme.append(">=");
+          return T_IS_GREATER_OR_EQUAL;
+        }
+        else {
+          unread();
+          return '>';
+        }
 
       case '$':
-	if ((ch = read()) == '{') {
-	  _lexeme.append("${");
-	  return T_DOLLAR_OPEN_CURLY_BRACES;
-	}
-	else if (ch == '$') {
-	  unread();
-	  return '$';
-	}
-	else if (Character.isJavaIdentifierStart(ch)) {
-	  unread();
-	  _lexeme.append("$");
-	  readIdentifier();
-	  return T_VARIABLE;
-	}
-	else {
-	  unread();
-	  return '$';
-	}
+        if ((ch = read()) == '{') {
+          _lexeme.append("${");
+          return T_DOLLAR_OPEN_CURLY_BRACES;
+        }
+        else if (ch == '$') {
+          unread();
+          return '$';
+        }
+        else if (Character.isJavaIdentifierStart(ch)) {
+          unread();
+          _lexeme.append("$");
+          readIdentifier();
+          return T_VARIABLE;
+        }
+        else {
+          unread();
+          return '$';
+        }
 
       case '=':
-	if ((ch = read()) == '=') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append("===");
-	    return T_IS_IDENTICAL;
-	  }
-	  else {
-	    unread();
-	    _lexeme.append("==");
-	    return T_IS_EQUAL;
-	  }
-	}
-	else if (ch == '>') {
-	  _lexeme.append("=>");
-	  return T_DOUBLE_ARROW;
-	}
-	else {
-	  unread();
-	  return '=';
-	}
+        if ((ch = read()) == '=') {
+          if ((ch = read()) == '=') {
+            _lexeme.append("===");
+            return T_IS_IDENTICAL;
+          }
+          else {
+            unread();
+            _lexeme.append("==");
+            return T_IS_EQUAL;
+          }
+        }
+        else if (ch == '>') {
+          _lexeme.append("=>");
+          return T_DOUBLE_ARROW;
+        }
+        else {
+          unread();
+          return '=';
+        }
 
       case '!':
-	if ((ch = read()) == '=') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append("!==");
-	    return T_IS_NOT_IDENTICAL;
-	  }
-	  else {
-	    unread();
-	    _lexeme.append("!=");
-	    return T_IS_NOT_EQUAL;
-	  }
-	}
-	else {
-	  unread();
-	  return '!';
-	}
+        if ((ch = read()) == '=') {
+          if ((ch = read()) == '=') {
+            _lexeme.append("!==");
+            return T_IS_NOT_IDENTICAL;
+          }
+          else {
+            unread();
+            _lexeme.append("!=");
+            return T_IS_NOT_EQUAL;
+          }
+        }
+        else {
+          unread();
+          return '!';
+        }
 
       case ':':
-	if ((ch = read()) == ':') {
-	  _lexeme.append("::");
-	  return T_DOUBLE_COLON;
-	}
-	else {
-	  unread();
-	  return ':';
-	}
+        if ((ch = read()) == ':') {
+          _lexeme.append("::");
+          return T_DOUBLE_COLON;
+        }
+        else {
+          unread();
+          return ':';
+        }
 
       case '<':
-	if ((ch = read()) == '?') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append("<?=");
-	    return T_OPEN_TAG_WITH_ECHO;
-	  }
-	  else if (ch != 'p') {
-	    unread();
-	    _lexeme.append("<?");
-	    return T_OPEN_TAG;
-	  }
-	  else if ((ch = read()) != 'h') {
-	    unread();
-	    unread();
-	    _lexeme.append("<?");
-	    return T_OPEN_TAG;
-	  }
-	  else if ((ch = read()) != 'p') {
-	    unread();
-	    unread();
-	    unread();
-	    _lexeme.append("<?");
-	    return T_OPEN_TAG;
-	  }
-	  else {
-	    _lexeme.append("<?php");
-	    return T_OPEN_TAG;
-	  }
-	}
-	else if (ch == '%') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append("<%=");
-	    return T_OPEN_TAG_WITH_ECHO;
-	  }
-	  else {
-	    unread();
-	    _lexeme.append("<%");
-	    return T_OPEN_TAG;
-	  }
-	}
-	else if (ch == '<') {
-	  if ((ch = read()) == '=') {
-	    _lexeme.append("<<=");
-	    return T_SL_EQUAL;
-	  }
-	  else if (ch == '<') {
-	    _lexeme.append("<<<");
-	    return T_START_HEREDOC;
-	  }
-	  else {
-	    unread();
-	    _lexeme.append("<<");
-	    return T_SL;
-	  }
-	}
-	else if (ch == '=') {
-	  _lexeme.append("<=");
-	  return T_IS_SMALLER_OR_EQUAL;
-	}
-	else if (ch == '>') {
-	  _lexeme.append("<>");
-	  return T_IS_NOT_EQUAL;
-	}
-	else {
-	  unread();
-	  return '<';
-	}
+        if ((ch = read()) == '?') {
+          if ((ch = read()) == '=') {
+            _lexeme.append("<?=");
+            return T_OPEN_TAG_WITH_ECHO;
+          }
+          else if (ch != 'p') {
+            unread();
+            _lexeme.append("<?");
+            return T_OPEN_TAG;
+          }
+          else if ((ch = read()) != 'h') {
+            unread();
+            unread();
+            _lexeme.append("<?");
+            return T_OPEN_TAG;
+          }
+          else if ((ch = read()) != 'p') {
+            unread();
+            unread();
+            unread();
+            _lexeme.append("<?");
+            return T_OPEN_TAG;
+          }
+          else {
+            _lexeme.append("<?php");
+            return T_OPEN_TAG;
+          }
+        }
+        else if (ch == '%') {
+          if ((ch = read()) == '=') {
+            _lexeme.append("<%=");
+            return T_OPEN_TAG_WITH_ECHO;
+          }
+          else {
+            unread();
+            _lexeme.append("<%");
+            return T_OPEN_TAG;
+          }
+        }
+        else if (ch == '<') {
+          if ((ch = read()) == '=') {
+            _lexeme.append("<<=");
+            return T_SL_EQUAL;
+          }
+          else if (ch == '<') {
+            _lexeme.append("<<<");
+            return T_START_HEREDOC;
+          }
+          else {
+            unread();
+            _lexeme.append("<<");
+            return T_SL;
+          }
+        }
+        else if (ch == '=') {
+          _lexeme.append("<=");
+          return T_IS_SMALLER_OR_EQUAL;
+        }
+        else if (ch == '>') {
+          _lexeme.append("<>");
+          return T_IS_NOT_EQUAL;
+        }
+        else {
+          unread();
+          return '<';
+        }
 
       case '*':
-	if ((ch = read()) == '=') {
-	  _lexeme.append("*=");
-	  return T_MUL_EQUAL;
-	}
-	else {
-	  unread();
-	  return '*';
-	}
+        if ((ch = read()) == '=') {
+          _lexeme.append("*=");
+          return T_MUL_EQUAL;
+        }
+        else {
+          unread();
+          return '*';
+        }
 
       case '%':
-	if ((ch = read()) == '=') {
-	  _lexeme.append("%=");
-	  return T_MOD_EQUAL;
-	}
-	else {
-	  unread();
-	  return '%';
-	}
+        if ((ch = read()) == '=') {
+          _lexeme.append("%=");
+          return T_MOD_EQUAL;
+        }
+        else {
+          unread();
+          return '%';
+        }
 
       case '^':
-	if ((ch = read()) == '=') {
-	  _lexeme.append("^=");
-	  return T_XOR_EQUAL;
-	}
-	else {
-	  unread();
-	  return '^';
-	}
+        if ((ch = read()) == '=') {
+          _lexeme.append("^=");
+          return T_XOR_EQUAL;
+        }
+        else {
+          unread();
+          return '^';
+        }
 
       case '0': case '1': case '2': case '3': case '4':
       case '5': case '6': case '7': case '8': case '9':
-	unread();
-	return parseNumber();
-	
+        unread();
+        return parseNumber();
+        
       default:
-	if (Character.isJavaIdentifierStart(ch)) {
-	  unread();
+        if (Character.isJavaIdentifierStart(ch)) {
+          unread();
 
-	  readIdentifier();
+          readIdentifier();
 
-	  int lexeme = _reservedMap.get(_lexeme.toString().toLowerCase());
+          int lexeme = _reservedMap.get(_lexeme.toString().toLowerCase());
 
-	  if (lexeme > 0)
-	    return lexeme;
+          if (lexeme > 0)
+            return lexeme;
 
-	  return T_STRING;
-	}
-	
-	_lexeme.append((char) ch);
-	return T_BAD_CHARACTER;
+          return T_STRING;
+        }
+        
+        _lexeme.append((char) ch);
+        return T_BAD_CHARACTER;
       }
     }
 
@@ -931,19 +931,19 @@ public class TokenModule extends AbstractQuercusModule {
       int ch;
 
       while ((ch = read()) >= 0) {
-	if (ch != '<')
-	  _lexeme.append((char) ch);
-	else if ((ch = read()) == '?' || ch == '%') {
-	  unread();
-	  unread();
+        if (ch != '<')
+          _lexeme.append((char) ch);
+        else if ((ch = read()) == '?' || ch == '%') {
+          unread();
+          unread();
 
-	  return _lexeme.length() > 0;
-	}
-	else {
-	  _lexeme.append((char) '<');
-	  
-	  unread();
-	}
+          return _lexeme.length() > 0;
+        }
+        else {
+          _lexeme.append((char) '<');
+          
+          unread();
+        }
       }
 
       return _lexeme.length() > 0;
@@ -954,7 +954,7 @@ public class TokenModule extends AbstractQuercusModule {
       int ch;
       
       while (Character.isJavaIdentifierPart((ch = read()))) {
-	_lexeme.append((char) ch);
+        _lexeme.append((char) ch);
       }
 
       unread();
@@ -966,15 +966,15 @@ public class TokenModule extends AbstractQuercusModule {
       int ch;
       
       while ('0' <= (ch = read()) && ch <= '9'
-	     || ch == '.'
-	     || ch == 'x' || ch == 'X'
-	     || 'a' <= ch && ch <= 'f'
-	     || 'A' <= ch && ch <= 'F') {
-	_lexeme.append((char) ch);
+             || ch == '.'
+             || ch == 'x' || ch == 'X'
+             || 'a' <= ch && ch <= 'f'
+             || 'A' <= ch && ch <= 'F') {
+        _lexeme.append((char) ch);
 
-	if ('a' <= ch && ch <= 'f' || 'A' <= ch && ch <= 'f'
-	    || ch == 'x' || ch == 'X')
-	  isInt = true;
+        if ('a' <= ch && ch <= 'f' || 'A' <= ch && ch <= 'f'
+            || ch == 'x' || ch == 'X')
+          isInt = true;
       }
 
       unread();
@@ -985,17 +985,17 @@ public class TokenModule extends AbstractQuercusModule {
     private int read()
     {
       if (_i < _length)
-	return _s.charAt(_i++);
+        return _s.charAt(_i++);
       else {
-	_i++;
-	return -1;
+        _i++;
+        return -1;
       }
     }
     
     private void unread()
     {
       if (_i <= _length)
-	_i--;
+        _i--;
     }
   }
 

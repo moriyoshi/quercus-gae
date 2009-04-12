@@ -142,7 +142,7 @@ public class JavaClassDef extends ClassDef {
 
     if (type.isArray() && ! isArray())
       throw new IllegalStateException(L.l("'{0}' needs to be called with JavaArrayClassDef",
-					  type));
+                                          type));
   }
   
   public JavaClassDef(ModuleContext moduleContext,
@@ -183,22 +183,22 @@ public class JavaClassDef extends ClassDef {
   }
 
   public static JavaClassDef create(ModuleContext moduleContext,
-				    String name, Class type)
+                                    String name, Class type)
   {
     if (Double.class.isAssignableFrom(type)
         || Float.class.isAssignableFrom(type))
       return new DoubleClassDef(moduleContext);
     else if (Long.class.isAssignableFrom(type)
-	     || Integer.class.isAssignableFrom(type)
-	     || Short.class.isAssignableFrom(type)
-	     || Byte.class.isAssignableFrom(type))
+             || Integer.class.isAssignableFrom(type)
+             || Short.class.isAssignableFrom(type)
+             || Byte.class.isAssignableFrom(type))
       return new LongClassDef(moduleContext);
     else if (BigDecimal.class.isAssignableFrom(type))
       return new BigDecimalClassDef(moduleContext);
     else if (BigInteger.class.isAssignableFrom(type))
       return new BigIntegerClassDef(moduleContext);
     else if (String.class.isAssignableFrom(type)
-	     || Character.class.isAssignableFrom(type))
+             || Character.class.isAssignableFrom(type))
       return new StringClassDef(moduleContext);
     else if (Boolean.class.isAssignableFrom(type))
       return new BooleanClassDef(moduleContext);
@@ -213,7 +213,7 @@ public class JavaClassDef extends ClassDef {
     else if (List.class.isAssignableFrom(type))
       return new JavaListClassDef(moduleContext, name, type);
     else if (Collection.class.isAssignableFrom(type)
-	     && ! Queue.class.isAssignableFrom(type))
+             && ! Queue.class.isAssignableFrom(type))
       return new JavaCollectionClassDef(moduleContext, name, type);
     else
       return null;
@@ -274,7 +274,7 @@ public class JavaClassDef extends ClassDef {
     }
     
     return (_instanceOfSet.contains(name)
-	    || _instanceOfSetLowerCase.contains(name.toLowerCase()));
+            || _instanceOfSetLowerCase.contains(name.toLowerCase()));
   }
 
   /**
@@ -451,7 +451,7 @@ public class JavaClassDef extends ClassDef {
         return get.callMethod(env, qThis);
       } catch (Exception e) {
         log.log(Level.FINE, L.l(e.getMessage()), e);
-	
+        
         return null;
       }
     }
@@ -463,7 +463,7 @@ public class JavaClassDef extends ClassDef {
         return fieldPair._marshal.unmarshal(env, result);
       } catch (Exception e) {
         log.log(Level.FINE,  L.l(e.getMessage()), e);
-	
+        
         return null;
       }
     }
@@ -474,7 +474,7 @@ public class JavaClassDef extends ClassDef {
       } catch (Exception e) {
         log.log(Level.FINE,  L.l(e.getMessage()), e);
 
-	return null;
+        return null;
       }
     }
 
@@ -493,7 +493,7 @@ public class JavaClassDef extends ClassDef {
         return setter.callMethod(env, qThis, value);
       } catch (Exception e) {
         log.log(Level.FINE,  L.l(e.getMessage()), e);
-	
+        
         return NullValue.NULL;
       }
     }
@@ -519,7 +519,7 @@ public class JavaClassDef extends ClassDef {
         return __fieldSet.callMethod(env, qThis, name, value);
       } catch (Exception e) {
         log.log(Level.FINE,  L.l(e.getMessage()), e);
-	
+        
         return NullValue.NULL;
       }
     }
@@ -568,7 +568,7 @@ public class JavaClassDef extends ClassDef {
       Value value = _cons.callMethod(env, null, args);
 
       if (__construct != null)
-	__construct.callMethod(env, value, args);
+        __construct.callMethod(env, value, args);
 
       return value;
     }
@@ -633,7 +633,7 @@ public class JavaClassDef extends ClassDef {
     }
     else {
       env.error(L.l("'{0}::{1}' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -653,7 +653,7 @@ public class JavaClassDef extends ClassDef {
       return __call.callMethod(env, qThis, env.createString(name, nameLen));
     else {
       env.error(L.l("'{0}::{1}()' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -674,7 +674,7 @@ public class JavaClassDef extends ClassDef {
       return __call.callMethod(env, qThis, env.createString(name, nameLen), a1);
     else {
       env.error(L.l("'{0}::{1}(a1)' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -696,7 +696,7 @@ public class JavaClassDef extends ClassDef {
                          a1, a2);
     else {
       env.error(L.l("'{0}::{1}(a1,a2)' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -718,7 +718,7 @@ public class JavaClassDef extends ClassDef {
                          a1, a2, a3);
     else {
       env.error(L.l("'{0}::{1}(a1,a2,a3)' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -737,10 +737,10 @@ public class JavaClassDef extends ClassDef {
       return method.callMethod(env, qThis, a1, a2, a3, a4);
     else if (__call != null)
       return __call.callMethod(env, qThis, env.createString(name, nameLen),
-			       a1, a2, a3, a4);
+                               a1, a2, a3, a4);
     else {
       env.error(L.l("'{0}::{1}(a1,a2,a3,a4)' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -759,11 +759,11 @@ public class JavaClassDef extends ClassDef {
       return method.callMethod(env, qThis, a1, a2, a3, a4, a5);
     else if (__call != null)
       return __call.callMethod(env, qThis,
-			       new Value[] { env.createString(name, nameLen),
-					     a1, a2, a3, a4, a5 });
+                               new Value[] { env.createString(name, nameLen),
+                                             a1, a2, a3, a4, a5 });
     else {
       env.error(L.l("'{0}::{1}(a1,a2,a3,a4,a5)' is an unknown method",
-		    _name, toMethod(name, nameLen)));
+                    _name, toMethod(name, nameLen)));
 
       return NullValue.NULL;
     }
@@ -889,16 +889,16 @@ public class JavaClassDef extends ClassDef {
     
     synchronized (this) {
       if (_isInit)
-	return;
+        return;
 
       super.init();
 
       try {
-	initInterfaceList(_type);
-	introspect();
+        initInterfaceList(_type);
+        introspect();
       }
       finally {
-	_isInit = true;
+        _isInit = true;
       }
     }
   }
@@ -936,9 +936,9 @@ public class JavaClassDef extends ClassDef {
     
     if (consMethod != null) {
       if (Modifier.isStatic(consMethod.getModifiers()))
-	_cons = new JavaMethod(_moduleContext, consMethod);
+        _cons = new JavaMethod(_moduleContext, consMethod);
       else
-	__construct = new JavaMethod(_moduleContext, consMethod);
+        __construct = new JavaMethod(_moduleContext, consMethod);
     }
     
     if (_cons == null) {
@@ -973,11 +973,11 @@ public class JavaClassDef extends ClassDef {
   {
     try {
       if (type == null || type == Object.class)
-	return;
+        return;
 
       // interfaces
       for (Class<?> iface : type.getInterfaces())
-	introspectAnnotations(iface);
+        introspectAnnotations(iface);
 
       // super-class
       introspectAnnotations(type.getSuperclass());
@@ -989,7 +989,7 @@ public class JavaClassDef extends ClassDef {
 
           for (Class cl : delegateClasses) {
             boolean isDelegate = addDelegate(cl);
-	  
+          
             if (! isDelegate)
               throw new IllegalArgumentException(L.l("unknown @Delegate class '{0}'",
                                                      cl));
@@ -1065,9 +1065,9 @@ public class JavaClassDef extends ClassDef {
       Method method = methods[i];
 
       if (! method.getName().equals("__construct"))
-	continue;
+        continue;
       if (! Modifier.isPublic(method.getModifiers()))
-	continue;
+        continue;
       
       return method;
     }
@@ -1105,8 +1105,8 @@ public class JavaClassDef extends ClassDef {
       if (length > 3) {
         if (methodName.startsWith("get")) {
           StringValue quercusName
-	    = javaToQuercusConvert(methodName.substring(3, length));
-	  
+            = javaToQuercusConvert(methodName.substring(3, length));
+          
           AbstractJavaMethod existingGetter = _getMap.get(quercusName);
           AbstractJavaMethod newGetter = new JavaMethod(moduleContext, method);
           
@@ -1123,7 +1123,7 @@ public class JavaClassDef extends ClassDef {
         }
         else if (methodName.startsWith("is")) {
           StringValue quercusName
-	    = javaToQuercusConvert(methodName.substring(2, length));
+            = javaToQuercusConvert(methodName.substring(2, length));
           
           AbstractJavaMethod existingGetter = _getMap.get(quercusName);
           AbstractJavaMethod newGetter = new JavaMethod(moduleContext, method);
@@ -1136,19 +1136,19 @@ public class JavaClassDef extends ClassDef {
         }
         else if (methodName.startsWith("set")) {
           StringValue quercusName
-	    = javaToQuercusConvert(methodName.substring(3, length));
+            = javaToQuercusConvert(methodName.substring(3, length));
           
           AbstractJavaMethod existingSetter = _setMap.get(quercusName);
           AbstractJavaMethod newSetter = new JavaMethod(moduleContext, method);
-	  
+          
           if (existingSetter != null)
             newSetter = existingSetter.overload(newSetter);
-	    
-	  _setMap.put(quercusName, newSetter);
+            
+          _setMap.put(quercusName, newSetter);
         } else if ("__get".equals(methodName)) {
-	  if (_funArrayDelegate == null)
-	    _funArrayDelegate = new FunctionArrayDelegate();
-	  
+          if (_funArrayDelegate == null)
+            _funArrayDelegate = new FunctionArrayDelegate();
+          
           _funArrayDelegate.setArrayGet(new JavaMethod(moduleContext, method));
         } else if ("__set".equals(methodName)) {
           if (_funArrayDelegate == null)
@@ -1178,7 +1178,7 @@ public class JavaClassDef extends ClassDef {
       Marshal marshal = factory.create(field.getType(), false);
       
       _fieldMap.put(new ConstStringValue(field.getName()),
-		    new FieldMarshalPair(field, marshal));
+                    new FieldMarshalPair(field, marshal));
     }
 
 
@@ -1272,9 +1272,9 @@ public class JavaClassDef extends ClassDef {
         continue;
       
       if ("iterator".equals(method.getName())
-	  && method.getParameterTypes().length == 0
-	  && Iterator.class.isAssignableFrom(method.getReturnType())) {
-	_iteratorMethod = method;
+          && method.getParameterTypes().length == 0
+          && Iterator.class.isAssignableFrom(method.getReturnType())) {
+        _iteratorMethod = method;
       }
 
       if ("printRImpl".equals(method.getName())) {
@@ -1301,7 +1301,7 @@ public class JavaClassDef extends ClassDef {
             log.log(Level.WARNING, "Could not introspect a overloaded method", e);
             continue;
           }
-	}
+        }
         else
           fun = newFun;
 
@@ -1391,7 +1391,7 @@ public class JavaClassDef extends ClassDef {
     {
       try {
         Iterator iterator
-	  = (Iterator) _iteratorMethod.invoke(qThis.toJavaObject());
+          = (Iterator) _iteratorMethod.invoke(qThis.toJavaObject());
         
         return new JavaIterator(env, iterator);
       }
@@ -1476,9 +1476,9 @@ public class JavaClassDef extends ClassDef {
     public boolean hasNext()
     {
       if (_iterator != null)
-	return _iterator.hasNext();
+        return _iterator.hasNext();
       else
-	return false;
+        return false;
     }
     
     public void remove()
@@ -1529,9 +1529,9 @@ public class JavaClassDef extends ClassDef {
     public boolean hasNext()
     {
       if (_iterator != null)
-	return _iterator.hasNext();
+        return _iterator.hasNext();
       else
-	return false;
+        return false;
     }
     
     public void remove()
@@ -1667,9 +1667,9 @@ public class JavaClassDef extends ClassDef {
     public Value wrap(Env env, Object obj)
     {
       if (Boolean.TRUE.equals(obj))
-	return BooleanValue.TRUE;
+        return BooleanValue.TRUE;
       else
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
     }
   }
   

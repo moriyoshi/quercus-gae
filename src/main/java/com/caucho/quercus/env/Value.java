@@ -341,7 +341,7 @@ abstract public class Value implements java.io.Serializable
 
     // XXX: proper default case?
     throw new RuntimeException("values are incomparable: " +
-			       lVal + " <=> " + rVal);
+                               lVal + " <=> " + rVal);
   }
 
   /**
@@ -457,7 +457,7 @@ abstract public class Value implements java.io.Serializable
   public ArrayValue toArrayValue(Env env)
   {
     env.warning(L.l("'{0}' ({1}) is not assignable to ArrayValue",
-		  this, getType()));
+                  this, getType()));
 
     return null;
   }
@@ -496,7 +496,7 @@ abstract public class Value implements java.io.Serializable
   public Object toJavaObject(Env env, Class type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
-		    getClass().getName(), type.getName()));
+                    getClass().getName(), type.getName()));
     
     return null;
   }
@@ -507,7 +507,7 @@ abstract public class Value implements java.io.Serializable
   public Object toJavaObjectNotNull(Env env, Class type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
-		    getClass().getName(), type.getName()));
+                    getClass().getName(), type.getName()));
     
     return null;
   }
@@ -1144,7 +1144,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           int hash, char []name, int nameLen,
-			  Value a0, Value a1, Value a2)
+                          Value a0, Value a1, Value a2)
   {
     return errorNoMethod(env, name, nameLen);
   }
@@ -1154,7 +1154,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           int hash, char []name, int nameLen,
-			  Value a0, Value a1, Value a2, Value a3)
+                          Value a0, Value a1, Value a2, Value a3)
   {
     return errorNoMethod(env, name, nameLen);
   }
@@ -1164,7 +1164,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           int hash, char []name, int nameLen,
-			  Value a0, Value a1, Value a2, Value a3, Value a5)
+                          Value a0, Value a1, Value a2, Value a3, Value a5)
   {
     return errorNoMethod(env, name, nameLen);
   }
@@ -1384,7 +1384,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           StringValue nameValue,
-			  Value a0, Value a1, Value a2)
+                          Value a0, Value a1, Value a2)
   {
     char []name = nameValue.getRawCharArray();
     int nameLen = nameValue.length();
@@ -1399,7 +1399,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           StringValue nameValue,
-			  Value a0, Value a1, Value a2, Value a3)
+                          Value a0, Value a1, Value a2, Value a3)
   {
     char []name = nameValue.getRawCharArray();
     int nameLen = nameValue.length();
@@ -1414,7 +1414,7 @@ abstract public class Value implements java.io.Serializable
    */
   public Value callMethod(Env env, 
                           StringValue nameValue,
-			  Value a0, Value a1, Value a2, Value a3, Value a4)
+                          Value a0, Value a1, Value a2, Value a3, Value a4)
   {
     char []name = nameValue.getRawCharArray();
     int nameLen = nameValue.length();
@@ -1580,7 +1580,7 @@ abstract public class Value implements java.io.Serializable
 
     if (isNull())
       return env.error(L.l("Method call '{0}' is not allowed for a null value.",
-			   methodName));
+                           methodName));
     else
       return env.error(L.l("'{0}' is an unknown method of {1}.", methodName, toDebugString()));
   }
@@ -2433,23 +2433,23 @@ abstract public class Value implements java.io.Serializable
 
       switch (ch) {
       case '\r':
-	out.print("\\r");
-	break;
+        out.print("\\r");
+        break;
       case '\n':
-	out.print("\\n");
-	break;
+        out.print("\\n");
+        break;
       case '\"':
-	out.print("\\\"");
-	break;
+        out.print("\\\"");
+        break;
       case '\'':
-	out.print("\\\'");
-	break;
+        out.print("\\\'");
+        break;
       case '\\':
-	out.print("\\\\");
-	break;
+        out.print("\\\\");
+        break;
       default:
-	out.print(ch);
-	break;
+        out.print(ch);
+        break;
       }
     }
   }

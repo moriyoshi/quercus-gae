@@ -92,18 +92,18 @@ public class Zlib {
       }
       else if (filemode.equals("w")) {
         _gzout = new ZlibOutputStream(_fileValue.getPath().openWrite(),
-				      compressionLevel,
-				      compressionStrategy);
+                                      compressionLevel,
+                                      compressionStrategy);
       }
       else if (filemode.equals("a")) {
         _gzout = new ZlibOutputStream(_fileValue.getPath().openAppend(),
-				      compressionLevel,
-				      compressionStrategy);
+                                      compressionLevel,
+                                      compressionStrategy);
       }
       else if (filemode.equals("x")) {
         _gzout = new ZlibOutputStream(_fileValue.getPath().openWrite(),
-				      compressionLevel,
-				      compressionStrategy);
+                                      compressionLevel,
+                                      compressionStrategy);
       }
     }
     catch (IOException e) {
@@ -138,20 +138,20 @@ public class Zlib {
 
     try {
       while (length > 0) {
-	if (buffer.length < length)
-	  sublen = buffer.length;
-	else
-	  sublen = length;
+        if (buffer.length < length)
+          sublen = buffer.length;
+        else
+          sublen = length;
 
-	sublen = is.read(buffer, 0, sublen);
+        sublen = is.read(buffer, 0, sublen);
 
-	if (sublen <= 0)
-	  break;
+        if (sublen <= 0)
+          break;
 
-	_gzout.write(buffer, 0, sublen);
-	
-	inputSize += sublen;
-	length -= sublen;
+        _gzout.write(buffer, 0, sublen);
+        
+        inputSize += sublen;
+        length -= sublen;
       }
     }
     catch (IOException e) {
@@ -199,8 +199,8 @@ public class Zlib {
    * @return # of uncompressed bytes
    */
   public int gzputs(Env env,
-		    @NotNull InputStream is,
-		    @Optional("-1") int length)
+                    @NotNull InputStream is,
+                    @Optional("-1") int length)
   {
     return gzwrite(env, is, length);
   }
@@ -217,7 +217,7 @@ public class Zlib {
       if (ch >= 0)
         return env.createString(Character.toString((char) ch));
       else
-	return BooleanValue.FALSE;
+        return BooleanValue.FALSE;
     } catch (IOException e) {
       throw QuercusModuleException.create(e);
     }
@@ -243,10 +243,10 @@ public class Zlib {
     try {
       for (int i = 0; i < length - 1; i++) {
         readChar = _in.read();
-	
+        
         if (readChar >= 0) {
           sbv.append((char) readChar);
-	  
+          
           if (readChar == '\n' || readChar == '\r')
             break;
         } else
@@ -339,7 +339,7 @@ public class Zlib {
    */
   @ReturnNullAsFalse
   public StringValue gzgetss(int length,
-			     @Optional StringValue allowedTags)
+                             @Optional StringValue allowedTags)
   {
     try {
       if (_in == null)
@@ -357,9 +357,9 @@ public class Zlib {
           break;
       }
       if (sbv.length() > 0)
-	return StringModule.strip_tags(sbv, allowedTags);
+        return StringModule.strip_tags(sbv, allowedTags);
       else
-	return null;
+        return null;
     } catch (Exception e) {
       throw QuercusModuleException.create(e);
     }
@@ -445,7 +445,7 @@ public class Zlib {
 
   /**
    * Helper function to retrieve the compression level like how PHP5 does it.
-   * 	1. finds the compression level nearest to the end and returns that
+   *    1. finds the compression level nearest to the end and returns that
    */
   private int getCompressionLevel(String input)
   {
@@ -460,7 +460,7 @@ public class Zlib {
 
   /**
    * Helper function to retrieve the compression strategy like how PHP5 does it.
-   * 	1. finds the compression strategy nearest to the end and returns that
+   *    1. finds the compression strategy nearest to the end and returns that
    */
   private int getCompressionStrategy(String input)
   {

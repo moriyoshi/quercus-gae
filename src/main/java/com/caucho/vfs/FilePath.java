@@ -65,7 +65,7 @@ public class FilePath extends FilesystemPath {
   public FilePath(String path)
   {
     this(null,  //PWD != null ? PWD._root : null,
-	 path, normalizePath("/", initialPath(path),
+         path, normalizePath("/", initialPath(path),
                              0, getFileSeparatorChar()));
 
     if (_root == null) {
@@ -73,7 +73,7 @@ public class FilePath extends FilesystemPath {
       _root._root = _root;
 
       if (PWD == null)
-	PWD = _root;
+        PWD = _root;
     }
 
     _separatorChar = _root._separatorChar;
@@ -129,22 +129,22 @@ public class FilePath extends FilesystemPath {
     if (colon == 1 && (ch = path.charAt(0)) != '/' && ch != '\\')
       return "/" + path.charAt(0) + ":/" + path.substring(2);
     else if (length > 1
-	     && ((ch = path.charAt(0)) == '/' || ch == '\\')
-	     && ((ch = path.charAt(1)) == '/' || ch == '\\')) {
+             && ((ch = path.charAt(0)) == '/' || ch == '\\')
+             && ((ch = path.charAt(1)) == '/' || ch == '\\')) {
       if (colon < 0)
-	return "/:" + path;
+        return "/:" + path;
 
       for (int i = colon - 2; i > 1; i--) {
-	if ((ch = path.charAt(i)) != '/' && ch != '\\')
-	  return "/:" + path;
+        if ((ch = path.charAt(i)) != '/' && ch != '\\')
+          return "/:" + path;
       }
 
       ch = path.charAt(colon - 1);
 
       if (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z')
-	return path.substring(colon - 2);
+        return path.substring(colon - 2);
       else
-	return "/:" + path;
+        return "/:" + path;
     }
     else
       return path;
@@ -177,7 +177,7 @@ public class FilePath extends FilesystemPath {
    */
   protected Path schemeWalk(String userPath,
                             Map<String,Object> attributes,
-			    String filePath,
+                            String filePath,
                             int offset)
   {
     if (! isWindows())
@@ -192,7 +192,7 @@ public class FilePath extends FilesystemPath {
     char ch2 = filePath.charAt(offset);
 
     if ((ch2 == '/' || ch2 == _separatorChar)
-	&& (ch1 == '/' || ch1 == _separatorChar))
+        && (ch1 == '/' || ch1 == _separatorChar))
       return super.schemeWalk(userPath, attributes,
                               convertFromWindowsPath(filePath.substring(offset)), 0);
     else
@@ -209,8 +209,8 @@ public class FilePath extends FilesystemPath {
    * @return the selected path
    */
   public Path fsWalk(String userPath,
-			Map<String,Object> attributes,
-			String path)
+                        Map<String,Object> attributes,
+                        String path)
   {
     return new FilePath(_root, userPath, path);
   }
@@ -248,16 +248,16 @@ public class FilePath extends FilesystemPath {
     int offset = 0;
     // For windows, convert /c: to c:
     if (length >= 3
-	&& path.charAt(0) == '/'
-	&& path.charAt(2) == ':'
-	&& ('a' <= (ch = path.charAt(1)) && ch <= 'z'
-	    || 'A' <= ch && ch <= 'Z')) {
+        && path.charAt(0) == '/'
+        && path.charAt(2) == ':'
+        && ('a' <= (ch = path.charAt(1)) && ch <= 'z'
+            || 'A' <= ch && ch <= 'Z')) {
       // offset = 1;
     }
     else if (length >= 3
-	     && path.charAt(0) == '/'
-	     && path.charAt(1) == ':'
-	     && path.charAt(2) == '/') {
+             && path.charAt(0) == '/'
+             && path.charAt(1) == ':'
+             && path.charAt(2) == '/') {
       cb.append('/');
       cb.append('/');
       cb.append('/');
@@ -269,9 +269,9 @@ public class FilePath extends FilesystemPath {
       ch = path.charAt(offset);
 
       if (ch == '\\')
-	cb.append('/');
+        cb.append('/');
       else
-	cb.append(ch);
+        cb.append(ch);
     }
 
     return escapeURL(cb.toString());
@@ -312,9 +312,9 @@ public class FilePath extends FilesystemPath {
     for (; offset < length; offset++) {
       ch = path.charAt(offset);
       if (ch == '/')
-	cb.append(_separatorChar);
+        cb.append(_separatorChar);
       else
-	cb.append(ch);
+        cb.append(ch);
     }
 
     return cb.close();
@@ -606,8 +606,8 @@ public class FilePath extends FilesystemPath {
     
     p = path.indexOf("/lpt");
     if (p >= 0
-	&& (len <= p + 5 || path.charAt(p + 5) == '.')
-	&& '0' <= (ch = path.charAt(p + 4)) && ch <= '9') {
+        && (len <= p + 5 || path.charAt(p + 5) == '.')
+        && '0' <= (ch = path.charAt(p + 4)) && ch <= '9') {
       return true;
     }
     

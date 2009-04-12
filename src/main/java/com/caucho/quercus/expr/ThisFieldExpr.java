@@ -47,8 +47,8 @@ public class ThisFieldExpr extends AbstractVarExpr {
   protected final StringValue _name;
 
   public ThisFieldExpr(Location location,
-		       InterpretedClassDef quercusClass,
-		       StringValue name)
+                       InterpretedClassDef quercusClass,
+                       StringValue name)
   {
     super(location);
     _quercusClass = quercusClass;
@@ -57,7 +57,7 @@ public class ThisFieldExpr extends AbstractVarExpr {
   }
 
   public ThisFieldExpr(InterpretedClassDef quercusClass,
-		       StringValue name)
+                       StringValue name)
   {
     _quercusClass = quercusClass;
     

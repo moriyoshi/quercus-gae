@@ -190,11 +190,11 @@ abstract public class ClassDef {
   {
     if (isAbstract()) {
       throw env.createErrorException(L.l("abstract class '{0}' cannot be instantiated.",
-				   getName()));
+                                   getName()));
     }
     else if (isInterface()) {
       throw env.createErrorException(L.l("interface '{0}' cannot be instantiated.",
-				   getName()));
+                                   getName()));
     }
     
     return new ObjectExtValue(qcl);

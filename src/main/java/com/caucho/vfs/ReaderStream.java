@@ -70,42 +70,42 @@ public class ReaderStream extends StreamImpl {
       int ch;
 
       if (_peek >= 0) {
-	ch = _peek;
-	_peek = -1;
+        ch = _peek;
+        _peek = -1;
       }
       else
-	ch = _reader.read();
+        ch = _reader.read();
       
       if (ch < 0)
         break;
 
       if (ch < 0x80)
-    	buf[i++] = (byte) ch;
+        buf[i++] = (byte) ch;
       else if (ch < 0x800) {
-	if (i + 1 < end) {
-	}
-	else if (i == offset)
-	  throw new IllegalStateException(L.l("buffer is not large enough to accept UTF-8 encoding.  length={0}, 2-character utf-8",
-					      length));
-	else {
-	  _peek = ch;
-	  return end - offset;
-	}
-	  
+        if (i + 1 < end) {
+        }
+        else if (i == offset)
+          throw new IllegalStateException(L.l("buffer is not large enough to accept UTF-8 encoding.  length={0}, 2-character utf-8",
+                                              length));
+        else {
+          _peek = ch;
+          return end - offset;
+        }
+          
         buf[i++] = (byte) (0xc0 | (ch >> 6));
         buf[i++] = (byte) (0x80 | (ch & 0x3f));
       }
       else if (ch < 0x8000) {
-	if (i + 2 < end) {
-	}
-	else if (i == offset)
-	  throw new IllegalStateException(L.l("buffer is not large enough to accept UTF-8 encoding.  length={0}, 3-character utf-8",
-					      length));
-	else {
-	  _peek = ch;
-	  return i - offset;
-	}
-	
+        if (i + 2 < end) {
+        }
+        else if (i == offset)
+          throw new IllegalStateException(L.l("buffer is not large enough to accept UTF-8 encoding.  length={0}, 3-character utf-8",
+                                              length));
+        else {
+          _peek = ch;
+          return i - offset;
+        }
+        
         buf[i++] = (byte) (0xe0 | (ch >> 12));
         buf[i++] = (byte) (0x80 | ((ch >> 6) & 0x3f));
         buf[i++] = (byte) (0x80 | ((ch >> 6) & 0x3f));

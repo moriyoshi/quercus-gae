@@ -61,12 +61,12 @@ abstract public class JClassLoader {
       jClass = _staticClassMap.get(name);
 
       if (jClass == null) {
-	if (name.startsWith("[")) {
-	  JClass subClass = descriptorToClass(name, 1);
-	  jClass = new JClassArray(subClass);
-	}
-	else
-	  jClass = loadClass(name);
+        if (name.startsWith("[")) {
+          JClass subClass = descriptorToClass(name, 1);
+          jClass = new JClassArray(subClass);
+        }
+        else
+          jClass = loadClass(name);
       }
       
       _classMap.put(name, new SoftReference<JClass>(jClass));
@@ -142,14 +142,14 @@ abstract public class JClassLoader {
       
     case 'L':
       {
-	int tail = name.indexOf(';', i);
+        int tail = name.indexOf(';', i);
 
-	if (tail < 0)
-	  throw new IllegalStateException(name);
-	
-	String className = name.substring(i + 1, tail).replace('/', '.');
+        if (tail < 0)
+          throw new IllegalStateException(name);
+        
+        String className = name.substring(i + 1, tail).replace('/', '.');
 
-	return forName(className);
+        return forName(className);
       }
       
     default:

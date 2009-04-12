@@ -61,7 +61,7 @@ abstract public class RandomAccessStream
    * Reads a block from a given location.
    */
   abstract public int read(long fileOffset,
-			   byte []buffer, int offset, int length)
+                           byte []buffer, int offset, int length)
     throws IOException;
 
   /**
@@ -74,7 +74,7 @@ abstract public class RandomAccessStream
    * Writes a block to a given location.
    */
   abstract public void write(long fileOffset,
-			     byte []buffer, int offset, int length)
+                             byte []buffer, int offset, int length)
     throws IOException;
 
   /**

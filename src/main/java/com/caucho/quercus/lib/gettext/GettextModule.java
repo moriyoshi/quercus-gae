@@ -447,9 +447,9 @@ public class GettextModule
 
   /*
   private static StringValue formatBinary(Env env,
-					  StringValue msg,
-					  Value []args,
-					  String charset)
+                                          StringValue msg,
+                                          Value []args,
+                                          String charset)
   {
     StringValue sb = env.createBinaryBuilder();
 

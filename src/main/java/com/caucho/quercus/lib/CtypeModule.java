@@ -278,14 +278,14 @@ public class CtypeModule
   public static boolean isalnum(int ch)
   {
     return ('a' <= ch && ch <= 'z'
-	    || 'A' <= ch && ch <= 'Z'
-	    || '0' <= ch && ch <= '9');
+            || 'A' <= ch && ch <= 'Z'
+            || '0' <= ch && ch <= '9');
   }
 
   public static boolean isalpha(int ch)
   {
     return ('a' <= ch && ch <= 'z'
-	    || 'A' <= ch && ch <= 'Z');
+            || 'A' <= ch && ch <= 'Z');
   }
 
   public static boolean iscntrl(int ch)
@@ -331,7 +331,7 @@ public class CtypeModule
   public static boolean isxdigit(int ch)
   {
     return ((ch >= '0' && ch <= '9')
-	    || (ch >= 'a' && ch <= 'f')
-	    || (ch >= 'A' && ch <= 'F'));
+            || (ch >= 'a' && ch <= 'f')
+            || (ch >= 'A' && ch <= 'F'));
   }
 }

@@ -45,7 +45,7 @@ public class TempFile {
 
     try {
       if (file != null)
-	file.remove();
+        file.remove();
     } catch (IOException e) {
     }
   }

@@ -105,15 +105,15 @@ abstract public class AbstractBinaryInputOutput
   {
     try {
       if (_is != null) {
-	int c = _is.read();
+        int c = _is.read();
 
-	if (c < 0)
-	  _isEOF = true;
+        if (c < 0)
+          _isEOF = true;
 
-	return c;
+        return c;
       }
       else
-	return -1;
+        return -1;
     } catch (IOException e) {
       _isTimeout = true;
       _isEOF = true;
@@ -132,15 +132,15 @@ abstract public class AbstractBinaryInputOutput
   {
     try {
       if (_is != null) {
-	int c = _is.read(buffer, offset, length);
+        int c = _is.read(buffer, offset, length);
 
-	if (c < 0)
-	  _isEOF = true;
+        if (c < 0)
+          _isEOF = true;
 
-	return c;
+        return c;
       }
       else
-	return -1;
+        return -1;
     } catch (IOException e) {
       _isTimeout = true;
       _isEOF = true;
@@ -331,22 +331,22 @@ abstract public class AbstractBinaryInputOutput
 
     try {
       while (length > 0) {
-	int sublen;
+        int sublen;
 
-	if (length < buffer.length)
-	  sublen = length;
-	else
-	  sublen = buffer.length;
+        if (length < buffer.length)
+          sublen = length;
+        else
+          sublen = buffer.length;
 
-	sublen = is.read(buffer, 0, sublen);
+        sublen = is.read(buffer, 0, sublen);
 
-	if (sublen < 0)
-	  break;
+        if (sublen < 0)
+          break;
 
-	write(buffer, 0, sublen);
+        write(buffer, 0, sublen);
 
-	writeLength += sublen;
-	length -= sublen;
+        writeLength += sublen;
+        length -= sublen;
       }
 
       return writeLength;

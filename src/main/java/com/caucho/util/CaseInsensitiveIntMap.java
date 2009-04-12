@@ -93,9 +93,9 @@ public class CaseInsensitiveIntMap {
       char []mapKey = _keys[hash];
 
       if (mapKey == null)
-	return NULL;
+        return NULL;
       else if (equals(mapKey, key, length))
-	return _values[hash];
+        return _values[hash];
 
       hash = (hash + 1) & _mask;
     }
@@ -115,34 +115,34 @@ public class CaseInsensitiveIntMap {
       char []testKey = _keys[hash];
 
       if (testKey == null || equals(testKey, key, length)) {
-	_keys[hash] = new char[length];
+        _keys[hash] = new char[length];
 
-	for (int i = length - 1; i >= 0; i--) {
-	  char ch = key[i];
+        for (int i = length - 1; i >= 0; i--) {
+          char ch = key[i];
 
-	  if ('A' <= ch && ch <= 'Z')
-	    ch += 'a' - 'A';
+          if ('A' <= ch && ch <= 'Z')
+            ch += 'a' - 'A';
 
-	  _keys[hash][i] = ch;
-	}
-	
-	_values[hash] = value;
+          _keys[hash][i] = ch;
+        }
+        
+        _values[hash] = value;
 
-	_size++;
+        _size++;
 
-	if (_keys.length <= 4 * _size)
-	  resize(2 * _keys.length);
+        if (_keys.length <= 4 * _size)
+          resize(2 * _keys.length);
 
-	return;
+        return;
       }
       else if (key != testKey && ! testKey.equals(key)) {
-	hash = (hash + 1) & _mask;
-	continue;
+        hash = (hash + 1) & _mask;
+        continue;
       }
       else {
-	_values[hash] = value;
+        _values[hash] = value;
 
-	return;
+        return;
       }
     }
   }
@@ -169,18 +169,18 @@ public class CaseInsensitiveIntMap {
       char []key = _keys[i];
       
       if (key == null)
-	continue;
+        continue;
 
       int hash = hash(key, key.length) & _mask;
 
       while (true) {
-	if (newKeys[hash] == null) {
-	  newKeys[hash] = _keys[i];
-	  newValues[hash] = _values[i];
-	  break;
-	}
-	
-	hash = (hash + 1) & _mask;
+        if (newKeys[hash] == null) {
+          newKeys[hash] = _keys[i];
+          newValues[hash] = _values[i];
+          break;
+        }
+        
+        hash = (hash + 1) & _mask;
       }
     }
 
@@ -199,7 +199,7 @@ public class CaseInsensitiveIntMap {
       char a = key[i];
 
       if ('A' <= a && a <= 'Z')
-	a += 'a' - 'A';
+        a += 'a' - 'A';
       
       hash = 65537 * hash + a;
     }
@@ -220,10 +220,10 @@ public class CaseInsensitiveIntMap {
       char b = mixed[i];
 
       if ('A' <= b && b <= 'Z')
-	b += 'a' - 'A';
+        b += 'a' - 'A';
 
       if (a != b)
-	return false;
+        return false;
     }
 
     return true;

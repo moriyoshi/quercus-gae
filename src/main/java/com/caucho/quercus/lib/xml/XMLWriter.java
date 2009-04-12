@@ -318,9 +318,9 @@ public class XMLWriter {
    * Starts an attribute with a namespace
    */
   public boolean startAttributeNS(Env env,
-				  StringValue prefix,
-				  StringValue name,
-				  StringValue uri)
+                                  StringValue prefix,
+                                  StringValue name,
+                                  StringValue uri)
   {
     if (_state != WriterState.ELEMENT_HEADER)
       return false;
@@ -367,9 +367,9 @@ public class XMLWriter {
    * Starts the document
    */
   public boolean startDocument(Env env,
-			       @Optional StringValue version,
-			       @Optional StringValue encoding,
-			       @Optional StringValue standalone)
+                               @Optional StringValue version,
+                               @Optional StringValue encoding,
+                               @Optional StringValue standalone)
   {
     _s.append("<?xml");
     
@@ -417,8 +417,8 @@ public class XMLWriter {
    * Starts a DTD
    */
   public boolean startDTD(StringValue name,
-			  @Optional StringValue publicId,
-			  @Optional StringValue systemId)
+                          @Optional StringValue publicId,
+                          @Optional StringValue systemId)
   {
     return true;
   }
@@ -446,9 +446,9 @@ public class XMLWriter {
    * Starts a namespaced element
    */
   public boolean startElementNS(Env env,
-				StringValue prefix,
-				StringValue name,
-				StringValue uri)
+                                StringValue prefix,
+                                StringValue name,
+                                StringValue uri)
   {
     startContent();
 
@@ -493,25 +493,25 @@ public class XMLWriter {
       int len = text.length();
 
       for (int i = 0; i < len; i++) {
-	char ch = text.charAt(i);
+        char ch = text.charAt(i);
 
-	switch (ch) {
-	case '<':
-	  _s.append("&lt;");
-	  break;
-	case '>':
-	  _s.append("&gt;");
-	  break;
-	case '&':
-	  _s.append("&amp;");
-	  break;
-	case '"':
-	  _s.append("&quot;");
-	  break;
-	default:
-	  _s.append(ch);
-	  break;
-	}
+        switch (ch) {
+        case '<':
+          _s.append("&lt;");
+          break;
+        case '>':
+          _s.append("&gt;");
+          break;
+        case '&':
+          _s.append("&amp;");
+          break;
+        case '"':
+          _s.append("&quot;");
+          break;
+        default:
+          _s.append(ch);
+          break;
+        }
       }
     }
     else
@@ -524,7 +524,7 @@ public class XMLWriter {
    * Writes a complete attribute
    */
   public boolean writeAttribute(Env env, StringValue name,
-				StringValue value)
+                                StringValue value)
   {
     startAttribute(env, name);
     text(env, value);
@@ -537,10 +537,10 @@ public class XMLWriter {
    * Writes a complete attribute
    */
   public boolean writeAttributeNS(Env env,
-				  StringValue prefix,
-				  StringValue name,
-				  StringValue uri,
-				  StringValue value)
+                                  StringValue prefix,
+                                  StringValue name,
+                                  StringValue uri,
+                                  StringValue value)
   {
     startAttributeNS(env, prefix, name, uri);
     text(env, value);
@@ -577,8 +577,8 @@ public class XMLWriter {
    * Writes a DTD attribute list
    */
   public boolean writeDTDAttlist(Env env,
-				 StringValue name,
-				 StringValue content)
+                                 StringValue name,
+                                 StringValue content)
   {
     startDTDAttlist(name);
     text(env, content);
@@ -591,8 +591,8 @@ public class XMLWriter {
    * Writes a DTD element
    */
   public boolean writeDTDElement(Env env,
-				 StringValue name,
-				 StringValue content)
+                                 StringValue name,
+                                 StringValue content)
   {
     startDTDElement(name);
     text(env, content);
@@ -605,8 +605,8 @@ public class XMLWriter {
    * Writes a DTD entity
    */
   public boolean writeDTDEntity(Env env,
-				StringValue name,
-				StringValue content)
+                                StringValue name,
+                                StringValue content)
   {
     startDTDEntity(name);
     text(env, content);
@@ -619,10 +619,10 @@ public class XMLWriter {
    * Writes a DTD
    */
   public boolean writeDTD(Env env,
-			  StringValue name,
-			  @Optional StringValue publicId,
-			  @Optional StringValue systemId,
-			  @Optional StringValue subset)
+                          StringValue name,
+                          @Optional StringValue publicId,
+                          @Optional StringValue systemId,
+                          @Optional StringValue subset)
   {
     startDTD(name, publicId, systemId);
     text(env, subset);
@@ -635,8 +635,8 @@ public class XMLWriter {
    * Writes a complete element
    */
   public boolean writeElement(Env env,
-			      StringValue name,
-			      @Optional StringValue content)
+                              StringValue name,
+                              @Optional StringValue content)
   {
     startElement(env, name);
 
@@ -652,10 +652,10 @@ public class XMLWriter {
    * Writes a complete element
    */
   public boolean writeElementNS(Env env,
-				StringValue prefix,
-				StringValue name,
-				StringValue uri,
-				@Optional StringValue content)
+                                StringValue prefix,
+                                StringValue name,
+                                StringValue uri,
+                                @Optional StringValue content)
   {
     startElementNS(env, prefix, name, uri);
 
@@ -709,17 +709,17 @@ public class XMLWriter {
       _s.append(" ");
       
       if (prefix.length() == 0)
-	_s.append("xmlns");
+        _s.append("xmlns");
       else
-	_s.append("xmlns:").append(env, prefix);
+        _s.append("xmlns:").append(env, prefix);
 
       _s.append("=\"").append(env, uri).append("\"");
 
       ArrayList<StringValue> stack = _nsStack.get(_nsStack.size() - 1);
       
       if (stack == null) {
-	stack = new ArrayList<StringValue>();
-	_nsStack.set(_nsStack.size() - 1, stack);
+        stack = new ArrayList<StringValue>();
+        _nsStack.set(_nsStack.size() - 1, stack);
       }
 
       stack.add(prefix);
@@ -741,9 +741,9 @@ public class XMLWriter {
       ArrayList<StringValue> prefixList = _nsStack.remove(_nsStack.size() - 1);
 
       if (prefixList != null) {
-	for (StringValue prefix : prefixList) {
-	  _nsMap.remove(prefix);
-	}
+        for (StringValue prefix : prefixList) {
+          _nsMap.remove(prefix);
+        }
       }
 
       return name;
@@ -830,9 +830,9 @@ public class XMLWriter {
     XMLWriterStream append(char v)
     {
       try {
-	_out.print(v);
+        _out.print(v);
       } catch (IOException e) {
-	log.log(Level.WARNING, e.toString(), e);
+        log.log(Level.WARNING, e.toString(), e);
       }
 
       return this;
@@ -850,9 +850,9 @@ public class XMLWriter {
     XMLWriterStream append(String text)
     {
       try {
-	_out.print(text);
+        _out.print(text);
       } catch (IOException e) {
-	log.log(Level.WARNING, e.toString(), e);
+        log.log(Level.WARNING, e.toString(), e);
       }
 
       return this;
@@ -862,9 +862,9 @@ public class XMLWriter {
     Value flush()
     {
       try {
-	_out.close();
+        _out.close();
       } catch (IOException e) {
-	log.log(Level.WARNING, e.toString(), e);
+        log.log(Level.WARNING, e.toString(), e);
       }
       
       return LongValue.create(1);

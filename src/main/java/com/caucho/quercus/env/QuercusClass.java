@@ -152,14 +152,14 @@ public class QuercusClass {
       classDefList = new ClassDef[parent._classDefList.length + 1];
 
       System.arraycopy(parent._classDefList, 0, classDefList, 1,
-		       parent._classDefList.length);
+                       parent._classDefList.length);
 
       classDefList[0] = classDef;
     }
     else {
       classDefList = new ClassDef[] { classDef };
     }
-	  
+          
     _classDefList = classDefList;
 
     for (int i = 0; i < classDefList.length; i++) {
@@ -202,8 +202,8 @@ public class QuercusClass {
   }
 
   private void addInstances(HashSet<String> instanceofSet,
-			    HashSet<String> ifaces,
-			    ClassDef classDef)
+                            HashSet<String> ifaces,
+                            ClassDef classDef)
   {
     // _instanceofSet.add(classDef.getName());
     classDef.addInterfaces(instanceofSet);
@@ -213,8 +213,8 @@ public class QuercusClass {
       QuercusClass cl = Env.getInstance().findClass(iface, true, true);
         
       if (cl == null)
-	throw new QuercusRuntimeException(L.l("cannot find interface {0}",
-					      iface));
+        throw new QuercusRuntimeException(L.l("cannot find interface {0}",
+                                              iface));
 
       // _instanceofSet.addAll(cl.getInstanceofSet());
         
@@ -222,11 +222,11 @@ public class QuercusClass {
       // ClassDef ifaceDef = moduleContext.findClass(iface);
 
       if (ifaceDef != null) {
-	if (ifaces.add(iface)) {
-	  addInstances(instanceofSet, ifaces, ifaceDef);
+        if (ifaces.add(iface)) {
+          addInstances(instanceofSet, ifaces, ifaceDef);
 
-	  ifaceDef.initClass(this);
-	}
+          ifaceDef.initClass(this);
+        }
       }
     }
   }
@@ -391,10 +391,10 @@ public class QuercusClass {
       _isModified = true;
       
       if (_cacheRef != null) {
-	QuercusClass cacheClass = _cacheRef.get();
+        QuercusClass cacheClass = _cacheRef.get();
 
-	if (cacheClass != null)
-	  cacheClass.setModified();
+        if (cacheClass != null)
+          cacheClass.setModified();
       }
     }
   }
@@ -406,7 +406,7 @@ public class QuercusClass {
   {
     if (log.isLoggable(Level.FINEST))
       log.log(Level.FINEST, L.l("{0} adding array delegate {1}",
-				this,  delegate));
+                                this,  delegate));
 
     _arrayDelegate = delegate;
   }
@@ -426,7 +426,7 @@ public class QuercusClass {
   {
     if (log.isLoggable(Level.FINEST))
       log.log(Level.FINEST, L.l("{0} setting traversable delegate {1}",
-				this,  delegate));
+                                this,  delegate));
 
     _traversableDelegate = delegate;
   }
@@ -446,7 +446,7 @@ public class QuercusClass {
   {
     if (log.isLoggable(Level.FINEST))
       log.log(Level.FINEST, L.l("{0} setting count delegate {1}",
-				this,  delegate));
+                                this,  delegate));
 
     _countDelegate = delegate;
   }
@@ -519,9 +519,9 @@ public class QuercusClass {
    * Adds a field.
    */
   public void addField(StringValue name,
-		       int index,
-		       Expr initExpr,
-		       FieldVisibility visibility)
+                       int index,
+                       Expr initExpr,
+                       FieldVisibility visibility)
   {
     _fieldNames.add(name);
     _fieldMap.put(name, index);
@@ -702,7 +702,7 @@ public class QuercusClass {
       return;
 
     for (Map.Entry<String,ArrayList<StaticField>> map
-	   : _staticFieldExprMap.entrySet()) {
+           : _staticFieldExprMap.entrySet()) {
       if (env.isInitializedClass(map.getKey()))
         continue;
       
@@ -716,8 +716,8 @@ public class QuercusClass {
         else
           val = expr.eval(env);
 
-	String fullName = _className + "::" + field._name;
-	
+        String fullName = _className + "::" + field._name;
+        
         env.setGlobalValue(fullName, val);
       }
       
@@ -1061,13 +1061,13 @@ public class QuercusClass {
     if (fun != null)
       return fun;
     else if (_className.equalsIgnoreCase(toMethod(name, nameLen))
-	     && _parent != null) {
+             && _parent != null) {
       // php/093j
       return _parent.getFunction(_parent.getName());
     }
     else {
       throw new QuercusRuntimeException(L.l("{0}::{1} is an unknown method",
-					getName(), toMethod(name, nameLen)));
+                                        getName(), toMethod(name, nameLen)));
     }
   }
 
@@ -1220,8 +1220,8 @@ public class QuercusClass {
    * calls the function.
    */
   public Value callMethod(Env env, Value thisValue,
-			  int hash, char []name, int nameLen,
-			  Value a1)
+                          int hash, char []name, int nameLen,
+                          Value a1)
   {
     QuercusClass oldClass = env.setCallingClass(this);
     
@@ -1280,7 +1280,7 @@ public class QuercusClass {
    */
   public Value callMethod(Env env, Value thisValue, 
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3)
+                          Value a1, Value a2, Value a3)
   {
     QuercusClass oldClass = env.setCallingClass(this);
     
@@ -1311,7 +1311,7 @@ public class QuercusClass {
    */
   public Value callMethod(Env env, Value thisValue, 
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3, Value a4)
+                          Value a1, Value a2, Value a3, Value a4)
   {
     QuercusClass oldClass = env.setCallingClass(this);
     
@@ -1343,7 +1343,7 @@ public class QuercusClass {
    */
   public Value callMethod(Env env, Value thisValue,
                           int hash, char []name, int nameLen,
-			  Value a1, Value a2, Value a3, Value a4, Value a5)
+                          Value a1, Value a2, Value a3, Value a4, Value a5)
   {
     QuercusClass oldClass = env.setCallingClass(this);
     
@@ -1393,9 +1393,9 @@ public class QuercusClass {
    * calls the function.
    */
   public Value callMethodRef(Env env,
-			     Value thisValue,
-			     StringValue methodName,
-			     Expr []args)
+                             Value thisValue,
+                             StringValue methodName,
+                             Expr []args)
   {
     QuercusClass oldClass = env.setCallingClass(this);
     
@@ -1687,7 +1687,7 @@ public class QuercusClass {
       return fun;
     else {
       throw new QuercusRuntimeException(L.l("{0}::{1} is an unknown method",
-					getName(), name));
+                                        getName(), name));
     }
   }
 
@@ -1702,7 +1702,7 @@ public class QuercusClass {
       return expr.eval(env);
 
     throw new QuercusRuntimeException(L.l("{0}::{1} is an unknown constant",
-					getName(), name));
+                                        getName(), name));
   }
   
   /**

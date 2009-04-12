@@ -182,11 +182,11 @@ abstract public class JClass extends JAnnotationObject implements JType {
       JClass []args = ctors[i].getParameterTypes();
 
       if (args.length != param.length)
-	continue loop;
+        continue loop;
 
       for (int j = 0; j < args.length; j++)
-	if (! args[i].equals(param[j]))
-	  continue loop;
+        if (! args[i].equals(param[j]))
+          continue loop;
 
       return ctors[i];
     }
@@ -233,9 +233,9 @@ abstract public class JClass extends JAnnotationObject implements JType {
       int p = name.lastIndexOf('.');
 
       if (p >= 0)
-	return name.substring(p + 1);
+        return name.substring(p + 1);
       else
-	return name;
+        return name;
     }
   }
   

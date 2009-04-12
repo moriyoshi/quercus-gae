@@ -56,7 +56,7 @@ public class ProfileStore
       _reportList.add(0, report);
 
       while (_reportList.size() > 32)
-	_reportList.remove(_reportList.size() - 1);
+        _reportList.remove(_reportList.size() - 1);
     }
   }
 
@@ -77,8 +77,8 @@ public class ProfileStore
   {
     synchronized (_reportList) {
       for (ProfileReport report : _reportList) {
-	if (index == report.getId())
-	  return report;
+        if (index == report.getId())
+          return report;
       }
     }
 

@@ -53,11 +53,11 @@ public class JavaMethod extends JavaInvoker {
   public JavaMethod(ModuleContext moduleContext, Method method)
   {
     super(moduleContext,
-	  getName(method),
-	  method.getParameterTypes(),
-	  method.getParameterAnnotations(),
-	  method.getAnnotations(),
-	  method.getReturnType());
+          getName(method),
+          method.getParameterTypes(),
+          method.getParameterAnnotations(),
+          method.getAnnotations(),
+          method.getReturnType());
     
     _method = method;
     
@@ -121,7 +121,7 @@ public class JavaMethod extends JavaInvoker {
         throw (QuercusException) e1;
 
       if (e1 instanceof QuercusException)
-	throw (QuercusException) e1;
+        throw (QuercusException) e1;
       
       String methodName = (_method.getDeclaringClass().getName() + "."
                            + _method.getName());
@@ -129,7 +129,7 @@ public class JavaMethod extends JavaInvoker {
       throw new QuercusException(methodName + ": " + e1.getMessage(), e1);
     } catch (Exception e) {
       String methodName = (_method.getDeclaringClass().getName() + "."
-			   + _method.getName());
+                           + _method.getName());
       
       throw new QuercusException(methodName + ": " + e.getMessage(), e);
     }

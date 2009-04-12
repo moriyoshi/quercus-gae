@@ -436,7 +436,7 @@ public class MysqlModule extends AbstractQuercusModule {
    */
   @ReturnNullAsFalse
   public static ArrayValue mysql_fetch_assoc(Env env,
-					     @NotNull MysqliResult result)
+                                             @NotNull MysqliResult result)
   {
     if (result == null)
       return null;
@@ -459,8 +459,8 @@ public class MysqlModule extends AbstractQuercusModule {
    *
    */
   public static Value mysql_fetch_field(Env env,
-					@NotNull MysqliResult result,
-					@Optional("-1") int fieldOffset)
+                                        @NotNull MysqliResult result,
+                                        @Optional("-1") int fieldOffset)
   {
     /**
      * ERRATA is also documented in php/142s.qa
@@ -500,8 +500,8 @@ public class MysqlModule extends AbstractQuercusModule {
         schemaName = tableName;
 
       if ((tableName == null || "".equals(tableName))
-	  && result.isLastSqlDescribe())
-	tableName = "COLUMNS";
+          && result.isLastSqlDescribe())
+        tableName = "COLUMNS";
 
       // some information is not available from the ResultSetMetaData
       JdbcColumnMetaData columnMd = null;
@@ -552,22 +552,22 @@ public class MysqlModule extends AbstractQuercusModule {
       fieldResult.putThisField(env, SV_TABLE, env.createString(tableName));
       fieldResult.putThisField(env, SV_DEF, env.getEmptyString());
       fieldResult.putThisField(env, SV_MAX_LENGTH,
-			       LongValue.create(maxLength));
+                               LongValue.create(maxLength));
       fieldResult.putThisField(env, SV_NOT_NULL,
-			       LongValue.create(notNull));
+                               LongValue.create(notNull));
       fieldResult.putThisField(env, SV_PRIMARY_KEY,
-			       LongValue.create(primaryKey));
+                               LongValue.create(primaryKey));
       fieldResult.putThisField(env, SV_MULTIPLE_KEY,
-			       LongValue.create(multipleKey));
+                               LongValue.create(multipleKey));
       fieldResult.putThisField(env, SV_UNIQUE_KEY,
-			       LongValue.create(uniqueKey));
+                               LongValue.create(uniqueKey));
       fieldResult.putThisField(env, SV_NUMERIC,
-			       LongValue.create(numeric));
+                               LongValue.create(numeric));
       fieldResult.putThisField(env, SV_BLOB,
-			       LongValue.create(blob));
+                               LongValue.create(blob));
       fieldResult.putThisField(env, SV_TYPE, env.createString(type));
       fieldResult.putThisField(env, SV_UNSIGNED,
-			       LongValue.create(unsigned));
+                               LongValue.create(unsigned));
       fieldResult.putThisField(env, SV_ZEROFILL, LongValue.create(zerofill));
 
       return fieldResult;
@@ -584,8 +584,8 @@ public class MysqlModule extends AbstractQuercusModule {
    * for a successful select
    */
   public static Value mysql_query(Env env,
-				  StringValue sql,
-				  @Optional Mysqli conn)
+                                  StringValue sql,
+                                  @Optional Mysqli conn)
   {
     if (conn == null)
       conn = getConnection(env);
@@ -1048,10 +1048,10 @@ public class MysqlModule extends AbstractQuercusModule {
    */
   public static Value mysql_connect(Env env,
                                     @Optional StringValue host,
-				                    @Optional StringValue userName,
-				                    @Optional StringValue password,
-				                    @Optional boolean isNewLink,
-				                    @Optional int flags)
+                                                    @Optional StringValue userName,
+                                                    @Optional StringValue password,
+                                                    @Optional boolean isNewLink,
+                                                    @Optional int flags)
   {
     int port = 3306;
     String socketStr = "";

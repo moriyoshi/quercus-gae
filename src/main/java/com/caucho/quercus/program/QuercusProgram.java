@@ -120,8 +120,8 @@ public class QuercusProgram {
    * @param statement the top-level statement
    */
   public QuercusProgram(Quercus quercus,
-			Path sourceFile,
-			QuercusPage page)
+                        Path sourceFile,
+                        QuercusPage page)
   {
     _quercus = quercus;
     _sourceFile = sourceFile;
@@ -161,7 +161,7 @@ public class QuercusProgram {
   {
     synchronized (this) {
       if (_isCompiling)
-	return false;
+        return false;
       
       _isCompiling = true;
     }
@@ -188,11 +188,11 @@ public class QuercusProgram {
   {
     synchronized (this) {
       if (_isCompiling) {
-	try {
-	  wait(120000);
-	} catch (Exception e) {
-	  log.log(Level.WARNING, e.toString(), e);
-	}
+        try {
+          wait(120000);
+        } catch (Exception e) {
+          log.log(Level.WARNING, e.toString(), e);
+        }
       }
     }
   }
@@ -337,11 +337,11 @@ public class QuercusProgram {
       Statement []statements = blockStmt.getStatements();
 
       if (statements.length > 0 &&
-	  statements[0] instanceof ExprStatement) {
-	ExprStatement exprStmt
-	  = (ExprStatement) statements[0];
+          statements[0] instanceof ExprStatement) {
+        ExprStatement exprStmt
+          = (ExprStatement) statements[0];
 
-	_statement = new ReturnStatement(exprStmt.getExpr());
+        _statement = new ReturnStatement(exprStmt.getExpr());
       }
     }
     
@@ -379,11 +379,11 @@ public class QuercusProgram {
   {
     synchronized (this) {
       if (_runtimeFunList == null) {
-	_runtimeFunList = funList;
+        _runtimeFunList = funList;
 
-	notifyAll();
+        notifyAll();
       
-	return true;
+        return true;
       }
     
       return false;
@@ -399,11 +399,11 @@ public class QuercusProgram {
   {
     synchronized (this) {
       if (_runtimeFunList == null) {
-	try {
-	  wait(timeout);
-	} catch (Exception e) {
-	  log.log(Level.FINER, e.toString(), e);
-	}
+        try {
+          wait(timeout);
+        } catch (Exception e) {
+          log.log(Level.FINER, e.toString(), e);
+        }
       }
     }
   }

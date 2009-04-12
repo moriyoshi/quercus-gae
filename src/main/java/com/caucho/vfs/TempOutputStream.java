@@ -40,7 +40,7 @@ public class TempOutputStream extends OutputStream
   {
     return _tail.getBuffer();
   }
-	   
+           
   public void write(int ch)
   {
     if (_tail == null)
@@ -57,13 +57,13 @@ public class TempOutputStream extends OutputStream
     int index = 0;
     while (index < length) {
       if (_tail == null)
-	addBuffer(TempBuffer.allocate());
+        addBuffer(TempBuffer.allocate());
       else if (_tail._buf.length <= _tail._length)
-	addBuffer(TempBuffer.allocate());
+        addBuffer(TempBuffer.allocate());
 
       int sublen = _tail._buf.length - _tail._length;
       if (length - index < sublen)
-	sublen = length - index;
+        sublen = length - index;
 
       System.arraycopy(buf, index + offset, _tail._buf, _tail._length, sublen);
 

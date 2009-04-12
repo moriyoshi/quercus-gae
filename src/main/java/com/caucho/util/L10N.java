@@ -81,18 +81,18 @@ public class L10N {
       is = getClass().getResourceAsStream(xmlName);
       
       if (is != null) {
-	RegistryNode registry = null;
+        RegistryNode registry = null;
 
-	try {
-	  ReadStream rs = Vfs.openRead(is);
+        try {
+          ReadStream rs = Vfs.openRead(is);
         
-	  Registry root = Registry.parse(rs);
-	  registry = root.getTop();
+          Registry root = Registry.parse(rs);
+          registry = root.getTop();
 
-	  rs.close();
-	} finally {
-	  is.close();
-	}
+          rs.close();
+        } finally {
+          is.close();
+        }
 
         messages = new HashMap<String,String>();
         

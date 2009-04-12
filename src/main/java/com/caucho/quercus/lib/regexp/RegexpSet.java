@@ -109,14 +109,14 @@ class RegexpSet {
   void setRange(int low, int high)
   {
     if (low > high || low < 0 || high > 0xffff)
-	throw new RuntimeException("Range out of range");
+        throw new RuntimeException("Range out of range");
 
     if (low < BITSET_CHARS) {
       for (int i = low; i < Math.min(high + 1, BITSET_CHARS); i++)
-	_bitset[i] = true;
+        _bitset[i] = true;
 
       if (high < BITSET_CHARS)
-	return;
+        return;
 
       low = BITSET_CHARS;
     }
@@ -137,7 +137,7 @@ class RegexpSet {
       _bitset[i] = _bitset[i] & next._bitset[i];
       
       if (_bitset[i])
-	isDisjoint = false;
+        isDisjoint = false;
     }
 
     if (_range.intersection(next._range))

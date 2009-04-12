@@ -58,9 +58,9 @@ public class StaticVarMethodExpr extends Expr {
   protected boolean _isMethod;
 
   public StaticVarMethodExpr(Location location,
-			     String className,
-			     Expr nameExpr,
-			     ArrayList<Expr> args)
+                             String className,
+                             Expr nameExpr,
+                             ArrayList<Expr> args)
   {
     super(location);
     
@@ -73,9 +73,9 @@ public class StaticVarMethodExpr extends Expr {
   }
 
   public StaticVarMethodExpr(Location location,
-			     String className,
-			     Expr nameExpr,
-			     Expr []args)
+                             String className,
+                             Expr nameExpr,
+                             Expr []args)
   {
     super(location);
     
@@ -87,8 +87,8 @@ public class StaticVarMethodExpr extends Expr {
   }
 
   public StaticVarMethodExpr(String className,
-			     Expr nameExpr,
-			     ArrayList<Expr> args)
+                             Expr nameExpr,
+                             ArrayList<Expr> args)
   {
     this(Location.UNKNOWN, className, nameExpr, args);
   }

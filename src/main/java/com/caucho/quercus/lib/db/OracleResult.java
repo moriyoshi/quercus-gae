@@ -55,7 +55,7 @@ public class OracleResult extends JdbcResultResource {
    * @param conn the corresponding connection
    */
   public OracleResult(Env env,
-		      Statement stmt,
+                      Statement stmt,
                       ResultSet rs,
                       Oracle conn)
   {
@@ -69,7 +69,7 @@ public class OracleResult extends JdbcResultResource {
    * @param conn the corresponding connection
    */
   public OracleResult(Env env,
-		      ResultSetMetaData metaData,
+                      ResultSetMetaData metaData,
                       Oracle conn)
   {
     super(env, metaData, conn);

@@ -122,7 +122,7 @@ public class QuercusZipEntry {
    */
   @ReturnNullAsFalse
     public StringValue zip_entry_read(Env env,
-				      @Optional("1024") int length)
+                                      @Optional("1024") int length)
   {
     if (_in == null)
       return null;

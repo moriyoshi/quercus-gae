@@ -128,8 +128,8 @@ public class OptionsModule extends AbstractQuercusModule {
    * Checks the assertion
    */
   public static Value assert_options(Env env,
-				     int code,
-				     @Optional("null") Value value)
+                                     int code,
+                                     @Optional("null") Value value)
   {
     Value result;
 
@@ -255,8 +255,8 @@ public class OptionsModule extends AbstractQuercusModule {
   public static Value get_magic_quotes_gpc(Env env)
   {
     return (env.getIniBoolean("magic_quotes_gpc")
-	    ? BooleanValue.TRUE
-	    : BooleanValue.FALSE);
+            ? BooleanValue.TRUE
+            : BooleanValue.FALSE);
   }
 
   /**
@@ -343,29 +343,29 @@ public class OptionsModule extends AbstractQuercusModule {
     ArrayValue value = new ArrayValueImpl();
 
     value.put(env.createString("ru_inblock"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_outblock"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_msgsnd"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_msgrcv"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_maxrss"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_ixrss"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_idrss"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_minflt"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_majflt"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_nsignals"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_nvcsw"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_nswap"),
-	      LongValue.create(0));
+              LongValue.create(0));
     value.put(env.createString("ru_utime.tv_sec"), LongValue.create(0));
     value.put(env.createString("ru_utime.tv_usec"), LongValue.create(0));
     value.put(env.createString("ru_stime.tv_sec"), LongValue.create(0));
@@ -402,7 +402,7 @@ public class OptionsModule extends AbstractQuercusModule {
    * @param extension assumes ini values are prefixed by extension names.
    */
   public static Value ini_get_all(Env env,
-				  @Optional() String extension)
+                                  @Optional() String extension)
   {
     if (extension.length() > 0) {
       if (! env.isExtensionLoaded(extension)) {
@@ -529,13 +529,13 @@ public class OptionsModule extends AbstractQuercusModule {
 
     case 'n':
       try {
-	InetAddress addr = InetAddress.getLocalHost();
-	
-	return addr.getHostName();
+        InetAddress addr = InetAddress.getLocalHost();
+        
+        return addr.getHostName();
       } catch (Exception e) {
-	log.log(Level.FINER, e.toString(), e);
+        log.log(Level.FINER, e.toString(), e);
 
-	return "localhost";
+        return "localhost";
       }
 
     case 'r':
@@ -550,10 +550,10 @@ public class OptionsModule extends AbstractQuercusModule {
     case 'a':
     default:
       return (php_uname("s") + " "
-	      + php_uname("n") + " "
-	      + php_uname("r") + " "
-	      + php_uname("v") + " "
-	      + php_uname("m"));
+              + php_uname("n") + " "
+              + php_uname("r") + " "
+              + php_uname("v") + " "
+              + php_uname("m"));
     }
   }
 
@@ -584,8 +584,8 @@ public class OptionsModule extends AbstractQuercusModule {
 
     env.println("PHP Version => " + phpversion(env, env.createString("std")));
     env.println("System => " + System.getProperty("os.name") + " "
-	      + System.getProperty("os.version") + " "
-	      + System.getProperty("os.arch"));
+              + System.getProperty("os.version") + " "
+              + System.getProperty("os.arch"));
     env.println("Build Date => " + env.getQuercus().getVersionDate());
     env.println("Configure Command => n/a");
     env.println("Server API => CGI");

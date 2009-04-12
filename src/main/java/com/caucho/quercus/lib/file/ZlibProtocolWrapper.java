@@ -60,7 +60,7 @@ public class ZlibProtocolWrapper extends ProtocolWrapper {
     }
 
     return ZlibModule.gzopen(env, pathComponent.toStringValue(),
-			     mode.toString(), 
+                             mode.toString(), 
                              useIncludePath);
   }
 

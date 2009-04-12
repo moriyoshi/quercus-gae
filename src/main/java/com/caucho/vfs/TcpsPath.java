@@ -35,15 +35,15 @@ import java.util.Map;
  */
 public class TcpsPath extends TcpPath {
   public TcpsPath(TcpPath root, String userPath,
-		  Map<String,Object> newAttributes,
-		  String host, int port)
+                  Map<String,Object> newAttributes,
+                  String host, int port)
   {
     super(root, userPath, newAttributes, host, port);
   }
 
   protected TcpPath create(TcpPath root,
-			   String userPath, Map<String,Object> newAttributes,
-			   String host, int port)
+                           String userPath, Map<String,Object> newAttributes,
+                           String host, int port)
   {
     return new TcpsPath(root, userPath, newAttributes, host, port);
   }

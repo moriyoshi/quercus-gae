@@ -48,14 +48,14 @@ public class GZInputStream extends InputStream
   private boolean _eof;
   private boolean _isGzip;
 
-  private byte[] _readBuffer;	//raw input data buffer
-  private byte[] _tbuffer;	//temporary buffer
+  private byte[] _readBuffer;   //raw input data buffer
+  private byte[] _tbuffer;      //temporary buffer
 
-  private int _readBufferSize;	//amount of raw data read into _readBuffer
-  private int _inputSize;	//decompressed bytes read so far
-			//  for the current 'append' stream
+  private int _readBufferSize;  //amount of raw data read into _readBuffer
+  private int _inputSize;       //decompressed bytes read so far
+                        //  for the current 'append' stream
 
-  private long _totalInputSize;	//total decompressed bytes read
+  private long _totalInputSize; //total decompressed bytes read
 
   public GZInputStream(InputStream in)
     throws IOException

@@ -68,9 +68,9 @@ public class ArrayIterator
   
   @Name("__construct")
   public Value __construct(Env env,
-			   @This Value qThis,
-			   @Optional Value value,
-			   @Optional int flags)
+                           @This Value qThis,
+                           @Optional Value value,
+                           @Optional int flags)
   {
     _env = env;
     _qThis = qThis;

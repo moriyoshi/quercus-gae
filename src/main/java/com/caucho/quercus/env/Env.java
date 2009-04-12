@@ -677,7 +677,7 @@ public class Env {
       _gmtDate = _freeGmtDateList.allocate();
 
       if (_gmtDate == null)
-	_gmtDate = new QDate();
+        _gmtDate = new QDate();
     }
 
     return _gmtDate;
@@ -689,7 +689,7 @@ public class Env {
       _localDate = _freeLocalDateList.allocate();
 
       if (_localDate == null)
-	_localDate = QDate.createLocal();
+        _localDate = QDate.createLocal();
     }
 
     return _localDate;
@@ -800,10 +800,10 @@ public class Env {
       try {
         _out.setEncoding(encoding);
       } catch (Exception e) {
-	log.log(Level.WARNING, e.toString(), e);
+        log.log(Level.WARNING, e.toString(), e);
       }
     }
-	
+        
     HashSet<ModuleStartupListener> listeners
       = _quercus.getModuleStartupListeners(); 
 
@@ -1061,9 +1061,9 @@ public class Env {
       long longV = (long) v;
       
       if (v == longV)
-	getOut().print(longV);
+        getOut().print(longV);
       else
-	getOut().print(v);
+        getOut().print(v);
     } catch (IOException e) {
       throw new QuercusModuleException(e);
     }
@@ -1406,8 +1406,8 @@ public class Env {
       Value var = getGlobalVar("_SESSION");
       
       if (! (var instanceof SessionVar)) {
-	var = new SessionVar();
-	setGlobalValue("_SESSION", var);
+        var = new SessionVar();
+        setGlobalValue("_SESSION", var);
       }
 
       var.set(session);
@@ -1722,7 +1722,7 @@ public class Env {
     if (var == null) {
       // php/0809
       if (Quercus.isSuperGlobal(name))
-	return getGlobalRef(name);
+        return getGlobalRef(name);
     }
 
     return var;
@@ -1829,8 +1829,8 @@ public class Env {
       Value value = _scriptGlobalMap.get(name);
 
       if (value != null) {
-	envVar = new EnvVarImpl(new Var());
-	envVar.setRef(value);
+        envVar = new EnvVarImpl(new Var());
+        envVar.setRef(value);
       }
     }
 
@@ -2052,7 +2052,7 @@ public class Env {
     switch (specialVarId) {
       case _ENV: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2064,12 +2064,12 @@ public class Env {
       case HTTP_POST_VARS:
         if (! Quercus.INI_REGISTER_LONG_ARRAYS.getAsBoolean(this))
           return null;
-	else
-	  return getGlobalEnvVar("_POST");
-	
+        else
+          return getGlobalEnvVar("_POST");
+        
       case _POST: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2095,12 +2095,12 @@ public class Env {
       case HTTP_POST_FILES:
         if (! Quercus.INI_REGISTER_LONG_ARRAYS.getAsBoolean(this))
           return null;
-	else
-	  return getGlobalEnvVar("_FILES");
-	
+        else
+          return getGlobalEnvVar("_FILES");
+        
       case _FILES: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2120,8 +2120,8 @@ public class Env {
       case HTTP_GET_VARS:
         if (! Quercus.INI_REGISTER_LONG_ARRAYS.getAsBoolean(this))
           return null;
-	else
-	  return getGlobalEnvVar("_GET");
+        else
+          return getGlobalEnvVar("_GET");
       
       case _GET: {
         if (isCheckGlobal) {
@@ -2158,7 +2158,7 @@ public class Env {
       
       case _REQUEST: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         ArrayValue array = new ArrayValueImpl();
 
@@ -2236,7 +2236,7 @@ public class Env {
           return null;
         
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
         
@@ -2248,12 +2248,12 @@ public class Env {
       case HTTP_SERVER_VARS:
         if (! Quercus.INI_REGISTER_LONG_ARRAYS.getAsBoolean(this))
           return null;
-	else
-	  return getGlobalEnvVar("_SERVER");
+        else
+          return getGlobalEnvVar("_SERVER");
       
       case _SERVER: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2264,7 +2264,7 @@ public class Env {
 
       case _GLOBAL: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2276,12 +2276,12 @@ public class Env {
       case HTTP_COOKIE_VARS:
         if (! Quercus.INI_REGISTER_LONG_ARRAYS.getAsBoolean(this))
           return null;
-	else
-	  return getGlobalEnvVar("_COOKIE");
+        else
+          return getGlobalEnvVar("_COOKIE");
       
       case _COOKIE: {
         var = new Var();
-	envVar = new EnvVarImpl(var);
+        envVar = new EnvVarImpl(var);
 
         _globalMap.put(name, envVar);
 
@@ -2356,7 +2356,7 @@ public class Env {
 
     if (value == null) {
       Bindings bindings
-	= _scriptContext.getBindings(ScriptContext.ENGINE_SCOPE);
+        = _scriptContext.getBindings(ScriptContext.ENGINE_SCOPE);
 
       if (bindings != null)
         value = bindings.get(name);
@@ -2522,11 +2522,11 @@ public class Env {
    * @param name of the variable
    */
   public Value getStaticClassFieldValue(String className,
-					String name)
+                                        String name)
   {
     return getStaticClassFieldValue(className + "::" + name,
-				    className,
-				    name);
+                                    className,
+                                    name);
   }
 
   /**
@@ -2537,8 +2537,8 @@ public class Env {
    * @param name of the variable
    */
   public Value getStaticClassFieldValue(String fieldName,
-					String className,
-					String name)
+                                        String className,
+                                        String name)
   {
     Var var = getStaticClassFieldVar(fieldName, className, name);
     
@@ -2558,11 +2558,11 @@ public class Env {
    * @param name of the variable
    */
   public Value getStaticClassFieldVar(String className,
-					String name)
+                                        String name)
   {
     return getStaticClassFieldVar(className + "::" + name,
-				  className,
-				    name);
+                                  className,
+                                    name);
   }
 
   /**
@@ -2572,8 +2572,8 @@ public class Env {
    * @param name of the variable
    */
   public final Var getStaticClassFieldVar(String fieldName,
-					  String className,
-					  String name)
+                                          String className,
+                                          String name)
   {
     EnvVar envVar = getGlobalRaw(fieldName);
 
@@ -2768,18 +2768,18 @@ public class Env {
       String loc;
 
       if (location != null && location.getFileName() != null) {
-	loc = (" (at " + location.getFileName()
-	       + ":" + location.getLineNumber() + ")");
+        loc = (" (at " + location.getFileName()
+               + ":" + location.getLineNumber() + ")");
       }
       else
-	loc = "";
+        loc = "";
       
       if (_callThisStack[i] != null
-	  && ! "".equals(_callThisStack[i].toString())) {
-	entry = _callThisStack[i] + "." + _callStack[i].toString() + loc;
+          && ! "".equals(_callThisStack[i].toString())) {
+        entry = _callThisStack[i] + "." + _callStack[i].toString() + loc;
       }
       else
-	entry = _callStack[i].toString() + loc;
+        entry = _callStack[i].toString() + loc;
 
       trace.add(entry);
     }
@@ -2907,7 +2907,7 @@ public class Env {
       value = _lowerConstMap.get(name.toLowerCase());
 
       if (value != null)
-	return value;
+        return value;
     }
 
     return null;
@@ -2944,7 +2944,7 @@ public class Env {
       value = _lowerConstMap.get(name.toLowerCase());
 
       if (value != null)
-	return value;
+        return value;
     }
 
     return null;
@@ -3034,7 +3034,7 @@ public class Env {
 
     for (int i = 0; i < _const.length; i++) {
       if (_const[i] != null) {
-	result.append(_quercus.getConstantName(i), _const[i]);
+        result.append(_quercus.getConstantName(i), _const[i]);
       }
     }
 
@@ -3091,13 +3091,13 @@ public class Env {
 
     for (int i = 0; i < envFuns.length; i++) {
       if (i < systemFuns.length
-	  && systemFuns[i] != null
-	  && ! (systemFuns[i] instanceof UndefinedFunction)) {
-	system.append(createString(systemFuns[i].getName()));
+          && systemFuns[i] != null
+          && ! (systemFuns[i] instanceof UndefinedFunction)) {
+        system.append(createString(systemFuns[i].getName()));
       }
       else if (envFuns[i] != null
-	       && ! (envFuns[i] instanceof UndefinedFunction)) {
-	user.append(createString(envFuns[i].getName()));
+               && ! (envFuns[i] instanceof UndefinedFunction)) {
+        user.append(createString(envFuns[i].getName()));
       }
     }
 
@@ -3119,9 +3119,9 @@ public class Env {
 
     if (id >= 0) {
       if (id < _fun.length && ! (_fun[id] instanceof UndefinedFunction))
-	return _fun[id];
+        return _fun[id];
       else
-	return null;
+        return null;
     }
 
     /*
@@ -3139,7 +3139,7 @@ public class Env {
 
     if (id >= 0) {
       if (id < _fun.length && ! (_fun[id] instanceof UndefinedFunction))
-	return _fun[id];
+        return _fun[id];
       else
         return null;
     }
@@ -3276,7 +3276,7 @@ public class Env {
    * @param lowerName the function name, must be an intern() string
    */
   public Value addFunctionFromPage(String name, String lowerName,
-				   AbstractFunction fun)
+                                   AbstractFunction fun)
   {
     // XXX: skip the old function check since the include for compiled
     // pages is already verified.  Might have a switch here?
@@ -3403,7 +3403,7 @@ public class Env {
     String message = e.getMessage(this);
     
     error(location,
-	  L.l("Uncaught exception of type '{0}' with message '{1}'", type, message));
+          L.l("Uncaught exception of type '{0}' with message '{1}'", type, message));
   }
 
   /**
@@ -3879,8 +3879,8 @@ public class Env {
   {
     if (s == null || s.length() == 0) {
       return (_isUnicodeSemantics
-	      ? UnicodeBuilderValue.EMPTY
-	      : ConstStringValue.EMPTY);
+              ? UnicodeBuilderValue.EMPTY
+              : ConstStringValue.EMPTY);
     }
     else if (s.length() == 1) {
       if (_isUnicodeSemantics)
@@ -4205,9 +4205,9 @@ public class Env {
       QuercusClass qcl = findClassExt(name, useAutoload, useImport);
 
       if (qcl != null)
-	_qClass[id] = qcl;
+        _qClass[id] = qcl;
       else
-	return null;
+        return null;
 
       return qcl;
     }
@@ -4248,10 +4248,10 @@ public class Env {
               _autoload.call(this, nameString);
 
               // php/0976
-	      QuercusClass cls = findClass(name, false, useImport);
+              QuercusClass cls = findClass(name, false, useImport);
             
-	      if (cls != null)
-		return cls;
+              if (cls != null)
+                return cls;
             }
           }
         } finally {
@@ -4321,10 +4321,10 @@ public class Env {
       QuercusClass cl = findClass(classId, true, true);
       
       if (cl != null)
-	return cl;
+        return cl;
       else
-	throw new QuercusException(L.l("'{0}' is an unknown class",
-				       _quercus.getClassName(classId)));
+        throw new QuercusException(L.l("'{0}' is an unknown class",
+                                       _quercus.getClassName(classId)));
     }
 
     int parentId = -1;
@@ -4363,9 +4363,9 @@ public class Env {
     QuercusClass qClass = _quercus.getCachedClass(classId);
 
     if (qClass == null
-	|| qClass.isModified()
-	|| qClass.getClassDef() != def
-	|| qClass.getParent() != parentClass) {
+        || qClass.isModified()
+        || qClass.getClassDef() != def
+        || qClass.getParent() != parentClass) {
       qClass = createQuercusClass(classId, def, parentClass);
 
       _quercus.setCachedClass(classId, qClass);
@@ -4405,8 +4405,8 @@ public class Env {
    * @return the found class or null if no class found.
    */
   private QuercusClass createClassFromCache(int id,
-					    boolean useAutoload,
-					    boolean useImport)
+                                            boolean useAutoload,
+                                            boolean useImport)
   {
     if (id < _classDef.length && _classDef[id] != null) {
       ClassDef classDef = _classDef[id];
@@ -4616,9 +4616,9 @@ public class Env {
     }
     
     if (qClass == null
-	|| qClass.isModified()
-	|| qClass.getClassDef() != def
-	|| qClass.getParent() != parent) {
+        || qClass.isModified()
+        || qClass.getClassDef() != def
+        || qClass.getParent() != parent) {
       qClass = new QuercusClass(getModuleContext(), def, parent);
       _qClass[id] = qClass;
       
@@ -4692,7 +4692,7 @@ public class Env {
       else {
         String className = s.substring(0, p);
         String methodName = s.substring(p + 2);
-	
+        
         QuercusClass cl = findClass(className);
 
         if (cl == null)
@@ -4723,12 +4723,12 @@ public class Env {
 
           QuercusClass cls = findClass(clsName);
 
-	  if (cls == null) {
-	    warning(L.l("Callback: '{0}' is not a valid callback class for {1}",
-			clsName, name));
-	  
-	    return null;
-	  }
+          if (cls == null) {
+            warning(L.l("Callback: '{0}' is not a valid callback class for {1}",
+                        clsName, name));
+          
+            return null;
+          }
 
           if (cls == null)
             throw new IllegalStateException(L.l("can't find class '{0}'",
@@ -4745,11 +4745,11 @@ public class Env {
         QuercusClass cl = findClass(obj.toString());
 
         if (cl == null) {
-	  warning(L.l("Callback: '{0}' is not a valid callback string for {1}",
-		      obj.toString(), obj));
-	  
+          warning(L.l("Callback: '{0}' is not a valid callback string for {1}",
+                      obj.toString(), obj));
+          
           return null;
-	}
+        }
 
         return new CallbackFunction(cl.getFunction(name));
       }
@@ -4794,7 +4794,7 @@ public class Env {
    * Evaluates an included file.
    */
   public Value includeOnce(Path scriptPwd, StringValue include,
-			   boolean isRequire)
+                           boolean isRequire)
   {
     return include(scriptPwd, include, isRequire, true);
   }
@@ -4803,7 +4803,7 @@ public class Env {
    * Evaluates an included file.
    */
   public Value include(Path scriptPwd, StringValue include,
-		       boolean isRequire, boolean isOnce)
+                       boolean isRequire, boolean isOnce)
   {
     try {
       Path pwd = getPwd();
@@ -4824,7 +4824,7 @@ public class Env {
       // php/0b2d
       if (! _isAllowUrlInclude && isUrl(path)) {
         String msg = (L.l("not allowed to include url {0}", path.getURL()));
-	
+        
         log.warning(dbgId() + msg);
         error(msg);
 
@@ -4932,11 +4932,11 @@ public class Env {
 
       /*
       if (path == null)
-	path = NullPath.NULL;
+        path = NullPath.NULL;
       */
 
       if (path != null)
-	_quercus.putIncludeCache(include, includePath, pwd, scriptPwd, path);
+        _quercus.putIncludeCache(include, includePath, pwd, scriptPwd, path);
     }
 
     if (path == NullPath.NULL)
@@ -4965,8 +4965,8 @@ public class Env {
   }
     
   private Path lookupIncludeImpl(StringValue includeValue,
-				 Path pwd,
-				 Path scriptPwd)
+                                 Path pwd,
+                                 Path scriptPwd)
   {
     String include = normalizePath(includeValue);
     
@@ -4984,7 +4984,7 @@ public class Env {
       path = scriptPwd.lookup(include);
 
       if (! includeExists(path))
-	path = null;
+        path = null;
     }
 
     return path;
@@ -5056,7 +5056,7 @@ public class Env {
       pathList = new ArrayList<Path>();
 
       for (int i = 0; i < _includePathList.size(); i++) {
-	pathList.add(pwd.lookup(_includePathList.get(i)));
+        pathList.add(pwd.lookup(_includePathList.get(i)));
       }
 
       _includePathMap.put(pwd, pathList);
@@ -5389,13 +5389,13 @@ public class Env {
    * Check for type hinting
    */
   public void checkTypeHint(Value value,
-			    String type,
-			    String argName,
-			    String functionName)
+                            String type,
+                            String argName,
+                            String functionName)
   {
     if (value.isNull()) {
       error(L.l("'{0}' is an unexpected value for arg '{1}' in function '{2}', expected '{3}'",
-		value, argName, functionName, type));
+                value, argName, functionName, type));
     }
   }
       
@@ -5764,7 +5764,7 @@ public class Env {
     }
 
     if (code >= 0 && code < _errorHandlers.length
-	&& _errorHandlers[code] != null) {
+        && _errorHandlers[code] != null) {
       Callback handler = _errorHandlers[code];
 
       try {
@@ -5772,8 +5772,8 @@ public class Env {
 
         Value fileNameV = NullValue.NULL;
 
-	if (location == null)
-	  location = getLocation();
+        if (location == null)
+          location = getLocation();
 
         String fileName = location.getFileName();
 
@@ -5805,19 +5805,19 @@ public class Env {
 
     if ((_errorMask & mask) != 0) {
       try {
-	String fullMsg = (getLocationPrefix(location, loc)
-			  + getCodeName(mask) + msg);
+        String fullMsg = (getLocationPrefix(location, loc)
+                          + getCodeName(mask) + msg);
 
-	if (getIniBoolean("track_errors"))
-	  setGlobalValue("php_errormsg", createString(fullMsg));
-	
-	if ("stderr".equals(getIniString("display_errors")))
-	  System.err.println(fullMsg);
-	else if (getIniBoolean("display_errors"))
-	  getOut().println(fullMsg);
+        if (getIniBoolean("track_errors"))
+          setGlobalValue("php_errormsg", createString(fullMsg));
+        
+        if ("stderr".equals(getIniString("display_errors")))
+          System.err.println(fullMsg);
+        else if (getIniBoolean("display_errors"))
+          getOut().println(fullMsg);
 
-	if (getIniBoolean("log_errors"))
-	  log.info(fullMsg);
+        if (getIniBoolean("log_errors"))
+          log.info(fullMsg);
       }
       catch (IOException e) {
         log.log(Level.FINE, e.toString(), e);
@@ -5829,14 +5829,14 @@ public class Env {
       String locPrefix = getLocationPrefix(location, loc);
       
       if (! "".equals(locPrefix)) {
-	/*
+        /*
         throw new QuercusLineExitException(getLocation() +
                                               getCodeName(mask) +
                                               msg);
-	*/
+        */
         throw new QuercusErrorException(locPrefix
-					+ getCodeName(mask)
-					+ msg);
+                                        + getCodeName(mask)
+                                        + msg);
       }
       else
         throw new QuercusErrorException(msg);
@@ -5972,7 +5972,7 @@ public class Env {
     }
     finally {
       if (is != null)
-	is.close();
+        is.close();
     }
 
     return null;
@@ -6255,25 +6255,25 @@ public class Env {
 
     if (_objCleanupList != null) {
       for (int i = _objCleanupList.size() - 1; i >= 0; i--) {
-	ObjectExtValue objCleanup = _objCleanupList.get(i);
-	try {
-	  if (objCleanup != null)
-	    objCleanup.cleanup(this);
-	}
-	catch (Throwable e) {
-	  log.log(Level.FINER, e.toString(), e);
-	}
+        ObjectExtValue objCleanup = _objCleanupList.get(i);
+        try {
+          if (objCleanup != null)
+            objCleanup.cleanup(this);
+        }
+        catch (Throwable e) {
+          log.log(Level.FINER, e.toString(), e);
+        }
       }
     }
       
     if (_shutdownList != null) {
       for (int i = 0; i < _shutdownList.size(); i++) {
-	try {
-	  _shutdownList.get(i).call(this);
-	}
-	catch (Throwable e) {
-	  log.log(Level.FINE, e.toString(), e);
-	}
+        try {
+          _shutdownList.get(i).call(this);
+        }
+        catch (Throwable e) {
+          log.log(Level.FINE, e.toString(), e);
+        }
       }
     }
 
@@ -6285,18 +6285,18 @@ public class Env {
 
     if (_cleanupList != null) {
       ArrayList<EnvCleanup> cleanupList
-	= new ArrayList<EnvCleanup>(_cleanupList);
+        = new ArrayList<EnvCleanup>(_cleanupList);
 
       // cleanup is in reverse order of creation
       for (int i = cleanupList.size() - 1; i >= 0; i--) {
-	EnvCleanup envCleanup = cleanupList.get(i);
-	try {
-	  if (envCleanup != null)
-	    envCleanup.cleanup();
-	}
-	catch (Throwable e) {
-	  log.log(Level.FINER, e.toString(), e);
-	}
+        EnvCleanup envCleanup = cleanupList.get(i);
+        try {
+          if (envCleanup != null)
+            envCleanup.cleanup();
+        }
+        catch (Throwable e) {
+          log.log(Level.FINER, e.toString(), e);
+        }
       }
     }
 
@@ -6306,10 +6306,10 @@ public class Env {
       Path path = _removePaths.get(i);
 
       try {
-	path.remove();
+        path.remove();
       }
       catch (IOException e) {
-	log.log(Level.FINER, e.toString(), e);
+        log.log(Level.FINER, e.toString(), e);
       }
     }
 
@@ -6319,21 +6319,21 @@ public class Env {
       boolean isUsed = false;
 
       if (_page.setRuntimeFunction(fun)) {
-	isUsed = true;
+        isUsed = true;
       }
 
       for (QuercusPage page : _includeMap.values()) {
-	if (page.setRuntimeFunction(fun)) {
-	  isUsed = true;
-	}
+        if (page.setRuntimeFunction(fun)) {
+          isUsed = true;
+        }
       }
 
       if (! isUsed) {
-	for (int i = fun.length - 1; i >= 0; i--) {
-	  fun[i] = null;
-	}
+        for (int i = fun.length - 1; i >= 0; i--) {
+          fun[i] = null;
+        }
       
-	_freeFunList.free(fun);
+        _freeFunList.free(fun);
       }
     }
 
@@ -6401,7 +6401,7 @@ public class Env {
         _quercus.saveSession(this, session);
 
         Value sessionCopy = session.copy(this);
-	
+        
         setGlobalValue("_SESSION", sessionCopy);
         setGlobalValue("HTTP_SESSION_VARS", sessionCopy);
       }
@@ -6446,9 +6446,9 @@ public class Env {
       _defRef = new WeakReference<ClassDef>(def);
 
       if (parent != null)
-	_parentRef = new WeakReference<QuercusClass>(parent);
+        _parentRef = new WeakReference<QuercusClass>(parent);
       else
-	_parentRef = null;
+        _parentRef = null;
 
       // hash needs to be precalculated so losing a weak references won't
       // change the result
@@ -6456,10 +6456,10 @@ public class Env {
       int hash = 37;
 
       if (def != null)
-	hash = 65521 * hash + def.hashCode();
+        hash = 65521 * hash + def.hashCode();
 
       if (parent != null)
-	hash = 65521 * hash + parent.hashCode();
+        hash = 65521 * hash + parent.hashCode();
 
       _hash = hash;
     }
@@ -6477,13 +6477,13 @@ public class Env {
       ClassDef bDef = key._defRef.get();
 
       if (aDef != bDef)
-	return false;
+        return false;
 
       if (_parentRef == key._parentRef)
-	return true;
+        return true;
       
       else if (_parentRef == null || key._parentRef == null)
-	return false;
+        return false;
 
       QuercusClass aParent = _parentRef.get();
       QuercusClass bParent = key._parentRef.get();
@@ -6495,8 +6495,8 @@ public class Env {
     public String toString()
     {
       return (getClass().getSimpleName()
-	      + "[" + _defRef.get() + ","
-	      + (_parentRef != null ? _parentRef.get() : null) + "]");
+              + "[" + _defRef.get() + ","
+              + (_parentRef != null ? _parentRef.get() : null) + "]");
     }
   }
 

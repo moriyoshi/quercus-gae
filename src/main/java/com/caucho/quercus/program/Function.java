@@ -271,10 +271,10 @@ public class Function extends AbstractFunction {
         return env.error("expected default expression");
       else if (arg.isReference())
         map.put(arg.getName(),
-		new EnvVarImpl(defaultExpr.evalRef(env).toVar()));
+                new EnvVarImpl(defaultExpr.evalRef(env).toVar()));
       else {
         map.put(arg.getName(),
-		new EnvVarImpl(defaultExpr.eval(env).copy().toVar()));
+                new EnvVarImpl(defaultExpr.eval(env).copy().toVar()));
       }
     }
 
@@ -346,7 +346,7 @@ public class Function extends AbstractFunction {
                             arg.getName(),
                             getName());
         }
-	  
+          
         // quercus/0d04
         map.put(arg.getName(), new EnvVarImpl(var));
       }

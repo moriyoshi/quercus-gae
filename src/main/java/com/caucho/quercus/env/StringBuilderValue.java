@@ -952,9 +952,9 @@ public class StringBuilderValue
    * Returns true if the region matches
    */
   public boolean regionMatchesIgnoreCase(int offset,
-			                             char []mBuffer,
-			                             int mOffset,
-			                             int mLength)
+                                                     char []mBuffer,
+                                                     int mOffset,
+                                                     int mLength)
   {
     int length = _length;
 
@@ -1378,15 +1378,15 @@ public class StringBuilderValue
         charBuffer[charLength++] = (byte) ch;
       else if (ch < 0xe0) {
         int ch2 = buf[offset++] & 0xff;
-	
+        
         int v = (char) (((ch & 0x1f) << 6) + (ch2 & 0x3f));
-	
+        
         charBuffer[charLength++] = (byte) (v & 0xff);
       }
       else {
         int ch2 = buf[offset++] & 0xff;
         int ch3 = buf[offset++] & 0xff;
-	
+        
         byte v = (byte) (((ch & 0xf) << 12)
                          + ((ch2 & 0x3f) << 6)
                          + ((ch3) << 6));
@@ -1755,11 +1755,11 @@ public class StringBuilderValue
       int len = rString.length();
 
       if (_length != len)
-	return false;
+        return false;
 
       for (int i = len - 1; i >= 0; i--) {
-	if (_buffer[i] != rString.charAt(i))
-	  return false;
+        if (_buffer[i] != rString.charAt(i))
+          return false;
       }
       
       return true;

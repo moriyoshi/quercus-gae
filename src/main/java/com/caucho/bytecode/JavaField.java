@@ -199,7 +199,7 @@ public class JavaField extends JField {
       Attribute attr = _attributes.get(i);
 
       if (attr.getName().equals(name))
-	return attr;
+        return attr;
     }
 
     return null;
@@ -214,22 +214,22 @@ public class JavaField extends JField {
       Attribute attr = getAttribute("RuntimeVisibleAnnotations");
 
       if (attr instanceof OpaqueAttribute) {
-	byte []buffer = ((OpaqueAttribute) attr).getValue();
+        byte []buffer = ((OpaqueAttribute) attr).getValue();
 
-	try {
-	  ByteArrayInputStream is = new ByteArrayInputStream(buffer);
+        try {
+          ByteArrayInputStream is = new ByteArrayInputStream(buffer);
 
-	  ConstantPool cp = _jClass.getConstantPool();
+          ConstantPool cp = _jClass.getConstantPool();
 
-	  _annotations = JavaAnnotation.parseAnnotations(is, cp,
-							 getClassLoader());
-	} catch (IOException e) {
-	  log.log(Level.FINER, e.toString(), e);
-	}
+          _annotations = JavaAnnotation.parseAnnotations(is, cp,
+                                                         getClassLoader());
+        } catch (IOException e) {
+          log.log(Level.FINER, e.toString(), e);
+        }
       }
 
       if (_annotations == null) {
-	_annotations = new JavaAnnotation[0];
+        _annotations = new JavaAnnotation[0];
       }
     }
 

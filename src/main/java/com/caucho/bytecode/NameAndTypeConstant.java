@@ -42,7 +42,7 @@ public class NameAndTypeConstant extends ConstantPoolEntry {
    * Creates a new name-and-type ref constant.
    */
   NameAndTypeConstant(ConstantPool pool, int index,
-		      int nameIndex, int descriptorIndex)
+                      int nameIndex, int descriptorIndex)
   {
     super(pool, index);
 

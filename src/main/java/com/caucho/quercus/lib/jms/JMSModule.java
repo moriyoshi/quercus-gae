@@ -80,7 +80,7 @@ public class JMSModule extends AbstractQuercusModule
       Destination queue = null;
 
       if (queueName != null && ! queueName.equals(""))
-	queue = (Destination) new InitialContext().lookup("java:comp/env/" + queueName);
+        queue = (Destination) new InitialContext().lookup("java:comp/env/" + queueName);
       
       return new JMSQueue(connectionFactory, queue);
     } catch (Exception e) {

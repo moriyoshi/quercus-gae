@@ -65,9 +65,9 @@ public class UnserializeCacheEntry
       CopyRoot copy = copyRef.get();
 
       if (copy != null) {
-	copy.allocate(env);
+        copy.allocate(env);
 
-	return copy.getRoot();
+        return copy.getRoot();
       }
     }
 

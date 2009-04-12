@@ -102,7 +102,7 @@ public class UTF16_REVReader extends EncodingReader {
       int ch2 = is.read();
 
       if (ch2 < 0)
-	return i == 0 ? -1 : i;
+        return i == 0 ? -1 : i;
 
       cbuf[off + i] = (char) ((ch2 << 8) + ch1);
     }
