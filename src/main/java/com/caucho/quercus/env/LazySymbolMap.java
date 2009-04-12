@@ -31,7 +31,6 @@ package com.caucho.quercus.env;
 
 import com.caucho.java.LineMap;
 import com.caucho.java.WorkDir;
-import com.caucho.loader.SimpleLoader;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.Quercus;
 import com.caucho.quercus.expr.Expr;
