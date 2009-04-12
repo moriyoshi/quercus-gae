@@ -643,21 +643,6 @@ public class Quercus
   }
 
   /**
-   * Adds a module
-   */
-  /*
-  public void addModule(QuercusModule module)
-    throws ConfigException
-  {
-    try {
-      introspectPhpModuleClass(module.getClass());
-    } catch (Exception e) {
-      throw ConfigException.create(e);
-    }
-  }
-  */
-
-  /**
    * Adds a java class
    */
   public void addJavaClass(String name, Class type)
