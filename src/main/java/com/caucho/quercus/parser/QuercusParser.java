@@ -44,6 +44,7 @@ import com.caucho.vfs.*;
 
 import java.io.CharConversionException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -513,7 +514,7 @@ public class QuercusParser {
     int token = parsePhpText();
 
     if (_lexeme.length() > 0)
-      statements.add(_factory.createText(location, _lexeme));
+      statements.add(_factory.createText(location, _lexeme, _quercus.getScriptEncoding()));
 
     if (token == TEXT_ECHO) {
       parseEcho(statements);
@@ -707,13 +708,13 @@ public class QuercusParser {
 
       case TEXT:
         if (_lexeme.length() > 0) {
-          statementList.add(_factory.createText(location, _lexeme));
+          statementList.add(_factory.createText(location, _lexeme, _quercus.getScriptEncoding()));
         }
         break;
 
       case TEXT_PHP:
         if (_lexeme.length() > 0) {
-          statementList.add(_factory.createText(location, _lexeme));
+          statementList.add(_factory.createText(location, _lexeme, _quercus.getScriptEncoding()));
         }
 
         _peekToken = parseToken();
@@ -725,7 +726,7 @@ public class QuercusParser {
         
       case TEXT_ECHO:
         if (_lexeme.length() > 0)
-          statementList.add(_factory.createText(location, _lexeme));
+          statementList.add(_factory.createText(location, _lexeme, _quercus.getScriptEncoding()));
 
         parseEcho(statementList);
 
@@ -783,7 +784,7 @@ public class QuercusParser {
 
     case TEXT:
       if (_lexeme.length() > 0) {
-        return _factory.createText(location, _lexeme);
+        return _factory.createText(location, _lexeme, _quercus.getScriptEncoding());
       }
       else
         return parseStatement();
@@ -793,7 +794,7 @@ public class QuercusParser {
         Statement stmt = null;
         
         if (_lexeme.length() > 0) {
-          stmt = _factory.createText(location, _lexeme);
+          stmt = _factory.createText(location, _lexeme, _quercus.getScriptEncoding());
         }
 
         _peekToken = parseToken();
@@ -918,7 +919,7 @@ public class QuercusParser {
       StringLiteralExpr string = (StringLiteralExpr) expr;
       
       Statement statement
-        = _factory.createText(location, string.evalConstant().toString());
+        = _factory.createText(location, string.evalConstant().toStringValue());
 
       statements.add(statement);
     }
@@ -4795,7 +4796,7 @@ public class QuercusParser {
     if (_quercus != null && _quercus.isUnicodeSemantics())
       return _factory.createUnicode(lexeme);
     else
-      return _factory.createString(lexeme);
+      return _factory.createString(lexeme, _quercus.getScriptEncoding());
   }
 
   private StringValue createStringValue(String lexeme)
@@ -4803,8 +4804,14 @@ public class QuercusParser {
     // XXX: see QuercusParser.parseDefault for _quercus == null
     if (_quercus != null && _quercus.isUnicodeSemantics())
       return new UnicodeBuilderValue(lexeme);
-    else
-      return new ConstStringValue(lexeme);
+    else {
+      try {
+        return new StringBuilderValue(
+            lexeme.getBytes(_quercus.getScriptEncoding()));
+      } catch (UnsupportedEncodingException e) {
+        return new ConstStringValue(lexeme);
+      }
+    }
   }
 
   private Expr createBinary(byte []bytes)
@@ -4813,7 +4820,7 @@ public class QuercusParser {
     if (_quercus != null && _quercus.isUnicodeSemantics())
       return _factory.createBinary(bytes);
     else
-      return _factory.createString(new String(bytes));
+      return _factory.createString(new StringBuilderValue(bytes));
   }
 
   /**

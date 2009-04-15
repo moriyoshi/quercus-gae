@@ -32,6 +32,7 @@ package com.caucho.quercus.env;
 import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.quercus.expr.ClassConstExpr;
 import com.caucho.quercus.expr.Expr;
+import com.caucho.quercus.expr.UnicodeLiteralExpr;
 import com.caucho.quercus.expr.StringLiteralExpr;
 import com.caucho.quercus.module.ModuleContext;
 import com.caucho.quercus.function.AbstractFunction;
@@ -49,6 +50,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Represents a Quercus runtime class.
@@ -1087,7 +1089,16 @@ public class QuercusClass {
         return fun.callMethod(env, thisValue, args);
       else if (getCall() != null) {
         Expr []newArgs = new Expr[args.length + 1];
-        newArgs[0] = new StringLiteralExpr(toMethod(name, nameLength));
+        String mtd = toMethod(name, nameLength);
+        if (env.isUnicodeSemantics())
+          newArgs[0] = new UnicodeLiteralExpr(mtd);
+        else {
+          try {
+            newArgs[0] = new StringLiteralExpr(new StringBuilderValue(mtd.getBytes(env.getQuercus().getScriptEncoding())));
+          } catch (UnsupportedEncodingException e) {
+            newArgs[0] = new StringLiteralExpr(new ConstStringValue(mtd));
+          }
+        }
         System.arraycopy(args, 0, newArgs, 1, args.length);
         
         return getCall().callMethod(env, thisValue, newArgs);
@@ -1117,7 +1128,16 @@ public class QuercusClass {
         return fun.callMethod(env, thisValue, args);
       else if (getCall() != null) {
         Expr []newArgs = new Expr[args.length + 1];
-        newArgs[0] = new StringLiteralExpr(methodName.toString());
+        String mtd = methodName.toString();
+        if (env.isUnicodeSemantics())
+          newArgs[0] = new UnicodeLiteralExpr(mtd);
+        else {
+          try {
+            newArgs[0] = new StringLiteralExpr(new StringBuilderValue(mtd.getBytes(env.getQuercus().getScriptEncoding())));
+          } catch (UnsupportedEncodingException e) {
+            newArgs[0] = new StringLiteralExpr(new ConstStringValue(mtd));
+          }
+        }
         System.arraycopy(args, 0, newArgs, 1, args.length);
         
         return getCall().callMethod(env, thisValue, newArgs);
@@ -1406,7 +1426,11 @@ public class QuercusClass {
         return fun.callMethodRef(env, thisValue, args);
       else if (getCall() != null) {
         Expr []newArgs = new Expr[args.length + 1];
-        newArgs[0] = new StringLiteralExpr(methodName.toString());
+        if (env.isUnicodeSemantics())
+          newArgs[0] = new UnicodeLiteralExpr(methodName);
+        else
+          newArgs[0] = new StringLiteralExpr(methodName);
+
         System.arraycopy(args, 0, newArgs, 1, args.length);
         
         return getCall().callMethodRef(env, thisValue, newArgs);

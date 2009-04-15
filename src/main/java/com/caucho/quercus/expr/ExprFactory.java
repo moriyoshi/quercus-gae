@@ -41,6 +41,7 @@ import com.caucho.vfs.Path;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Factory for creating PHP expressions and statements
@@ -78,7 +79,21 @@ public class ExprFactory {
   /**
    * Creates a string (php5) literal expression.
    */
-  public Expr createString(String lexeme)
+  public Expr createString(String lexeme, String encoding)
+  {
+    byte[] buffer = null;
+    try {
+      buffer = lexeme.getBytes(encoding);
+    } catch (UnsupportedEncodingException e) {
+      buffer = new byte[lexeme.length()];
+      for (int i = 0; i < buffer.length; ++i) {
+        buffer[i] = (byte)lexeme.charAt(i);
+      }
+    }
+    return new StringLiteralExpr(new StringBuilderValue(buffer));
+  }
+
+  public Expr createString(StringValue lexeme)
   {
     return new StringLiteralExpr(lexeme);
   }
@@ -609,8 +624,9 @@ public class ExprFactory {
       StringLiteralExpr leftString = (StringLiteralExpr) left.getValue();
       StringLiteralExpr rightString = (StringLiteralExpr) tail.getValue();
 
-      Expr value = createString(leftString.evalConstant().toString()
-                                + rightString.evalConstant().toString());
+      Expr value = createString(new StringBuilderValue()
+                                .append(leftString.evalConstant())
+                                .append(rightString.evalConstant()));
 
       return createAppendImpl(value, tail.getNext());
     }
@@ -1088,9 +1104,26 @@ public class ExprFactory {
   /**
    * Creates a text statement
    */
-  public Statement createText(Location loc, String text)
+  public Statement createText(Location loc, StringValue text)
   {
     return new TextStatement(loc, text);
+  }
+
+  /**
+   * Creates a text statement
+   */
+  public Statement createText(Location loc, String text, String encoding)
+  {
+    byte[] buffer = null;
+    try {
+      buffer = text.getBytes(encoding);
+    } catch (UnsupportedEncodingException e) {
+      buffer = new byte[text.length()];
+      for (int i = 0; i < buffer.length; ++i) {
+        buffer[i] = (byte)text.charAt(i);
+      }
+    }
+    return createText(loc, new StringBuilderValue(buffer));
   }
 
   /**

@@ -42,22 +42,10 @@ import com.caucho.quercus.env.Value;
 public class StringLiteralExpr extends Expr {
   protected final StringValue _value;
 
-  public StringLiteralExpr(Location location, String value)
-  {
-    super(location);
-    
-    _value = new ConstStringValue(value);
-  }
-
   public StringLiteralExpr(Location location, StringValue value)
   {
     super(location);
     _value = value;
-  }
-
-  public StringLiteralExpr(String value)
-  {
-    this(Location.UNKNOWN, value);
   }
 
   public StringLiteralExpr(StringValue value)

@@ -30,6 +30,7 @@
 package com.caucho.quercus.env;
 
 import com.caucho.quercus.expr.Expr;
+import com.caucho.quercus.expr.UnicodeLiteralExpr;
 import com.caucho.quercus.expr.StringLiteralExpr;
 import com.caucho.quercus.function.AbstractFunction;
 import com.caucho.vfs.WriteStream;
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.AbstractSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
@@ -774,7 +776,16 @@ public class ObjectExtValue extends ObjectValue
         return fun.callMethod(env, this, args);
       else if (_quercusClass.getCall() != null) {
         Expr []newArgs = new Expr[args.length + 1];
-        newArgs[0] = new StringLiteralExpr(toMethod(name, nameLen));
+        String mtd = toMethod(name, nameLen);
+        if (env.isUnicodeSemantics())
+          newArgs[0] = new UnicodeLiteralExpr(mtd);
+        else {
+          try {
+            newArgs[0] = new StringLiteralExpr(new StringBuilderValue(mtd.getBytes(env.getQuercus().getScriptEncoding())));
+          } catch (UnsupportedEncodingException e) {
+            newArgs[0] = new StringLiteralExpr(new ConstStringValue(mtd));
+          }
+        }
         System.arraycopy(args, 0, newArgs, 1, args.length);
         
         return _quercusClass.getCall().callMethod(env, this, newArgs);
