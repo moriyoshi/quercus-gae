@@ -133,15 +133,22 @@ public class Post {
       String filename = getAttribute(attr, "filename");
 
       if (filename == null) {
-        StringBuilder value = new StringBuilder();
-        int ch;
+        byte[] buf = new byte[1];
+        int ch, buf_len = 0;
 
         while ((ch = is.read()) >= 0) {
-          value.append((char) ch);
+          if (buf_len >= buf.length) {
+            byte[] new_buf = new byte[buf.length * 2];
+            System.arraycopy(buf, 0, new_buf, 0, buf.length);
+            buf = new_buf;
+          }
+          buf[buf_len++] = (byte)ch;
         }
 
         addFormValue(env, postArray, name,
-                     env.createString(value.toString(), encoding),
+                     env.isUnicodeSemantics() ? new UnicodeBuilderValue(
+                         new String(buf, 0, buf_len, encoding)):
+                         new StringBuilderValue(buf, 0, buf_len),
                      null, addSlashesToValues, encoding);
       }
       else {
