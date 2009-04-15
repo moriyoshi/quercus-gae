@@ -62,7 +62,7 @@ public class ToBinaryExpr extends ToStringExpr {
     if (value.isBinary())
       return value;
     else
-      return value.toString(env).toBinaryValue(env);
+      return value.toReprString(env).toBinaryValue(env);
   }
 
   public String toString()

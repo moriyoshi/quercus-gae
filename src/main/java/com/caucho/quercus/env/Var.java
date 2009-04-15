@@ -357,9 +357,9 @@ public final class Var extends Value
    * @param env
    */
   @Override
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
-    return _value.toString(env);
+    return _value.toReprString(env);
   }
 
   /**
@@ -368,7 +368,7 @@ public final class Var extends Value
   public String toJavaString()
   {
     if (_value.isObject())
-      return toString(Env.getInstance()).toString();
+      return toReprString(Env.getInstance()).toString();
     else
       return toString();
   }

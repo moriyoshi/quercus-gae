@@ -63,7 +63,7 @@ public class ToUnicodeExpr extends ToStringExpr {
     if (value.isUnicode())
       return value;
     else
-      return value.toString(env).toUnicodeValue(env);
+      return value.toReprString(env).toUnicodeValue(env);
   }
 
   public String toString()

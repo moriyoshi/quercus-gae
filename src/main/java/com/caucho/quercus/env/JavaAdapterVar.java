@@ -310,9 +310,9 @@ public class JavaAdapterVar extends Value
    * @param env
    */
   @Override
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
-    return getValue().toString(env);
+    return getValue().toReprString(env);
   }
 
   /**

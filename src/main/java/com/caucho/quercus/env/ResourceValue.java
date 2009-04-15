@@ -86,7 +86,7 @@ public class ResourceValue extends Value
                              IdentityHashMap<Value, String> valueSet)
     throws IOException
   { 
-    out.print("resource(" + toString(env) + ")");
+    out.print("resource(" + toReprString(env) + ")");
   }
   
   @Override
@@ -96,7 +96,7 @@ public class ResourceValue extends Value
                             IdentityHashMap<Value, String> valueSet)
     throws IOException
   {
-    out.print("resource(" + toString(env) + ")");
+    out.print("resource(" + toReprString(env) + ")");
   }
 }
 

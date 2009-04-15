@@ -280,7 +280,7 @@ public class ArrayValueImpl extends ArrayValue
    * Converts to a string.
    * @param env
    */
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
     return env.createStringOld("Array");
   }

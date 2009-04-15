@@ -430,7 +430,7 @@ abstract public class Value implements java.io.Serializable
    *
    * @param env
    */
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
     return toStringValue();
   }
@@ -2334,7 +2334,7 @@ abstract public class Value implements java.io.Serializable
    */
   public void print(Env env)
   {
-    env.print(toString(env));
+    env.print(toReprString(env));
   }
 
   /**
@@ -2344,7 +2344,7 @@ abstract public class Value implements java.io.Serializable
   public void print(Env env, WriteStream out)
   {
     try {
-      out.print(toString(env));
+      out.print(toReprString(env));
     } catch (IOException e) {
       throw new QuercusRuntimeException(e);
     }

@@ -97,7 +97,7 @@ public class StreamContextResource extends ResourceValue {
    * Converts to a string.
    * @param env
    */
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
     return env.createStringOld("StreamContextResource[]");
   }

@@ -1428,7 +1428,7 @@ public class ObjectExtValue extends ObjectValue
    */
   public StringValue appendTo(UnicodeBuilderValue sb)
   {
-    return sb.append(toString(Env.getInstance()));
+    return sb.append(toReprString(Env.getInstance()));
   }
 
   /**
@@ -1436,7 +1436,7 @@ public class ObjectExtValue extends ObjectValue
    */
   public StringValue appendTo(StringBuilderValue sb)
   {
-    return sb.append(toString(Env.getInstance()));
+    return sb.append(toReprString(Env.getInstance()));
   }
 
   /**
@@ -1444,7 +1444,7 @@ public class ObjectExtValue extends ObjectValue
    */
   public StringValue appendTo(BinaryBuilderValue sb)
   {
-    return sb.appendBytes(toString(Env.getInstance()));
+    return sb.appendBytes(toReprString(Env.getInstance()));
   }
   
   /**
@@ -1452,7 +1452,7 @@ public class ObjectExtValue extends ObjectValue
    */
   public StringValue appendTo(LargeStringBuilderValue sb)
   {
-    return sb.append(toString(Env.getInstance()));
+    return sb.append(toReprString(Env.getInstance()));
   }
   
   /**
@@ -1461,7 +1461,7 @@ public class ObjectExtValue extends ObjectValue
   @Override
   public StringValue toStringBuilder(Env env)
   {
-    return toString(env).toStringBuilder(env);
+    return toReprString(env).toStringBuilder(env);
   }
   
   /**
@@ -1469,7 +1469,7 @@ public class ObjectExtValue extends ObjectValue
    */
   public String toJavaString()
   {
-    return toString(Env.getInstance()).toString();
+    return toReprString(Env.getInstance()).toString();
   }
   
   /**
@@ -1477,7 +1477,7 @@ public class ObjectExtValue extends ObjectValue
    * @param env
    */
   @Override
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
     QuercusClass oldClass = env.setCallingClass(_quercusClass);
     
@@ -1500,7 +1500,7 @@ public class ObjectExtValue extends ObjectValue
   @Override
   public void print(Env env)
   {
-    env.print(toString(env));
+    env.print(toReprString(env));
   }
 
   /**

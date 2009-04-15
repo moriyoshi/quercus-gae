@@ -542,12 +542,12 @@ public class CompiledObjectValue extends ObjectValue
    * @param env
    */
   @Override
-  public StringValue toString(Env env)
+  public StringValue toReprString(Env env)
   {
     AbstractFunction fun = _quercusClass.findFunction("__toString");
 
     if (fun != null)
-      return fun.callMethod(env, this, new Expr[0]).toString(env);
+      return fun.callMethod(env, this, new Expr[0]).toReprString(env);
     else
       return env.createUnicodeBuilder().append(_quercusClass.getName()).append("[]");
   }
@@ -559,7 +559,7 @@ public class CompiledObjectValue extends ObjectValue
   @Override
   public void print(Env env)
   {
-    env.print(toString(env));
+    env.print(toReprString(env));
   }
 
   /**

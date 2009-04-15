@@ -68,8 +68,8 @@ public class MultipartBody extends PostBody
     while (iter.hasNext()) {
       Map.Entry<Value,Value> entry = iter.next();
       
-      StringValue key = entry.getKey().toString(env);
-      StringValue value = entry.getValue().toString(env);
+      StringValue key = entry.getKey().toReprString(env);
+      StringValue value = entry.getValue().toReprString(env);
       
       if (value.length() > 0 && value.charAt(0) == '@') {
         StringValue fileName = value.substring(1);

@@ -671,7 +671,7 @@ public class VariableModule extends AbstractQuercusModule {
     if (v instanceof StringValue)
       return (StringValue) v;
     else
-      return v.toString(env);
+      return v.toReprString(env);
   }
 
   /**

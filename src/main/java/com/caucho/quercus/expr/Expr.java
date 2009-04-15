@@ -460,7 +460,7 @@ abstract public class Expr {
     Value value = eval(env);
     
     if (value.isObject())
-      return value.toString(env).toString();
+      return value.toReprString(env).toString();
     else
       return value.toString();
   }
