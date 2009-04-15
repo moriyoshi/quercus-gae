@@ -7,8 +7,8 @@ so that it could run on Google App Engine. Therefore, several features such as
 content cache and session management doesn't work at the moment, and needs lots
 of fixes.
 
-Please note that Caucho Technology does not involve this project, so please
-don't direct your questions to them.
+Please note that Caucho Technology has nothing to do with this project,
+so please don't direct your questions to them.
 
 4/11/2009
 Moriyoshi Koizumi
