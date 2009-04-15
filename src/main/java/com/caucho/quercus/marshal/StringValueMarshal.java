@@ -69,7 +69,7 @@ public class StringValueMarshal extends Marshal
     else if (value instanceof Value)
       return ((Value) value).toStringValue(env);
     else if (value != null)
-      return env.createString(String.valueOf(value));
+      return env.createStringOld(String.valueOf(value));
     else
       return null;
   }

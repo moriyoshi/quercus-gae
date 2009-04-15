@@ -112,12 +112,12 @@ public class ClassesModule extends AbstractQuercusModule {
     if (value instanceof ObjectValue) {
       ObjectValue obj = (ObjectValue) value;
 
-      return env.createString(obj.getName());
+      return env.createStringOld(obj.getName());
     }
     else if (value instanceof JavaValue) {
       JavaValue obj = (JavaValue) value;
 
-      return env.createString(obj.getClassName());
+      return env.createStringOld(obj.getClassName());
     }
     else
       return BooleanValue.FALSE;
@@ -260,7 +260,7 @@ public class ClassesModule extends AbstractQuercusModule {
       String parent = obj.getParentClassName();
 
       if (parent != null)
-        return env.createString(parent);
+        return env.createStringOld(parent);
     }
     else if (value.isString()) {
       String className = value.toString();
@@ -271,7 +271,7 @@ public class ClassesModule extends AbstractQuercusModule {
         String parent = cl.getParentName();
 
         if (parent != null)
-          return env.createString(parent);
+          return env.createStringOld(parent);
       }
     }
 

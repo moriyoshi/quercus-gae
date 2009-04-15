@@ -262,7 +262,7 @@ public class MysqlModule extends AbstractQuercusModule {
                              int row)
   {
     return mysql_db_name(env, result, row,
-                         env.createString("0"));
+                         env.createStringOld("0"));
   }
 
   /**
@@ -290,7 +290,7 @@ public class MysqlModule extends AbstractQuercusModule {
       return false;
 
     Value value = mysql_query(env,
-      env.createString("DROP DATABASE " + databaseName),
+      env.createStringOld("DROP DATABASE " + databaseName),
       conn);
 
     return (value != null && value.toBoolean());
@@ -548,8 +548,8 @@ public class MysqlModule extends AbstractQuercusModule {
 
       ObjectValue fieldResult = env.createObject();
 
-      fieldResult.putThisField(env, SV_NAME, env.createString(columnLabel));
-      fieldResult.putThisField(env, SV_TABLE, env.createString(tableName));
+      fieldResult.putThisField(env, SV_NAME, env.createString(columnLabel, "UTF-8" /* XXX */));
+      fieldResult.putThisField(env, SV_TABLE, env.createString(tableName, "UTF-8" /* XXX */));
       fieldResult.putThisField(env, SV_DEF, env.getEmptyString());
       fieldResult.putThisField(env, SV_MAX_LENGTH,
                                LongValue.create(maxLength));
@@ -565,7 +565,7 @@ public class MysqlModule extends AbstractQuercusModule {
                                LongValue.create(numeric));
       fieldResult.putThisField(env, SV_BLOB,
                                LongValue.create(blob));
-      fieldResult.putThisField(env, SV_TYPE, env.createString(type));
+      fieldResult.putThisField(env, SV_TYPE, env.createString(type, "UTF-8" /* XXX */));
       fieldResult.putThisField(env, SV_UNSIGNED,
                                LongValue.create(unsigned));
       fieldResult.putThisField(env, SV_ZEROFILL, LongValue.create(zerofill));
@@ -901,7 +901,7 @@ public class MysqlModule extends AbstractQuercusModule {
     // MySQL Connector/J 5.x returns 'SCHEME_NAME' as the column name
     // for "SHOW DATABASES", while 3.x returns 'Database'
     return mysql_query(env,
-                       env.createString("SELECT SCHEMA_NAME AS 'Database' FROM information_schema.SCHEMATA"),
+                       env.createStringOld("SELECT SCHEMA_NAME AS 'Database' FROM information_schema.SCHEMATA"),
                        conn);
   }
 
@@ -922,7 +922,7 @@ public class MysqlModule extends AbstractQuercusModule {
 
     return mysql_db_query(env,
                           database,
-                          env.createString("SELECT * FROM " + tableName + " WHERE NULL"),
+                          env.createStringOld("SELECT * FROM " + tableName + " WHERE NULL"),
                           conn);
   }
 
@@ -979,7 +979,7 @@ public class MysqlModule extends AbstractQuercusModule {
                                   @Optional Mysqli conn)
   {
     return mysql_query(env,
-                       env.createString("SHOW TABLES FROM " + databaseName),
+                       env.createStringOld("SHOW TABLES FROM " + databaseName),
                        conn);
   }
 

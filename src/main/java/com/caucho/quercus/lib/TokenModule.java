@@ -216,7 +216,7 @@ public class TokenModule extends AbstractQuercusModule {
 
       Token lexer = new Token(env, s);
       int token;
-      StringValue topColor = env.createString("#000000");
+      StringValue topColor = env.createStringOld("#000000");
       StringValue lastColor = topColor;
 
       highlight(sb, out, "<code>");
@@ -366,7 +366,7 @@ public class TokenModule extends AbstractQuercusModule {
 
     while ((token = lexer.nextToken()) >= 0) {
       if (0x20 <= token && token <= 0x7f) {
-        result.put(env.createString((char) token));
+        result.put(env.createStringOld((char) token));
       }
       else {
         result.put(new ArrayValueImpl()

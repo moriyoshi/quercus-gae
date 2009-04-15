@@ -342,34 +342,34 @@ public class OptionsModule extends AbstractQuercusModule {
   {
     ArrayValue value = new ArrayValueImpl();
 
-    value.put(env.createString("ru_inblock"),
+    value.put(env.createStringOld("ru_inblock"),
               LongValue.create(0));
-    value.put(env.createString("ru_outblock"),
+    value.put(env.createStringOld("ru_outblock"),
               LongValue.create(0));
-    value.put(env.createString("ru_msgsnd"),
+    value.put(env.createStringOld("ru_msgsnd"),
               LongValue.create(0));
-    value.put(env.createString("ru_msgrcv"),
+    value.put(env.createStringOld("ru_msgrcv"),
               LongValue.create(0));
-    value.put(env.createString("ru_maxrss"),
+    value.put(env.createStringOld("ru_maxrss"),
               LongValue.create(0));
-    value.put(env.createString("ru_ixrss"),
+    value.put(env.createStringOld("ru_ixrss"),
               LongValue.create(0));
-    value.put(env.createString("ru_idrss"),
+    value.put(env.createStringOld("ru_idrss"),
               LongValue.create(0));
-    value.put(env.createString("ru_minflt"),
+    value.put(env.createStringOld("ru_minflt"),
               LongValue.create(0));
-    value.put(env.createString("ru_majflt"),
+    value.put(env.createStringOld("ru_majflt"),
               LongValue.create(0));
-    value.put(env.createString("ru_nsignals"),
+    value.put(env.createStringOld("ru_nsignals"),
               LongValue.create(0));
-    value.put(env.createString("ru_nvcsw"),
+    value.put(env.createStringOld("ru_nvcsw"),
               LongValue.create(0));
-    value.put(env.createString("ru_nswap"),
+    value.put(env.createStringOld("ru_nswap"),
               LongValue.create(0));
-    value.put(env.createString("ru_utime.tv_sec"), LongValue.create(0));
-    value.put(env.createString("ru_utime.tv_usec"), LongValue.create(0));
-    value.put(env.createString("ru_stime.tv_sec"), LongValue.create(0));
-    value.put(env.createString("ru_stime.tv_usec"), LongValue.create(0));
+    value.put(env.createStringOld("ru_utime.tv_sec"), LongValue.create(0));
+    value.put(env.createStringOld("ru_utime.tv_usec"), LongValue.create(0));
+    value.put(env.createStringOld("ru_stime.tv_sec"), LongValue.create(0));
+    value.put(env.createStringOld("ru_stime.tv_usec"), LongValue.create(0));
 
     return value;
   }
@@ -419,9 +419,9 @@ public class OptionsModule extends AbstractQuercusModule {
   {
     ArrayValue directives = new ArrayValueImpl();
 
-    Value global = env.createString("global_value");
-    Value local = env.createString("local_value");
-    Value access = env.createString("access");
+    Value global = env.createStringOld("global_value");
+    Value local = env.createStringOld("local_value");
+    Value access = env.createStringOld("access");
 
     IniDefinitions iniDefinitions = env.getQuercus().getIniDefinitions();
 
@@ -442,7 +442,7 @@ public class OptionsModule extends AbstractQuercusModule {
           inner.put(local, iniDefinition.getAsStringValue(env));
           inner.put(access, LongValue.create(iniDefinition.getScope()));
 
-          directives.put(env.createString(name), inner);
+          directives.put(env.createStringOld(name), inner);
         }
       }
     }
@@ -582,7 +582,7 @@ public class OptionsModule extends AbstractQuercusModule {
       env.println("<pre>");
     }
 
-    env.println("PHP Version => " + phpversion(env, env.createString("std")));
+    env.println("PHP Version => " + phpversion(env, env.createStringOld("std")));
     env.println("System => " + System.getProperty("os.name") + " "
               + System.getProperty("os.version") + " "
               + System.getProperty("os.arch"));
@@ -839,7 +839,7 @@ public class OptionsModule extends AbstractQuercusModule {
         else
           s = "z" + s;
 
-        expand.add(env.createString(s));
+        expand.add(env.createStringOld(s));
       }
       else
         i++;

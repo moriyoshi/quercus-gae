@@ -350,7 +350,7 @@ public final class DefinitionState {
     ArrayValue array = new ArrayValueImpl();
 
     for (String name : names) {
-      array.put(env.createString(name));
+      array.put(env.createStringOld(name));
     }
 
     return array;

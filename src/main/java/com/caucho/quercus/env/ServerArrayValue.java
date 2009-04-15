@@ -185,7 +185,8 @@ public class ServerArrayValue extends ArrayValueImpl
     if (! _isFilled)
       fillMap();
 
-    super.put(_env.createString(key), _env.createString(value));
+    super.put(_env.createString(key, _env.getHttpInputEncoding()),
+              _env.createString(value, _env.getHttpInputEncoding()));
   }
 
   /**
@@ -209,8 +210,8 @@ public class ServerArrayValue extends ArrayValueImpl
 
     for (Map.Entry<String,String> entry
            : System.getenv().entrySet()) {
-      super.put(_env.createString(entry.getKey()),
-                _env.createString(entry.getValue()));
+      super.put(_env.createString(entry.getKey(), null),
+                _env.createString(entry.getValue(), null));
     }
 
     for (Map.Entry<Value,Value> entry
@@ -222,30 +223,30 @@ public class ServerArrayValue extends ArrayValueImpl
 
     if (request != null) {
       super.put(SERVER_ADDR_V,
-                _env.createString(request.getLocalAddr()));
+                _env.createStringOld(request.getLocalAddr()));
       super.put(SERVER_NAME_V,
-                _env.createString(request.getServerName()));
+                _env.createStringOld(request.getServerName()));
 
       super.put(SERVER_PORT_V,
                 LongValue.create(request.getServerPort()));
       super.put(REMOTE_HOST_V,
-                _env.createString(request.getRemoteHost()));
+                _env.createStringOld(request.getRemoteHost()));
       super.put(REMOTE_ADDR_V,
-                _env.createString(request.getRemoteAddr()));
+                _env.createStringOld(request.getRemoteAddr()));
       super.put(REMOTE_PORT_V,
                 LongValue.create(request.getRemotePort()));
 
       // Drupal's optional activemenu plugin only works on Apache servers!
       // bug at http://drupal.org/node/221867
       super.put(SERVER_SOFTWARE_V,
-                _env.createString("Apache PHP Quercus("
+                _env.createStringOld("Apache PHP Quercus("
                                   + _env.getQuercus().getVersion()
                                   + ")"));
       
       super.put(SERVER_PROTOCOL_V,
-                _env.createString(request.getProtocol()));
+                _env.createStringOld(request.getProtocol()));
       super.put(REQUEST_METHOD_V,
-                _env.createString(request.getMethod()));
+                _env.createStringOld(request.getMethod()));
 
       String queryString = QuercusRequestAdapter.getPageQueryString(request);
       String requestURI = QuercusRequestAdapter.getPageURI(request);
@@ -255,53 +256,53 @@ public class ServerArrayValue extends ArrayValueImpl
 
       if (queryString != null) {
         super.put(QUERY_STRING_V,
-                  _env.createString(queryString));
+                  _env.createString(queryString, _env.getHttpInputEncoding()));
       }
 
       // XXX: a better way?
       // getRealPath() returns a native path
       // need to convert windows paths to resin paths
-      String root = request.getRealPath("/");
+      String root = _env.getServletContext().getRealPath("/");
       if (root.indexOf('\\') >= 0) {
         root = root.replace('\\', '/');
         root = '/' + root;
       }
       
       super.put(DOCUMENT_ROOT_V,
-                _env.createString(root));
+                _env.createString(root, null));
 
       super.put(SCRIPT_NAME_V,
-                _env.createString(contextPath + servletPath));
+                _env.createString(contextPath + servletPath, null));
 
       if (queryString != null)
         requestURI = requestURI + '?' + queryString;
 
       super.put(REQUEST_URI_V,
-                _env.createString(requestURI));
+                _env.createStringOld(requestURI));
       super.put(SCRIPT_FILENAME_V,
-                _env.createString(request.getRealPath(servletPath)));
+                _env.createString(_env.getServletContext().getRealPath(servletPath), null));
 
       if (pathInfo != null) {
         super.put(PATH_INFO_V,
-                  _env.createString(pathInfo));
+                  _env.createString(pathInfo, _env.getHttpInputEncoding()));
         super.put(PATH_TRANSLATED_V,
-                  _env.createString(request.getRealPath(pathInfo)));
+                  _env.createString(_env.getServletContext().getRealPath(pathInfo), null));
       }
 
       if (request.isSecure())
-        super.put(HTTPS_V, _env.createString("on"));
+        super.put(HTTPS_V, _env.createStringOld("on"));
 
       if (pathInfo == null)
-        super.put(PHP_SELF_V, _env.createString(contextPath + servletPath));
+        super.put(PHP_SELF_V, _env.createString(contextPath + servletPath, null));
       else
-        super.put(PHP_SELF_V, _env.createString(contextPath + servletPath + pathInfo));
+        super.put(PHP_SELF_V, _env.createString(contextPath + servletPath + pathInfo, null));
 
       if (request.getAuthType() != null) {
-        super.put(AUTH_TYPE_V, _env.createString(request.getAuthType()));
+        super.put(AUTH_TYPE_V, _env.createStringOld(request.getAuthType()));
 
         if (request.getRemoteUser() != null) {
           super.put(PHP_AUTH_USER_V,
-                    _env.createString(request.getRemoteUser()));
+                    _env.createString(request.getRemoteUser(), _env.getHttpInputEncoding()));
         }
       }
 
@@ -312,10 +313,10 @@ public class ServerArrayValue extends ArrayValueImpl
         String value = request.getHeader(key);
 
         if (key.equalsIgnoreCase("Host")) {
-          super.put(HTTP_HOST_V, _env.createString(value));
+          super.put(HTTP_HOST_V, _env.createStringOld(value));
         }
         else {
-          super.put(convertHttpKey(key), _env.createString(value));
+          super.put(convertHttpKey(key), _env.createStringOld(value));
         }
       }
     }

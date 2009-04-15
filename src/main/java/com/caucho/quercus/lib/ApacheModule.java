@@ -99,7 +99,7 @@ public class ApacheModule extends AbstractQuercusModule {
     while (e.hasMoreElements()) {
       String key = (String) e.nextElement();
 
-      result.put(env.createString(key), env.createString(req.getHeader(key)));
+      result.put(env.createString(key, req.getCharacterEncoding()), env.createString(req.getHeader(key), req.getCharacterEncoding()));
     }
 
     return result;

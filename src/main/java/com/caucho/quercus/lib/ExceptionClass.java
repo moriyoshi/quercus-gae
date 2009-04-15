@@ -66,9 +66,9 @@ public class ExceptionClass
     Location location = env.getLocation();
     if (location != null) {
       if (location.getFileName() != null)
-        value.putField(env, "file", env.createString(location.getFileName()));
+        value.putField(env, "file", env.createString(location.getFileName(), null));
       else
-        value.putField(env, "file", env.createString("unknown"));
+        value.putField(env, "file", env.createStringOld("unknown"));
 
       value.putField(env, "line", LongValue.create(location.getLineNumber()));
     }
@@ -145,7 +145,7 @@ public class ExceptionClass
   {
     Value trace = getTrace(env, obj);
     
-    StringValue sb = env.createString("<trace>");
+    StringValue sb = env.createStringOld("<trace>");
 
     Iterator<Value> iter = trace.getValueIterator(env);
 

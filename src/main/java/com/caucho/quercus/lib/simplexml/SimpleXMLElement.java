@@ -423,7 +423,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     SimpleXMLAttribute attr
       = new SimpleXMLAttribute(env, _cls,
                                this, name, "",
-                               env.createString(namespace));
+                               env.createString(namespace, "UTF-8"));
 
     int p = name.indexOf(':');
     if (p > 0) {
@@ -485,7 +485,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     SimpleXMLElement child
       = new SimpleXMLElement(env, _cls, this, name, namespace);
     
-    child.setText(env.createString(value));
+    child.setText(env.createString(value, "UTF-8"));
 
     addChild(child);
     return wrapJava(env, _cls, child);
@@ -637,10 +637,10 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
       
       if (parent != null) {
         parent.addChild(new SimpleXMLText(env, cls,
-                                          env.createString(value)));
+                                          env.createString(value, "UTF-8")));
 
         if (! isWhitespace(value))
-          parent.addText(env.createString(value));
+          parent.addText(env.createString(value, "UTF-8"));
       }
       
       return parent;
@@ -676,7 +676,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
         else {
               elt.addAttribute(env,
                                attr.getName(),
-                               env.createString(attr.getValue()),
+                               env.createString(attr.getValue(), "UTF-8"),
                                namespace);
         }
       }
@@ -849,8 +849,8 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
   {
     if (_namespaceMap != null) {
       for (Map.Entry<String,String> entry : _namespaceMap.entrySet()) {
-        StringValue name = env.createString(entry.getKey());
-        StringValue uri = env.createString(entry.getValue());
+        StringValue name = env.createString(entry.getKey(), "UTF-8");
+        StringValue uri = env.createString(entry.getValue(), "UTF-8");
 
         SimpleXMLAttribute attr
           = new SimpleXMLAttribute(env, _cls, this, entry.getKey());
@@ -1027,10 +1027,10 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
       for (SimpleXMLElement attr : _attributes) {
         StringValue value = attr._text;
         
-        array.put(_env.createString(attr._name), value);
+        array.put(_env.createString(attr._name, "UTF-8"), value);
       }
 
-      map.put(_env.createString("@attributes"), array);
+      map.put(_env.createStringOld("@attributes"), array);
     }
 
     boolean hasElement = false;
@@ -1041,7 +1041,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
 
         hasElement = true;
         
-        StringValue name = _env.createString(child.getName());
+        StringValue name = _env.createString(child.getName(), "UTF-8");
         Value oldChild = map.get(name);
         Value childValue;
 

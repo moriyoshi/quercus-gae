@@ -67,7 +67,7 @@ public class DirectoryValue extends ResourceValue {
   public Value readdir()
   {
     if (_index < _list.length)
-      return _env.createString(_list[_index++]);
+      return _env.createString(_list[_index++], null);
     else
       return BooleanValue.FALSE;
   }

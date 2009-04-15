@@ -99,7 +99,7 @@ public class StreamContextResource extends ResourceValue {
    */
   public StringValue toString(Env env)
   {
-    return env.createString("StreamContextResource[]");
+    return env.createStringOld("StreamContextResource[]");
   }
 }
 

@@ -282,7 +282,7 @@ public class ArrayValueImpl extends ArrayValue
    */
   public StringValue toString(Env env)
   {
-    return env.createString("Array");
+    return env.createStringOld("Array");
   }
   
   /**

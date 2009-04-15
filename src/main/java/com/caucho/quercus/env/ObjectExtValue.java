@@ -1487,7 +1487,7 @@ public class ObjectExtValue extends ObjectValue
       if (fun != null)
         return fun.callMethod(env, this, new Expr[0]).toStringValue();
       else
-        return env.createString(_className + "[]");
+        return env.createStringOld(_className + "[]");
     } finally {
       env.setCallingClass(oldClass);
     }
@@ -1574,7 +1574,7 @@ public class ObjectExtValue extends ObjectValue
 
       printDepth(out, 2 * (depth + 1));
       
-      Value value = env.createString(getIncompleteObjectName());
+      Value value = env.createStringOld(getIncompleteObjectName());
       
       value.varDump(env, out, depth + 1, valueSet);
 

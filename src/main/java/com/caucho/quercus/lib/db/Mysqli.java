@@ -231,12 +231,12 @@ public class Mysqli extends JdbcConnectionResource {
       env.warning(L.l("A link to the server could not be established.\n  url={0}\n  driver={1}\n  {2}", url, driver, e.toString()), e);
 
       env.setSpecialValue("mysqli.connectErrno", LongValue.create(e.getErrorCode()));
-      env.setSpecialValue("mysqli.connectError", env.createString(e.getMessage()));
+      env.setSpecialValue("mysqli.connectError", env.createStringOld(e.getMessage()));
 
       return null;
     } catch (Exception e) {
       env.warning(L.l("A link to the server could not be established.\n  url={0}\n  driver={1}\n  {2}", url, driver, e.toString()), e);
-      env.setSpecialValue("mysqli.connectError", env.createString(e.toString()));
+      env.setSpecialValue("mysqli.connectError", env.createStringOld(e.toString()));
 
       return null;
     }
@@ -388,7 +388,7 @@ public class Mysqli extends JdbcConnectionResource {
    */
   public StringValue character_set_name(Env env)
   {
-    return env.createString(getCharacterSetName());
+    return env.createStringOld(getCharacterSetName());
   }
 
   /**
@@ -482,7 +482,7 @@ public class Mysqli extends JdbcConnectionResource {
       }
     }
 
-    return env.createString(version);
+    return env.createString(version, "UTF-8" /* XXX */);
   }
 
   /**
@@ -514,7 +514,7 @@ public class Mysqli extends JdbcConnectionResource {
    */
   public StringValue get_host_info(Env env)
   {
-    return env.createString(getHost() + " via TCP socket");
+    return env.createString(getHost() + " via TCP socket", "UTF-8" /* XXX */);
   }
 
   /**
@@ -522,7 +522,7 @@ public class Mysqli extends JdbcConnectionResource {
    */
   public StringValue get_host_name(Env env)
   {
-    return env.createString(getHost());
+    return env.createString(getHost(), "UTF-8" /* XXX */);
   }
 
   /**
@@ -592,7 +592,7 @@ public class Mysqli extends JdbcConnectionResource {
 
     buff.append(warnings);
 
-    return env.createString(buff.toString());
+    return env.createString(buff.toString(), "UTF-8" /* XXX */);
   }
 
   /**
@@ -633,7 +633,7 @@ public class Mysqli extends JdbcConnectionResource {
   public StringValue get_server_info(Env env)
   {
     try {
-      return env.createString(validateConnection().getServerInfo());
+      return env.createString(validateConnection().getServerInfo(), "XXX" /* UTF-8 */);
     } catch (SQLException e) {
       return env.getEmptyString();
     }
@@ -1015,7 +1015,7 @@ public class Mysqli extends JdbcConnectionResource {
   public StringValue sqlstate(Env env)
   {
     int code = validateConnection().getErrorCode();
-    return env.createString(lookupSqlstate(code));
+    return env.createString(lookupSqlstate(code), "UTF-8" /* XXX */);
   }
 
   /**
@@ -1061,7 +1061,7 @@ public class Mysqli extends JdbcConnectionResource {
           str.append(rs.getString(2));
         }
 
-        return env.createString(str.toString());
+        return env.createString(str.toString(), "UTF-8" /* XXX */);
       } finally {
         if (stmt != null)
           stmt.close();

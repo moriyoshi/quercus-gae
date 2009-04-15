@@ -193,15 +193,15 @@ public class UrlModule
           ArrayValue values;
 
           if (colon < 0)
-            result.put(env.createString(line.trim()));
+            result.put(env.createStringOld(line.trim()));
           else {
             StringValue key =
-              env.createString(line.substring(0, colon).trim());
+              env.createString(line.substring(0, colon).trim(), "ISO-8859-1");
 
             StringValue value;
 
             if (colon < line.length())
-              value = env.createString(line.substring(colon + 1).trim());
+              value = env.createString(line.substring(colon + 1).trim(), "ISO-8859-1");
             else
               value = env.getEmptyString();
 
@@ -234,7 +234,7 @@ public class UrlModule
           if (line.length() == 0)
             continue;
 
-          result.put(env.createString(line.trim()));
+          result.put(env.createString(line.trim(), "ISO-8859-1"));
         }
       }
 
@@ -291,8 +291,8 @@ public class UrlModule
             }
 
             if (name != null && content != null) {
-              result.put(env.createString(name),
-                         env.createString(content));
+              result.put(env.createString(name, "ISO-8859-1"),
+                         env.createString(content, "ISO-8859-1"));
               break;
             }
           }
@@ -507,7 +507,7 @@ public class UrlModule
       switch (ch) {
       case ':':
         if (state == ParseUrlState.INIT) {
-          value.put(env.createString("scheme"), sb);
+          value.put(env.createStringOld("scheme"), sb);
           sb = env.createUnicodeBuilder();
 
           if (length <= i + 1 || str.charAt(i + 1) != '/') {
@@ -533,7 +533,7 @@ public class UrlModule
           state = ParseUrlState.PASS;
         }
         else if (state == ParseUrlState.HOST) {
-          value.put(env.createString("host"), sb);
+          value.put(env.createStringOld("host"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.PORT;
         }
@@ -543,13 +543,13 @@ public class UrlModule
 
       case '@':
         if (state == ParseUrlState.USER) {
-          value.put(env.createString("user"), sb);
+          value.put(env.createStringOld("user"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.HOST;
         }
         else if (state == ParseUrlState.PASS) {
-          value.put(env.createString("user"), user);
-          value.put(env.createString("pass"), sb);
+          value.put(env.createStringOld("user"), user);
+          value.put(env.createStringOld("pass"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.HOST;
         }
@@ -559,20 +559,20 @@ public class UrlModule
 
       case '/':
         if (state == ParseUrlState.USER || state == ParseUrlState.HOST) {
-          value.put(env.createString("host"), sb);
+          value.put(env.createStringOld("host"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.PATH;
           sb.append(ch);
         }
         else if (state == ParseUrlState.PASS) {
-          value.put(env.createString("host"), user);
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("host"), user);
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.PATH;
           sb.append(ch);
         }
         else if (state == ParseUrlState.PORT) {
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.PATH;
           sb.append(ch);
@@ -583,24 +583,24 @@ public class UrlModule
 
       case '?':
         if (state == ParseUrlState.USER || state == ParseUrlState.HOST) {
-          value.put(env.createString("host"), sb);
+          value.put(env.createStringOld("host"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.QUERY;
         }
         else if (state == ParseUrlState.PASS) {
-          value.put(env.createString("host"), user);
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("host"), user);
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.QUERY;
         }
         else if (state == ParseUrlState.PORT) {
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.QUERY;
         }
         else if (state == ParseUrlState.PATH) {
           if (sb.length() > 0)
-            value.put(env.createString("path"), sb);
+            value.put(env.createStringOld("path"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.QUERY;
         }
@@ -610,30 +610,30 @@ public class UrlModule
 
       case '#':
         if (state == ParseUrlState.USER || state == ParseUrlState.HOST) {
-          value.put(env.createString("host"), sb);
+          value.put(env.createStringOld("host"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.FRAGMENT;
         }
         else if (state == ParseUrlState.PASS) {
-          value.put(env.createString("host"), user);
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("host"), user);
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.FRAGMENT;
         }
         else if (state == ParseUrlState.PORT) {
-          value.put(env.createString("port"), LongValue.create(sb.toLong()));
+          value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.FRAGMENT;
         }
         else if (state == ParseUrlState.PATH) {
           if (sb.length() > 0)
-            value.put(env.createString("path"), sb);
+            value.put(env.createStringOld("path"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.FRAGMENT;
         }
         else if (state == ParseUrlState.QUERY) {
           if (sb.length() > 0)
-            value.put(env.createString("query"), sb);
+            value.put(env.createStringOld("query"), sb);
           sb = env.createUnicodeBuilder();
           state = ParseUrlState.FRAGMENT;
         }
@@ -651,38 +651,38 @@ public class UrlModule
     }
     else if (state == ParseUrlState.USER
              || state == ParseUrlState.HOST)
-      value.put(env.createString("host"), sb);
+      value.put(env.createStringOld("host"), sb);
     else if (state == ParseUrlState.PASS) {
-      value.put(env.createString("host"), user);
-      value.put(env.createString("port"), LongValue.create(sb.toLong()));
+      value.put(env.createStringOld("host"), user);
+      value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
     }
     else if (state == ParseUrlState.PORT) {
-      value.put(env.createString("port"), LongValue.create(sb.toLong()));
+      value.put(env.createStringOld("port"), LongValue.create(sb.toLong()));
     }
     else if (state == ParseUrlState.QUERY)
-      value.put(env.createString("query"), sb);
+      value.put(env.createStringOld("query"), sb);
     else if (state == ParseUrlState.FRAGMENT)
-      value.put(env.createString("fragment"), sb);
+      value.put(env.createStringOld("fragment"), sb);
     else
-      value.put(env.createString("path"), sb);
+      value.put(env.createStringOld("path"), sb);
 
     switch (component) {
     case PHP_URL_SCHEME:
-      return value.get(env.createString("scheme"));
+      return value.get(env.createStringOld("scheme"));
     case PHP_URL_HOST:
-      return value.get(env.createString("host"));
+      return value.get(env.createStringOld("host"));
     case PHP_URL_PORT:
-      return value.get(env.createString("port"));
+      return value.get(env.createStringOld("port"));
     case PHP_URL_USER:
-      return value.get(env.createString("user"));
+      return value.get(env.createStringOld("user"));
     case PHP_URL_PASS:
-      return value.get(env.createString("pass"));
+      return value.get(env.createStringOld("pass"));
     case PHP_URL_PATH:
-      return value.get(env.createString("path"));
+      return value.get(env.createStringOld("path"));
     case PHP_URL_QUERY:
-      return value.get(env.createString("query"));
+      return value.get(env.createStringOld("query"));
     case PHP_URL_FRAGMENT:
-      return value.get(env.createString("fragment"));
+      return value.get(env.createStringOld("fragment"));
     }
     
     return value;

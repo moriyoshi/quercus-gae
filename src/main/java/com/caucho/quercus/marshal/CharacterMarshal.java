@@ -58,7 +58,7 @@ public class CharacterMarshal extends Marshal
     if (value == null)
       return NullValue.NULL;
     else
-      return env.createString(value.toString());
+      return env.createStringOld(value.toString());
   }
   
   @Override

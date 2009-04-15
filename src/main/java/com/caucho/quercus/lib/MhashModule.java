@@ -188,7 +188,7 @@ public class MhashModule extends AbstractQuercusModule {
     if (algorithm == null)
       return BooleanValue.FALSE;
     else
-      return env.createString(algorithm.getName());
+      return env.createStringOld(algorithm.getName());
   }
 
   // XXX: public String mhash_keygen_s2k(int hash, String password, String salt, int bytes)

@@ -44,7 +44,7 @@ public class StringBuilderValue
 {
   public static final StringBuilderValue EMPTY = new ConstStringValue("");
 
-  private static final StringBuilderValue []CHAR_STRINGS;
+  private static final StringBuilderValue []BYTE_STRINGS;
   
   protected byte []_buffer;
   protected int _length;
@@ -120,12 +120,20 @@ public class StringBuilderValue
     }
   }
 
-  public StringBuilderValue(char ch)
+  public StringBuilderValue(byte ch)
   {
-    _buffer = new byte[1];
+    _buffer = new byte[] { ch };
     _length = 1;
+  }
 
-    _buffer[0] = (byte) ch;
+  public StringBuilderValue(char ch, String encoding)
+  {
+    try {
+      _buffer = Character.toString(ch).getBytes(encoding);
+    } catch (UnsupportedEncodingException e) {
+      _buffer = new byte[] { (byte)(ch & 0xff) };
+    }
+    _length = _buffer.length;
   }
 
   public StringBuilderValue(String s)
@@ -231,15 +239,15 @@ public class StringBuilderValue
    */
   public static StringValue create(byte value)
   {
-    return CHAR_STRINGS[(value & 0xFF)];
+    return BYTE_STRINGS[value & 0xFF];
   }
-  
+
   /**
    * Creates the string.
    */
-  public static StringValue create(char value)
+  public static StringValue create(char value, String encoding)
   {
-    return CHAR_STRINGS[value];
+    return new StringBuilderValue(value, encoding);
   }
 
   /**
@@ -759,7 +767,7 @@ public class StringBuilderValue
     else {
       byte ch = _buffer[(int) index];
 
-      return CHAR_STRINGS[ch & 0xff];
+      return BYTE_STRINGS[ch & 0xff];
     }
   }
   
@@ -1941,10 +1949,10 @@ public class StringBuilderValue
   }
 
   static {
-    CHAR_STRINGS = new ConstStringValue[256];
+    BYTE_STRINGS = new ConstStringValue[256];
 
-    for (int i = 0; i < CHAR_STRINGS.length; i++) {
-      CHAR_STRINGS[i] = new ConstStringValue((char) i);
+    for (int i = 0; i < BYTE_STRINGS.length; i++) {
+      BYTE_STRINGS[i] = new ConstStringValue((byte) i);
     }
   }
 }

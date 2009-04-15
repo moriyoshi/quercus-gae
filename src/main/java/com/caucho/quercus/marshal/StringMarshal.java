@@ -65,7 +65,7 @@ public class StringMarshal extends Marshal {
     if (value == null)
       return NullValue.NULL;
     else
-      return env.createString((String) value);
+      return env.createStringOld((String) value);
   }
   
   @Override

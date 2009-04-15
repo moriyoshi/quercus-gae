@@ -378,7 +378,7 @@ public class FileModule extends AbstractQuercusModule {
     int len = path.length();
 
     if (len == 0)
-      return env.createString(".");
+      return env.createString(".", null);
     else if (len == 1 && path.charAt(0) == '/')
       return path;
     
@@ -388,18 +388,18 @@ public class FileModule extends AbstractQuercusModule {
     p = Math.max(p, path.lastIndexOf('\\', len - 2));
     
     if (p == 0)
-      return env.createString("/");
+      return env.createString("/", null);
     else if (p > 0)
       return path.substring(0, p);
     
     p = path.lastIndexOf('\\', len - 2);
     
     if (p == 0)
-      return env.createString("\\");
+      return env.createString("\\", null);
     else if (p > 0)
       return path.substring(0, p);
     
-    return env.createString(".");
+    return env.createString(".", null);
   }
 
   /**
@@ -892,19 +892,19 @@ public class FileModule extends AbstractQuercusModule {
       return BooleanValue.FALSE;
     }
     else if (path.isLink())
-      return env.createString("link");
+      return env.createStringOld("link");
     else if (path.isDirectory())
-      return env.createString("dir");
+      return env.createStringOld("dir");
     else if (path.isFile())
-      return env.createString("file");
+      return env.createStringOld("file");
     else if (path.isFIFO())
-      return env.createString("fifo");
+      return env.createStringOld("fifo");
     else if (path.isBlockDevice())
-      return env.createString("block");
+      return env.createStringOld("block");
     else if (path.isCharacterDevice())
-      return env.createString("char");
+      return env.createStringOld("char");
     else
-      return env.createString("unknown");
+      return env.createStringOld("unknown");
   }
 
   /**
@@ -1356,7 +1356,7 @@ public class FileModule extends AbstractQuercusModule {
           options = StreamModule.STREAM_USE_PATH;
            
         return wrapper.fopen(env, filename,
-                                  env.createString(mode),
+                                  env.createStringOld(mode),
                                   LongValue.create(options));
       }
 
@@ -2321,7 +2321,7 @@ public class FileModule extends AbstractQuercusModule {
 
         if (processSections) {
           section = new ArrayValueImpl();
-          top.put(env.createString(name), section);
+          top.put(env.createString(name, "UTF-8" /* XXX */), section);
         }
       }
       else if (isValidIniKeyChar((char) ch)) {
@@ -2341,7 +2341,7 @@ public class FileModule extends AbstractQuercusModule {
 
         Value value = parseIniValue(env, ch, is);
 
-        section.put(env.createString(key), value);
+        section.put(env.createString(key, "UTF-8" /* XXX */), value);
       }
     }
 
@@ -2420,15 +2420,15 @@ public class FileModule extends AbstractQuercusModule {
         return env.getEmptyString();
       else if (value.equalsIgnoreCase("true")
                || value.equalsIgnoreCase("yes"))
-        return env.createString("1");
+        return env.createStringOld("1");
       else if (value.equalsIgnoreCase("false")
                || value.equalsIgnoreCase("no"))
         return env.getEmptyString();
 
       if (env.isDefined(value))
-        return env.createString(env.getConstant(value).toString());
+        return env.createString(env.getConstant(value).toString(), "UTF-8" /* XXX */);
       else
-        return env.createString(value);
+        return env.createString(value, "UTF-8" /* XXX */);
     }
   }
 
@@ -2474,8 +2474,8 @@ public class FileModule extends AbstractQuercusModule {
       }
 
       ArrayValueImpl value = new ArrayValueImpl();
-      value.put(env.createString("basename"), env.createString(""));
-      value.put(env.createString("filename"), env.createString(""));
+      value.put(env.createStringOld("basename"), env.createString("", null));
+      value.put(env.createStringOld("filename"), env.createString("", null));
 
       return value;
     }
@@ -2505,23 +2505,23 @@ public class FileModule extends AbstractQuercusModule {
       int options = optionsV.toInt();
 
       if ((options & PATHINFO_DIRNAME) == PATHINFO_DIRNAME)
-        return env.createString(dirname);
+        return env.createString(dirname, null);
       else if ((options & PATHINFO_BASENAME) == PATHINFO_BASENAME)
-        return env.createString(path);
+        return env.createString(path, null);
       else if ((options & PATHINFO_EXTENSION) == PATHINFO_EXTENSION)
-        return env.createString(ext);
+        return env.createString(ext, null);
       else if ((options & PATHINFO_FILENAME) == PATHINFO_FILENAME)
-        return env.createString(filename);
+        return env.createString(filename, null);
       else
         return env.getEmptyString();
     }
     else {
       ArrayValueImpl value = new ArrayValueImpl();
 
-      value.put(env.createString("dirname"), env.createString(dirname));
-      value.put(env.createString("basename"), env.createString(path));
-      value.put(env.createString("extension"), env.createString(ext));
-      value.put(env.createString("filename"), env.createString(filename));
+      value.put(env.createStringOld("dirname"), env.createString(dirname, null));
+      value.put(env.createStringOld("basename"), env.createString(path, null));
+      value.put(env.createStringOld("extension"), env.createString(ext, null));
+      value.put(env.createStringOld("filename"), env.createString(filename, null));
 
       return value;
     }
@@ -2629,7 +2629,7 @@ public class FileModule extends AbstractQuercusModule {
     if (link == null)
       return BooleanValue.FALSE;
     else
-      return env.createString(link);
+      return env.createString(link, null);
   }
 
   /**
@@ -2788,12 +2788,12 @@ public class FileModule extends AbstractQuercusModule {
 
       if (order == 1) {
         for (int i = 0; i < values.length; i++)
-          result.append(LongValue.create(i), env.createString(values[i]));
+          result.append(LongValue.create(i), env.createString(values[i], null));
       }
       else {
         for (int i = values.length - 1; i >= 0; i--) {
           result.append(LongValue.create(values.length - i - 1),
-          env.createString(values[i]));
+          env.createString(values[i], null));
         }
       }
 
@@ -2912,7 +2912,7 @@ public class FileModule extends AbstractQuercusModule {
       
       env.addCleanup(new RemoveFile(path));
       
-      return env.createString(path.getTail());
+      return env.createString(path.getTail(), null);
     } catch (IOException e) {
       log.log(Level.FINE, e.toString(), e);
 

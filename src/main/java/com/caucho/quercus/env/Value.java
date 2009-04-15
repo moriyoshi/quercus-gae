@@ -477,7 +477,7 @@ abstract public class Value implements java.io.Serializable
   {
     ObjectValue obj = env.createObject();
     
-    obj.putField(env, env.createString("scalar"), this);
+    obj.putField(env, env.createStringOld("scalar"), this);
     
     return obj;
   }
@@ -672,8 +672,8 @@ abstract public class Value implements java.io.Serializable
    */
   public QuercusException toException(Env env, String file, int line)
   {
-    putField(env, env.createString("file"), env.createString(file));
-    putField(env, env.createString("line"), LongValue.create(line));
+    putField(env, env.createStringOld("file"), env.createStringOld(file));
+    putField(env, env.createStringOld("line"), LongValue.create(line));
     
     return new QuercusLanguageException(this);
   }
@@ -791,7 +791,7 @@ abstract public class Value implements java.io.Serializable
    */
   public StringValue toUnicodeValue(Env env)
   {
-    return env.createString(toString());
+    return env.createStringOld(toString());
   }
 
   /**
@@ -2131,7 +2131,7 @@ abstract public class Value implements java.io.Serializable
   
   public Value putField(Env env, String name, Value value)
   {
-    return putThisField(env, env.createString(name), value);
+    return putThisField(env, env.createStringOld(name), value);
   }
   
   /**

@@ -519,7 +519,7 @@ public class Xml {
     case XmlModule.XML_OPTION_SKIP_WHITE:
       return (_xmlOptionSkipWhite ? LongValue.ONE : LongValue.ZERO);
     case XmlModule.XML_OPTION_TARGET_ENCODING:
-      return _env.createString(_xmlOptionTargetEncoding);
+      return createString(_xmlOptionTargetEncoding);
     default:
       return BooleanValue.FALSE;
     }
@@ -528,6 +528,11 @@ public class Xml {
   public String toString()
   {
     return "Xml[]";
+  }
+
+  private StringValue createString(String str)
+  {
+    return _env.createString(str, _xmlOptionTargetEncoding);
   }
 
   /**
@@ -595,7 +600,7 @@ public class Xml {
         String aName = attrs.getLocalName(i); // Attr name
         if ("".equals(aName)) aName = attrs.getQName(i);
         if (_xmlOptionCaseFolding) aName = aName.toUpperCase();
-        result.put(_env.createString(aName), _env.createString(attrs.getValue(i)));
+        result.put(createString(aName), createString(attrs.getValue(i)));
       }
 
       return result;
@@ -621,13 +626,13 @@ public class Xml {
       if ("".equals(eName)) eName = qName;
       if (_xmlOptionCaseFolding) eName = eName.toUpperCase();
 
-      elementArray.put(_env.createString("tag"), _env.createString(eName));
-      elementArray.put(_env.createString("type"), _env.createString("open"));
-      elementArray.put(_env.createString("level"), LongValue.create(_level));
+      elementArray.put(createString("tag"), createString(eName));
+      elementArray.put(createString("type"), createString("open"));
+      elementArray.put(createString("level"), LongValue.create(_level));
       _paramHashMap.put(_level, eName);
 
       if (attrs.getLength() > 0) {
-        elementArray.put(_env.createString("attributes"), createAttributeArray(attrs));
+        elementArray.put(createString("attributes"), createAttributeArray(attrs));
       }
 
       _valueArray.put(LongValue.create(_valueArrayIndex), elementArray);
@@ -651,15 +656,15 @@ public class Xml {
 
       if (_isComplete) {
         elementArray = _valueArray.get(LongValue.create(_valueArrayIndex - 1));
-        elementArray.put(_env.createString("type"), _env.createString("complete"));
+        elementArray.put(createString("type"), createString("complete"));
       } else {
         elementArray = new ArrayValueImpl();
         String eName = sName; // element name
         if ("".equals(sName)) eName = qName;
         if (_xmlOptionCaseFolding) eName = eName.toUpperCase();
-        elementArray.put(_env.createString("tag"), _env.createString(eName));
-        elementArray.put(_env.createString("type"), _env.createString("close"));
-        elementArray.put(_env.createString("level"), LongValue.create(_level));
+        elementArray.put(createString("tag"), createString(eName));
+        elementArray.put(createString("type"), createString("close"));
+        elementArray.put(createString("level"), LongValue.create(_level));
         _valueArray.put(LongValue.create(_valueArrayIndex), elementArray);
 
         addToIndexArrayHashMap(eName);
@@ -672,7 +677,7 @@ public class Xml {
 
     private void addToIndexArrayHashMap(String eName)
     {
-      StringValue key = _env.createString(eName);
+      StringValue key = createString(eName);
       ArrayValueImpl indexArray = _indexArrayHashMap.get(key);
 
       if (indexArray == null) {
@@ -693,19 +698,19 @@ public class Xml {
 
       if (_isOutside) {
         Value elementArray = new ArrayValueImpl();
-        elementArray.put(_env.createString("tag"), _env.createString(_paramHashMap.get(_level - 1)));
-        elementArray.put(_env.createString("value"), _env.createString(s));
-        elementArray.put(_env.createString("type"), _env.createString("cdata"));
-        elementArray.put(_env.createString("level"), LongValue.create(_level - 1));
+        elementArray.put(createString("tag"), createString(_paramHashMap.get(_level - 1)));
+        elementArray.put(createString("value"), createString(s));
+        elementArray.put(createString("type"), createString("cdata"));
+        elementArray.put(createString("level"), LongValue.create(_level - 1));
         _valueArray.put(LongValue.create(_valueArrayIndex), elementArray);
 
-        Value indexArray = _indexArray.get(_env.createString(_paramHashMap.get(_level - 1)));
+        Value indexArray = _indexArray.get(createString(_paramHashMap.get(_level - 1)));
         indexArray.put(LongValue.create(_valueArrayIndex));
 
         _valueArrayIndex++;
       } else {
         Value elementArray = _valueArray.get(LongValue.create(_valueArrayIndex - 1));
-        elementArray.put(_env.createString("value"), _env.createString(s));
+        elementArray.put(createString("value"), createString(s));
       }
     }
   }
@@ -769,7 +774,7 @@ public class Xml {
       if (_xmlOptionCaseFolding)
         eName = eName.toUpperCase();
       
-      args[1] = _env.createString(eName);
+      args[1] = createString(eName);
 
       // turn attrs into an array of name, value pairs
       args[2] = new ArrayValueImpl();
@@ -782,7 +787,7 @@ public class Xml {
         if (_xmlOptionCaseFolding)
           aName = aName.toUpperCase();
         
-        args[2].put(_env.createString(aName), _env.createString(attrs.getValue(i)));
+        args[2].put(createString(aName), createString(attrs.getValue(i)));
       }
 
       try {
@@ -817,7 +822,7 @@ public class Xml {
         if (_xmlOptionCaseFolding) eName = eName.toUpperCase();
 
         if (_endElementHandler != null)
-          _endElementHandler.call(_env, _parser, _env.createString(eName));
+          _endElementHandler.call(_env, _parser, createString(eName));
         else {
           if (log.isLoggable(Level.FINER))
             log.finer(this + " endElement " + sName);
@@ -890,8 +895,8 @@ public class Xml {
       try {
         if (_processingInstructionHandler != null) {
           _processingInstructionHandler.call(_env, _parser,
-                                             _env.createString(target),
-                                             _env.createString(data));
+                                             createString(target),
+                                             createString(data));
         }
         else {
           if (log.isLoggable(Level.FINER))
@@ -915,7 +920,7 @@ public class Xml {
     {
       try {
         if (_startNamespaceDeclHandler != null)
-          _startNamespaceDeclHandler.call(_env, _env.createString(prefix), _env.createString(uri));
+          _startNamespaceDeclHandler.call(_env, createString(prefix), createString(uri));
         else {
           if (log.isLoggable(Level.FINER))
             log.finer(this + " startPrefixMapping " + prefix + " " + uri);
@@ -937,7 +942,7 @@ public class Xml {
     {
       try {
         if (_endNamespaceDeclHandler != null)
-          _endNamespaceDeclHandler.call(_env, _env.createString(prefix));
+          _endNamespaceDeclHandler.call(_env, createString(prefix));
         else {
           if (log.isLoggable(Level.FINER))
             log.finer(this + " endPrefixMapping");
@@ -957,10 +962,10 @@ public class Xml {
         if (_notationDeclHandler != null)
           _notationDeclHandler.call(_env,
                                     _parser,
-                                    _env.createString(name),
-                                    _env.createString(""),
-                                    _env.createString(systemId),
-                                    _env.createString(publicId));
+                                    createString(name),
+                                    createString(""),
+                                    createString(systemId),
+                                    createString(publicId));
         else {
           if (log.isLoggable(Level.FINER))
             log.finer(this + " notation " + name);
@@ -989,11 +994,11 @@ public class Xml {
       Value[] args = new Value[6];
 
       args[0] = _parser;
-      args[1] = _env.createString(name);
-      args[2] = _env.createString("");
-      args[3] = _env.createString(systemId);
-      args[4] = _env.createString(publicId);
-      args[5] = _env.createString(notationName);
+      args[1] = createString(name);
+      args[2] = createString("");
+      args[3] = createString(systemId);
+      args[4] = createString(publicId);
+      args[5] = createString(notationName);
 
       try {
         if (_unparsedEntityDeclHandler != null)

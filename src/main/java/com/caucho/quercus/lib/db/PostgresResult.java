@@ -60,7 +60,7 @@ public class PostgresResult extends JdbcResultResource {
                         ResultSet rs,
                         Postgres conn)
   {
-    super(env, stmt, rs, conn);
+    super(env, stmt, rs, conn, "UTF-8" /* XXX */);
   }
 
   /**

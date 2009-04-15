@@ -113,7 +113,7 @@ public class ZipModule extends AbstractQuercusModule {
     if (entry == null)
       return BooleanValue.FALSE;
 
-    return env.createString(entry.zip_entry_name());
+    return env.createString(entry.zip_entry_name(), "UTF-8");
   }
 
   /**

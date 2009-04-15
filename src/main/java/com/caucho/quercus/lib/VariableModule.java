@@ -193,14 +193,14 @@ public class VariableModule extends AbstractQuercusModule {
     Map<String,EnvVar> map = env.getEnv();
 
     for (Map.Entry<String,EnvVar> entry : map.entrySet()) {
-      result.append(env.createString(entry.getKey()),
+      result.append(env.createStringOld(entry.getKey()),
                     entry.getValue().get());
     }
 
     Map<String,EnvVar> globalMap = env.getGlobalEnv();
     if (map != globalMap) {
       for (Map.Entry<String,EnvVar> entry : globalMap.entrySet()) {
-        result.append(env.createString(entry.getKey()),
+        result.append(env.createStringOld(entry.getKey()),
                       entry.getValue().get());
       }
     }
@@ -575,7 +575,7 @@ public class VariableModule extends AbstractQuercusModule {
         
         v.printR(env, out, 0, new IdentityHashMap<Value, String>());
         
-        return env.createString(writer.getString());
+        return env.createStringOld(writer.getString());
       }
       else {
         out = env.getOut();
@@ -770,7 +770,7 @@ public class VariableModule extends AbstractQuercusModule {
     v.varExport(sb);
 
     if (isReturn)
-      return env.createString(sb.toString());
+      return env.createStringOld(sb.toString());
     else {
       env.print(sb);
 

@@ -92,7 +92,7 @@ public class ConstStringValue
     super(buffer);
   }
 
-  public ConstStringValue(char ch)
+  public ConstStringValue(byte ch)
   {
     super(ch);
   }

@@ -414,7 +414,7 @@ public class JdbcStatementResource {
       return null;
 
     _resultResource
-      = new JdbcResultResource(_conn.getEnv(), _stmt, _rs, _conn);
+      = new JdbcResultResource(_conn.getEnv(), _stmt, _rs, _conn, "UTF-8" /* XXX */);
     return _resultResource;
   }
 

@@ -233,7 +233,7 @@ public class ReflectionClass
     
     for (String field : staticFieldList) {
       ReflectionProperty prop
-        = ReflectionProperty.create(env, _cls, env.createString(field), true);
+        = ReflectionProperty.create(env, _cls, env.createStringOld(field), true);
       
       array.put(env.wrapJava(prop));
     }

@@ -278,7 +278,7 @@ public class MysqliModule extends AbstractQuercusModule {
     Object error = env.getSpecialValue("mysqli.connectError");
 
     if (error != null)
-      return env.createString(error.toString());
+      return env.createString(error.toString(), "UTF-8" /* XXX */);
     else
       return env.getEmptyString();
   }
@@ -991,7 +991,7 @@ public class MysqliModule extends AbstractQuercusModule {
 
     escapeString(buf, unescapedString.toString());
 
-    return env.createString(buf.toString());
+    return env.createString(buf.toString(), "UTF-8" /* XXX */);
   }
 
   static void escapeString(StringBuilder buf, String unescapedString)
@@ -1084,7 +1084,7 @@ public class MysqliModule extends AbstractQuercusModule {
     }
 
     return query(env, conn,
-                 env.createString(buf.toString()));
+                 env.createStringOld(buf.toString()));
   }
 
 

@@ -84,6 +84,8 @@ public class JdbcResultResource {
 
   private int _affectedRows;
 
+  private String _resultEncoding;
+
   /**
    * Constructor for JdbcResultResource
    *
@@ -94,7 +96,8 @@ public class JdbcResultResource {
   public JdbcResultResource(Env env,
                             Statement stmt,
                             ResultSet rs,
-                            JdbcConnectionResource conn)
+                            JdbcConnectionResource conn,
+                            String _resultEncoding)
   {
     _env = env;
     _stmt = stmt;
@@ -113,10 +116,8 @@ public class JdbcResultResource {
                             JdbcConnectionResource conn)
   {
     _env = env;
-
     _metaData = metaData;
     _conn = conn;
-    _env = conn.getEnv();
   }
 
   /**
@@ -181,7 +182,7 @@ public class JdbcResultResource {
           for (int i = 0; i < count; i++) {
             String columnName = md.getColumnLabel(i + 1);
             
-            _columnNames[i] = env.createString(columnName);
+            _columnNames[i] = createString(columnName);
           }
         }
 
@@ -246,8 +247,8 @@ public class JdbcResultResource {
         _rs.next();
       }
       
-      result.putField(env, "name", env.createString(_rs.getString(1)));
-      result.putField(env, "table", env.createString(tableName));
+      result.putField(env, "name", createString(_rs.getString(1)));
+      result.putField(env, "table", createString(tableName));
       result.putField(env, "max_length", LongValue.create(maxLength));
 
       if (! isInResultString(4, "YES"))
@@ -275,7 +276,7 @@ public class JdbcResultResource {
       else
         result.putField(env, "blob", LongValue.ZERO);
 
-      result.putField(env, "type", env.createString(type));
+      result.putField(env, "type", createString(type));
 
       if (isInResultString(2, "unsigned"))
         result.putField(env, "unsigned", LongValue.ONE);
@@ -458,7 +459,7 @@ public class JdbcResultResource {
             if (rs.wasNull())
               return NullValue.NULL;
             else
-              return _env.createString(value);
+              return createString(value);
           }
           // else fall to boolean
         }
@@ -469,7 +470,7 @@ public class JdbcResultResource {
           if (rs.wasNull())
             return NullValue.NULL;
           else
-            return env.createString(b ? "t" : "f");
+            return createString(b ? "t" : "f");
         }
 
       case Types.TINYINT:
@@ -482,7 +483,7 @@ public class JdbcResultResource {
           if (rs.wasNull())
             return NullValue.NULL;
           else
-            return _env.createString(String.valueOf(value));
+            return createString(String.valueOf(value));
         }
       case Types.REAL:
       case Types.DOUBLE:
@@ -579,7 +580,7 @@ public class JdbcResultResource {
           if (strValue == null) // || rs.wasNull())
             return NullValue.NULL;
           else
-            return env.createString(strValue);
+            return createString(strValue);
         }
       }
     } catch (IOException e) {
@@ -644,7 +645,7 @@ public class JdbcResultResource {
     if (time == null)
       return NullValue.NULL;
     else
-      return env.createString(String.valueOf(time));
+      return createString(String.valueOf(time));
   }
 
   protected Value getColumnDate(Env env, ResultSet rs, int column)
@@ -655,7 +656,7 @@ public class JdbcResultResource {
     if (date == null)
       return NullValue.NULL;
     else
-      return env.createString(String.valueOf(date));
+      return createString(String.valueOf(date));
   }
 
   protected Value getColumnTimestamp(Env env, ResultSet rs, int column)
@@ -674,14 +675,14 @@ public class JdbcResultResource {
         if (time.endsWith(".0"))
           time = time.substring(0, time.length() - 2);
         
-        return env.createString(time);
+        return createString(time);
       }
     } catch (SQLException e) {
       if (log.isLoggable(Level.FINER))
         log.log(Level.FINER, e.toString(), e);
 
       // php/1f0a - mysql jdbc driver issue with zero timestamp
-      return env.createString("0000-00-00 00:00:00");
+      return createString("0000-00-00 00:00:00");
     }
   }
 
@@ -709,7 +710,7 @@ public class JdbcResultResource {
       if (md.getColumnCount() <= fieldOffset || fieldOffset < 0)
         return BooleanValue.FALSE;
       else
-        return _env.createString(md.getCatalogName(fieldOffset + 1));
+        return createString(md.getCatalogName(fieldOffset + 1));
     } catch (SQLException e) {
       log.log(Level.FINE, e.toString(), e);
       return BooleanValue.FALSE;
@@ -820,7 +821,7 @@ public class JdbcResultResource {
         return BooleanValue.FALSE;
       }
       else
-        return env.createString(md.getColumnLabel(fieldOffset + 1));
+        return createString(md.getColumnLabel(fieldOffset + 1));
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);
       return BooleanValue.FALSE;
@@ -843,7 +844,7 @@ public class JdbcResultResource {
       if (md.getColumnCount() <= fieldOffset || fieldOffset < 0)
         return BooleanValue.FALSE;
       else
-        return _env.createString(md.getColumnLabel(fieldOffset + 1));
+        return createString(md.getColumnLabel(fieldOffset + 1));
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);
       return BooleanValue.FALSE;
@@ -932,7 +933,7 @@ public class JdbcResultResource {
         if (tableName == null || tableName.equals(""))
           return BooleanValue.FALSE;
         else
-          return env.createString(tableName);
+          return createString(tableName);
       }
     } catch (SQLException e) {
       log.log(Level.FINE, e.toString(), e);
@@ -962,7 +963,7 @@ public class JdbcResultResource {
         if (tableName == null || tableName.equals(""))
           return BooleanValue.FALSE;
         else
-          return env.createString(tableName);
+          return createString(tableName);
       }
     } catch (SQLException e) {
       log.log(Level.FINE, e.toString(), e);
@@ -989,7 +990,7 @@ public class JdbcResultResource {
       }
       else {
         int jdbcType = md.getColumnType(fieldOffset + 1);
-        return env.createString(getFieldType(fieldOffset, jdbcType));
+        return createString(getFieldType(fieldOffset, jdbcType));
       }
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);
@@ -1356,7 +1357,7 @@ public class JdbcResultResource {
   public Value toKey()
   {
     // XXX: phpbb seems to want this?
-    return _env.createString("JdbcResultResource$" + System.identityHashCode(this));
+    return createString("JdbcResultResource$" + System.identityHashCode(this));
   }
 
   /**
@@ -1380,6 +1381,11 @@ public class JdbcResultResource {
   public JdbcResultResource validateResult()
   {
     return this;
+  }
+
+  private StringValue createString(String str)
+  {
+    return _env.createString(str, _resultEncoding);
   }
 }
 

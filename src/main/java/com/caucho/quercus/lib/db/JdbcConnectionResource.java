@@ -109,7 +109,7 @@ public abstract class JdbcConnectionResource
   public StringValue error(Env env)
   {
     if (isConnected())
-      return env.createString(getErrorMessage());
+      return env.createStringOld(getErrorMessage());
     else
       return env.getEmptyString();
   }
@@ -335,7 +335,7 @@ public abstract class JdbcConnectionResource
    */
   protected Value getCatalog()
   {
-    return _env.createString(_catalog);
+    return _env.createStringOld(_catalog);
   }
 
   /**
@@ -846,7 +846,7 @@ public abstract class JdbcConnectionResource
                                             Statement stmt,
                                             ResultSet rs)
   {
-    return new JdbcResultResource(env, stmt, rs, this);
+    return new JdbcResultResource(env, stmt, rs, this, "UTF-8" /* XXX */);
   }
 
 

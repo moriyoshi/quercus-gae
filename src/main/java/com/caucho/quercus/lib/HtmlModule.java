@@ -127,10 +127,10 @@ public class HtmlModule extends AbstractQuercusModule {
     }
 
     if ((quoteStyle & ENT_HTML_QUOTE_SINGLE) != 0)
-      result.put(env.createString('\''), env.createString("&apos;"));
+      result.put(env.createStringOld('\''), env.createStringOld("&apos;"));
 
     if ((quoteStyle & ENT_HTML_QUOTE_DOUBLE) != 0)
-      result.put(env.createString('"'), env.createString("&quot;"));
+      result.put(env.createStringOld('"'), env.createStringOld("&quot;"));
 
     return result;
   }
@@ -326,7 +326,7 @@ public class HtmlModule extends AbstractQuercusModule {
     int ch;
     try {
       while ((ch = reader.read()) >= 0) {
-        StringValue chV = env.createString((char) ch);
+        StringValue chV = env.createStringOld((char) ch);
         
         Value entity = entitiesArray.get(chV);
         
@@ -335,14 +335,14 @@ public class HtmlModule extends AbstractQuercusModule {
         
         if (ch == '"') {
           if ((quoteStyle & ENT_HTML_QUOTE_DOUBLE) != 0) {
-            entity = env.createString("&quot;");
+            entity = env.createStringOld("&quot;");
           }
           else
             entity = chV;
         }
         else if (ch == '\'') {
           if ((quoteStyle & ENT_HTML_QUOTE_SINGLE) != 0) {
-            entity = env.createString("&#039;");
+            entity = env.createStringOld("&#039;");
           }
           else
             entity = chV;

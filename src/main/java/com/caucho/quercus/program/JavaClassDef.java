@@ -1653,7 +1653,7 @@ public class JavaClassDef extends ClassDef {
     @Override
     public Value wrap(Env env, Object obj)
     {
-      return env.createString((String) obj);
+      return env.createStringOld((String) obj);
     }
   }
   

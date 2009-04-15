@@ -862,7 +862,7 @@ public class PostgresModule extends AbstractQuercusModule {
 
       String s = (String) method.invoke(cl, new Object[] { data.toBytes()});
 
-      return Postgres.pgRealEscapeString(env.createString(s));
+      return Postgres.pgRealEscapeString(env.createString(s, "UTF-8" /* XXX */));
 
     } catch (Exception ex) {
       log.log(Level.FINE, ex.toString(), ex);
@@ -2573,8 +2573,8 @@ public class PostgresModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       if (paramName.toString().equals("server_encoding")) {
-        if (value.equals(env.createString("UNICODE")))
-          value = env.createString("UTF8");
+        if (value.equals(env.createString("UNICODE", "UTF-8" /* XXX */)))
+          value = env.createString("UTF8", "UTF-8" /* XXX */);
       }
 
       return value;
@@ -2662,7 +2662,7 @@ public class PostgresModule extends AbstractQuercusModule {
       if (conn == null)
         return null;
 
-      PostgresStatement pstmt = conn.prepare(env, env.createString(query));
+      PostgresStatement pstmt = conn.prepare(env, env.createString(query, "UTF-8" /* XXX */));
       conn.putStatement(stmtName, pstmt);
       
       return pstmt;
@@ -3091,7 +3091,7 @@ public class PostgresModule extends AbstractQuercusModule {
   {
     try {
 
-      PostgresStatement pstmt = conn.prepare(env, env.createString(query));
+      PostgresStatement pstmt = conn.prepare(env, env.createString(query, "UTF-8" /* XXX */));
 
       return executeInternal(env, conn, pstmt, params) != null;
 
@@ -3372,10 +3372,10 @@ public class PostgresModule extends AbstractQuercusModule {
 
       ArrayValue result = new ArrayValueImpl();
 
-      result.append(env.createString("client"),
-                    env.createString(conn.getClientInfo()));
-      result.append(env.createString("server_version"),
-                    env.createString(conn.getServerInfo()));
+      result.append(env.createStringOld("client"),
+                    env.createString(conn.getClientInfo(), "UTF-8" /* XXX */));
+      result.append(env.createStringOld("server_version"),
+                    env.createString(conn.getServerInfo(), "UTF-8" /* XXX */));
       
       return result;
     } catch (Exception ex) {

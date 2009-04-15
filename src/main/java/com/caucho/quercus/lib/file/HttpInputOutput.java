@@ -95,9 +95,9 @@ public class HttpInputOutput extends AbstractBinaryOutput
     
     if (context != null) {
       Value options
-      = context.getOptions().get(env.createString(path.getScheme()));
+      = context.getOptions().get(env.createStringOld(path.getScheme()));
 
-    String method = options.get(env.createString("method")).toString();
+    String method = options.get(env.createStringOld("method")).toString();
     
     if (method.equals("POST")){ 
       ReadWritePair pair = path.openReadWrite();

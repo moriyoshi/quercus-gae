@@ -142,7 +142,7 @@ public class IconvUtility {
                               String charset)
     throws UnsupportedEncodingException
   {
-    StringValue str = env.createString(
+    StringValue str = env.createStringOld(
             MimeUtility.unfold(MimeUtility.decodeText(word.toString())));
 
     return str.toBinaryValue(charset);

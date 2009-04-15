@@ -176,7 +176,7 @@ public class NetworkModule extends AbstractQuercusModule {
       log.log(Level.FINER, e.toString(), e);
 
       if (errstr != null)
-        errstr.set(env.createString(e.toString()));
+        errstr.set(env.createStringOld(e.toString()));
 
       return null;
     }
@@ -223,7 +223,7 @@ public class NetworkModule extends AbstractQuercusModule {
   public static StringValue long2ip(Env env, long address)
   {
     if (address < 0L || address >= 0xFFFFFFFFL)
-      return env.createString("255.255.255.255");
+      return env.createStringOld("255.255.255.255");
     
     StringValue sb = env.createStringBuilder();
     
@@ -300,7 +300,7 @@ public class NetworkModule extends AbstractQuercusModule {
     for (int k = 0; k < ip.length; k++) {
       String currentIPString = ip[k].getHostAddress();
 
-      StringValue currentIP = env.createString((currentIPString));
+      StringValue currentIP = env.createStringOld((currentIPString));
 
       ipArray.append(currentIP);
     }

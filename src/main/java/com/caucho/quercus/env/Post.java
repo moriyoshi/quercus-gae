@@ -78,7 +78,7 @@ public class Post {
           if (encoding != null)
             ms.setEncoding(encoding);
 
-          readMultipartStream(env, ms, postArray, files, addSlashesToValues);
+          readMultipartStream(env, ms, postArray, files, addSlashesToValues, encoding);
 
           rs.close();
         }
@@ -96,7 +96,7 @@ public class Post {
         
         if (postArray.getSize() == 0) {
           // needs to be last or else this function will consume the inputstream
-          putRequestMap(env, postArray, files, request, addSlashesToValues);
+          putRequestMap(env, postArray, files, request, addSlashesToValues, encoding);
         }
       }
       
@@ -115,7 +115,8 @@ public class Post {
                                           MultipartStream ms,
                                           ArrayValue postArray,
                                           ArrayValue files,
-                                          boolean addSlashesToValues)
+                                          boolean addSlashesToValues,
+                                          String encoding)
     throws IOException
   {
     ReadStream is;
@@ -139,8 +140,9 @@ public class Post {
           value.append((char) ch);
         }
 
-        addFormValue(env, postArray, name, env.createString(value.toString()),
-                     null, addSlashesToValues);
+        addFormValue(env, postArray, name,
+                     env.createString(value.toString(), encoding),
+                     null, addSlashesToValues, encoding);
       }
       else {
         String tmpName = "";
@@ -190,7 +192,8 @@ public class Post {
                     tmpName,
                     mimeType,
                     tmpLength,
-                    addSlashesToValues);
+                    addSlashesToValues,
+                    encoding);
       }
     }
   }
@@ -202,7 +205,8 @@ public class Post {
                                   String tmpName,
                                   String mimeType,
                                   long fileLength,
-                                  boolean addSlashesToValues)
+                                  boolean addSlashesToValues,
+                                  String encoding)
   {
     int p = name.indexOf('[');
     String index = "";
@@ -211,7 +215,7 @@ public class Post {
       name = name.substring(0, p);
     }
 
-    StringValue nameValue = env.createString(name);
+    StringValue nameValue = env.createString(name, encoding);
     Value v = files.get(nameValue).toValue();
     ArrayValue entry = null;
     if (v instanceof ArrayValue)
@@ -236,8 +240,8 @@ public class Post {
     else
       error = FileModule.UPLOAD_ERR_OK;
 
-    addFormValue(env, entry, "name" + index, env.createString(fileName),
-                 null, addSlashesToValues);
+    addFormValue(env, entry, "name" + index, env.createString(fileName, encoding),
+                 null, addSlashesToValues, encoding);
 
     long size;
 
@@ -251,43 +255,45 @@ public class Post {
     }
 
     if (mimeType != null) {
-      addFormValue(env, entry, "type" + index, env.createString(mimeType),
-                   null, addSlashesToValues);
+      addFormValue(env, entry, "type" + index, env.createString(mimeType, encoding),
+                   null, addSlashesToValues, encoding);
 
       entry.put("type", mimeType);
     }
 
-    addFormValue(env, entry, "tmp_name" + index, env.createString(tmpName),
-                 null, addSlashesToValues);
+    addFormValue(env, entry, "tmp_name" + index, env.createString(tmpName, encoding),
+                 null, addSlashesToValues, encoding);
 
     addFormValue(env, entry, "error" + index, LongValue.create(error),
-                 null, addSlashesToValues);
+                 null, addSlashesToValues, encoding);
 
     addFormValue(env, entry, "size" + index, LongValue.create(size),
-                 null, addSlashesToValues);
+                 null, addSlashesToValues, encoding);
 
-    addFormValue(env, files, name, entry, null, addSlashesToValues);
+    addFormValue(env, files, name, entry, null, addSlashesToValues, encoding);
   }
   
   public static void addFormValue(Env env,
                                   ArrayValue array,
                                   String key,
                                   String []formValueList,
-                                  boolean addSlashesToValues)
+                                  boolean addSlashesToValues,
+                                  String encoding)
   {
     // php/081b
     String formValue = formValueList[formValueList.length - 1];
     Value value;
 
     if (formValue != null)
-      value = env.createString(formValue);
+      value = env.createString(formValue, encoding);
     else
       value = NullValue.NULL;
 
     addFormValue(env, array, key,
                  value,
                  formValueList,
-                 addSlashesToValues);
+                 addSlashesToValues,
+                 encoding);
   }
 
   public static void addFormValue(Env env,
@@ -295,7 +301,8 @@ public class Post {
                                   String key,
                                   Value formValue,
                                   String []formValueList,
-                                  boolean addSlashesToValues)
+                                  boolean addSlashesToValues,
+                                  String encoding)
   {
     int p = key.indexOf('[');
     int q = key.indexOf(']', p);
@@ -311,7 +318,7 @@ public class Post {
         
         key = key.replaceAll("\\.", "_");
         
-        keyValue = env.createString(key);
+        keyValue = env.createString(key, encoding);
         existingValue = array.get(keyValue);
 
         if (existingValue == null || ! existingValue.isset()) {
@@ -338,7 +345,7 @@ public class Post {
           array.put(existingValue);
         }
         else {
-          keyValue = env.createString(key);
+          keyValue = env.createString(key, encoding);
           existingValue = array.get(keyValue);
 
           if (existingValue == null || ! existingValue.isset()) {
@@ -368,7 +375,7 @@ public class Post {
             Value value;
 
             if (formValueList[i] != null)
-              value = env.createString(formValueList[i]);
+              value = env.createString(formValueList[i], encoding);
             else
               value = NullValue.NULL;
             
@@ -381,12 +388,12 @@ public class Post {
       else if ('0' <= index.charAt(0) && index.charAt(0) <= '9')
         put(array, LongValue.create(StringValue.toLong(index)), formValue, addSlashesToValues);
       else
-        put(array, env.createString(index), formValue, addSlashesToValues);
+        put(array, env.createString(index, encoding), formValue, addSlashesToValues);
     }
     else {
       key = key.replaceAll("\\.", "_");
       
-      put(array, env.createString(key), formValue, addSlashesToValues);
+      put(array, env.createString(key, encoding), formValue, addSlashesToValues);
     }
   }
 
@@ -487,7 +494,8 @@ public class Post {
                                     ArrayValue post,
                                     ArrayValue files,
                                     HttpServletRequest request,
-                                    boolean addSlashesToValues)
+                                    boolean addSlashesToValues,
+                                    String encoding)
   {
     // this call consumes the inputstream
     Map<String,String[]> map = request.getParameterMap();
@@ -512,7 +520,7 @@ public class Post {
       for (int i = 0; i < fileNames.length; i++) {
         long fileLength = new FilePath(tmpNames[i]).getLength();
 
-        addFormFile(env, files, name, fileNames[i], tmpNames[i], mimeTypes[i], fileLength, addSlashesToValues);
+        addFormFile(env, files, name, fileNames[i], tmpNames[i], mimeTypes[i], fileLength, addSlashesToValues, encoding);
       }
     }
 
@@ -525,7 +533,7 @@ public class Post {
     for (String key : keys) {   
       String []value = request.getParameterValues(key);
       
-      Post.addFormValue(env, post, key, value, addSlashesToValues);
+      Post.addFormValue(env, post, key, value, addSlashesToValues, encoding);
     }
   }
 }

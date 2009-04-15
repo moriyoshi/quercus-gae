@@ -112,7 +112,7 @@ public class QuercusMimeUtility
     String decodedStr = MimeUtility.decodeText(word.toString());
     
     StringValue str
-      = env.createString(MimeUtility.unfold(decodedStr));
+      = env.createStringOld(MimeUtility.unfold(decodedStr));
 
     return str.toBinaryValue(charset);
   }

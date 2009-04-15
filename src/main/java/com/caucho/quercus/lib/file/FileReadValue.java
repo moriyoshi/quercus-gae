@@ -147,7 +147,7 @@ public class FileReadValue extends FileValue {
     // XXX: offset messed up
 
     if (_is != null)
-      return env.createString(_is.readLineNoChop());
+      return env.createString(_is.readLineNoChop(), null);
     else
       return null;
   }

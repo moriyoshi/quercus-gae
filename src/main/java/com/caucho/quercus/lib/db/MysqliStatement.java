@@ -203,7 +203,7 @@ public class MysqliStatement extends JdbcStatementResource {
   public StringValue error(Env env)
   {
     try {
-      return env.createString(errorMessage());
+      return env.createString(errorMessage(), "UTF-8" /* XXX */);
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);
       return null;
@@ -440,7 +440,7 @@ public class MysqliStatement extends JdbcStatementResource {
   public StringValue sqlstate(Env env)
   {
     int code = errno();
-    return env.createString(Mysqli.lookupSqlstate(code));
+    return env.createString(Mysqli.lookupSqlstate(code), "UTF-8" /* XXX */);
   }
 
   /**

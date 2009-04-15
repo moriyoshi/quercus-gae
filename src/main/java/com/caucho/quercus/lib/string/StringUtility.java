@@ -104,7 +104,7 @@ public class StringUtility
 
         if (isRef) {
           Post.addFormValue(env, result, key,
-                            new String[] { value }, isMagicQuotes);
+                            new String[] { value }, isMagicQuotes, encoding);
         } else {
           // If key is an exsiting array, then append this value to existing array
           // Only use extract(EXTR_OVERWRITE) on non-array variables or
@@ -125,17 +125,17 @@ public class StringUtility
               
               if (closeBracketIndex > openBracketIndex + 1) {
                 String index = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
-                v.put(env.createString(index), env.createString(value));
+                v.put(env.createString(index, encoding), env.createString(value, encoding));
               } else {
-                v.put(env.createString(value));
+                v.put(env.createString(value, encoding));
               }
             } else {
               Post.addFormValue(env, result, key,
-                                new String[] { value }, isMagicQuotes);
+                                new String[] { value }, isMagicQuotes, encoding);
             }
           } else {
             Post.addFormValue(env, result, key,
-                              new String[] { value }, isMagicQuotes);
+                              new String[] { value }, isMagicQuotes, encoding);
           }
         }
       }
@@ -189,7 +189,8 @@ public class StringUtility
   }
 
   public static void addQueryValue(Env env, ArrayValue array,
-                                   String key, String valueStr)
+                                   String key, String valueStr,
+                                   String encoding)
   {
     if (key == null)
       key = "";
@@ -199,13 +200,13 @@ public class StringUtility
     
     int p;
 
-    Value value = env.createString(valueStr);
+    Value value = env.createString(valueStr, encoding);
 
     if ((p = key.indexOf('[')) > 0 && key.endsWith("]")) {
       String index = key.substring(p + 1, key.length() - 1);
       key = key.substring(0, p);
 
-      Value keyValue = env.createString(key);
+      Value keyValue = env.createString(key, encoding);
 
       Value part;
 
@@ -220,7 +221,7 @@ public class StringUtility
       if (index.equals(""))
         part.put(value);
       else
-        part.put(env.createString(index), value);
+        part.put(env.createString(index, encoding), value);
 
       if (array != null)
         array.put(keyValue, part);
@@ -229,7 +230,7 @@ public class StringUtility
     }
     else {
       if (array != null)
-        array.put(env.createString(key), value);
+        array.put(env.createString(key, encoding), value);
       else
         env.setVar(key, value);
     }

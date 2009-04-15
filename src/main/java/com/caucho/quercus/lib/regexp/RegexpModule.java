@@ -1226,7 +1226,7 @@ public class RegexpModule
     } else if (replacement instanceof StringValue) {
       replacementStr = replacement.toStringValue();
     } else {
-      replacementStr = env.createString(
+      replacementStr = env.createStringOld(
         String.valueOf((char) replacement.toLong()));
     }
 

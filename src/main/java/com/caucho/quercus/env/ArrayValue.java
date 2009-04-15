@@ -656,7 +656,7 @@ abstract public class ArrayValue extends Value {
    */
   public void put(Env env, String key, String value)
   {
-    put(env.createString(key), env.createString(value));
+    put(env.createStringOld(key), env.createStringOld(value));
   }
 
   /**
@@ -682,7 +682,7 @@ abstract public class ArrayValue extends Value {
    */
   public void put(Env env, String key, long value)
   {
-    put(env.createString(key), LongValue.create(value));
+    put(env.createStringOld(key), LongValue.create(value));
   }
   
   /**
@@ -708,7 +708,7 @@ abstract public class ArrayValue extends Value {
    */
   public void put(Env env, String key, boolean value)
   {
-    put(env.createString(key),
+    put(env.createStringOld(key),
         value ? BooleanValue.TRUE : BooleanValue.FALSE);
   }
 

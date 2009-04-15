@@ -87,7 +87,7 @@ public class OutputModule extends AbstractQuercusModule
     if (handlerName != null
         && ! "".equals(handlerName)
         && env.getFunction(handlerName) != null) {
-      Callback callback = env.createCallback(env.createString(handlerName));
+      Callback callback = env.createCallback(env.createStringOld(handlerName));
 
       ob_start(env, callback, 0, true);
     } else if (isOutputBuffering) {
@@ -264,9 +264,9 @@ public class OutputModule extends AbstractQuercusModule
     Callback callback = ob.getCallback();
 
     if (callback != null) 
-      handlers.put(env.createString(callback.getCallbackName()));
+      handlers.put(env.createStringOld(callback.getCallbackName()));
     else
-      handlers.put(env.createString("default output handler"));
+      handlers.put(env.createStringOld("default output handler"));
   }
   
   /**
@@ -295,7 +295,7 @@ public class OutputModule extends AbstractQuercusModule
     if (callback != null && callback.isInternal())
       type = LongValue.ZERO;
 
-    element.put(env.createString("type"), type);
+    element.put(env.createStringOld("type"), type);
 
     // the rewriter is a special case where it includes a field
     // "buffer_size" right in the middle of the common elements, 
@@ -304,7 +304,7 @@ public class OutputModule extends AbstractQuercusModule
     // and no indication of its meaning.
     if (fullStatus && callback != null &&
         callback == UrlRewriterCallback.getInstance(env))
-      element.put(env.createString("buffer_size"), LongValue.ZERO);
+      element.put(env.createStringOld("buffer_size"), LongValue.ZERO);
 
     // Technically, there are supposed to be three possible values
     // for status: 
@@ -316,20 +316,20 @@ public class OutputModule extends AbstractQuercusModule
     // ob_get_status() in the handler on a ob_end_flush() does not
     // invoke this state.)
     LongValue status = ob.haveFlushed() ? LongValue.ONE : LongValue.ZERO;
-    element.put(env.createString("status"), status);
+    element.put(env.createStringOld("status"), status);
 
     StringValue name;
 
     if (callback != null)
-      name = env.createString(callback.getCallbackName());
+      name = env.createStringOld(callback.getCallbackName());
     else
-      name = env.createString("default output handler".intern());
+      name = env.createStringOld("default output handler".intern());
 
-    element.put(env.createString("name".intern()), name);
+    element.put(env.createStringOld("name".intern()), name);
 
     Value del = ob.getEraseFlag() ? BooleanValue.TRUE : 
       BooleanValue.FALSE;
-    element.put(env.createString("del"), del);
+    element.put(env.createStringOld("del"), del);
   }
 
   /**
@@ -345,14 +345,14 @@ public class OutputModule extends AbstractQuercusModule
 
     ArrayValue element = new ArrayValueImpl();
 
-    element.put(env.createString("chunk_size"),
+    element.put(env.createStringOld("chunk_size"),
                 LongValue.create(ob.getChunkSize()));
     
     // XXX: Not sure why we even need to list a size -- PHP doesn't 
     // even seem to respect it.  -1 => infinity?  
     // (Note: "size" == "capacity")
-    element.put(env.createString("size"), LongValue.create(-1));
-    element.put(env.createString("block_size"), LongValue.create(-1));
+    element.put(env.createStringOld("size"), LongValue.create(-1));
+    element.put(env.createStringOld("block_size"), LongValue.create(-1));
 
     putCommonStatus(element, ob, env, true);
    
@@ -377,7 +377,7 @@ public class OutputModule extends AbstractQuercusModule
     ArrayValue result = new ArrayValueImpl();
 
     if (ob != null) {
-      result.put(env.createString("level"),
+      result.put(env.createStringOld("level"),
                  LongValue.create(ob.getLevel()));
 
       putCommonStatus(result, ob, env, false);
@@ -509,7 +509,7 @@ public class OutputModule extends AbstractQuercusModule
     StringValue result = env.createBinaryBuilder();
     
     if ((state & (1 << OutputBuffer.PHP_OUTPUT_HANDLER_START)) != 0) {
-      HttpModule.header(env, env.createString("Vary: Accept-Encoding"), true, 0);
+      HttpModule.header(env, env.createStringOld("Vary: Accept-Encoding"), true, 0);
 
       int encodingFlag = 0;
 
@@ -519,11 +519,11 @@ public class OutputModule extends AbstractQuercusModule
 
       try {
         if (encoding == Encoding.GZIP) {
-          HttpModule.header(env, env.createString("Content-Encoding: gzip"), true, 0);
+          HttpModule.header(env, env.createStringOld("Content-Encoding: gzip"), true, 0);
 
           pair._outputStream = new GZIPOutputStream(pair._tempStream);
         } else if (encoding == Encoding.DEFLATE) {
-          HttpModule.header(env, env.createString("Content-Encoding: deflate"), true, 0);
+          HttpModule.header(env, env.createStringOld("Content-Encoding: deflate"), true, 0);
 
           pair._outputStream = new DeflaterOutputStream(pair._tempStream);
         }

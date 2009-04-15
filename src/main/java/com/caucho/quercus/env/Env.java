@@ -29,47 +29,9 @@
 
 package com.caucho.quercus.env;
 
-import com.caucho.quercus.*;
-import com.caucho.quercus.expr.Expr;
-import com.caucho.quercus.lib.ErrorModule;
-import com.caucho.quercus.lib.VariableModule;
-import com.caucho.quercus.lib.OptionsModule;
-import com.caucho.quercus.lib.file.FileModule;
-import com.caucho.quercus.lib.file.PhpStderr;
-import com.caucho.quercus.lib.file.PhpStdin;
-import com.caucho.quercus.lib.file.PhpStdout;
-import com.caucho.quercus.lib.regexp.RegexpState;
-import com.caucho.quercus.lib.string.StringModule;
-import com.caucho.quercus.lib.string.StringUtility;
-import com.caucho.quercus.module.ModuleContext;
-import com.caucho.quercus.module.ModuleStartupListener;
-import com.caucho.quercus.module.IniDefinition;
-import com.caucho.quercus.page.QuercusPage;
-import com.caucho.quercus.program.*;
-import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.quercus.resources.StreamContextResource;
-import com.caucho.util.*;
-import com.caucho.vfs.ByteToChar;
-import com.caucho.vfs.Encoding;
-import com.caucho.vfs.MemoryPath;
-import com.caucho.vfs.NullPath;
-import com.caucho.vfs.Path;
-import com.caucho.vfs.ReadStream;
-import com.caucho.vfs.WriteStream;
-import com.caucho.vfs.TempBuffer;
-import com.caucho.vfs.i18n.EncodingReader;
-
-import javax.script.Bindings;
-import javax.script.ScriptContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.SoftReference;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
@@ -79,10 +41,62 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.IdentityHashMap;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.script.Bindings;
+import javax.script.ScriptContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
+
+import com.caucho.quercus.Location;
+import com.caucho.quercus.Quercus;
+import com.caucho.quercus.QuercusDieException;
+import com.caucho.quercus.QuercusErrorException;
+import com.caucho.quercus.QuercusException;
+import com.caucho.quercus.QuercusExitException;
+import com.caucho.quercus.QuercusModuleException;
+import com.caucho.quercus.QuercusRuntimeException;
+import com.caucho.quercus.expr.Expr;
+import com.caucho.quercus.function.AbstractFunction;
+import com.caucho.quercus.lib.ErrorModule;
+import com.caucho.quercus.lib.OptionsModule;
+import com.caucho.quercus.lib.VariableModule;
+import com.caucho.quercus.lib.file.FileModule;
+import com.caucho.quercus.lib.file.PhpStderr;
+import com.caucho.quercus.lib.file.PhpStdin;
+import com.caucho.quercus.lib.file.PhpStdout;
+import com.caucho.quercus.lib.regexp.RegexpState;
+import com.caucho.quercus.lib.string.StringModule;
+import com.caucho.quercus.lib.string.StringUtility;
+import com.caucho.quercus.module.IniDefinition;
+import com.caucho.quercus.module.ModuleContext;
+import com.caucho.quercus.module.ModuleStartupListener;
+import com.caucho.quercus.page.QuercusPage;
+import com.caucho.quercus.program.ClassDef;
+import com.caucho.quercus.program.JavaClassDef;
+import com.caucho.quercus.program.QuercusProgram;
+import com.caucho.quercus.program.UndefinedFunction;
+import com.caucho.quercus.resources.StreamContextResource;
+import com.caucho.util.CharBuffer;
+import com.caucho.util.FreeList;
+import com.caucho.util.IntMap;
+import com.caucho.util.L10N;
+import com.caucho.util.QDate;
+import com.caucho.vfs.ByteToChar;
+import com.caucho.vfs.Encoding;
+import com.caucho.vfs.MemoryPath;
+import com.caucho.vfs.NullPath;
+import com.caucho.vfs.Path;
+import com.caucho.vfs.ReadStream;
+import com.caucho.vfs.TempBuffer;
+import com.caucho.vfs.WriteStream;
+import com.caucho.vfs.i18n.EncodingReader;
 
 /**
  * Represents the Quercus environment.
@@ -567,7 +581,7 @@ public class Env {
   public String getHttpInputEncoding()
   {
     if (! _isUnicodeSemantics)
-      return null;
+      return getScriptEncoding();
     
     StringValue encoding = getIni("unicode.http_input_encoding");
 
@@ -2048,6 +2062,12 @@ public class Env {
           return envVar;
       }
     }
+
+    String encoding = getHttpInputEncoding();
+    
+    if (encoding == null)
+      encoding = "iso-8859-1";
+    
     
     switch (specialVarId) {
       case _ENV: {
@@ -2170,11 +2190,6 @@ public class Env {
           return envVar;
         
         try {
-          String encoding = getHttpInputEncoding();
-          
-          if (encoding == null)
-            encoding = "iso-8859-1";
-          
           _request.setCharacterEncoding(encoding);
         } catch (Exception e) {
           log.log(Level.FINE, e.toString(), e);
@@ -2194,7 +2209,8 @@ public class Env {
                             array,
                             key,
                             value,
-                            isMagicQuotes);
+                            isMagicQuotes,
+                            encoding);
         }
 
         if (name.equals("_REQUEST") && _postArray != null) {
@@ -2222,7 +2238,8 @@ public class Env {
                             array,
                             cookie.getName(),
                             new String[] { decodedValue },
-                            isMagicQuotes);
+                            isMagicQuotes,
+                            encoding);
         }
         
         return envVar;
@@ -2297,12 +2314,12 @@ public class Env {
 
             String value = decodeValue(cookie.getValue());
 
-            StringValue valueAsValue = createString(value);
+            StringValue valueAsValue = createString(value, encoding);
 
             if (getIniBoolean("magic_quotes_gpc")) // php/0876
               valueAsValue = StringModule.addslashes(valueAsValue);
 
-            array.append(createString(cookie.getName()), valueAsValue);
+            array.append(createString(cookie.getName(), encoding), valueAsValue);
           }
         }
 
@@ -2860,7 +2877,7 @@ public class Env {
        name));
     */
 
-    value = createString(name);
+    value = createStringOld(name);
 
     return value;
   }
@@ -3093,16 +3110,16 @@ public class Env {
       if (i < systemFuns.length
           && systemFuns[i] != null
           && ! (systemFuns[i] instanceof UndefinedFunction)) {
-        system.append(createString(systemFuns[i].getName()));
+        system.append(createStringOld(systemFuns[i].getName()));
       }
       else if (envFuns[i] != null
                && ! (envFuns[i] instanceof UndefinedFunction)) {
-        user.append(createString(envFuns[i].getName()));
+        user.append(createStringOld(envFuns[i].getName()));
       }
     }
 
-    funs.append(createString("internal"), system);
-    funs.append(createString("user"), user);
+    funs.append(createStringOld("internal"), system);
+    funs.append(createStringOld("user"), user);
 
     return funs;
   }
@@ -3875,34 +3892,53 @@ public class Env {
   /**
    * Creates a PHP string from a java String.
    */
-  public StringValue createString(String s)
+  public StringValue createString(String s, String encoding)
   {
     if (s == null || s.length() == 0) {
       return (_isUnicodeSemantics
               ? UnicodeBuilderValue.EMPTY
               : ConstStringValue.EMPTY);
-    }
-    else if (s.length() == 1) {
-      if (_isUnicodeSemantics)
+    } else if (_isUnicodeSemantics) {
+      if (s.length() == 1)
         return UnicodeBuilderValue.create(s.charAt(0));
       else
-        return ConstStringValue.create(s.charAt(0));
+        return _quercus.createUnicodeString(s);
     }
-    else if (_isUnicodeSemantics)
-      return _quercus.createUnicodeString(s);
-    else
-      return _quercus.createString(s);
+    else {
+      try {
+        return new ConstStringValue(encoding == null ? s.getBytes(): s.getBytes(encoding));
+      } catch (UnsupportedEncodingException e) {
+        byte[] buffer = new byte[s.length()];
+        for (int i = 0; i < buffer.length; ++i) {
+          buffer[i] = (byte)(s.charAt(i) & 0xff);
+        }
+        return new ConstStringValue(buffer);
+      }
+    }
   }
 
   /**
    * Creates a string from a byte.
    */
-  public StringValue createString(char ch)
+  public StringValue createStringOld(char ch)
+  {
+    return createString(ch, getScriptEncoding());
+  }
+
+  public StringValue createStringOld(String str)
+  {
+    return createString(str, getScriptEncoding());
+  }
+  
+  /**
+   * Creates a string from a byte.
+   */
+  public StringValue createString(char ch, String encoding)
   {
     if (_isUnicodeSemantics)
       return UnicodeValueImpl.create(ch);
     else
-      return ConstStringValue.create(ch);
+      return ConstStringValue.create(ch, encoding == null ? getScriptEncoding(): null);
   }
 
   /**
@@ -3928,14 +3964,14 @@ public class Env {
   {
     QuercusClass cls = getClass(exceptionClass);
     
-    StringValue messageV = createString(message);
+    StringValue messageV = createStringOld(message);
     Value []args = { messageV };
 
     Value value = cls.callNew(this, args);
     
     Location location = getLocation();
     
-    value.putField(this, "file", createString(location.getFileName()));
+    value.putField(this, "file", createStringOld(location.getFileName()));
     value.putField(this, "line", LongValue.create(location.getLineNumber()));
     value.putField(this, "trace", ErrorModule.debug_backtrace(this));
 
@@ -3949,14 +3985,14 @@ public class Env {
   {
     QuercusClass cls = findClass("Exception");
     
-    StringValue message = createString(e.getMessage());
+    StringValue message = createStringOld(e.getMessage());
     Value []args = { message };
 
     Value value = cls.callNew(this, args);
 
     StackTraceElement elt = e.getStackTrace()[0];
 
-    value.putField(this, "file", createString(elt.getFileName()));
+    value.putField(this, "file", createStringOld(elt.getFileName()));
     value.putField(this, "line", LongValue.create(elt.getLineNumber()));
     value.putField(this, "trace", ErrorModule.debug_backtrace(this));
 
@@ -4220,7 +4256,7 @@ public class Env {
     int id = _quercus.getClassId(name);
     
     if (useAutoload) {
-      StringValue nameString = createString(name);
+      StringValue nameString = createStringOld(name);
       
       if (! _autoloadClasses.contains(name)) {
         try {
@@ -5212,7 +5248,7 @@ public class Env {
     Collections.sort(list);
     
     for (String pathName : list) {
-      array.put(createString(pathName));
+      array.put(createString(pathName, null));
     }
     
     return array;
@@ -5778,7 +5814,7 @@ public class Env {
         String fileName = location.getFileName();
 
         if (fileName != null)
-          fileNameV = createString(fileName);
+          fileNameV = createString(fileName, null);
 
         Value lineV = NullValue.NULL;
         int line = location.getLineNumber();
@@ -5787,7 +5823,7 @@ public class Env {
 
         Value context = NullValue.NULL;
 
-        handler.call(this, LongValue.create(mask), createString(msg),
+        handler.call(this, LongValue.create(mask), createStringOld(msg),
                      fileNameV, lineV, context);
 
         return NullValue.NULL;
@@ -5809,7 +5845,7 @@ public class Env {
                           + getCodeName(mask) + msg);
 
         if (getIniBoolean("track_errors"))
-          setGlobalValue("php_errormsg", createString(fullMsg));
+          setGlobalValue("php_errormsg", createStringOld(fullMsg));
         
         if ("stderr".equals(getIniString("display_errors")))
           System.err.println(fullMsg);

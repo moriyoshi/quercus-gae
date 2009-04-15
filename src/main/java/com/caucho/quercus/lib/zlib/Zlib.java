@@ -215,7 +215,7 @@ public class Zlib {
       int ch = _in.read();
 
       if (ch >= 0)
-        return env.createString(Character.toString((char) ch));
+        return env.createBinaryBuilder(new byte[] { (byte)ch });
       else
         return BooleanValue.FALSE;
     } catch (IOException e) {

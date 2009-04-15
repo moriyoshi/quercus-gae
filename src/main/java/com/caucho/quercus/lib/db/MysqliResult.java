@@ -69,7 +69,7 @@ public class MysqliResult extends JdbcResultResource {
                       ResultSet rs,
                       Mysqli conn)
   {
-    super(env, stmt, rs, conn);
+    super(env, stmt, rs, conn, "UTF-8" /* XXX */);
 
     // getNumRows() is efficient for MySQL
     _resultSetSize = getNumRows();
@@ -342,13 +342,13 @@ public class MysqliResult extends JdbcResultResource {
           && ((Mysqli) getConnection()).isLastSqlDescribe())
         fieldTable = "COLUMNS";
       
-      result.putField(env, "name", env.createString(fieldAlias));
-      result.putField(env, "orgname", env.createString(fieldName));
-      result.putField(env, "table", env.createString(fieldTable));
+      result.putField(env, "name", env.createString(fieldAlias, "UTF-8" /* XXX */));
+      result.putField(env, "orgname", env.createString(fieldName, "UTF-8" /* XXX */));
+      result.putField(env, "table", env.createString(fieldTable, "UTF-8" /* XXX */));
       //XXX: orgtable same as table
-      result.putField(env, "orgtable", env.createString(fieldTable));
+      result.putField(env, "orgtable", env.createString(fieldTable, "UTF-8" /* XXX */));
 
-      result.putField(env, "def", env.createString(""));
+      result.putField(env, "def", env.createString("", "UTF-8" /* XXX */));
 
       // "max_length" is the maximum width of this field in this
       // result set.
@@ -499,13 +499,13 @@ public class MysqliResult extends JdbcResultResource {
       if (! _rs.next())
         return BooleanValue.FALSE;
       
-      result.putField(env, "name", env.createString(name));
-      result.putField(env, "orgname", env.createString(originalName));
-      result.putField(env, "table", env.createString(table));
+      result.putField(env, "name", env.createString(name, "UTF-8" /* XXX */));
+      result.putField(env, "orgname", env.createString(originalName, "UTF-8" /* XXX */));
+      result.putField(env, "table", env.createString(table, "UTF-8" /* XXX */));
       //XXX: orgtable same as table
-      result.putField(env, "orgtable", env.createString(table));
+      result.putField(env, "orgtable", env.createString(table, "UTF-8" /* XXX */));
 
-      result.putField(env, "def", env.createString(_rs.getString(6)));
+      result.putField(env, "def", env.createString(_rs.getString(6), "UTF-8" /* XXX */));
 
       // "max_length" is the maximum width of this field in this
       // result set.
@@ -762,7 +762,7 @@ public class MysqliResult extends JdbcResultResource {
         flags.append("timestamp");
       }
 
-      return env.createString(flags.toString());
+      return env.createString(flags.toString(), "UTF-8" /* XXX */);
     } catch (SQLException e) {
       log.log(Level.FINE, e.toString(), e);
       return BooleanValue.FALSE;
@@ -956,7 +956,7 @@ public class MysqliResult extends JdbcResultResource {
       String value = rs.getString(column);
 
       if (value != null)
-        return env.createString(value);
+        return env.createString(value, "UTF-8" /* XXX */);
       else
         return NullValue.NULL;
     }
@@ -1019,7 +1019,7 @@ public class MysqliResult extends JdbcResultResource {
       String value = rs.getString(column);
 
       if (value != null)
-        return env.createString(value);
+        return env.createString(value, "UTF-8" /* XXX */);
       else
         return NullValue.NULL;
     }

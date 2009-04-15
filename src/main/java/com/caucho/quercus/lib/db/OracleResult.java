@@ -59,7 +59,7 @@ public class OracleResult extends JdbcResultResource {
                       ResultSet rs,
                       Oracle conn)
   {
-    super(env, stmt, rs, conn);
+    super(env, stmt, rs, conn, "UTF-8" /* XXX */);
   }
 
   /**

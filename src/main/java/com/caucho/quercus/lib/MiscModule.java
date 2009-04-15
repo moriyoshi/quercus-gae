@@ -243,14 +243,14 @@ public class MiscModule extends AbstractQuercusModule {
             line = sb.toString();
             sb.setLength(0);
             if (output != null)
-              output.put(env.createString(line));
+              output.put(env.createStringOld(line));
           }
           hasCr = false;
         }
         else if (ch == '\r') {
           line = sb.toString();
           sb.setLength(0);
-          output.put(env.createString(line));
+          output.put(env.createStringOld(line));
           hasCr = true;
         }
         else
@@ -260,7 +260,7 @@ public class MiscModule extends AbstractQuercusModule {
       if (sb.length() > 0) {
         line = sb.toString();
         sb.setLength(0);
-        output.put(env.createString(line));
+        output.put(env.createStringOld(line));
       }
 
       is.close();
@@ -371,19 +371,19 @@ public class MiscModule extends AbstractQuercusModule {
     ArrayValue capabilities = browsers.get(patternMatched).toArrayValue(env);
 
     if (regExpMatched == null)
-      capabilities.put(env.createString("browser_name_regex"),
+      capabilities.put(env.createStringOld("browser_name_regex"),
                        patternMatched);
     else
       capabilities.put("browser_name_regex", regExpMatched);
-    capabilities.put(env.createString("browser_name_pattern"), patternMatched);
+    capabilities.put(env.createStringOld("browser_name_pattern"), patternMatched);
 
     addBrowserCapabilities(env, browsers,
-                           capabilities.get(env.createString("parent")),
+                           capabilities.get(env.createStringOld("parent")),
                            capabilities);
 
     if (return_array) {
       ArrayValue array = new ArrayValueImpl();
-      array.put(env.createString(user_agent), capabilities);
+      array.put(env.createStringOld(user_agent), capabilities);
       return array;
     }
 
@@ -409,7 +409,7 @@ public class MiscModule extends AbstractQuercusModule {
       return;
 
     ArrayValue browserCapabilities = field.toArrayValue(env);
-    StringValue parentString = env.createString("parent");
+    StringValue parentString = env.createStringOld("parent");
     
     for (Map.Entry<Value,Value> entry : browserCapabilities.entrySet()) {
       Value key = entry.getKey();
@@ -1141,7 +1141,7 @@ public class MiscModule extends AbstractQuercusModule {
 
     SpacePackSegment(Env env, String name, int length, byte pad)
     {
-      _name = env.createString(name);
+      _name = env.createStringOld(name);
       _length = length;
       _pad = pad;
     }
@@ -1227,7 +1227,7 @@ public class MiscModule extends AbstractQuercusModule {
 
     HexPackSegment(Env env, String name, int length)
     {
-      _name = env.createString(name);
+      _name = env.createStringOld(name);
       _length = length;
     }
     
@@ -1455,7 +1455,7 @@ public class MiscModule extends AbstractQuercusModule {
         if (_name.length() == 0)
           key = LongValue.create(j + 1);
         else if (_length == 1)
-          key = env.createString(_name);
+          key = env.createStringOld(_name);
         else {
           StringValue sb = env.createStringBuilder();
           sb.append(_name);
@@ -1554,7 +1554,7 @@ public class MiscModule extends AbstractQuercusModule {
         if (_name.length() == 0)
           key = LongValue.create(j + 1);
         else if (_length == 1)
-          key = env.createString(_name);
+          key = env.createStringOld(_name);
         else {
           StringValue sb = env.createStringBuilder();
           sb.append(_name);
@@ -1635,7 +1635,7 @@ public class MiscModule extends AbstractQuercusModule {
         if (_name.length() == 0)
           key = LongValue.create(j + 1);
         else if (_length == 1)
-          key = env.createString(_name);
+          key = env.createStringOld(_name);
         else {
           StringValue sb = env.createBinaryBuilder();
           sb.append(_name);
@@ -1717,7 +1717,7 @@ public class MiscModule extends AbstractQuercusModule {
         if (_name.length() == 0)
           key = LongValue.create(j + 1);
         else if (_length == 1)
-          key = env.createString(_name);
+          key = env.createStringOld(_name);
         else {
           StringValue sb = env.createBinaryBuilder();
           sb.append(_name);

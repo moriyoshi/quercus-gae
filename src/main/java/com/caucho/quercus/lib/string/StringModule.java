@@ -409,7 +409,7 @@ public class StringModule extends AbstractQuercusModule {
         }
       }
 
-      return env.createString(byteToChar.getConvertedString());
+      return env.createStringOld(byteToChar.getConvertedString());
     } catch (IOException e) {
       throw new QuercusModuleException(e);
     }
@@ -729,26 +729,26 @@ public class StringModule extends AbstractQuercusModule {
     DecimalFormatSymbols decimal = new DecimalFormatSymbols(locale);
     Currency currency = NumberFormat.getInstance(locale).getCurrency();
     
-    array.put(env.createString("decimal_point"),
-              env.createString(decimal.getDecimalSeparator()));
-    array.put(env.createString("thousands_sep"),
-              env.createString(decimal.getGroupingSeparator()));
+    array.put(env.createStringOld("decimal_point"),
+              env.createStringOld(decimal.getDecimalSeparator()));
+    array.put(env.createStringOld("thousands_sep"),
+              env.createStringOld(decimal.getGroupingSeparator()));
     //array.put("grouping", "");
-    array.put(env.createString("int_curr_symbol"),
-              env.createString(decimal.getInternationalCurrencySymbol()));
-    array.put(env.createString("currency_symbol"),
-              env.createString(decimal.getCurrencySymbol()));
-    array.put(env.createString("mon_decimal_point"),
-              env.createString(decimal.getMonetaryDecimalSeparator()));
-    array.put(env.createString("mon_thousands_sep"),
-              env.createString(decimal.getGroupingSeparator()));
+    array.put(env.createStringOld("int_curr_symbol"),
+              env.createStringOld(decimal.getInternationalCurrencySymbol()));
+    array.put(env.createStringOld("currency_symbol"),
+              env.createStringOld(decimal.getCurrencySymbol()));
+    array.put(env.createStringOld("mon_decimal_point"),
+              env.createStringOld(decimal.getMonetaryDecimalSeparator()));
+    array.put(env.createStringOld("mon_thousands_sep"),
+              env.createStringOld(decimal.getGroupingSeparator()));
     //array.put("mon_grouping", "");
-    array.put(env.createString("positive_sign"), env.getEmptyString());
-    array.put(env.createString("negative_sign"),
-              env.createString(decimal.getMinusSign()));
-    array.put(env.createString("int_frac_digits"),
+    array.put(env.createStringOld("positive_sign"), env.getEmptyString());
+    array.put(env.createStringOld("negative_sign"),
+              env.createStringOld(decimal.getMinusSign()));
+    array.put(env.createStringOld("int_frac_digits"),
               LongValue.create(currency.getDefaultFractionDigits()));
-    array.put(env.createString("frac_digits"),
+    array.put(env.createStringOld("frac_digits"),
               LongValue.create(currency.getDefaultFractionDigits()));
     //array.put("p_cs_precedes", "");
     //array.put("p_sep_by_space", "");
@@ -1572,7 +1572,7 @@ public class StringModule extends AbstractQuercusModule {
                                          value.toString());
 
         if (locale != null)
-          return env.createString(locale.toString());
+          return env.createString(locale.toString(), null);
       }
     }
     else {
@@ -1581,7 +1581,7 @@ public class StringModule extends AbstractQuercusModule {
                                        localeArg.toString());
 
       if (locale != null)
-        return env.createString(locale.toString());
+        return env.createString(locale.toString(), null);
     }
 
     for (int i = 0; i < fallback.length; i++) {
@@ -1590,7 +1590,7 @@ public class StringModule extends AbstractQuercusModule {
                                        fallback[i].toString());
 
       if (locale != null)
-        return env.createString(locale.toString());
+        return env.createString(locale.toString(), null);
     }
 
     return BooleanValue.FALSE;

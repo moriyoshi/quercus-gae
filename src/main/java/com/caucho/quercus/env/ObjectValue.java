@@ -360,7 +360,7 @@ abstract public class ObjectValue extends Value {
   {
     Env env = Env.getInstance();
     
-    return putThisField(env, env.createString(key), env.createString(value));
+    return putThisField(env, env.createStringOld(key), env.createStringOld(value));
   }
 
   /**
@@ -368,7 +368,7 @@ abstract public class ObjectValue extends Value {
    */
   public Value putField(Env env, String key, String value)
   {
-    return putThisField(env, env.createString(key), env.createString(value));
+    return putThisField(env, env.createStringOld(key), env.createStringOld(value));
   }
 
   /**
@@ -379,7 +379,7 @@ abstract public class ObjectValue extends Value {
   {
     Env env = Env.getInstance();
     
-    return putThisField(env, env.createString(key), LongValue.create(value));
+    return putThisField(env, env.createStringOld(key), LongValue.create(value));
   }
 
   /**
@@ -387,7 +387,7 @@ abstract public class ObjectValue extends Value {
    */
   public Value putField(Env env, String key, long value)
   {
-    return putThisField(env, env.createString(key), LongValue.create(value));
+    return putThisField(env, env.createStringOld(key), LongValue.create(value));
   }
 
   /**
@@ -395,7 +395,7 @@ abstract public class ObjectValue extends Value {
    */
   public Value putField(Env env, String key, Value value)
   {
-    return putThisField(env, env.createString(key), value);
+    return putThisField(env, env.createStringOld(key), value);
   }
 
   /**
@@ -417,7 +417,7 @@ abstract public class ObjectValue extends Value {
   {
     Env env = Env.getInstance();
     
-    return putThisField(env, env.createString(key), DoubleValue.create(value));
+    return putThisField(env, env.createStringOld(key), DoubleValue.create(value));
   }
 
   /**
@@ -507,7 +507,7 @@ abstract public class ObjectValue extends Value {
 
       printDepth(out, 2 * (depth + 1));
       
-      Value value = env.createString(getIncompleteObjectName());
+      Value value = env.createStringOld(getIncompleteObjectName());
       
       value.varDump(env, out, depth + 1, valueSet);
 

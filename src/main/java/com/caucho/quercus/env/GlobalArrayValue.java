@@ -181,7 +181,7 @@ public class GlobalArrayValue extends ArrayValueImpl {
     ArrayValue array = new ArrayValueImpl();
     
     for(Map.Entry<String,EnvVar> entry : _env.getGlobalEnv().entrySet()) {
-      Value key = _env.createString(entry.getKey());
+      Value key = _env.createStringOld(entry.getKey());
       Value val = entry.getValue().get();
       
       array.put(key, val);

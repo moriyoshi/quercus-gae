@@ -175,11 +175,11 @@ public class ImageModule extends AbstractQuercusModule {
     imageArray.put(LongValue.create(info._width));
     imageArray.put(LongValue.create(info._height));
     imageArray.put(LongValue.create(info._type));
-    imageArray.put(env.createString("width=\"" + info._width +
+    imageArray.put(env.createStringOld("width=\"" + info._width +
                                    "\" height=\"" + info._height + "\""));
 
     if (info._bits >= 0)
-      imageArray.put(env.createString("bits"), LongValue.create(info._bits));
+      imageArray.put(env.createStringOld("bits"), LongValue.create(info._bits));
 
     if (info._type == IMAGETYPE_JPEG)
       imageArray.put("channels", 3);
@@ -2018,7 +2018,7 @@ public class ImageModule extends AbstractQuercusModule {
       if (fontPath.length() > 0 && fontPath.charAt(0) == '/')
         return null;
 
-      StringValue gdFontPathKey = env.createString("GDFONTPATH");
+      StringValue gdFontPathKey = env.createStringOld("GDFONTPATH");
       
       StringValue gdFontPath
         = OptionsModule.getenv(env, gdFontPathKey).toStringValue();

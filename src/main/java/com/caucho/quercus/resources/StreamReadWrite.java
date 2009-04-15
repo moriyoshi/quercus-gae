@@ -122,7 +122,7 @@ public class StreamReadWrite extends StreamResource
     throws IOException
   {
     if (_is != null)
-      return env.createString(_is.readLineNoChop());
+      return env.createString(_is.readLineNoChop(), "UTF-8" /* XXX */);
     else
       return env.getEmptyString();
   }

@@ -348,7 +348,7 @@ public class CurlModule
     if (curl == null)
       return BooleanValue.FALSE;
 
-    return env.createString(curl.getError());
+    return env.createStringOld(curl.getError());
   }
 
   /**
@@ -420,7 +420,7 @@ public class CurlModule
                               String name,
                               int option)
   {
-    array.put(env.createString(name), getInfo(env, curl, option));
+    array.put(env.createStringOld(name), getInfo(env, curl, option));
   }
 
   private static Value getInfo(Env env,
@@ -429,7 +429,7 @@ public class CurlModule
   {
     switch (option) {
       case CURLINFO_EFFECTIVE_URL:
-        return env.createString(curl.getURL());
+        return env.createStringOld(curl.getURL());
       case CURLINFO_HTTP_CODE:
         return LongValue.create(curl.getResponseCode());
       case CURLINFO_HEADER_SIZE:
@@ -478,7 +478,7 @@ public class CurlModule
         if (type == null)
           return NullValue.NULL;
 
-        return env.createString(type);
+        return env.createStringOld(type);
       default:
         env.warning(L.l("Unknown CURL getinfo option"));
     }
@@ -1054,10 +1054,10 @@ public class CurlModule
     
     // supported protocols
     ArrayValue protocols = new ArrayValueImpl();
-    protocols.put(env.createString("http"));
-    protocols.put(env.createString("https"));
+    protocols.put(env.createStringOld("http"));
+    protocols.put(env.createStringOld("https"));
     
-    array.put(env.createString("protocols"), protocols);
+    array.put(env.createStringOld("protocols"), protocols);
     
     return array;
   }

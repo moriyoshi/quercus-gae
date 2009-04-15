@@ -128,7 +128,7 @@ public class SplModule extends AbstractQuercusModule
     for (int i = 0; i < size; i++) {
       Callback cb = funList.get(i);
       
-      array.put(env.createString(cb.toString()));
+      array.put(env.createStringOld(cb.toString()));
     }
     
     return array;

@@ -106,14 +106,14 @@ public class HashModule extends AbstractQuercusModule {
     ArrayValue array = new ArrayValueImpl();
 
     for (String name : _algorithmMap.keySet()) {
-      array.put(env.createString(name));
+      array.put(env.createStringOld(name));
     }
 
     Collection<String> values = _algorithmMap.values();
 
     for (String name : Security.getAlgorithms("MessageDigest")) {
       if (! values.contains(name))
-        array.put(env.createString(name));
+        array.put(env.createStringOld(name));
     }
     
     return array;

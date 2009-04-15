@@ -278,7 +278,7 @@ public class StreamModule extends AbstractQuercusModule {
 
       // XXX: handle offset and maxlen
 
-      return env.createString(sb.toString());
+      return env.createStringOld(sb.toString());
     } catch (IOException e) {
       throw new QuercusModuleException(e);
     }
@@ -340,9 +340,9 @@ public class StreamModule extends AbstractQuercusModule {
       isTimeout = ((AbstractBinaryInputOutput) stream).isTimeout();
 
     if (isTimeout)
-      array.put(env.createString("timed_out"), BooleanValue.TRUE);
+      array.put(env.createStringOld("timed_out"), BooleanValue.TRUE);
     else
-      array.put(env.createString("timed_out"), BooleanValue.FALSE);
+      array.put(env.createStringOld("timed_out"), BooleanValue.FALSE);
     
     return array;
   }
@@ -354,8 +354,8 @@ public class StreamModule extends AbstractQuercusModule {
   {
     ArrayValue value = new ArrayValueImpl();
 
-    value.append(env.createString("tcp"));
-    value.append(env.createString("udp"));
+    value.append(env.createStringOld("tcp"));
+    value.append(env.createStringOld("udp"));
 
     return value;
   }
@@ -500,12 +500,12 @@ public class StreamModule extends AbstractQuercusModule {
       return stream;
     }
     catch (UnknownHostException e) {
-      errorStr.set(env.createString(e.getMessage()));
+      errorStr.set(env.createStringOld(e.getMessage()));
       
       return null;
     }
     catch (IOException e) {
-      errorStr.set(env.createString(e.getMessage()));
+      errorStr.set(env.createStringOld(e.getMessage()));
       
       return null;
     }

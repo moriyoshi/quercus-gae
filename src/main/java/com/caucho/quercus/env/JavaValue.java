@@ -142,7 +142,7 @@ public class JavaValue extends ObjectValue
     StringValue value = _classDef.toString(env, this);
     
     if (value == null)
-      value = env.createString(toString());
+      value = env.createStringOld(toString());
     
     return value;
   }

@@ -140,7 +140,7 @@ public class PostgresStatement extends JdbcStatementResource {
       queryStr = queryStr.replaceAll("\\$[0-9]+", "?");
 
       // Prepare the JDBC query
-      return super.prepare(env, env.createString(queryStr));
+      return super.prepare(env, env.createString(queryStr, "UTF-8" /* XXX */));
 
     } catch (Exception e) {
       log.log(Level.FINE, e.toString(), e);

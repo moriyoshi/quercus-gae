@@ -209,7 +209,7 @@ public class MbstringModule
     Value decoded = decodeAll(env, vars, srcEncoding);
     vars.set(encodeAll(env, decoded, toEncoding));
 
-    return env.createString(srcEncoding);
+    return env.createStringOld(srcEncoding);
   }
 
   /**
@@ -258,7 +258,7 @@ public class MbstringModule
       Decoder decoder = Decoder.create(charset);
       
       if (decoder.isDecodable(env, str))
-        return env.createString(charset);
+        return env.createStringOld(charset);
     }
     
     return BooleanValue.FALSE;
@@ -376,7 +376,7 @@ public class MbstringModule
                                                       transfer_encoding,
                                                       linefeed,
                                                       76);
-      return env.createString(mime);
+      return env.createStringOld(mime);
 
     } catch (UnsupportedEncodingException e) {
       throw new QuercusModuleException(e.getMessage());
@@ -708,19 +708,19 @@ public class MbstringModule
     if (type.length() == 0) {
       ArrayValue array = new ArrayValueImpl();
 
-      array.put(env.createString("internal_encoding"),
-                env.createString(getEncoding(env)));
+      array.put(env.createStringOld("internal_encoding"),
+                env.createStringOld(getEncoding(env)));
       
-      array.put(env.createString("http_output"),
-                env.createString(getOutputEncoding(env)));
+      array.put(env.createStringOld("http_output"),
+                env.createStringOld(getOutputEncoding(env)));
 
       return array;
     }
     else if (type.equals("internal_encoding")) {
-      return env.createString(getEncoding(env));
+      return env.createStringOld(getEncoding(env));
     }
     else if (type.equals("http_output")) {
-      return env.createString(getOutputEncoding(env));
+      return env.createStringOld(getOutputEncoding(env));
     }
     else {
       env.warning(L.l("unsupported option: {0}", type));
@@ -745,7 +745,7 @@ public class MbstringModule
                                      @Optional String encoding)
   {
     if (encoding.length() == 0) {
-      return env.createString(getOutputEncoding(env));
+      return env.createStringOld(getOutputEncoding(env));
     }
     else {
       env.setIni("mbstring.http_output", encoding);
@@ -761,7 +761,7 @@ public class MbstringModule
                               @Optional String encoding)
   {
     if (encoding.length() == 0)
-      return env.createString(getEncoding(env));
+      return env.createStringOld(getEncoding(env));
     else {
       setEncoding(env, encoding);
       return BooleanValue.TRUE;
@@ -778,13 +778,13 @@ public class MbstringModule
 
     if (language == null || language.length() == 0) {
       if (encoding.equalsIgnoreCase("ISO-2022-JP"))
-        return env.createString("Japanese");
+        return env.createStringOld("Japanese");
       else if (encoding.equalsIgnoreCase("ISO-8859-1"))
-        return env.createString("English");
+        return env.createStringOld("English");
       else if (encoding.equalsIgnoreCase("UTF-8"))
-        return env.createString("uni");
+        return env.createStringOld("uni");
       else
-        return env.createString(encoding);
+        return env.createStringOld(encoding);
     }
     else if (language.equals("Japanese") || language.equals("ja"))
       setEncodingLanguage(env, "ISO-2022-JP");
@@ -823,7 +823,7 @@ public class MbstringModule
     Map<String,Charset> charsetMap = Charset.availableCharsets();
 
     for (String name : charsetMap.keySet()) {
-      array.put(env.createString(name));
+      array.put(env.createStringOld(name));
     }
 
     return array;
@@ -882,7 +882,7 @@ public class MbstringModule
   {
     String mimeName = Encoding.getMimeName(encoding.toString());
 
-    return env.createString(mimeName);
+    return env.createStringOld(mimeName);
   }
 
   /**

@@ -164,7 +164,7 @@ public class SessionArrayValue extends ArrayValueWrapper
 
           String key = sb.toString();
 
-          array.put(env.createString(key), is.unserialize(env));
+          array.put(env.createStringOld(key), is.unserialize(env));
         }
       }
     } catch (IOException e) {

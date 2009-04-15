@@ -378,11 +378,11 @@ public class UnicodeModule extends AbstractQuercusModule {
     }
 
     if ("input_encoding".equals(type))
-      return env.createString(env.getIniString("iconv.input_encoding"));
+      return env.createStringOld(env.getIniString("iconv.input_encoding"));
     else if ("output_encoding".equals(type))
-      return env.createString(env.getIniString("iconv.output_encoding"));
+      return env.createStringOld(env.getIniString("iconv.output_encoding"));
     else if ("internal_encoding".equals(type))
-      return env.createString(env.getIniString("iconv.internal_encoding"));
+      return env.createStringOld(env.getIniString("iconv.internal_encoding"));
 
     return BooleanValue.FALSE;
   }
@@ -473,23 +473,23 @@ public class UnicodeModule extends AbstractQuercusModule {
       int lineLength = 76;
 
       if (preferences != null) {
-        Value tmp = env.createString("scheme");
+        Value tmp = env.createStringOld("scheme");
         if ((tmp = preferences.get(tmp)).isset())
           scheme = tmp.toString();
 
-        tmp = env.createString("line-break-chars");
+        tmp = env.createStringOld("line-break-chars");
         if ((tmp = preferences.get(tmp)).isset())
           lineBreakChars = tmp.toString();
 
-        tmp = env.createString("input-charset");
+        tmp = env.createStringOld("input-charset");
         if ((tmp = preferences.get(tmp)).isset())
           inCharset = tmp.toString();
 
-        tmp = env.createString("output-charset");
+        tmp = env.createStringOld("output-charset");
         if ((tmp = preferences.get(tmp)).isset())
           outCharset = tmp.toString();
 
-        tmp = env.createString("line-length");
+        tmp = env.createStringOld("line-length");
         if ((tmp = preferences.get(tmp)).isset()) {
         if (tmp.isLongConvertible())
           lineLength = (int)tmp.toLong();

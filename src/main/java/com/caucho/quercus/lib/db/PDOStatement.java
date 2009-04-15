@@ -596,7 +596,7 @@ public class PDOStatement
         String name = getResultSetMetaData().getColumnName(i);
         Value value = getColumnValue(i);
 
-        array.put(_env.createString(name), value);
+        array.put(_env.createString(name, "UTF-8" /* XXX */), value);
       }
 
       return array;
@@ -635,7 +635,7 @@ public class PDOStatement
         String name = getResultSetMetaData().getColumnName(i);
         Value value = getColumnValue(i);
 
-        array.put(_env.createString(name), value);
+        array.put(_env.createString(name, "UTF-8" /* XXX */), value);
         array.put(LongValue.create(i - 1), value);
       }
 
@@ -857,7 +857,7 @@ public class PDOStatement
       int columnCount = getResultSetMetaData().getColumnCount();
 
       for (int i = 1; i <= columnCount; i++) {
-        Value name = _env.createString(getResultSetMetaData().getColumnName(i));
+        Value name = _env.createString(getResultSetMetaData().getColumnName(i), "UTF-8" /* XXX */);
         Value value = getColumnValue(i);
 
         Value existingValue = array.get(name);
@@ -1038,7 +1038,7 @@ public class PDOStatement
         if (value == null || _resultSet.wasNull())
           return NullValue.NULL;
         else
-          return _env.createString(value);
+          return _env.createString(value, "UTF-8" /* XXX */);
       }
 
       case Types.DOUBLE:
@@ -1060,7 +1060,7 @@ public class PDOStatement
         if (value == null || _resultSet.wasNull())
           return NullValue.NULL;
         else
-          return _env.createString(value);
+          return _env.createString(value, "UTF-8" /* XXX */);
       }
     }
 

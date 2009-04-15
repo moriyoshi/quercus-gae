@@ -180,7 +180,7 @@ public class IniDefinition {
   {
     set(env.getIniMap(true),
         PHP_INI_USER,
-        env.createString(value));
+        env.createStringOld(value));
   }
 
   /**

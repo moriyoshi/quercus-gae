@@ -871,7 +871,7 @@ public class OracleModule extends AbstractQuercusModule {
       if (stmt == null)
         return null;
 
-      resource = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+      resource = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       ArrayValue value
         = resource.fetchArray(env, JdbcResultResource.FETCH_ASSOC);
@@ -916,7 +916,7 @@ public class OracleModule extends AbstractQuercusModule {
     try {
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       switch (mode) {
       case OCI_ASSOC:
@@ -946,7 +946,7 @@ public class OracleModule extends AbstractQuercusModule {
         return null;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
       
       ArrayValue arrayValue = resource.fetchArray(env, JdbcResultResource.FETCH_ASSOC);
 
@@ -969,7 +969,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
       
       return resource.fetchObject(env);
     } catch (Exception ex) {
@@ -991,7 +991,7 @@ public class OracleModule extends AbstractQuercusModule {
         return null;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
       
       return resource.fetchArray(env, JdbcResultResource.FETCH_NUM);
 
@@ -1013,7 +1013,7 @@ public class OracleModule extends AbstractQuercusModule {
         return false;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       Value result = resource.fetchArray(env, JdbcResultResource.FETCH_BOTH);
 
@@ -1068,7 +1068,7 @@ public class OracleModule extends AbstractQuercusModule {
       ResultSet rs = stmt.getResultSet();
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, rs, null);
+        = new JdbcResultResource(env, null, rs, null, "UTF-8" /* XXX */);
 
       int fieldNumber = resource.getColumnNumber(fieldNameOrNumber, 1);
 
@@ -1097,7 +1097,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       return resource.getFieldName(env, fieldNumber);
     } catch (Exception ex) {
@@ -1175,7 +1175,7 @@ public class OracleModule extends AbstractQuercusModule {
       ResultSet rs = stmt.getResultSet();
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, rs, null);
+        = new JdbcResultResource(env, null, rs, null, "UTF-8" /* XXX */);
 
       int fieldNumber = resource.getColumnNumber(fieldNameOrNumber, 1);
 
@@ -1205,7 +1205,7 @@ public class OracleModule extends AbstractQuercusModule {
         return -1;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       Value typeV = resource.getJdbcType(--field);
 
@@ -1265,7 +1265,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       return resource.getFieldType(env, fieldNumber);
     } catch (Exception ex) {
@@ -1469,7 +1469,7 @@ public class OracleModule extends AbstractQuercusModule {
         return BooleanValue.FALSE;
 
       JdbcResultResource resource
-        = new JdbcResultResource(env, null, stmt.getResultSet(), null);
+        = new JdbcResultResource(env, null, stmt.getResultSet(), null, "UTF-8" /* XXX */);
 
       return LongValue.create(resource.getFieldCount());
     } catch (Exception ex) {
@@ -1542,7 +1542,7 @@ public class OracleModule extends AbstractQuercusModule {
       // Store binding names for future reference (see oci_execute)
       String regex = ":[a-zA-Z0-9_]+";
       String jdbcQuery = query.replaceAll(regex, "?");
-      OracleStatement pstmt = conn.prepare(env, env.createString(jdbcQuery));
+      OracleStatement pstmt = conn.prepare(env, env.createString(jdbcQuery, "UTF-8" /* XXX */));
 
       Pattern pattern = Pattern.compile(regex);
       Matcher matcher = pattern.matcher(query);

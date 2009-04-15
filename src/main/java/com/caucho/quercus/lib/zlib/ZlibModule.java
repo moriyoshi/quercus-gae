@@ -410,16 +410,17 @@ public class ZlibModule extends AbstractQuercusModule {
     }
 
     ServerArrayValue sav = new ServerArrayValue(env);
-    Value val = sav.get(env.createString("HTTP_ACCEPT_ENCODING"));
+    Value val = sav.get(env.createStringOld("HTTP_ACCEPT_ENCODING"));
 
     if (!val.isset())
       return BooleanValue.FALSE;
 
     String s = val.toString();
     if (s.contains("gzip"))
-      return env.createString("gzip");
+      return env.createStringOld("gzip");
     else if(s.contains("deflate"))
-      return env.createString("deflate");
+      return env.createStringOld
+      ("deflate");
     else
       return BooleanValue.FALSE;
   }

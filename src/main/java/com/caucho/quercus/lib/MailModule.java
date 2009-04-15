@@ -99,7 +99,7 @@ public class MailModule extends AbstractQuercusModule {
       StringValue user = null;
 
       if (headers.get("from") != null)
-        user = env.createString(headers.get("from"));
+        user = env.createStringOld(headers.get("from"));
 
       if (user == null)
         user = env.getIni("sendmail_from");

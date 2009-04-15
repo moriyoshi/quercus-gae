@@ -100,7 +100,7 @@ public class ApcModule extends AbstractQuercusModule
     }
 
     ArrayValueImpl cacheList = new ArrayValueImpl();
-    value.put(env.createString("cache_list"), cacheList);
+    value.put(env.createStringOld("cache_list"), cacheList);
 
     if ("user".equals(type) && _cache != null && ! limited) {
       ArrayList<String> keys = new ArrayList<String>();
@@ -125,11 +125,11 @@ public class ApcModule extends AbstractQuercusModule
           ArrayValueImpl array = new ArrayValueImpl();
           cacheList.put(array);
 
-          array.put(env.createString("info"), env.createString(key));
-          array.put(env.createString("ttl"),
+          array.put(env.createStringOld("info"), env.createStringOld(key));
+          array.put(env.createStringOld("ttl"),
                     LongValue.create(entryValue.getTTL()));
-          array.put(env.createString("type"), env.createString("user"));
-          array.put(env.createString("num_hits"),
+          array.put(env.createStringOld("type"), env.createStringOld("user"));
+          array.put(env.createStringOld("num_hits"),
                     LongValue.create(entryValue.getHitCount()));
         }
       }
@@ -292,7 +292,7 @@ public class ApcModule extends AbstractQuercusModule
     value.put("num_seg", 1);
     value.put("seg_size", 1024 * 1024);
     value.put("avail_mem", 1024 * 1024);
-    value.put(env.createString("block_lists"), new ArrayValueImpl());
+    value.put(env.createStringOld("block_lists"), new ArrayValueImpl());
 
     return value;
   }
