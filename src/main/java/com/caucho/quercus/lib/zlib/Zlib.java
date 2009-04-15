@@ -338,7 +338,7 @@ public class Zlib {
    * @throws DataFormatException
    */
   @ReturnNullAsFalse
-  public StringValue gzgetss(int length,
+  public StringValue gzgetss(Env env, int length,
                              @Optional StringValue allowedTags)
   {
     try {
@@ -357,7 +357,7 @@ public class Zlib {
           break;
       }
       if (sbv.length() > 0)
-        return StringModule.strip_tags(sbv, allowedTags);
+        return StringModule.strip_tags(env, sbv, allowedTags);
       else
         return null;
     } catch (Exception e) {

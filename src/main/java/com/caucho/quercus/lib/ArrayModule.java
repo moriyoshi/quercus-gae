@@ -443,7 +443,7 @@ public class ArrayModule
       return ((ArrayValue) searchArray).containsKey(key) != null;
     }
     else {
-      return ! searchArray.getField(env, key.toStringValue()).isNull();
+      return ! searchArray.getField(env, key.toStringValue(env)).isNull();
     }
   }
 

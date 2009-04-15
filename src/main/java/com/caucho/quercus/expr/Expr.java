@@ -474,7 +474,7 @@ abstract public class Expr {
    */
   public StringValue evalStringValue(Env env)
   {
-    return eval(env).toStringValue();
+    return eval(env).toStringValue(env);
   }
 
   /**

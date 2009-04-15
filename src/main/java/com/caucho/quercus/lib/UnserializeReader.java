@@ -249,7 +249,7 @@ public final class UnserializeReader {
           ref = createReference(obj);
 
         for (int i = 0; i < count; i++) {
-          StringValue key = unserializeKey(env).toStringValue();
+          StringValue key = unserializeKey(env).toStringValue(env);
           
           FieldVisibility visibility = FieldVisibility.PUBLIC;
 

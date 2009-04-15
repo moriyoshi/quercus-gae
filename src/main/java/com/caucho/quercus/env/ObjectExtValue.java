@@ -1485,7 +1485,7 @@ public class ObjectExtValue extends ObjectValue
       AbstractFunction fun = _quercusClass.findFunction("__toString");
 
       if (fun != null)
-        return fun.callMethod(env, this, new Expr[0]).toStringValue();
+        return fun.callMethod(env, this, new Expr[0]).toStringValue(env);
       else
         return env.createStringOld(_className + "[]");
     } finally {

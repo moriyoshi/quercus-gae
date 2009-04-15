@@ -379,31 +379,32 @@ public class Post {
             else
               value = NullValue.NULL;
             
-            put(array, null, value, addSlashesToValues);
+            put(env, array, null, value, addSlashesToValues);
           }
         }
         else
           array.put(formValue);
       }
       else if ('0' <= index.charAt(0) && index.charAt(0) <= '9')
-        put(array, LongValue.create(StringValue.toLong(index)), formValue, addSlashesToValues);
+        put(env, array, LongValue.create(StringValue.toLong(index)), formValue, addSlashesToValues);
       else
-        put(array, env.createString(index, encoding), formValue, addSlashesToValues);
+        put(env, array, env.createString(index, encoding), formValue, addSlashesToValues);
     }
     else {
       key = key.replaceAll("\\.", "_");
       
-      put(array, env.createString(key, encoding), formValue, addSlashesToValues);
+      put(env, array, env.createString(key, encoding), formValue, addSlashesToValues);
     }
   }
 
-  private static void put(ArrayValue array,
+  private static void put(Env env,
+                          ArrayValue array,
                           Value key,
                           Value value,
                           boolean addSlashes)
   {
     if (addSlashes && (value instanceof StringValue)) {
-      value = StringModule.addslashes(value.toStringValue());
+      value = StringModule.addslashes(value.toStringValue(env));
     }
 
     if (key == null)

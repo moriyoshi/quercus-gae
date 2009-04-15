@@ -275,28 +275,6 @@ public class RegexpModule
       return null;
     }
   }
-
-  public static Regexp []createRegexpArray(Value pattern)
-  {
-    if (pattern.isArray()) {
-      ArrayValue array = (ArrayValue) pattern;
-      
-      Regexp []regexpArray = new Regexp[array.getSize()];
-      
-      int i = 0;
-      for (Value value : array.values()) {
-        Regexp regexp = createRegexp(value.toStringValue());
-        regexpArray[i++] = regexp;
-      }
-      
-      return regexpArray;
-    }
-    else {
-      Regexp regexp = createRegexp(pattern.toStringValue());
-
-      return new Regexp [] { regexp };
-    }
-  }
   
   public static Regexp []createRegexpArray(Env env, Value pattern)
   {
@@ -328,9 +306,9 @@ public class RegexpModule
       if (value.isNull() || value.isBoolean())
         regexpStr = env.getEmptyString();
       else if (! value.isString())
-        regexpStr = value.toLongValue().toStringValue();
+        regexpStr = value.toLongValue().toStringValue(env);
       else
-        regexpStr = value.toStringValue();
+        regexpStr = value.toStringValue(env);
 
       Ereg ereg = _eregCache.get(regexpStr);
       
@@ -350,36 +328,7 @@ public class RegexpModule
       
       return null;
     }
-  }
-  
-  public static Ereg createEreg(Value value)
-  {
-    try {
-      StringValue regexpStr;
-      
-      if (value.isNull() || value.isBoolean())
-        regexpStr = StringValue.EMPTY;
-      else if (! value.isString())
-        regexpStr = value.toLongValue().toStringValue();
-      else
-        regexpStr = value.toStringValue();
-      
-      Ereg ereg = _eregCache.get(regexpStr);
-      
-      if (ereg == null) {
-        StringValue cleanPattern = cleanEregRegexp(regexpStr, false);
-
-        ereg = new Ereg(cleanPattern);
-        
-        _eregCache.put(regexpStr, ereg);
-      }
-      
-      return ereg;
-    }
-    catch (IllegalRegexpException e) {
-      throw new QuercusException(e);
-    }
-  }
+  } 
   
   public static Eregi createEregi(Env env, Value value)
   {
@@ -389,9 +338,9 @@ public class RegexpModule
       if (value.isNull() || value.isBoolean())
         regexpStr = env.getEmptyString();
       else if (! value.isString())
-        regexpStr = value.toLongValue().toStringValue();
+        regexpStr = value.toLongValue().toStringValue(env);
       else
-        regexpStr = value.toStringValue();
+        regexpStr = value.toStringValue(env);
       
       Eregi eregi = _eregiCache.get(regexpStr);
       
@@ -410,35 +359,6 @@ public class RegexpModule
       env.warning(e);
       
       return null;
-    }
-  }
-  
-  public static Eregi createEregi(Value value)
-  {
-    try {
-      StringValue regexpStr;
-      
-      if (value.isNull() || value.isBoolean())
-        regexpStr = StringValue.EMPTY;
-      else if (! value.isString())
-        regexpStr = value.toLongValue().toStringValue();
-      else
-        regexpStr = value.toStringValue();
-
-      Eregi eregi = _eregiCache.get(regexpStr);
-      
-      if (eregi == null) {
-        StringValue cleanPattern = cleanEregRegexp(regexpStr, false);
-
-        eregi = new Eregi(cleanPattern);
-        
-        _eregiCache.put(regexpStr, eregi);
-      }
-      
-      return eregi;
-    }
-    catch (IllegalRegexpException e) {
-      throw new QuercusException(e);
     }
   }
   
@@ -893,7 +813,7 @@ public class RegexpModule
           result.put(pregReplace(env,
                                  regexp,
                                  replacement,
-                                 value.toStringValue(),
+                                 value.toStringValue(env),
                                  limit,
                                  count));
         }
@@ -905,7 +825,7 @@ public class RegexpModule
         return pregReplace(env,
                            regexp,
                            replacement,
-                           subject.toStringValue(),
+                           subject.toStringValue(env),
                            limit, count);
       } else
         return env.getEmptyString();
@@ -942,7 +862,7 @@ public class RegexpModule
       StringValue replacementStr;
 
       if (replacementIter.hasNext())
-        replacementStr = replacementIter.next().toStringValue();
+        replacementStr = replacementIter.next().toStringValue(env);
       else
         replacementStr = env.getEmptyString();
 
@@ -955,7 +875,7 @@ public class RegexpModule
     } else {
       string = pregReplaceString(env,
                                  regexp,
-                                 replacement.toStringValue(),
+                                 replacement.toStringValue(env),
                                  string,
                                  limit,
                                  countV);
@@ -987,7 +907,7 @@ public class RegexpModule
                                    @Optional @Reference Value count)
   {
     try {
-      Regexp []regexpList = createRegexpArray(pattern);
+      Regexp []regexpList = createRegexpArray(env, pattern);
       
       if (subject instanceof ArrayValue) {
         ArrayValue result = new ArrayValueImpl();
@@ -996,7 +916,7 @@ public class RegexpModule
           result.put(pregReplace(env,
                                  regexpList,
                                  replacement,
-                                 value.toStringValue(),
+                                 value.toStringValue(env),
                                  limit,
                                  count));
         }
@@ -1008,7 +928,7 @@ public class RegexpModule
         return pregReplace(env,
                            regexpList,
                            replacement,
-                           subject.toStringValue(),
+                           subject.toStringValue(env),
                            limit, count);
       } else
         return env.getEmptyString();
@@ -1046,7 +966,7 @@ public class RegexpModule
         StringValue replacementStr;
 
         if (replacementIter.hasNext())
-          replacementStr = replacementIter.next().toStringValue();
+          replacementStr = replacementIter.next().toStringValue(env);
         else
           replacementStr = env.getEmptyString();
 
@@ -1061,7 +981,7 @@ public class RegexpModule
       for (int i = 0; i < regexpList.length; i++) {
         string = pregReplaceString(env,
                                    regexpList[i],
-                                   replacement.toStringValue(),
+                                   replacement.toStringValue(env),
                                    string,
                                    limit,
                                    countV);
@@ -1224,7 +1144,7 @@ public class RegexpModule
     if (replacement instanceof NullValue) {
       replacementStr = env.getEmptyString();
     } else if (replacement instanceof StringValue) {
-      replacementStr = replacement.toStringValue();
+      replacementStr = replacement.toStringValue(env);
     } else {
       replacementStr = env.createStringOld(
         String.valueOf((char) replacement.toLong()));
@@ -1357,7 +1277,7 @@ public class RegexpModule
           result.put(pregReplaceCallback(env,
                                          regexp,
                                          fun,
-                                         value.toStringValue(),
+                                         value.toStringValue(env),
                                          limit,
                                          count));
         }
@@ -1368,7 +1288,7 @@ public class RegexpModule
         return pregReplaceCallback(env,
                                    regexp,
                                    fun,
-                                   subject.toStringValue(),
+                                   subject.toStringValue(env),
                                    limit,
                                    count);
       } else {
@@ -1394,7 +1314,7 @@ public class RegexpModule
                                             @Optional @Reference Value count)
   {
     if (! regexpValue.isArray()) {
-      Regexp regexp = createRegexp(env, regexpValue.toStringValue());
+      Regexp regexp = createRegexp(env, regexpValue.toStringValue(env));
 
       
       return preg_replace_callback(env, regexp,
@@ -1411,7 +1331,7 @@ public class RegexpModule
           result.put(pregReplaceCallback(env,
                                          regexpList,
                                          fun,
-                                         value.toStringValue(),
+                                         value.toStringValue(env),
                                          limit,
                                          count));
         }
@@ -1422,7 +1342,7 @@ public class RegexpModule
         return pregReplaceCallback(env,
                                    regexpList,
                                    fun,
-                                   subject.toStringValue(),
+                                   subject.toStringValue(env),
                                    limit,
                                    count);
       } else {
@@ -1782,7 +1702,7 @@ public class RegexpModule
       Value entryValue = entry.getValue();
       Value entryKey = entry.getKey();
 
-      boolean found = regexpState.find(env, entryValue.toStringValue());
+      boolean found = regexpState.find(env, entryValue.toStringValue(env));
 
       if (! found && flag == PREG_GREP_INVERT)
         matchArray.append(entryKey, entryValue);

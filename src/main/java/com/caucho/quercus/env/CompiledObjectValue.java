@@ -522,7 +522,7 @@ public class CompiledObjectValue extends ObjectValue
       for (Map.Entry<Value,Value> mapEntry : _object.sortedEntrySet()) {
         ObjectExtValue.Entry entry = (ObjectExtValue.Entry) mapEntry;
 
-        StringValue key = entry.getKey().toStringValue();
+        StringValue key = entry.getKey().toStringValue(env);
         
         sb.append("s:");
         sb.append(key.length());

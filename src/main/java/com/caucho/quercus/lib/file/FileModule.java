@@ -665,7 +665,7 @@ public class FileModule extends AbstractQuercusModule {
       StringValue value = is.readLine(length);
 
       if (value != null)
-        return StringModule.strip_tags(value, allowedTags);
+        return StringModule.strip_tags(env, value, allowedTags);
       else
         return BooleanValue.FALSE;
     } catch (IOException e) {
@@ -1371,7 +1371,7 @@ public class FileModule extends AbstractQuercusModule {
       
       if (mode.startsWith("r")) {
         if (useIncludePath)
-          path = env.lookupInclude(filename.toStringValue());
+          path = env.lookupInclude(filename.toStringValue(env));
 
         if (path == null) {
           env.warning(L.l("{0} cannot be read", filename));
@@ -1541,7 +1541,7 @@ public class FileModule extends AbstractQuercusModule {
         }
         isFirst = false;
 
-        StringValue s = data.toStringValue();
+        StringValue s = data.toStringValue(env);
         int strlen = s.length();
 
         writeLength++;

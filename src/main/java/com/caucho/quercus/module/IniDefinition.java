@@ -255,7 +255,7 @@ public class IniDefinition {
 
   public StringValue getAsStringValue(Env env)
   {
-    return getValue(env).toStringValue();
+    return getValue(env).toStringValue(env);
   }
 
   /**

@@ -386,7 +386,7 @@ public class HtmlModule extends AbstractQuercusModule {
 
     while (iter.hasNext()) {
       Map.Entry<Value,Value> entry = iter.next();
-      StringValue key = entry.getKey().toStringValue();
+      StringValue key = entry.getKey().toStringValue(env);
       Value value = entry.getValue();
       
       Ereg regexp = RegexpModule.createEreg(env, value);
@@ -394,7 +394,7 @@ public class HtmlModule extends AbstractQuercusModule {
       string = RegexpModule.ereg_replace(env,
                                          regexp,
                                          key,
-                                         string).toStringValue();
+                                         string).toStringValue(env);
     }
 
     return string;

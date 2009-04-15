@@ -80,7 +80,7 @@ public class IncludeExpr extends UnaryExpr {
    */
   public Value eval(Env env)
   {
-    StringValue name = _expr.eval(env).toStringValue();
+    StringValue name = _expr.eval(env).toStringValue(env);
       
     env.pushCall(this, NullValue.NULL, new Value[] { name });
     try {

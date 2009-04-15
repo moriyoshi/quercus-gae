@@ -139,7 +139,7 @@ public class JavaValue extends ObjectValue
   @Override
   public StringValue toReprString(Env env)
   {
-    StringValue value = _classDef.toString(env, this);
+    StringValue value = _classDef.toReprString(env, this);
     
     if (value == null)
       value = env.createStringOld(toString());

@@ -590,7 +590,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     Document document = null;
 
     if (dataIsUrl) {
-      Path path = env.lookup(data.toStringValue());
+      Path path = env.lookup(data.toStringValue(env));
 
       // PHP throws an Exception instead
       if (path == null) {
@@ -984,13 +984,13 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     
     if (child == null) {
       child = new SimpleXMLElement(_env, _cls, this, name);
-      child.setText(value.toStringValue());
+      child.setText(value.toStringValue(_env));
       addChild(child);
     }
     else {
       child._children = null;
     
-      child.setText(value.toStringValue());
+      child.setText(value.toStringValue(_env));
     }
   }
   

@@ -78,9 +78,7 @@ public class IncludeOnceExpr extends UnaryExpr {
    */
   public Value eval(Env env)
   {
-    StringValue name = _expr.eval(env).toStringValue();
-
-    // return env.include(_dir, name);
+    StringValue name = _expr.eval(env).toStringValue(env);
     
     env.pushCall(this, NullValue.NULL, new Value[] { name });
     

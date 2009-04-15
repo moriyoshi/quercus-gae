@@ -432,7 +432,7 @@ abstract public class Value implements java.io.Serializable
    */
   public StringValue toReprString(Env env)
   {
-    return toStringValue();
+    return toStringValue(env);
   }
 
   /**

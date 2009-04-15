@@ -2021,7 +2021,7 @@ public class ImageModule extends AbstractQuercusModule {
       StringValue gdFontPathKey = env.createStringOld("GDFONTPATH");
       
       StringValue gdFontPath
-        = OptionsModule.getenv(env, gdFontPathKey).toStringValue();
+        = OptionsModule.getenv(env, gdFontPathKey).toStringValue(env);
 
       int start = 0;
       int len = gdFontPath.length();

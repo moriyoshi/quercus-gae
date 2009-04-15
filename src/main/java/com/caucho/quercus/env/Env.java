@@ -4926,7 +4926,7 @@ public class Env {
     if (! relPathV.isset())
       return null;
 
-    StringValue relPath = relPathV.toStringValue();
+    StringValue relPath = relPathV.toStringValue(this);
 
     if (relPath.length() == 0)
       return null;
@@ -5752,7 +5752,7 @@ public class Env {
     _exceptionHandler = fun;
 
     if (_prevExceptionHandler != null)
-      return _prevExceptionHandler.toStringValue();
+      return _prevExceptionHandler.toStringValue(this);
     else
       return NullValue.NULL;
   }

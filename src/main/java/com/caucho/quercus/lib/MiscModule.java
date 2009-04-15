@@ -309,7 +309,7 @@ public class MiscModule extends AbstractQuercusModule {
       return BooleanValue.FALSE;
     }
 
-    Path path = env.lookup(browscap.toStringValue());
+    Path path = env.lookup(browscap.toStringValue(env));
     if (path == null) {
       env.warning(L.l("Browscap file not found."));
       return BooleanValue.FALSE;
@@ -333,7 +333,7 @@ public class MiscModule extends AbstractQuercusModule {
     String regExpMatched = null;
 
     for (Map.Entry<Value,Value> entry : browsers.entrySet()) {
-      StringValue pattern = entry.getKey().toStringValue();
+      StringValue pattern = entry.getKey().toStringValue(env);
       
       if (pattern.toString().equals(user_agent)) {
         patternMatched = pattern;
@@ -747,7 +747,7 @@ public class MiscModule extends AbstractQuercusModule {
         Value val = entry.getValue();
 
         String type = val.get(LongValue.ZERO).toString();
-        StringValue name = val.get(LongValue.ONE).toStringValue();
+        StringValue name = val.get(LongValue.ONE).toStringValue(env);
         String mode = val.get(LongValue.create(2)).toString();
         
         // input to the command
@@ -1247,7 +1247,7 @@ public class MiscModule extends AbstractQuercusModule {
         return i;
       }
 
-      StringValue s = arg.toStringValue();
+      StringValue s = arg.toStringValue(env);
 
       int strlen = s.length();
 
@@ -1335,7 +1335,7 @@ public class MiscModule extends AbstractQuercusModule {
         return i;
       }
 
-      StringValue s = arg.toStringValue();
+      StringValue s = arg.toStringValue(env);
 
       int strlen = s.length();
 

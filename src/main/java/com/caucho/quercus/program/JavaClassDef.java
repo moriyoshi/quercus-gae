@@ -1323,13 +1323,13 @@ public class JavaClassDef extends ClassDef {
     return __toString;
   }
 
-  public StringValue toString(Env env,
+  public StringValue toReprString(Env env,
                               JavaValue value)
   {
     if (__toString == null)
       return null;
 
-    return __toString.callMethod(env, value, new Expr[0]).toStringValue();
+    return __toString.callMethod(env, value, new Expr[0]).toStringValue(env);
   }
   
   /**

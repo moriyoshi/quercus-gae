@@ -83,7 +83,7 @@ public class JsonModule
       sb.append("false");
 
     else if (val instanceof NumberValue)
-      sb.append(val.toStringValue());
+      sb.append(val.toStringValue(env));
 
     else if (val.isArray())
       encodeArray(env, sb, (ArrayValue)val);
@@ -145,7 +145,7 @@ public class JsonModule
         if (length > 0)
           sb.append(',');
 
-        jsonEncodeImpl(env, sb, entry.getKey().toStringValue());
+        jsonEncodeImpl(env, sb, entry.getKey().toStringValue(env));
         sb.append(':');
         jsonEncodeImpl(env, sb, entry.getValue());
         length++;
@@ -171,7 +171,7 @@ public class JsonModule
       if (length > 0)
         sb.append(',');
 
-          jsonEncodeImpl(env, sb, entry.getKey().toStringValue());
+          jsonEncodeImpl(env, sb, entry.getKey().toStringValue(env));
           sb.append(':');
           jsonEncodeImpl(env, sb, entry.getValue());
           length++;

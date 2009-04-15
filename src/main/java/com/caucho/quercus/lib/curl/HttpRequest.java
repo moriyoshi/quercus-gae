@@ -184,14 +184,14 @@ public class HttpRequest
     if (header == BooleanValue.FALSE)
       return false;
     
-    _curl.setHeader(header.toStringValue());
+    _curl.setHeader(header.toStringValue(env));
     
     Value body = getBody(env, env.createBinaryBuilder());
     
     if (body == BooleanValue.FALSE)
       return false;
     
-    _curl.setBody(body.toStringValue());
+    _curl.setBody(body.toStringValue(env));
 
     _curl.setContentLength(_conn.getContentLength());
 

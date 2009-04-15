@@ -1048,7 +1048,7 @@ public class PDOStatement
         if (_resultSet.wasNull())
           return NullValue.NULL;
         else
-          return (new DoubleValue(value)).toStringValue();
+          return (new DoubleValue(value)).toStringValue(_env);
       }
 
       // XXX: lob

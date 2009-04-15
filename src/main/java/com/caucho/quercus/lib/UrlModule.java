@@ -367,7 +367,7 @@ public class UrlModule
       }
       isFirst = false;
       
-      StringValue newPath = makeNewPath(path, entry.getKey(), numeric_prefix);
+      StringValue newPath = makeNewPath(env, path, entry.getKey(), numeric_prefix);
       Value entryValue = entry.getValue();
 
       if (entryValue.isArray() || entryValue.isObject()) {
@@ -377,12 +377,13 @@ public class UrlModule
       } else {
         result.append(newPath);
         result.append("=");
-        result.append(urlencode(entry.getValue().toStringValue()));
+        result.append(urlencode(entry.getValue().toStringValue(env)));
       }
     }
   }
 
-  private static StringValue makeNewPath(StringValue oldPath,
+  private static StringValue makeNewPath(Env env,
+                                         StringValue oldPath,
                                          Value key,
                                          StringValue numeric_prefix)
   {
@@ -392,7 +393,7 @@ public class UrlModule
       path.append(oldPath);
       //path.append('[');
       path.append("%5B");
-      urlencode(path, key.toStringValue());
+      urlencode(path, key.toStringValue(env));
       //path.append(']');
       path.append("%5D");
 
@@ -400,12 +401,12 @@ public class UrlModule
     }
     else if (key.isLongConvertible() && numeric_prefix != null) {
       urlencode(path, numeric_prefix);
-      urlencode(path, key.toStringValue());
+      urlencode(path, key.toStringValue(env));
       
       return path;
     }
     else {
-      urlencode(path, key.toStringValue());
+      urlencode(path, key.toStringValue(env));
       
       return path;
     }

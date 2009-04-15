@@ -95,7 +95,7 @@ public class VarMethodCallExpr extends Expr {
       values[i] = _args[i].evalArg(env, true);
     }
 
-    StringValue methodName = _name.eval(env).toStringValue();
+    StringValue methodName = _name.eval(env).toStringValue(env);
 
     Value obj = _objExpr.eval(env);
 

@@ -101,7 +101,7 @@ public class MbstringModule
     Decoder decoder = Decoder.create(encoding);
     
     if (! var.isDefault())
-      return decoder.isDecodable(env, var.toStringValue());
+      return decoder.isDecodable(env, var.toStringValue(env));
    
     else
       throw new UnimplementedException("mb_check_encoding() with no args");
@@ -516,7 +516,7 @@ public class MbstringModule
       }
 
       val = LongValue.create(
-              regs.get(LongValue.ZERO).toStringValue().length());
+              regs.get(LongValue.ZERO).toStringValue(env).length());
     }
 
     return val;
@@ -1047,7 +1047,7 @@ public class MbstringModule
     haystack = haystack.convertToUnicode(env, encoding);
     needle = needle.convertToUnicode(env, encoding);
 
-    return StringModule.strpos(haystack, needle, offset);
+    return StringModule.strpos(env, haystack, needle, offset);
   }
 
   /**
@@ -1064,7 +1064,7 @@ public class MbstringModule
     haystack = haystack.convertToUnicode(env, encoding);
     needle = needle.convertToUnicode(env, encoding);
 
-    return StringModule.strrpos(haystack, needle, offsetV);
+    return StringModule.strrpos(env, haystack, needle, offsetV);
   }
 
   /**
@@ -1183,7 +1183,7 @@ public class MbstringModule
     if (val == BooleanValue.FALSE)
       return str.EMPTY;
     
-    return encode(env, val.toStringValue(), encoding);
+    return encode(env, val.toStringValue(env), encoding);
   }
 
 
@@ -1415,7 +1415,7 @@ public class MbstringModule
     val = val.toValue();
 
     if (val.isString()) {
-      return decoder.decodeUnicode(env, val.toStringValue());
+      return decoder.decodeUnicode(env, val.toStringValue(env));
     }
 
     else if (val.isArray()) {
@@ -1433,7 +1433,7 @@ public class MbstringModule
 
       for (Map.Entry<Value,Value> entry : obj.entrySet()) {
         obj.putThisField(env,
-                         entry.getKey().toStringValue(),
+                         entry.getKey().toStringValue(env),
                          decodeAll(env, entry.getValue(), decoder));
       }
 
@@ -1464,7 +1464,7 @@ public class MbstringModule
     val = val.toValue();
 
     if (val.isString()) {
-      return encoder.encode(env, val.toStringValue(), true);
+      return encoder.encode(env, val.toStringValue(env), true);
     }
     else if (val.isArray()) {
       ArrayValue array = new ArrayValueImpl();
@@ -1481,7 +1481,7 @@ public class MbstringModule
 
       for (Map.Entry<Value,Value> entry : obj.entrySet()) {
         obj.putThisField(env,
-                         entry.getKey().toStringValue(),
+                         entry.getKey().toStringValue(env),
                          encodeAll(env, entry.getValue(), encoder));
       }
 
@@ -1551,7 +1551,7 @@ public class MbstringModule
       if (val == BooleanValue.FALSE)
         return BooleanValue.FALSE;
 
-      StringValue match = regs.get(LongValue.ZERO).toStringValue();
+      StringValue match = regs.get(LongValue.ZERO).toStringValue(env);
 
       int matchIndex = _string.indexOf(match, _position);
       int matchLength = match.length();

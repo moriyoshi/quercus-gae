@@ -56,7 +56,7 @@ public class ThisMethodCallExpr extends MethodCallExpr {
 
   public String toString()
   {
-    return "$this->" + _name + "()";
+    return "$this->" + new String(_name) + "()";
   }
 }
 

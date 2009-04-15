@@ -666,11 +666,11 @@ public class StringModule extends AbstractQuercusModule {
 
     if (piecesV.isArray()) {
       pieces = piecesV.toArrayValue(env);
-      glue = glueV.toStringValue();
+      glue = glueV.toStringValue(env);
     }
     else if (glueV.isArray()) {
       pieces = glueV.toArrayValue(env);
-      glue = piecesV.toStringValue();
+      glue = piecesV.toStringValue(env);
     }
     else {
       env.warning(L.l("neither argument to implode is an array: {0}, {1}",
@@ -2606,7 +2606,7 @@ public class StringModule extends AbstractQuercusModule {
         Value result = strReplaceImpl(env,
                                       search,
                                       replace,
-                                      entry.getValue().toStringValue(),
+                                      entry.getValue().toStringValue(env),
                                       count,
                                       isInsensitive);
 
@@ -2616,7 +2616,7 @@ public class StringModule extends AbstractQuercusModule {
       return resultArray;
     }
     else {
-      StringValue subjectString = subject.toStringValue();
+      StringValue subjectString = subject.toStringValue(env);
 
       if (subjectString.length() == 0)
         return env.getEmptyString();
@@ -2646,7 +2646,7 @@ public class StringModule extends AbstractQuercusModule {
                                       boolean isInsensitive)
   {
     if (! search.isArray()) {
-      StringValue searchString = search.toStringValue();
+      StringValue searchString = search.toStringValue(env);
 
       if (searchString.length() == 0)
         return subject;
@@ -2657,7 +2657,7 @@ public class StringModule extends AbstractQuercusModule {
 
       subject = strReplaceImpl(env,
                                searchString,
-                               replace.toStringValue(),
+                               replace.toStringValue(env),
                                subject,
                                count,
                                isInsensitive);
@@ -3087,7 +3087,8 @@ public class StringModule extends AbstractQuercusModule {
    * @param string the string to remove
    * @param allowTags the allowable tags
    */
-  public static StringValue strip_tags(StringValue string,
+  public static StringValue strip_tags(Env env,
+                                       StringValue string,
                                        @Optional Value allowTags)
   {
     StringValue result = string.createStringBuilder(string.length());
@@ -3095,7 +3096,7 @@ public class StringModule extends AbstractQuercusModule {
     HashSet<StringValue> allowedTagMap = null;
 
     if (! allowTags.isDefault())
-      allowedTagMap = getAllowedTags(allowTags.toStringValue());
+      allowedTagMap = getAllowedTags(allowTags.toStringValue(env));
     
     int len = string.length();
 
@@ -3594,14 +3595,15 @@ public class StringModule extends AbstractQuercusModule {
    * @param haystack the string to search in
    * @param needleV the string to search for
    */
-  public static Value strpos(StringValue haystack,
+  public static Value strpos(Env env,
+                             StringValue haystack,
                              Value needleV,
                              @Optional int offset)
   {
     StringValue needle;
 
     if (needleV.isString())
-      needle = needleV.toStringValue();
+      needle = needleV.toStringValue(env);
     else
       needle = StringValue.create((char) needleV.toInt());
 
@@ -3698,14 +3700,15 @@ public class StringModule extends AbstractQuercusModule {
    * @param haystack the string to search in
    * @param needleV the string to search for
    */
-  public static Value strrpos(StringValue haystack,
+  public static Value strrpos(Env env,
+                              StringValue haystack,
                               Value needleV,
                               @Optional Value offsetV)
   {
     StringValue needle;
 
     if (needleV instanceof StringValue)
-      needle = needleV.toStringValue();
+      needle = needleV.toStringValue(env);
     else
       needle = StringValue.create((char) needleV.toInt());
 
@@ -3890,7 +3893,7 @@ public class StringModule extends AbstractQuercusModule {
     else {
       string = string1;
       offset = 0;
-      characters = string2.toStringValue();
+      characters = string2.toStringValue(env);
 
       env.setSpecialValue("caucho.strtok_string", string);
     }
@@ -3963,9 +3966,9 @@ public class StringModule extends AbstractQuercusModule {
                                   @Optional StringValue to)
   {
     if (fromV instanceof ArrayValue)
-      return strtrArray(string, (ArrayValue) fromV);
+      return strtrArray(env, string, (ArrayValue) fromV);
 
-    StringValue from = fromV.toStringValue();
+    StringValue from = fromV.toStringValue(env);
 
     int len = from.length();
 
@@ -3997,7 +4000,7 @@ public class StringModule extends AbstractQuercusModule {
    * @param string the source string
    * @param map the character map
    */
-  private static StringValue strtrArray(StringValue string, ArrayValue map)
+  private static StringValue strtrArray(Env env, StringValue string, ArrayValue map)
   {
     int size = map.getSize();
 
@@ -4017,8 +4020,8 @@ public class StringModule extends AbstractQuercusModule {
     boolean []charSet = new boolean[256];
 
     for (i = 0; i < size; i++) {
-      fromList[i] = entryArray[i].getKey().toStringValue();
-      toList[i] = entryArray[i].getValue().toStringValue();
+      fromList[i] = entryArray[i].getKey().toStringValue(env);
+      toList[i] = entryArray[i].getValue().toStringValue(env);
 
       charSet[fromList[i].charAt(0)] = true;
     }
@@ -4142,7 +4145,7 @@ public class StringModule extends AbstractQuercusModule {
       return BooleanValue.FALSE;
     }
 
-    mainStr = substr(env, mainStr, offset, lenV).toStringValue();
+    mainStr = substr(env, mainStr, offset, lenV).toStringValue(env);
 
     if (isCaseInsensitive)
       return LongValue.create(strcasecmp(mainStr, str));
@@ -4205,7 +4208,7 @@ public class StringModule extends AbstractQuercusModule {
    * @param startV the start offset
    * @param lengthV the optional length
    */
-  public static Value substr_replace(Value subjectV,
+  public static Value substr_replace(Env env, Value subjectV,
                                      StringValue replacement,
                                      Value startV,
                                      @Optional Value lengthV)
@@ -4242,7 +4245,7 @@ public class StringModule extends AbstractQuercusModule {
         if (startIterator != null && startIterator.hasNext())
           start = startIterator.next().toInt();
 
-        Value result = substrReplaceImpl(value.toStringValue(), replacement, start, length);
+        Value result = substrReplaceImpl(value.toStringValue(env), replacement, start, length);
 
         resultArray.append(result);
       }

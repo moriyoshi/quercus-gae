@@ -283,12 +283,12 @@ public class VariableModule extends AbstractQuercusModule {
    * @param v the variable to convert
    * @return the double value
    */
-  public static long intval(@ReadOnly Value v, int base)
+  public static long intval(Env env, @ReadOnly Value v, int base)
   {
     if (! v.isString())
       return v.toLong();
 
-    StringValue s = v.toStringValue();
+    StringValue s = v.toStringValue(env);
 
     int len = s.length();
     long value = 0;
@@ -627,7 +627,7 @@ public class VariableModule extends AbstractQuercusModule {
       return true;
     }
     else if ("string".equals(type)) {
-      var.set(value.toStringValue());
+      var.set(value.toStringValue(env));
       return true;
     }
     else if ("int".equals(type) || "integer".equals(type)) {
