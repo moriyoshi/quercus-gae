@@ -905,10 +905,13 @@ abstract public class JavaAdapter extends ArrayValue
 
       Value key = mapEntry.getKey();
       
-      if (key.isString())
-        out.print("\"" + key + "\"");
-      else
+      if (key.isString()) {
+        out.print("\"");
         out.print(key);
+        out.print("\"");
+      } else {
+        out.print(key);
+      }
 
       out.println("]=>");
 
