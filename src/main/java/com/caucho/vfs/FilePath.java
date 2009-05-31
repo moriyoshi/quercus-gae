@@ -324,8 +324,17 @@ public class FilePath extends FilesystemPath {
   {
     if (_isWindows && isAux())
       return false;
-    else
-      return getFile().exists();
+    else {
+      try {
+        return getFile().exists();
+      } catch (java.security.AccessControlException e) {
+        try {
+          new FileInputStream(getFile()).close();
+          return true;
+        } catch (Exception e_) {}
+      }
+      return false;
+    }
   }
 
   public int getMode()
@@ -381,8 +390,17 @@ public class FilePath extends FilesystemPath {
     
     if (_isWindows && isAux())
       return false;
-    else
-      return file.canRead();
+    else {
+      try {
+        return file.canRead();
+      } catch (java.security.AccessControlException e) {
+        try {
+          new FileInputStream(file).close();
+          return true;
+        } catch (Exception e_) {}
+      }
+      return false;
+    }
   }
 
   public boolean canWrite()
@@ -391,8 +409,13 @@ public class FilePath extends FilesystemPath {
     
     if (_isWindows && isAux())
       return false;
-    else
-      return file.canWrite();
+    else {
+      try {
+        return file.canWrite();
+      } catch (java.security.AccessControlException e) {
+        return false;
+      }
+    }
   }
 
   /**
