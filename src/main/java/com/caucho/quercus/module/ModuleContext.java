@@ -83,6 +83,9 @@ public class ModuleContext
   private ClassDef _stdClassDef;
   private QuercusClass _stdClass;
 
+  private ClassDef _exceptionDef;
+  private QuercusClass _exception;
+  
   private HashMap<String, ClassDef> _staticClasses
     = new HashMap<String, ClassDef>();
 
@@ -108,8 +111,22 @@ public class ModuleContext
     
     _stdClassDef = new InterpretedClassDef("stdClass", null, new String[0]);
     _stdClass = new QuercusClass(this, _stdClassDef, null);
-
+    
     _staticClasses.put(_stdClass.getName(), _stdClassDef);
+
+    _exceptionDef = new InterpretedClassDef("Exception", null, new String[0]);
+    _exception = new QuercusClass(this, _exceptionDef, null);
+    
+    try {
+      _exception.setConstructor(
+          new StaticFunction(this, null,
+              Quercus.class.getMethod("exnConstructor",
+                  new Class[] { Env.class, Value.class, String.class })));
+    } catch (Exception e) {
+      throw new QuercusRuntimeException(e);
+    }
+
+    _staticClasses.put(_exception.getName(), _exceptionDef);
   }
 
   /**
@@ -410,21 +427,12 @@ public class ModuleContext
   }
 
   /**
-   * Returns the class with the given name.
+   * Returns the Exception definition.
    */
-  /*
-  public ClassDef findClass(String name)
+  public QuercusClass getExceptionClass()
   {
-    synchronized (_staticClasses) {
-      ClassDef def = _staticClasses.get(name);
-
-      if (def == null)
-        def = _lowerStaticClasses.get(name.toLowerCase());
-
-      return def;
-    }
+    return _exception;
   }
-  */
 
   /**
    * Returns the class maps.
@@ -849,37 +857,6 @@ public class ModuleContext
     } catch (Exception e) {
       throw ConfigException.create(e);
     }
-  }
-
-  /**
-   * Scans the classpath for META-INF/services/com.caucho.quercus.QuercusClass
-   */
-  private void initStaticClasses()
-  {
-    /*
-    _stdClassDef = new InterpretedClassDef("stdClass", null, new String[0]);
-    _stdClass = new QuercusClass(_stdClassDef, null);
-
-    _staticClasses.put(_stdClass.getName(), _stdClassDef);
-    _lowerStaticClasses.put(_stdClass.getName().toLowerCase(), _stdClassDef);
-
-    InterpretedClassDef exn = new InterpretedClassDef("Exception",
-                                                      null,
-                                                      new String[0]);
-
-    try {
-      exn.setConstructor(new StaticFunction(_moduleContext,
-                                            null,
-                                            Quercus.class.getMethod("exnConstructor", new Class[] { Env.class, Value.class, String.class })));
-    } catch (Exception e) {
-      throw new QuercusException(e);
-    }
-    
-    // QuercusClass exnCl = new QuercusClass(exn, null);
-
-    _staticClasses.put(exn.getName(), exn);
-    _lowerStaticClasses.put(exn.getName().toLowerCase(), exn);
-    */
   }
 
   public static Value objectToValue(Object obj)
