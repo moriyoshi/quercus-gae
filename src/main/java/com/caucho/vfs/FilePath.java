@@ -512,15 +512,24 @@ public class FilePath extends FilesystemPath {
       throw new IOException("is directory");
     */
 
-    return new FileReadStream(new FileInputStream(getFile()), this);
+    try {
+      return new FileReadStream(new FileInputStream(getFile()), this);
+    } catch (java.security.AccessControlException e) {
+      throw new FileNotFoundException(_file.toString());
+    }
   }
 
   public StreamImpl openWriteImpl() throws IOException
   {
-    FileWriteStream fws = new FileWriteStream(
-      new FileOutputStream(getFile()),
-      this);
-
+    FileWriteStream fws = null;
+    try {
+      fws = new FileWriteStream(
+        new FileOutputStream(getFile()),
+        this);
+    } catch (java.security.AccessControlException e) {
+      throw new FileNotFoundException(_file.toString());
+    }
+    
     fws.setNewline(NEWLINE);
 
     return fws;
@@ -531,10 +540,14 @@ public class FilePath extends FilesystemPath {
     FileOutputStream fos = null;
 
     try {
-      fos = new FileOutputStream(getFile().toString(), true);
-    } catch (IOException e) {
-      // MacOS hack
-      fos = new FileOutputStream(getFile().toString());
+      try {
+        fos = new FileOutputStream(getFile().toString(), true);
+      } catch (IOException e) {
+        // MacOS hack
+        fos = new FileOutputStream(getFile().toString());
+      }
+    } catch (java.security.AccessControlException e) {
+      throw new FileNotFoundException(_file.toString());
     }
 
     FileWriteStream fws = new FileWriteStream(fos);
@@ -548,9 +561,13 @@ public class FilePath extends FilesystemPath {
   {
     VfsStream os;
 
-    os = new VfsStream(new FileInputStream(getFile()),
-                       new FileOutputStream(getFile()),
-                       this);
+    try {
+      os = new VfsStream(new FileInputStream(getFile()),
+                         new FileOutputStream(getFile()),
+                         this);
+    } catch (java.security.AccessControlException e) {
+      throw new FileNotFoundException(_file.toString());
+    }
 
     os.setNewline(NEWLINE);
     
@@ -565,7 +582,11 @@ public class FilePath extends FilesystemPath {
     if (_isWindows && isAux())
       throw new FileNotFoundException(_file.toString());
 
-    return new FileRandomAccessStream(new RandomAccessFile(getFile(), "rw"));
+    try {
+      return new FileRandomAccessStream(new RandomAccessFile(getFile(), "rw"));
+    } catch (java.security.AccessControlException e) {
+      throw new FileNotFoundException(_file.toString());
+    }
   }
 
   @Override
