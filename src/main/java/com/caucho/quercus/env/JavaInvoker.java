@@ -37,6 +37,7 @@ import com.caucho.quercus.marshal.Marshal;
 import com.caucho.quercus.marshal.MarshalFactory;
 import com.caucho.quercus.module.ModuleContext;
 import com.caucho.quercus.parser.QuercusParser;
+import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.util.L10N;
 
 import java.lang.annotation.Annotation;
@@ -180,9 +181,12 @@ abstract public class JavaInvoker
               Optional opt = (Optional) ann;
 
               if (! opt.value().equals("")) {
-                Expr expr = QuercusParser.parseDefault(opt.value());
-
-                _defaultExprs[i] = expr;
+                try {
+                  Expr expr = QuercusParser.parse(_moduleContext.getQuercus(), opt.value());
+                  _defaultExprs[i] = expr;
+                } catch (java.io.IOException e) {
+                  throw new QuercusRuntimeException(e);
+                }
               } else
                 _defaultExprs[i] = exprFactory.createDefault();
             } else if (Reference.class.isAssignableFrom(ann.annotationType())) {

@@ -388,17 +388,6 @@ public class QuercusParser {
     return new QuercusParser(quercus, path, path.openRead()).parseExpr();
   }
   
-  public static Expr parseDefault(String str)
-  {
-    try {
-      Path path = new StringPath(str);
-    
-      return new QuercusParser(null, path, path.openRead()).parseExpr();
-    } catch (IOException e) {
-      throw new QuercusRuntimeException(e);
-    }
-  }
-
   /**
    * Returns the current filename.
    */
@@ -4792,8 +4781,9 @@ public class QuercusParser {
 
   private Expr createString(String lexeme)
   {
+    assert _quercus != null;
     // XXX: see QuercusParser.parseDefault for _quercus == null
-    if (_quercus != null && _quercus.isUnicodeSemantics())
+    if (_quercus.isUnicodeSemantics())
       return _factory.createUnicode(lexeme);
     else
       return _factory.createString(lexeme, _quercus.getScriptEncoding());
@@ -4802,7 +4792,8 @@ public class QuercusParser {
   private StringValue createStringValue(String lexeme)
   {
     // XXX: see QuercusParser.parseDefault for _quercus == null
-    if (_quercus != null && _quercus.isUnicodeSemantics())
+    assert _quercus != null;
+    if (_quercus.isUnicodeSemantics())
       return new UnicodeBuilderValue(lexeme);
     else {
       try {
@@ -4817,7 +4808,8 @@ public class QuercusParser {
   private Expr createBinary(byte []bytes)
   {
     // XXX: see QuercusParser.parseDefault for _quercus == null
-    if (_quercus != null && _quercus.isUnicodeSemantics())
+    assert _quercus != null;
+    if (_quercus.isUnicodeSemantics())
       return _factory.createBinary(bytes);
     else
       return _factory.createString(new StringBuilderValue(bytes));

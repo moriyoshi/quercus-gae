@@ -310,7 +310,7 @@ public class Quercus
   protected ModuleContext createModuleContext(ModuleContext parent,
                                               ClassLoader loader)
   {
-    return new ModuleContext(parent, loader);
+    return new ModuleContext(this, parent, loader);
   }
 
   /**

@@ -30,6 +30,7 @@
 package com.caucho.quercus.module;
 
 import com.caucho.config.ConfigException;
+import com.caucho.quercus.Quercus;
 import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.expr.ExprFactory;
@@ -68,6 +69,8 @@ public class ModuleContext
 
   private ModuleContext _parent;
 
+  private Quercus _quercus;
+
   private HashSet<URL> _serviceClassUrls = new HashSet<URL>();
   private HashSet<URL> _serviceModuleUrls = new HashSet<URL>();
 
@@ -95,8 +98,9 @@ public class ModuleContext
   /**
    * Constructor.
    */
-  private ModuleContext(ClassLoader loader)
+  private ModuleContext(Quercus quercus, ClassLoader loader)
   {
+    _quercus = quercus;
     _loader = loader;
     
     _marshalFactory = new MarshalFactory(this);
@@ -111,9 +115,9 @@ public class ModuleContext
   /**
    * Constructor.
    */
-  public ModuleContext(ModuleContext parent, ClassLoader loader)
+  public ModuleContext(Quercus quercus, ModuleContext parent, ClassLoader loader)
   {
-    this(loader);
+    this(quercus, loader);
 
     _parent = parent;
 
@@ -129,6 +133,11 @@ public class ModuleContext
     }
   }
 
+  public Quercus getQuercus()
+  {
+    return _quercus;
+  }
+  
   public static ModuleContext getLocalContext(ClassLoader loader)
   {
     throw new UnsupportedOperationException();
