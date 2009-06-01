@@ -1,3 +1,4 @@
+com.caucho.quercus.lib.ExceptionClass as Exception
 com.caucho.quercus.lib.spl.ArrayAccess
 com.caucho.quercus.lib.spl.ArrayIterator
 com.caucho.quercus.lib.spl.Countable

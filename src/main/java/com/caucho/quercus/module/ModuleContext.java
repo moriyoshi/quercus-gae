@@ -82,9 +82,6 @@ public class ModuleContext
 
   private ClassDef _stdClassDef;
   private QuercusClass _stdClass;
-
-  private ClassDef _exceptionDef;
-  private QuercusClass _exception;
   
   private HashMap<String, ClassDef> _staticClasses
     = new HashMap<String, ClassDef>();
@@ -113,20 +110,6 @@ public class ModuleContext
     _stdClass = new QuercusClass(this, _stdClassDef, null);
     
     _staticClasses.put(_stdClass.getName(), _stdClassDef);
-
-    _exceptionDef = new InterpretedClassDef("Exception", null, new String[0]);
-    _exception = new QuercusClass(this, _exceptionDef, null);
-    
-    try {
-      _exception.setConstructor(
-          new StaticFunction(this, null,
-              Quercus.class.getMethod("exnConstructor",
-                  new Class[] { Env.class, Value.class, String.class })));
-    } catch (Exception e) {
-      throw new QuercusRuntimeException(e);
-    }
-
-    _staticClasses.put(_exception.getName(), _exceptionDef);
   }
 
   /**
@@ -424,14 +407,6 @@ public class ModuleContext
   public QuercusClass getStdClass()
   {
     return _stdClass;
-  }
-
-  /**
-   * Returns the Exception definition.
-   */
-  public QuercusClass getExceptionClass()
-  {
-    return _exception;
   }
 
   /**
