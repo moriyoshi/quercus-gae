@@ -19,4 +19,4 @@ com.caucho.quercus.lib.reflection.ReflectionParameter
 com.caucho.quercus.lib.reflection.ReflectionProperty
 com.caucho.quercus.lib.reflection.ReflectionObject
 com.caucho.quercus.lib.reflection.Reflection
-com.caucho.quercys.lib.file.Directory
+com.caucho.quercus.lib.file.Directory
