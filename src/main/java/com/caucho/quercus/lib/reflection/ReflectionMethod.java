@@ -36,11 +36,9 @@ import com.caucho.quercus.env.ArrayValue;
 import com.caucho.quercus.env.ArrayValueImpl;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.ObjectValue;
-import com.caucho.quercus.env.QuercusClass;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.function.AbstractFunction;
 import com.caucho.quercus.program.Arg;
-import com.caucho.quercus.program.ClassDef;
 import com.caucho.util.L10N;
 
 public class ReflectionMethod extends ReflectionFunctionAbstract

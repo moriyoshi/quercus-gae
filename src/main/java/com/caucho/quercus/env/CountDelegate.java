@@ -29,9 +29,6 @@
 
 package com.caucho.quercus.env;
 
-import java.util.Map;
-import java.util.Iterator;
-
 /**
  * A delegate that performs the count operations for Quercus objects.
  */

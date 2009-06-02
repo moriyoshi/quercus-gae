@@ -29,13 +29,8 @@
 
 package com.caucho.vfs;
 
-import com.caucho.util.CharBuffer;
 import com.caucho.util.L10N;
-import com.caucho.util.LruCache;
-import com.caucho.util.QDate;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**

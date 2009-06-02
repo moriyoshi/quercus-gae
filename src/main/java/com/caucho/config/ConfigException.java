@@ -30,8 +30,6 @@
 package com.caucho.config;
 
 import com.caucho.util.*;
-import com.caucho.vfs.*;
-
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.logging.*;

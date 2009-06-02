@@ -30,8 +30,6 @@
 package com.caucho.quercus.lib.reflection;
 
 import com.caucho.quercus.QuercusException;
-import com.caucho.quercus.annotation.ClassImplementation;
-import com.caucho.quercus.lib.ExceptionClass;
 
 public class ReflectionException extends QuercusException
 {

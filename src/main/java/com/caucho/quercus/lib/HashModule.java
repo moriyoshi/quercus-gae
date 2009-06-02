@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.lib;
 
-import com.caucho.config.ConfigException;
 import com.caucho.quercus.annotation.Optional;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.module.*;

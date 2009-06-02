@@ -28,7 +28,6 @@
 
 package com.caucho.util;
 
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
 
 /**

@@ -31,7 +31,6 @@ package com.caucho.quercus.parser;
 
 import com.caucho.quercus.env.FieldVisibility;
 import com.caucho.quercus.env.ConstStringValue;
-import com.caucho.quercus.env.StringBuilderValue;
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.program.Function;
 import com.caucho.quercus.program.InterpretedClassDef;

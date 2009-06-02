@@ -33,7 +33,6 @@ import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.lib.regexp.Ereg;
 import com.caucho.quercus.lib.regexp.RegexpModule;
-import com.caucho.quercus.lib.regexp.Regexp;
 import com.caucho.quercus.expr.Expr;
 
 /**

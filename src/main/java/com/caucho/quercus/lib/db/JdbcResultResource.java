@@ -31,13 +31,9 @@ package com.caucho.quercus.lib.db;
 
 import com.caucho.quercus.env.*;
 import com.caucho.util.L10N;
-import com.caucho.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;

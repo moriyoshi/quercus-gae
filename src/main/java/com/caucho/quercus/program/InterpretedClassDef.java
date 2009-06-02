@@ -32,7 +32,6 @@ package com.caucho.quercus.program;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.quercus.program.ClassDef.FieldEntry;
 import com.caucho.quercus.Location;
 
 import java.util.HashMap;

@@ -36,8 +36,6 @@ import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.util.L10N;
 
-import java.io.IOException;
-
 public class PhpProtocolWrapper extends ProtocolWrapper {
   private static final L10N L = new L10N(PhpProtocolWrapper.class);
 

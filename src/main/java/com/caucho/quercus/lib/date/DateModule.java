@@ -38,8 +38,6 @@ import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.util.CharBuffer;
 import com.caucho.util.L10N;
 import com.caucho.util.QDate;
-import com.caucho.vfs.Path;
-
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;

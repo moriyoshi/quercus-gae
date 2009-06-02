@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.env;
 
-import com.caucho.quercus.Location;
 import com.caucho.quercus.lib.ArrayModule;
 import com.caucho.vfs.WriteStream;
 

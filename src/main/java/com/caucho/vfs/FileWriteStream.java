@@ -31,8 +31,6 @@ package com.caucho.vfs;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;

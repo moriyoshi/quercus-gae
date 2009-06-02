@@ -29,14 +29,8 @@
 
 package com.caucho.quercus.marshal;
 
-import java.lang.reflect.*;
-import java.math.BigDecimal;
-import java.net.URL;
-
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.expr.Expr;
-import com.caucho.quercus.program.JavaClassDef;
-import com.caucho.util.L10N;
 
 /**
  * Code for marshalling arguments.

@@ -32,7 +32,6 @@ package com.caucho.quercus.env;
 import com.caucho.vfs.*;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Stream for appending to binary builder.

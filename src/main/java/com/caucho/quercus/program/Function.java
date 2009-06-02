@@ -35,7 +35,6 @@ import com.caucho.quercus.env.EnvVar;
 import com.caucho.quercus.env.EnvVarImpl;
 import com.caucho.quercus.env.NullThisValue;
 import com.caucho.quercus.env.NullValue;
-import com.caucho.quercus.env.UnsetValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.env.Var;
 import com.caucho.quercus.expr.Expr;
@@ -45,7 +44,6 @@ import com.caucho.quercus.function.AbstractFunction;
 import com.caucho.quercus.statement.*;
 import com.caucho.util.L10N;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;

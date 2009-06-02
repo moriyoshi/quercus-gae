@@ -31,7 +31,6 @@ package com.caucho.quercus.lib.json;
 
 import com.caucho.quercus.annotation.Optional;
 import com.caucho.quercus.env.*;
-import com.caucho.quercus.lib.simplexml.SimpleXMLElement;
 import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.util.L10N;
 

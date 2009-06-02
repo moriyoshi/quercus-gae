@@ -29,8 +29,6 @@
 
 package com.caucho.quercus.env;
 
-import com.caucho.quercus.Location;
-import com.caucho.quercus.env.ArrayValue.Entry;
 import com.caucho.util.RandomUtil;
 
 import java.io.PrintWriter;

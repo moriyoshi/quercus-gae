@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.lib.regexp;
 
-import java.util.*;
 import java.util.logging.*;
 
 import com.caucho.quercus.QuercusException;

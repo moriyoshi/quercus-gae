@@ -30,10 +30,7 @@
 package com.caucho.quercus.env;
 
 import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.logging.Logger;
-
-import com.caucho.quercus.Location;
 
 /**
  * Represents a PHP array value.

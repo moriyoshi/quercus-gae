@@ -30,11 +30,6 @@
 package com.caucho.quercus.program;
 
 import com.caucho.quercus.Quercus;
-import com.caucho.quercus.expr.VarInfo;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * Information about the entire Quercus program

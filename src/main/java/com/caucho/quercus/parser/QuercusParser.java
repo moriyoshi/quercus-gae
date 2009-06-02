@@ -31,7 +31,6 @@ package com.caucho.quercus.parser;
 
 import com.caucho.quercus.Location;
 import com.caucho.quercus.Quercus;
-import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.expr.*;
 import com.caucho.quercus.function.*;

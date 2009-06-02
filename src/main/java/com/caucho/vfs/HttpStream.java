@@ -31,8 +31,6 @@ package com.caucho.vfs;
 
 import com.caucho.util.CharBuffer;
 import com.caucho.util.L10N;
-import com.caucho.util.Log;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;

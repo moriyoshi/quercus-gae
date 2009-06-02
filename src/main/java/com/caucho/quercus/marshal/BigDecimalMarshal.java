@@ -30,16 +30,12 @@
 package com.caucho.quercus.marshal;
 
 import java.math.BigDecimal;
-import java.net.URL;
-
 import com.caucho.quercus.env.DoubleValue;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.BigDecimalValue;
 import com.caucho.quercus.env.LongValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.expr.Expr;
-import com.caucho.quercus.program.JavaClassDef;
-import com.caucho.util.L10N;
 
 /**
  * Code for marshalling arguments.

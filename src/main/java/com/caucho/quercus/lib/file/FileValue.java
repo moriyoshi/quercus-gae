@@ -30,7 +30,6 @@
 package com.caucho.quercus.lib.file;
 
 import com.caucho.quercus.env.Env;
-import com.caucho.quercus.env.UnicodeBuilderValue;
 import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.resources.StreamResource;
 import com.caucho.vfs.Path;

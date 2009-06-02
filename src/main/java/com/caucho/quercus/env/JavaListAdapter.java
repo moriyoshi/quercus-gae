@@ -31,8 +31,6 @@ package com.caucho.quercus.env;
 
 import com.caucho.quercus.program.JavaClassDef;
 
-import com.caucho.quercus.QuercusRuntimeException;
-
 import java.util.*;
 import java.util.logging.*;
 

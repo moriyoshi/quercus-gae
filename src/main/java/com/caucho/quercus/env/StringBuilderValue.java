@@ -30,7 +30,6 @@
 package com.caucho.quercus.env;
 
 import com.caucho.vfs.*;
-import com.caucho.quercus.lib.file.BinaryInput;
 import com.caucho.quercus.QuercusModuleException;
 
 import java.io.*;

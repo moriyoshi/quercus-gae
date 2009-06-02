@@ -33,7 +33,6 @@ import com.caucho.quercus.env.StringValue;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Interface for a Quercus binary input stream

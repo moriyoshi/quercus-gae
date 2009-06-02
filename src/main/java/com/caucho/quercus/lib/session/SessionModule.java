@@ -41,7 +41,6 @@ import com.caucho.util.L10N;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Logger;
-import java.util.Iterator;
 
 /**
  * Quercus session handling

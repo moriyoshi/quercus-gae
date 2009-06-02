@@ -30,9 +30,7 @@
 package com.caucho.quercus.expr;
 
 import com.caucho.quercus.Location;
-import com.caucho.quercus.env.BytesValue;
 import com.caucho.quercus.env.Env;
-import com.caucho.quercus.env.UnicodeValue;
 import com.caucho.quercus.env.Value;
 
 /**

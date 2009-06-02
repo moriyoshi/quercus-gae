@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.lib.reflection;
 
-import com.caucho.quercus.QuercusException;
 import com.caucho.quercus.annotation.Optional;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.ObjectValue;

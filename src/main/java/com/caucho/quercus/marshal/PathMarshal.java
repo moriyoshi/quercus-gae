@@ -29,10 +29,7 @@
 
 package com.caucho.quercus.marshal;
 
-import java.net.URL;
-
 import com.caucho.quercus.env.Env;
-import com.caucho.quercus.env.JavaURLValue;
 import com.caucho.quercus.env.JavaValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.expr.Expr;

@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.lib.spl;
 
-import com.caucho.quercus.QuercusException;
 import com.caucho.quercus.env.TraversableDelegate;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;

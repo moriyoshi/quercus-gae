@@ -31,7 +31,6 @@ package com.caucho.quercus.expr;
 
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.BinaryBuilderValue;
-import com.caucho.quercus.env.BytesValue;
 
 /**
  * Represents a PHP string literal expression.

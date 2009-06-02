@@ -29,7 +29,6 @@
 
 package com.caucho.quercus.lib.db;
 
-import com.caucho.quercus.QuercusModuleException;
 import com.caucho.quercus.env.BooleanValue;
 import com.caucho.quercus.env.ConnectionEntry;
 import com.caucho.quercus.env.Env;

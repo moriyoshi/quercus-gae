@@ -31,8 +31,6 @@ package com.caucho.quercus.env;
 
 import java.io.Serializable;
 
-import com.caucho.quercus.Location;
-
 /**
  * Represents an array-get argument which might be a call to a reference.
  *

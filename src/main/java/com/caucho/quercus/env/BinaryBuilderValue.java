@@ -34,7 +34,6 @@ import java.util.*;
 
 import com.caucho.vfs.*;
 import com.caucho.quercus.QuercusRuntimeException;
-import com.caucho.util.*;
 
 /**
  * Represents a 8-bit PHP 6 style binary builder (unicode.semantics = on)

@@ -29,15 +29,9 @@
 
 package com.caucho.quercus.env;
 
-import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import com.caucho.quercus.env.ArrayValue.Entry;
-import com.caucho.quercus.env.ArrayValue.EntryIterator;
-import com.caucho.quercus.env.ArrayValue.KeyIterator;
-import com.caucho.quercus.env.ArrayValue.ValueIterator;
 
 /**
  * Represents the server

@@ -31,7 +31,6 @@ package com.caucho.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Fixed length cache with a LRU replacement policy.  If cache items

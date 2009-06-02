@@ -37,7 +37,6 @@ import com.caucho.quercus.expr.ExprFactory;
 import com.caucho.quercus.statement.*;
 import com.caucho.util.L10N;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**

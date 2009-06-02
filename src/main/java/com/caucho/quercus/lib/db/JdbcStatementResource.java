@@ -36,7 +36,6 @@ import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.env.UnsetValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.env.Var;
-import com.caucho.quercus.env.StringValue;
 import com.caucho.util.L10N;
 import com.caucho.util.Log;
 

@@ -32,7 +32,6 @@ package com.caucho.quercus.lib.date;
 import java.util.TimeZone;
 
 import com.caucho.quercus.UnimplementedException;
-import com.caucho.quercus.annotation.ClassImplementation;
 import com.caucho.quercus.env.ArrayValue;
 import com.caucho.quercus.env.ArrayValueImpl;
 import com.caucho.quercus.env.BooleanValue;

@@ -35,8 +35,6 @@ import com.caucho.util.L10N;
 import com.caucho.vfs.*;
 import com.caucho.quercus.module.AbstractQuercusModule;
 
-import java.io.*;
-import java.util.*;
 import java.util.logging.*;
 
 /**
