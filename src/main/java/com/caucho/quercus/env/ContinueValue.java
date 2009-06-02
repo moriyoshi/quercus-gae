@@ -33,6 +33,11 @@ package com.caucho.quercus.env;
  * Represents a PHP continue value.
  */
 public class ContinueValue extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final ContinueValue CONTINUE = new ContinueValue();
 
   private int _target;

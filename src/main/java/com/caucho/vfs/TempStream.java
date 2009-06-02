@@ -32,6 +32,10 @@ import java.io.*;
 
 public class TempStream extends StreamImpl implements java.io.Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private String _encoding;
   private TempBuffer _head;
   private TempBuffer _tail;

@@ -35,6 +35,10 @@ import java.sql.*;
  * SQLException wrapper
  */
 public class SQLExceptionWrapper extends SQLException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Throwable _cause;
 
   public SQLExceptionWrapper(Throwable cause)

@@ -37,6 +37,10 @@ import java.io.Serializable;
 public class UnsetValue extends NullValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final UnsetValue UNSET = new UnsetValue();
 
   private UnsetValue()

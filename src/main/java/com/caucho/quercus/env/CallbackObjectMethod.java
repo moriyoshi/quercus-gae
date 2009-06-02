@@ -40,6 +40,11 @@ import java.util.IdentityHashMap;
  * Represents a call to an object's method
  */
 public class CallbackObjectMethod extends Callback {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final L10N L = new L10N(CallbackObjectMethod.class);
   
   private final ObjectValue _obj;

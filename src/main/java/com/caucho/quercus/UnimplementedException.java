@@ -33,6 +33,11 @@ import com.caucho.util.L10N;
 public class UnimplementedException
   extends UnsupportedOperationException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private final static L10N L = new L10N(UnimplementedException.class);
 
   private static final String MESSAGE

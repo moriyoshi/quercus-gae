@@ -183,6 +183,10 @@ public class Memcache {
   }
 
   static class Cache extends Value {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private LruCache<String,Value> _map = new LruCache<String,Value>(256);
 
     public Value get(String key)

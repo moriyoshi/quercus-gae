@@ -44,6 +44,10 @@ import java.io.IOException;
 public class StreamReadWrite extends StreamResource
     implements EnvCleanup
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Env _env;
   private ReadStream _is;
   private WriteStream _os;

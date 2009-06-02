@@ -41,6 +41,10 @@ import java.io.OutputStream;
  * Represents a Quercus open file
  */
 public class FileValue extends StreamResource {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Path _path;
 
   public FileValue(Path path)

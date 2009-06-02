@@ -32,6 +32,11 @@ package com.caucho.quercus;
 public class QuercusExecutionException
   extends Exception
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusExecutionException()
   {
   }

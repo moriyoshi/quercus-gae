@@ -36,6 +36,10 @@ import java.io.PrintWriter;
  */
 public class NotImplementedException extends UnsupportedOperationException
   implements ExceptionWrapper {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Throwable rootCause;
   
   public NotImplementedException(String message)

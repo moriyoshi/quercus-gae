@@ -36,6 +36,10 @@ import com.caucho.quercus.Location;
 public class PDOException
   extends QuercusLanguageException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   protected final String code;
   protected final String message;
 

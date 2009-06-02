@@ -43,6 +43,10 @@ import java.util.HashMap;
  * variables.
  */
 public class UrlRewriterCallback extends CallbackFunction {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private StringBuilder _rewriterQuery = new StringBuilder();
   private ArrayList<String[]> _rewriterVars = new ArrayList<String[]>();
 

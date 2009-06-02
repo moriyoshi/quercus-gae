@@ -38,6 +38,11 @@ import java.util.logging.*;
  * Pooled temporary byte buffer.
  */
 public class TempBuffer implements java.io.Serializable {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static Logger _log;
   
   private static final FreeList<TempBuffer> _freeList

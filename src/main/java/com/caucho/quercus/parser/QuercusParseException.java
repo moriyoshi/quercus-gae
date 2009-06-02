@@ -39,6 +39,11 @@ import java.io.IOException;
 public class QuercusParseException
   extends IOException
   implements LineCompileException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusParseException()
   {
   }

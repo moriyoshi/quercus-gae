@@ -38,6 +38,10 @@ import java.lang.reflect.*;
 public class LineConfigException extends ConfigException
   implements LineCompileException, LineException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private String _filename;
   private int _line = -1;
 

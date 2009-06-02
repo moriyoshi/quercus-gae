@@ -40,6 +40,10 @@ import java.util.IdentityHashMap;
  */
 public class LongValue extends NumberValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final LongValue MINUS_ONE = new LongValue(-1);
   public static final LongValue ZERO = new LongValue(0);
   public static final LongValue ONE = new LongValue(1);

@@ -40,6 +40,11 @@ import java.io.Serializable;
 public class JavaResourceValue extends JavaValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public JavaResourceValue(Env env, Object object, JavaClassDef def)
   {
     super(env, object, def);

@@ -44,6 +44,10 @@ import java.util.*;
  */
 public class JavaAdapterVar extends Value
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private JavaAdapter _adapter;
   private Value _key;
   private Value _value;

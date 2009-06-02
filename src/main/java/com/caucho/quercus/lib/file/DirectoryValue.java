@@ -41,6 +41,10 @@ import java.io.IOException;
  * Represents a PHP directory listing
  */
 public class DirectoryValue extends ResourceValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Env _env;
   private Path _path;
   private String []_list;

@@ -38,6 +38,11 @@ import java.util.logging.Logger;
  * Represents a PHP session callback.
  */
 public class SessionCallback extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(SessionCallback.class.getName());
 

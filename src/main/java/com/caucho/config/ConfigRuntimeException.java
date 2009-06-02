@@ -41,6 +41,11 @@ public class ConfigRuntimeException
   extends RuntimeException
 {
   /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * Create a null exception
    */
   public ConfigRuntimeException()

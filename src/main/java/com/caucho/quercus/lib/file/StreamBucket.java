@@ -38,6 +38,11 @@ import com.caucho.quercus.env.Value;
  * Bucket for stream filters.
  */
 public class StreamBucket extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public StreamBucket(Env env, BytesValue data)
   {
     putField(env, "data", data);

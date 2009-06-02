@@ -36,6 +36,10 @@ package com.caucho.quercus.env;
  */
 public class ArrayCopyValueImpl extends ArrayValueImpl
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private final CopyRoot _root;
 
   /**

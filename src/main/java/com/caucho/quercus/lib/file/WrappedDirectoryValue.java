@@ -35,6 +35,10 @@ import com.caucho.quercus.env.*;
  * Represents a PHP directory listing
  */
 public class WrappedDirectoryValue extends DirectoryValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final UnicodeBuilderValue DIR_CLOSEDIR
     = new UnicodeBuilderValue("dir_closedir");
   private static final UnicodeBuilderValue DIR_OPENDIR

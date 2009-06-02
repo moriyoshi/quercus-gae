@@ -42,6 +42,10 @@ import java.util.IdentityHashMap;
 public class BooleanValue extends Value
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final BooleanValue TRUE = new BooleanValue(true);
   public static final BooleanValue FALSE = new BooleanValue(false);
 

@@ -33,6 +33,11 @@ package com.caucho.quercus;
  * Exception thrown by die() or exit()
  */
 public class QuercusDieException extends QuercusExitException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusDieException()
   {
   }

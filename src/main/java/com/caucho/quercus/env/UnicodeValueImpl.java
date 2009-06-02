@@ -35,6 +35,10 @@ package com.caucho.quercus.env;
 public class UnicodeValueImpl
   extends UnicodeBuilderValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   protected static final int IS_STRING = 0;
   protected static final int IS_LONG = 1;
   protected static final int IS_DOUBLE = 2;

@@ -31,6 +31,10 @@ package com.caucho.vfs;
 import java.io.IOException;
 
 public class IOExceptionWrapper extends IOException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Throwable _rootCause;
   
   public IOExceptionWrapper()

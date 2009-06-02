@@ -41,6 +41,10 @@ public class ConfigException
   extends ConfigRuntimeException
   implements CompileException, DisplayableException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final Logger log
     = Logger.getLogger(ConfigException.class.getName());
   

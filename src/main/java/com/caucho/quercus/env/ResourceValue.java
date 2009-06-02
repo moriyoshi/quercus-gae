@@ -41,6 +41,11 @@ public class ResourceValue extends Value
     implements EnvCleanup
 {
   /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * Implements the EnvCleanup interface.
    */
 

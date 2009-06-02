@@ -39,6 +39,10 @@ import java.io.Serializable;
 public class ArgGetValue extends Value
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private final Value _obj;
   private final Value _index;
 

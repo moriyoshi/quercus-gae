@@ -31,6 +31,10 @@ package com.caucho.quercus.env;
 public class UnsetUnicodeValue
   extends UnicodeValueImpl
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final UnsetUnicodeValue UNSET = new UnsetUnicodeValue();
   
   private UnsetUnicodeValue()

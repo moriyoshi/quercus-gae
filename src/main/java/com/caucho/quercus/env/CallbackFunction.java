@@ -37,6 +37,10 @@ import com.caucho.quercus.function.AbstractFunction;
 public class CallbackFunction extends Callback {
  // public static final CallbackFunction INVALID_CALLBACK = new CallbackFunction(null, "Invalid Callback");
 
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Env _env;
   private String _funName;
 

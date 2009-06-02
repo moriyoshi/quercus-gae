@@ -40,6 +40,11 @@ import java.util.logging.Logger;
  * Represents a PHP open file
  */
 public class FileWriteValue extends FileValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(FileReadValue.class.getName());
 

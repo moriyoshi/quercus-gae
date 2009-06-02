@@ -35,6 +35,10 @@ import com.caucho.quercus.QuercusModuleException;
  * Represents a PHP variable value.
  */
 public class SessionVar extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Value _value;
   
   /**

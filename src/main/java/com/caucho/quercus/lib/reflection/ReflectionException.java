@@ -33,6 +33,11 @@ import com.caucho.quercus.QuercusException;
 
 public class ReflectionException extends QuercusException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public ReflectionException()
   {
   }

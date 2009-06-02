@@ -37,6 +37,10 @@ import java.lang.reflect.*;
  */
 public class QuercusException extends RuntimeException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private ArrayList<String> _quercusStackTrace;
   
   public QuercusException()

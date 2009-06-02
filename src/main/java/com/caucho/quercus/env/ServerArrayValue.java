@@ -42,6 +42,10 @@ import java.util.Set;
  */
 public class ServerArrayValue extends ArrayValueImpl
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final StringValue SERVER_ADDR_V
     = new ConstStringValue("SERVER_ADDR");
   private static final StringValue SERVER_NAME_V

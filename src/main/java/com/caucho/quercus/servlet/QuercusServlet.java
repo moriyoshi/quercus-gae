@@ -55,6 +55,10 @@ import java.util.Enumeration;
 public class QuercusServlet
   extends HttpServlet
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final L10N L = new L10N(QuercusServlet.class);
   private static final Logger log
     = Logger.getLogger(QuercusServlet.class.getName());

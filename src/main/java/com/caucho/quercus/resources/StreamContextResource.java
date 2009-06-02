@@ -35,6 +35,10 @@ import com.caucho.quercus.env.*;
  * Represents a PHP stream context.
  */
 public class StreamContextResource extends ResourceValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private ArrayValue _options;
   private ArrayValue _parameters;
   

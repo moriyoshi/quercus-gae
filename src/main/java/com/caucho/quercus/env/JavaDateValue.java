@@ -38,6 +38,11 @@ import java.util.logging.Logger;
  * Represents a Quercus java Date value.
  */
 public class JavaDateValue extends JavaValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(JavaDateValue.class.getName());
   

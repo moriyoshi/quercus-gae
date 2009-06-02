@@ -37,6 +37,10 @@ import java.util.Set;
  * Represents the server
  */
 public class GlobalArrayValue extends ArrayValueImpl {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private final Env _env;
 
   public GlobalArrayValue(Env env)

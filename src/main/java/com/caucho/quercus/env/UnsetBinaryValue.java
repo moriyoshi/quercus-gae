@@ -31,6 +31,10 @@ package com.caucho.quercus.env;
 public class UnsetBinaryValue
   extends BinaryBuilderValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final UnsetBinaryValue UNSET = new UnsetBinaryValue();
   
   private UnsetBinaryValue()

@@ -42,6 +42,11 @@ import com.caucho.quercus.QuercusRuntimeException;
 public class LargeStringBuilderValue
   extends StringValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final StringValue EMPTY = StringBuilderValue.EMPTY;
   
   public static final int SIZE = 4 * 1024;

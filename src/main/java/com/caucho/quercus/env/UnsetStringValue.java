@@ -31,6 +31,10 @@ package com.caucho.quercus.env;
 public class UnsetStringValue
   extends StringBuilderValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final UnsetStringValue UNSET = new UnsetStringValue();
   
   private UnsetStringValue()

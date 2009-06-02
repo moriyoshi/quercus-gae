@@ -38,6 +38,11 @@ import java.util.IdentityHashMap;
  * Represents a PHP break value.
  */
 public class BreakValue extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final BreakValue BREAK = new BreakValue();
 
   private int _target;

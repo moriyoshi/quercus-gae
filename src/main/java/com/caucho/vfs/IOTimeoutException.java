@@ -29,6 +29,11 @@
 package com.caucho.vfs;
 
 public class IOTimeoutException extends IOExceptionWrapper {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public IOTimeoutException(String message)
   {
     super(message);

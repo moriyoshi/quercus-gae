@@ -40,6 +40,11 @@ import java.util.logging.*;
 public class JavaListAdapter
   extends JavaCollectionAdapter
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(JavaListAdapter.class.getName());
 

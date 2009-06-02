@@ -43,6 +43,11 @@ import java.util.logging.Logger;
  * Represents a Quercus open file
  */
 public class FileReadValue extends FileValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(FileReadValue.class.getName());
 

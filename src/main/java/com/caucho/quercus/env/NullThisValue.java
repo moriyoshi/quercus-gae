@@ -39,6 +39,10 @@ import com.caucho.quercus.QuercusException;
 public class NullThisValue extends NullValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final NullThisValue NULL = new NullThisValue();
 
   private NullThisValue()

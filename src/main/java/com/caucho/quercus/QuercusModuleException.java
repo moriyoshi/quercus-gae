@@ -35,6 +35,11 @@ import java.lang.reflect.*;
  * Java exception caught and rethrown by modules.
  */
 public class QuercusModuleException extends QuercusException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusModuleException()
   {
   }

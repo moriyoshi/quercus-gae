@@ -37,6 +37,10 @@ import java.util.Iterator;
  * Represents a PHP array value.
  */
 public class ArrayValueWrapper extends ArrayValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private ArrayValue _array;
 
   protected ArrayValueWrapper(ArrayValue array)

@@ -47,6 +47,10 @@ import java.util.Set;
 public class CompiledObjectValue extends ObjectValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final StringValue TO_STRING = new UnicodeValueImpl("__toString");
   private static final Value []NULL_FIELDS = new Value[0];
 

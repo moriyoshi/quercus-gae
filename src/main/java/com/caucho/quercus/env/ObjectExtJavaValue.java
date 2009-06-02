@@ -42,6 +42,10 @@ import java.util.IdentityHashMap;
 public class ObjectExtJavaValue extends ObjectExtValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private final Object _object;
   private final JavaClassDef _javaClassDef;
   

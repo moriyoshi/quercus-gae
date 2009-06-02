@@ -30,6 +30,11 @@
 package com.caucho.quercus.lib.regexp;
 
 public class IllegalRegexpException extends Exception {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   IllegalRegexpException(String msg) {
     super(msg);
   }

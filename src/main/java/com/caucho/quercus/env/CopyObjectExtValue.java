@@ -34,6 +34,10 @@ package com.caucho.quercus.env;
  */
 public class CopyObjectExtValue extends ObjectExtValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private CopyRoot _root;
   
   public CopyObjectExtValue(Env env, ObjectExtValue copy, CopyRoot root)

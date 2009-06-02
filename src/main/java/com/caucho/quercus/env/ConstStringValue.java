@@ -39,6 +39,11 @@ import java.io.PrintWriter;
 public class ConstStringValue
   extends StringBuilderValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final ConstStringValue EMPTY = new ConstStringValue();
   
   protected LongValue _longValue;

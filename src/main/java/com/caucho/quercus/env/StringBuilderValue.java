@@ -41,6 +41,11 @@ import java.util.IdentityHashMap;
 public class StringBuilderValue
   extends StringValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final StringBuilderValue EMPTY = new ConstStringValue("");
 
   private static final StringBuilderValue []BYTE_STRINGS;

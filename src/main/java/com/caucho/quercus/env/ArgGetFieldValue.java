@@ -33,6 +33,10 @@ package com.caucho.quercus.env;
  * Represents an field-get argument which might be a call to a reference.
  */
 public class ArgGetFieldValue extends Value {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private final Env _env;
   private final Value _obj;
   private final StringValue _name;

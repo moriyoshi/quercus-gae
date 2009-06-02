@@ -39,6 +39,10 @@ import java.io.IOException;
  */
 public class ClientDisconnectException extends IOException
   implements ExceptionWrapper {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Exception exn;
   
   public ClientDisconnectException()

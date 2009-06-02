@@ -41,6 +41,11 @@ import java.util.logging.Logger;
  * Represents a Quercus java URL value.
  */
 public class JavaURLValue extends JavaValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(JavaURLValue.class.getName());
 

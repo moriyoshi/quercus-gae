@@ -37,6 +37,10 @@ import com.caucho.quercus.QuercusException;
  */
 public class QuercusLanguageException extends QuercusException
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private static final StringValue FILE = new ConstStringValue("file");
   private static final StringValue LINE = new ConstStringValue("line");
   private static final StringValue MESSAGE

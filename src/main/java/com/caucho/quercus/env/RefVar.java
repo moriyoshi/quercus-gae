@@ -45,6 +45,10 @@ import java.util.Map;
 public class RefVar extends Value
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Var _var;
 
   public RefVar(Var var)

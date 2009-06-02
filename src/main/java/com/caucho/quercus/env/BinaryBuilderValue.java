@@ -41,6 +41,11 @@ import com.caucho.quercus.QuercusRuntimeException;
 public class BinaryBuilderValue
   extends StringBuilderValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final BinaryBuilderValue EMPTY = new BinaryBuilderValue("");
 
   private final static BinaryBuilderValue []CHAR_STRINGS;

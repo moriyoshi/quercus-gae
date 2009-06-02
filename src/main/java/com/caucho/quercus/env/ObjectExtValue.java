@@ -53,6 +53,11 @@ import java.util.TreeSet;
 public class ObjectExtValue extends ObjectValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final StringValue TO_STRING
     = new ConstStringValue("__toString");
 

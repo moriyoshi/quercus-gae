@@ -41,6 +41,11 @@ import java.util.logging.*;
 public class JavaMapAdapter
   extends JavaAdapter
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(JavaMapAdapter.class.getName());
   

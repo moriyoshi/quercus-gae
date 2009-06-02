@@ -42,6 +42,11 @@ import java.util.IdentityHashMap;
 public class DoubleValue extends NumberValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final DoubleValue ZERO = new DoubleValue(0);
 
   private final double _value;

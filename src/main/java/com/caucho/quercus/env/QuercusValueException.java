@@ -35,6 +35,11 @@ import com.caucho.quercus.QuercusException;
  * Parent of PHP exceptions
  */
 public class QuercusValueException extends QuercusException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusValueException()
   {
   }

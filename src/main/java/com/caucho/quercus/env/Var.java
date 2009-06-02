@@ -46,6 +46,10 @@ import java.util.*;
 public final class Var extends Value
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   Value _value;
   private int _refCount;
 

@@ -1197,6 +1197,11 @@ abstract public class ArrayValue extends Value {
   public static final class Entry
     implements Map.Entry<Value,Value>, Serializable  
   {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     final Value _key;
     
     Value _value;

@@ -40,6 +40,11 @@ import java.io.*;
 public class UnicodeBuilderValue
   extends UnicodeValue
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public static final UnicodeBuilderValue EMPTY = new UnicodeBuilderValue("");
 
   private static final UnicodeBuilderValue []CHAR_STRINGS;

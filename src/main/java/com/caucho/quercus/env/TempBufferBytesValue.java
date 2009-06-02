@@ -44,6 +44,11 @@ public class TempBufferBytesValue
   extends BytesValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private TempBuffer _head;
 
   private String _string;

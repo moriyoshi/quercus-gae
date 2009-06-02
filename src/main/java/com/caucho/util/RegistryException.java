@@ -37,6 +37,10 @@ import java.io.PrintWriter;
  */
 public class RegistryException extends java.io.IOException
   implements ExceptionWrapper {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Throwable _rootCause;
 
   /**

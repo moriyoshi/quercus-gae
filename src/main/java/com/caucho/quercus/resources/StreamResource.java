@@ -40,6 +40,11 @@ import java.io.IOException;
  */
 public class StreamResource extends ResourceValue {
   /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * Reads the next byte, returning -1 on eof.
    */
   public int read()

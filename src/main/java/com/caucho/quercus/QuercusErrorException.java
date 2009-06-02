@@ -33,6 +33,11 @@ package com.caucho.quercus;
  * Exception thrown by Env.error().
  */
 public class QuercusErrorException extends QuercusRuntimeException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusErrorException()
   {
   }

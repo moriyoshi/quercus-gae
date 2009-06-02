@@ -33,6 +33,11 @@ package com.caucho.quercus;
  * Parent of PHP runtime exceptions
  */
 public class QuercusLineRuntimeException extends QuercusRuntimeException {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public QuercusLineRuntimeException()
   {
   }

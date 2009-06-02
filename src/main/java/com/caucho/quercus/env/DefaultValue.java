@@ -36,6 +36,10 @@ import java.io.PrintWriter;
  * Represents a PHP default value.
  */
 public class DefaultValue extends NullValue {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   public static final DefaultValue DEFAULT
     = new DefaultValue();
 

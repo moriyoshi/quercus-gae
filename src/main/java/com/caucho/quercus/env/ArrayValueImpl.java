@@ -46,6 +46,11 @@ import java.util.logging.Logger;
 public class ArrayValueImpl extends ArrayValue
   implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   private static final Logger log
     = Logger.getLogger(ArrayValueImpl.class.getName());
 

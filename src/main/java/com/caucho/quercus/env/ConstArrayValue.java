@@ -35,6 +35,10 @@ package com.caucho.quercus.env;
 public class ConstArrayValue
   extends ArrayValueImpl
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private ConstArrayValue _keys;
   private ConstArrayValue _values;
   

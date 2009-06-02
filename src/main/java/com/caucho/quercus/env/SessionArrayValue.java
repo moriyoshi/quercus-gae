@@ -48,6 +48,11 @@ import java.util.logging.Logger;
 public class SessionArrayValue extends ArrayValueWrapper
   implements CacheListener, Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   static protected final Logger log
     = Logger.getLogger(SessionArrayValue.class.getName());
 

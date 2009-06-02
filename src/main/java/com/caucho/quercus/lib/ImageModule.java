@@ -1876,6 +1876,10 @@ public class ImageModule extends AbstractQuercusModule {
   }
 
   public static class QuercusImage extends ResourceValue {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private HashMap<StringValue,Font> _fontMap
       = new HashMap<StringValue,Font>();
     private Font []_fontArray = new Font[6];

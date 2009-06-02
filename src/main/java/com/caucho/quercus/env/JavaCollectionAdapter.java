@@ -38,6 +38,10 @@ import java.util.*;
  */
 public class JavaCollectionAdapter extends JavaAdapter
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Collection<Object> _collection;
 
   public JavaCollectionAdapter(Env env, Collection<Object> coll, JavaClassDef def)

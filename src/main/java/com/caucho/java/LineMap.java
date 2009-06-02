@@ -46,6 +46,10 @@ import java.util.Iterator;
  * file that is broken, as opposed to the generated Java line.
  */
 public class LineMap implements Serializable {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private String _dstFilename;
   private String _srcFilename;
 
@@ -414,6 +418,10 @@ public class LineMap implements Serializable {
   }
 
   public static class Line implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     String _srcFilename;
     int _srcLine;
     
