@@ -660,14 +660,14 @@ public class JdbcStatementResource {
           if (typeName.equals("interval")) {
             _stmt.setObject(i, param);
           } else {
-            Class cl = Class.forName("org.postgresql.util.PGobject");
-            Constructor constructor = cl.getDeclaredConstructor(null);
+            Class<?> cl = Class.forName("org.postgresql.util.PGobject");
+            Constructor constructor = cl.getDeclaredConstructor();
             Object object = constructor.newInstance();
 
-            Method method = cl.getDeclaredMethod("setType", new Class[] {String.class});
+            Method method = cl.getDeclaredMethod("setType", String.class);
             method.invoke(object, new Object[] {typeName});
 
-            method = cl.getDeclaredMethod("setValue", new Class[] {String.class});
+            method = cl.getDeclaredMethod("setValue", String.class);
             method.invoke(object, new Object[] {param});
 
             _stmt.setObject(i, object, type);
