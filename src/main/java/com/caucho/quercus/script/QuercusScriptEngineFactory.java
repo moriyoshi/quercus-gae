@@ -148,7 +148,7 @@ public class QuercusScriptEngineFactory implements ScriptEngineFactory
   /**
    * Returns a string which could invoke a method of a Java object.
    */
-  public String getMethodCallSyntax(String obj, String m, String []args)
+  public String getMethodCallSyntax(String obj, String m, String... args)
   {
     StringBuilder sb = new StringBuilder();
 
@@ -180,7 +180,7 @@ public class QuercusScriptEngineFactory implements ScriptEngineFactory
   /**
    * Returns a string which generates a valid program.
    */
-  public String getProgram(String []statements)
+  public String getProgram(String... statements)
   {
     StringBuilder sb = new StringBuilder();
 
