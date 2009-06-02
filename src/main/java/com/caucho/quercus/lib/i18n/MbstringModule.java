@@ -968,7 +968,7 @@ public class MbstringModule
       end = len;
 
     if (start < 0 || start > end)
-      return str.EMPTY;
+      return StringValue.EMPTY;
 
     // XXX: not quite exactly the same behavior as PHP
     if (start < len && Character.isHighSurrogate(unicodeStr.charAt(start)))
@@ -1002,7 +1002,7 @@ public class MbstringModule
       end = len;
 
     if (start < 0 || start > end)
-      return str.EMPTY;
+      return StringValue.EMPTY;
 
     StringBuilder sb = new StringBuilder();
 
@@ -1180,7 +1180,7 @@ public class MbstringModule
     Value val = StringModule.substr(env, unicodeStr, start, lengthV);
 
     if (val == BooleanValue.FALSE)
-      return str.EMPTY;
+      return StringValue.EMPTY;
     
     return encode(env, val.toStringValue(env), encoding);
   }
@@ -1534,7 +1534,7 @@ public class MbstringModule
       else if (_position < _length)
         return _string.substring(_position);
       else
-        return _string.EMPTY;
+        return StringValue.EMPTY;
     }
 
     Value search(Env env, boolean isArrayReturn)

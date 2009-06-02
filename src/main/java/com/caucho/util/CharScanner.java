@@ -28,6 +28,8 @@
 
 package com.caucho.util;
 
+import java.text.CharacterIterator;
+
 /**
  * A scanner for simple delimiter based parsing.
  */
@@ -59,7 +61,7 @@ public class CharScanner {
 
   loop:
     for (ch = cursor.current();
-         ch != cursor.DONE;
+         ch != CharacterIterator.DONE;
          ch = cursor.next()) {
       for (int i = 0; i < len; i++) {
         if (delim[i] == ch)
@@ -86,7 +88,7 @@ public class CharScanner {
     int len = delim.length;
 
     for (ch = cursor.current();
-         ch != cursor.DONE;
+         ch != CharCursor.DONE;
          ch = cursor.next()) {
       for (int i = 0; i < len; i++) {
         if (delim[i] == ch)
@@ -113,7 +115,7 @@ public class CharScanner {
     int len = delim.length;
 
     for (ch = cursor.current();
-         ch != cursor.DONE;
+         ch != CharCursor.DONE;
          ch = cursor.next()) {
       for (int i = 0; i < len; i++) {
         if (delim[i] == ch)

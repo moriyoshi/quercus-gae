@@ -76,7 +76,7 @@ public class FilePath extends FilesystemPath {
         PWD = _root;
     }
 
-    _separatorChar = _root._separatorChar;
+    _separatorChar = Path._separatorChar;
     _isWindows = ((FilePath) _root)._isWindows;
   }
 

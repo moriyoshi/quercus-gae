@@ -41,7 +41,7 @@ class BindPath extends FilesystemPath {
 
     _root = this;
     if (backing instanceof FilesystemPath)
-      _separatorChar = ((FilesystemPath) backing)._separatorChar;
+      _separatorChar = Path._separatorChar;
   }
 
   /**
@@ -66,7 +66,7 @@ class BindPath extends FilesystemPath {
     _backing = backing;
     
     if (backing instanceof FilesystemPath)
-      _separatorChar = ((FilesystemPath) backing)._separatorChar;
+      _separatorChar = Path._separatorChar;
   }
 
   public Path fsWalk(String userPath,

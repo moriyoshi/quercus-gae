@@ -465,7 +465,7 @@ public class StringModule extends AbstractQuercusModule {
                                   @Optional("0") int mode)
   {
     if (data == null)
-      data = data.EMPTY;
+      data = StringValue.EMPTY;
 
     int []count = new int[256];
 
@@ -4109,7 +4109,7 @@ public class StringModule extends AbstractQuercusModule {
       return string.substring(start);
     }
     else if (len == 0) {
-      return string.EMPTY;
+      return StringValue.EMPTY;
     }
     else {
       int end;

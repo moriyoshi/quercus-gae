@@ -145,7 +145,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      return node != null && node.type == node.DIR;
+      return node != null && node.type == Node.DIR;
     }
   }
 
@@ -154,7 +154,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      return node != null && node.type == node.FILE;
+      return node != null && node.type == Node.FILE;
     }
   }
 
@@ -163,7 +163,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      return node != null && node.type == node.OBJECT;
+      return node != null && node.type == Node.OBJECT;
     }
   }
 
@@ -172,7 +172,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      if (node != null && (node.type == node.FILE || node.type == node.DIR)) {
+      if (node != null && (node.type == Node.FILE || node.type == Node.DIR)) {
         node.isExecutable = isExecutable;
         return true;
       }
@@ -186,7 +186,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      if (node != null && (node.type == node.FILE || node.type == node.DIR))
+      if (node != null && (node.type == Node.FILE || node.type == Node.DIR))
         return node.isExecutable;
       else
         return false;
@@ -198,7 +198,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      if (node != null && node.type == node.FILE)
+      if (node != null && node.type == Node.FILE)
         return ((ByteBuffer) node.data).length();
       else
         return 0;
@@ -272,7 +272,7 @@ public class MemoryPath extends FilesystemPath {
         if (next == null && parent)
           next = node.createDir(name);
 
-        if (next == null || next.type != next.DIR)
+        if (next == null || next.type != Node.DIR)
           return false;
 
         node = next;
@@ -352,7 +352,7 @@ public class MemoryPath extends FilesystemPath {
 
       if (node == null)
         throw new FileNotFoundException(getPath());
-      else if (node.type != node.FILE)
+      else if (node.type != Node.FILE)
         throw new IOException("is directory: " + getPath());
 
       return new MemoryStream(node, (ByteBuffer) node.data, false);
@@ -386,7 +386,7 @@ public class MemoryPath extends FilesystemPath {
         node.remove(tail);
         child = node.createFile(tail, new ByteBuffer(256));
       }
-      else if (child.type != child.FILE)
+      else if (child.type != Node.FILE)
         throw new IOException(L.l("can't create file {0}", getFullPath()));
       return new MemoryStream(child, (ByteBuffer) child.data, true);
     }
@@ -397,7 +397,7 @@ public class MemoryPath extends FilesystemPath {
     synchronized (_rootNode) {
       Node node = lookupAll();
 
-      if (node == null || node.type != node.OBJECT)
+      if (node == null || node.type != Node.OBJECT)
         throw new IOException("no such object: " + getFullPath().toString());
 
       return node.data;
@@ -416,7 +416,7 @@ public class MemoryPath extends FilesystemPath {
       Node child = node.lookup(tail);
       if (child == null)
         child = node.createObject(tail, object);
-      else if (child.type == child.OBJECT)
+      else if (child.type == Node.OBJECT)
         child.data = object;
       else
         throw new IOException(L.l("can't set object {0}", getFullPath()));

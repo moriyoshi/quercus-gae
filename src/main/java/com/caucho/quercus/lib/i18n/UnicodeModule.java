@@ -244,7 +244,7 @@ public class UnicodeModule extends AbstractQuercusModule {
         tail = newOffset + length;
 
       if (newOffset < 0 || tail < newOffset)
-        return str.EMPTY;
+        return StringValue.EMPTY;
 
       unicodeStr = unicodeStr.subSequence(newOffset, tail);
       

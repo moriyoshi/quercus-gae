@@ -2353,7 +2353,7 @@ public class Env {
    */
   protected EnvVar getGlobalSpecialRef(String name)
   {
-    if (_quercus.isSuperGlobal(name))
+    if (Quercus.isSuperGlobal(name))
       return _globalMap.get(name);
     else
       return null;
@@ -3738,7 +3738,7 @@ public class Env {
    */
   boolean isSpecialVar(String name)
   {
-    if (_quercus.isSuperGlobal(name))
+    if (Quercus.isSuperGlobal(name))
       return true;
     else if (_scriptGlobalMap.get(name) != null)
       return true;
