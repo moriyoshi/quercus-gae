@@ -35,7 +35,6 @@ import java.util.logging.Level;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.JavaValue;
 import com.caucho.quercus.env.Value;
-import com.caucho.quercus.env.Var;
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.util.L10N;
@@ -125,9 +124,6 @@ public class JavaMarshal extends Marshal {
   {
     Class type = _def.getType();
    
-    if (argValue instanceof Var)
-      argValue = argValue.toValue();
-
     if (!(argValue instanceof JavaValue)) {
       if (log.isLoggable(Level.FINEST))
         log.finest("The given value is not a JavaValue (" + argValue.getClass() + ")");

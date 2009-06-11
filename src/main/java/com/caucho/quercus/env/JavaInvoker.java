@@ -41,6 +41,8 @@ import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.util.L10N;
 
 import java.lang.annotation.Annotation;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Represents the introspected static function information.
@@ -49,6 +51,7 @@ abstract public class JavaInvoker
   extends AbstractJavaMethod
 {
   private static final L10N L = new L10N(JavaInvoker.class);
+  private static final Logger log = Logger.getLogger(JavaInvoker.class.getName());
 
   private static final Object []NULL_ARGS = new Object[0];
   private static final Value []NULL_VALUES = new Value[0];
@@ -466,12 +469,17 @@ abstract public class JavaInvoker
     
     for (; i < _marshalArgs.length; i++) {
       Marshal marshal = _marshalArgs[i];
-      
+
       if (i < args.length && args[i] != null) {
         Value arg = args[i];
 
-        int argCost = marshal.getMarshalingCost(arg);
+        if (arg instanceof Var)
+          arg = arg.toValue();
 
+        int argCost = marshal.getMarshalingCost(arg);
+        if (log.isLoggable(Level.FINEST)) {
+            log.finest("Marshaling cost from " + arg.getClass() + " with " + marshal + " is " + argCost);
+        }
         cost = Math.max(argCost + cost, cost);
       }
     }
