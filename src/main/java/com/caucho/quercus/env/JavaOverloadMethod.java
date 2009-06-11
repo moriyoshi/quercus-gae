@@ -29,6 +29,9 @@
 
 package com.caucho.quercus.env;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.function.AbstractFunction;
 import com.caucho.util.L10N;
@@ -38,6 +41,7 @@ import com.caucho.util.L10N;
  */
 public class JavaOverloadMethod extends AbstractJavaMethod {
   private static final L10N L = new L10N(JavaOverloadMethod.class);
+  private static final Logger log = Logger.getLogger(JavaOverloadMethod.class.getName());
   
   private AbstractJavaMethod [][]_methodTable
     = new AbstractJavaMethod[0][];
@@ -224,6 +228,10 @@ public class JavaOverloadMethod extends AbstractJavaMethod {
 
         int cost = javaMethod.getMarshalingCost(args);
 
+        if (log.isLoggable(Level.FINEST)) {
+          log.finest("Marshalling cost of " + javaMethod.toString() + ": " + cost);
+        }
+
         if (cost == 0)
           return javaMethod;
 
@@ -244,6 +252,9 @@ public class JavaOverloadMethod extends AbstractJavaMethod {
         AbstractJavaMethod javaMethod = restMethodTable[i][j];
         
         int cost = javaMethod.getMarshalingCost(args);
+        if (log.isLoggable(Level.FINEST)) {
+          log.finest("Marshalling cost of " + javaMethod.toString() + ": " + cost);
+        }
 
         if (cost == 0)
           return javaMethod;
@@ -275,6 +286,10 @@ public class JavaOverloadMethod extends AbstractJavaMethod {
 
         int cost = javaMethod.getMarshalingCost(args);
 
+        if (log.isLoggable(Level.FINEST)) {
+          log.finest("Marshalling cost of " + javaMethod.toString() + ": " + cost);
+        }
+
         if (cost == 0)
           return javaMethod;
 
@@ -295,6 +310,10 @@ public class JavaOverloadMethod extends AbstractJavaMethod {
         AbstractJavaMethod javaMethod = restMethodTable[i][j];
         
         int cost = javaMethod.getMarshalingCost(args);
+
+        if (log.isLoggable(Level.FINEST)) {
+          log.finest("Marshalling cost of " + javaMethod.toString() + ": " + cost);
+        }
 
         if (cost == 0)
           return javaMethod;
