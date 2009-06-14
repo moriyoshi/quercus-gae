@@ -183,8 +183,6 @@ public class FilePath extends FilesystemPath {
     if (! isWindows())
       return super.schemeWalk(userPath, attributes, filePath, offset);
     
-    String canonicalPath;
-    
     if (filePath.length() < offset + 2)
       return super.schemeWalk(userPath, attributes, filePath, offset);
 
@@ -634,7 +632,7 @@ public class FilePath extends FilesystemPath {
     if (! _isWindows)
       return false;
     
-    File file = getFile();
+    getFile(); // XXX: check if this has side-effects
 
     String path = getFullPath().toLowerCase();
 

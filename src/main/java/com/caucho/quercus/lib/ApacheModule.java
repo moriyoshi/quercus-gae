@@ -36,21 +36,13 @@ import com.caucho.quercus.env.ArrayValueImpl;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.module.AbstractQuercusModule;
-import com.caucho.util.L10N;
-
 import javax.servlet.http.*;
 import java.util.Enumeration;
-import java.util.logging.Logger;
 
 /**
  * PHP apache routines.
  */
 public class ApacheModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(ApacheModule.class);
-
-  private static final Logger log =
-    Logger.getLogger(ApacheModule.class.getName());
-
   /**
    * Stub for insisting the apache process should terminate.
    */

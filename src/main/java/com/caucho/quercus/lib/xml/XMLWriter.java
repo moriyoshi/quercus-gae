@@ -31,7 +31,6 @@ package com.caucho.quercus.lib.xml;
 
 import com.caucho.quercus.annotation.*;
 import com.caucho.quercus.env.*;
-import com.caucho.util.L10N;
 import com.caucho.vfs.*;
 
 import java.io.*;
@@ -44,8 +43,6 @@ import java.util.logging.*;
 public class XMLWriter {
   private static final Logger log
     = Logger.getLogger(XMLWriter.class.getName());
-  private static final L10N L = new L10N(XMLWriter.class);
-
   private static final XMLWriterStream NULL_STREAM = new XMLWriterStream();
 
   private XMLWriterStream _s = NULL_STREAM;

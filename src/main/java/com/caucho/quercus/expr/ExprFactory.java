@@ -35,7 +35,6 @@ import com.caucho.quercus.env.*;
 import com.caucho.quercus.parser.QuercusParser;
 import com.caucho.quercus.program.*;
 import com.caucho.quercus.statement.*;
-import com.caucho.util.L10N;
 import com.caucho.vfs.Path;
 
 import java.util.ArrayList;
@@ -47,7 +46,6 @@ import java.io.UnsupportedEncodingException;
  * Factory for creating PHP expressions and statements
  */
 public class ExprFactory {
-  private static final L10N L = new L10N(ExprFactory.class);
   private static final Logger log
     = Logger.getLogger(ExprFactory.class.getName());
 

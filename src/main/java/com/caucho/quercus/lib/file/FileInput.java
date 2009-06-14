@@ -37,7 +37,6 @@ import com.caucho.vfs.ReadStream;
 import com.caucho.vfs.LockableStream;
 
 import java.io.IOException;
-import java.util.logging.*;
 
 /**
  * Represents a Quercus file open for reading
@@ -45,9 +44,6 @@ import java.util.logging.*;
 public class FileInput extends ReadStreamInput
     implements LockableStream, EnvCleanup
 {
-  private static final Logger log
-    = Logger.getLogger(FileInput.class.getName());
-
   protected Env _env;
   protected Path _path;
   protected ReadStream _is;

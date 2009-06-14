@@ -94,8 +94,6 @@ public class Mysqli extends JdbcConnectionResource {
   private int _nextResultValue = 0;
   private boolean _hasBeenUsed = true;
   
-  private boolean _isPersistent;
-
   private LastSqlType _lastSql;
 
   private MysqlMetaDataMethod _metaDataMethod;
@@ -1190,7 +1188,7 @@ public class Mysqli extends JdbcConnectionResource {
 
         _conn.markForPoolRemoval();
 
-        ResultSet rs = stmt.executeQuery("KILL CONNECTION " + threadId);
+        stmt.executeQuery("KILL CONNECTION " + threadId);
         
         result = true;
         
@@ -1498,7 +1496,6 @@ public class Mysqli extends JdbcConnectionResource {
 
   public void setPersistent()
   {
-    _isPersistent = true;
   }
 
   /**

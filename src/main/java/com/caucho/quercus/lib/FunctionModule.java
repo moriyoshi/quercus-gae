@@ -33,21 +33,13 @@ import com.caucho.quercus.annotation.VariableArguments;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.util.L10N;
-
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * PHP function routines.
  */
 public class FunctionModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(FunctionModule.class);
-
-  private static final Logger log
-    = Logger.getLogger(FunctionModule.class.getName());
-  
   /**
    * Calls a user function
    */

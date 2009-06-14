@@ -38,8 +38,6 @@ import com.caucho.quercus.module.IniDefinition;
 import com.caucho.util.L10N;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.logging.Logger;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -49,7 +47,6 @@ import java.util.zip.GZIPOutputStream;
 public class OutputModule extends AbstractQuercusModule 
   implements ModuleStartupListener {
   private static final L10N L = new L10N(OutputModule.class);
-  private static final Logger log = Logger.getLogger(OutputModule.class.getName());
 
   private static final StringValue HTTP_ACCEPT_ENCODING
     = new ConstStringValue("HTTP_ACCEPT_ENCODING");
@@ -63,9 +60,6 @@ public class OutputModule extends AbstractQuercusModule
     public StringBuilderOutputStream _tempStream;
     public OutputStream _outputStream;
   }
-
-  private static HashMap<Env,GZOutputPair> _gzOutputPairs 
-    = new HashMap<Env,GZOutputPair>();
 
   /**
    * Returns the default php.ini values.
@@ -506,8 +500,6 @@ public class OutputModule extends AbstractQuercusModule
     
     if ((state & (1 << OutputBuffer.PHP_OUTPUT_HANDLER_START)) != 0) {
       HttpModule.header(env, env.createStringOld("Vary: Accept-Encoding"), true, 0);
-
-      int encodingFlag = 0;
 
       pair = new GZOutputPair();
       pair._tempStream = new StringBuilderOutputStream(result);

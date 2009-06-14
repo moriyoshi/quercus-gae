@@ -210,7 +210,6 @@ public class LineMap implements Serializable {
                              int column, String message)
   {
     String srcFilename = null;
-    int destLine = 0;
     int srcLine = 0;
     
     for (int i = 0; i < _lines.size(); i++) {
@@ -390,7 +389,6 @@ public class LineMap implements Serializable {
     String srcFilename = null;
     int destLine = 0;
     int srcLine = 0;
-    int srcTailLine = Integer.MAX_VALUE;
     
     for (int i = 0; i < _lines.size(); i++) {
       Line map = (Line) _lines.get(i);

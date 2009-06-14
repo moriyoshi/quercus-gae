@@ -40,8 +40,6 @@ import com.caucho.quercus.lib.file.TcpInputOutput;
 import com.caucho.quercus.lib.file.UdpInputOutput;
 import com.caucho.quercus.lib.file.SocketInputOutput.Domain;
 import com.caucho.quercus.module.AbstractQuercusModule;
-import com.caucho.util.L10N;
-
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -61,7 +59,6 @@ import java.util.regex.Pattern;
  * Information about PHP network
  */
 public class NetworkModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(NetworkModule.class);
   private static final Logger log
     = Logger.getLogger(NetworkModule.class.getName());
 

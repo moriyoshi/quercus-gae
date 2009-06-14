@@ -66,8 +66,6 @@ public class ZlibModule extends AbstractQuercusModule {
   public static final int FORCE_GZIP = 0x1;
   public static final int FORCE_DEFLATE = 0x2;
 
-  private int _dbg;
-
   public String []getLoadedExtensions()
   {
     return new String[] { "zlib" };

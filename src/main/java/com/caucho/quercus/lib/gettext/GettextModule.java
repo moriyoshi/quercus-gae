@@ -39,7 +39,6 @@ import com.caucho.vfs.Path;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 
 /**
@@ -52,8 +51,6 @@ public class GettextModule
   private LruCache<Object,GettextResource> _cache
     = new LruCache<Object,GettextResource>(16);
 
-  private final Logger log
-    = Logger.getLogger(GettextModule.class.getName());
   private final L10N L = new L10N(GettextModule.class);
 
   public String []getLoadedExtensions()

@@ -120,8 +120,6 @@ public class LineConfigException extends ConfigException
 
   public static RuntimeException create(String filename, int line, Throwable e)
   {
-    String loc = filename + ": " + line + ": ";
-    
     if (e instanceof LineException) {
       if (e instanceof RuntimeException)
         throw (RuntimeException) e;

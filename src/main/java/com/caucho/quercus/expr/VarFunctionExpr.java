@@ -35,16 +35,12 @@ import com.caucho.quercus.env.Value;
 import com.caucho.quercus.env.NullValue;
 import com.caucho.quercus.parser.QuercusParser;
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.util.L10N;
-
 import java.util.ArrayList;
 
 /**
  * Represents a PHP function expression.
  */
 public class VarFunctionExpr extends Expr {
-  private static final L10N L = new L10N(FunctionExpr.class);
-  
   protected final Expr _name;
   protected final Expr []_args;
 

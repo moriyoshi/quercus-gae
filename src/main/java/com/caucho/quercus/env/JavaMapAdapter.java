@@ -33,7 +33,6 @@ import com.caucho.quercus.QuercusRuntimeException;
 import com.caucho.quercus.program.JavaClassDef;
 
 import java.util.*;
-import java.util.logging.*;
 
 /**
  * Represents a marshalled Map argument.
@@ -46,9 +45,6 @@ public class JavaMapAdapter
    */
   private static final long serialVersionUID = 1L;
 
-  private static final Logger log
-    = Logger.getLogger(JavaMapAdapter.class.getName());
-  
   private Map<Object,Object> _map;
   
   private long _nextAvailableIndex;

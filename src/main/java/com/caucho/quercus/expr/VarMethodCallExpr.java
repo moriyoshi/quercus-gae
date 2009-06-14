@@ -31,16 +31,12 @@ package com.caucho.quercus.expr;
 
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.*;
-import com.caucho.util.L10N;
-
 import java.util.ArrayList;
 
 /**
  * Represents a PHP function expression.
  */
 public class VarMethodCallExpr extends Expr {
-  private static final L10N L = new L10N(VarMethodCallExpr.class);
-
   protected final Expr _objExpr;
   
   protected final Expr _name;

@@ -489,8 +489,6 @@ public class PostgresModule extends AbstractQuercusModule {
         throw new UnimplementedException("pg_convert with options");
       }
 
-      PostgresResult result;
-
       Connection jdbcConn = conn.getJavaConnection();
       DatabaseMetaData dbMetaData = jdbcConn.getMetaData();
 
@@ -731,7 +729,7 @@ public class PostgresModule extends AbstractQuercusModule {
           if (sb.length() > 0)
             sb.append(delimiter);
 
-          Value v = newArray.get(currValue);
+          newArray.get(currValue);
 
           Value fieldValue = arr.get(LongValue.create(i));
 
@@ -2134,8 +2132,6 @@ public class PostgresModule extends AbstractQuercusModule {
         int oid = value.toInt();
         Object largeObject = pg_lo_open(env, conn, oid, "w");
 
-        String data = "";
-
         // Open the file
         ReadStream is = path.openRead();
 
@@ -3128,7 +3124,7 @@ public class PostgresModule extends AbstractQuercusModule {
       return false;
 
     try {
-      PostgresResult result = pg_query_impl(env, conn, query, false);
+      pg_query_impl(env, conn, query, false);
 
       // We probably won't need this for now. See pg_get_result().
       // conn.setAsynchronousResult(result);

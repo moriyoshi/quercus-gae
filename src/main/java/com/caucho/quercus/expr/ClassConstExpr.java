@@ -32,14 +32,11 @@ package com.caucho.quercus.expr;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
 
 /**
  * Represents a PHP parent::FOO constant call expression.
  */
 public class ClassConstExpr extends Expr {
-  private static final L10N L = new L10N(ClassMethodExpr.class);
-
   protected final String _className;
   protected final String _name;
 

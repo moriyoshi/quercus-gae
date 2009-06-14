@@ -755,9 +755,6 @@ public class PDOStatement
       }
     }
 
-    boolean isClasstype = (fetchMode & PDO.FETCH_CLASSTYPE) != 0;
-    boolean isSerialize = (fetchMode & PDO.FETCH_SERIALIZE) != 0;
-
     fetchMode = fetchMode & (~(PDO.FETCH_CLASSTYPE | PDO.FETCH_SERIALIZE));
 
     _fetchErrorCode = FETCH_SUCCESS;
@@ -1243,9 +1240,6 @@ public class PDOStatement
 
     fetchStyle = fetchStyle & (~(PDO.FETCH_GROUP | PDO.FETCH_UNIQUE));
 
-    boolean isClasstype = (fetchMode & PDO.FETCH_CLASSTYPE) != 0;
-    boolean isSerialize = (fetchMode & PDO.FETCH_SERIALIZE) != 0;
-
     fetchStyle = fetchStyle & (~(PDO.FETCH_CLASSTYPE | PDO.FETCH_SERIALIZE));
 
     switch (fetchStyle) {
@@ -1513,6 +1507,7 @@ public class PDOStatement
     private final Value _value;
     private final int _dataType;
     private final int _length;
+    @SuppressWarnings("unused")
     private final Value _driverOptions;
 
     public BindParam(Value parameter, Value value, int dataType, int length, Value driverOptions)

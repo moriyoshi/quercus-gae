@@ -45,16 +45,13 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Handling the PHP Stream API
  */
 public class StreamModule extends AbstractQuercusModule {
   private static final L10N L = new L10N(StreamModule.class);
-  private static final Logger log
-    = Logger.getLogger(StreamModule.class.getName());
-
+ 
   public static final int STREAM_FILTER_READ = 1;
   public static final int STREAM_FILTER_WRITE = 2;
   public static final int STREAM_FILTER_ALL = 3;

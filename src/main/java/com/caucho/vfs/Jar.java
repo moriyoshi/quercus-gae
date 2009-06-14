@@ -70,8 +70,6 @@ public class Jar implements CacheListener {
   // cached zip file to read jar entries
   private SoftReference<JarFile> _jarFileRef;
   // last time the zip file was modified
-  private long _jarLastModified;
-  private long _jarLength;
   private Boolean _isSigned;
 
   // file to be closed
@@ -538,7 +536,6 @@ public class Jar implements CacheListener {
       }
 
       _jarFileRef = new SoftReference<JarFile>(jarFile);
-      _jarLastModified = getLastModifiedImpl();
     }
 
     return jarFile;
@@ -580,7 +577,6 @@ public class Jar implements CacheListener {
       SoftReference<JarFile> oldFileRef = _jarFileRef;
         
       _jarFileRef = null;
-      _jarLastModified = 0;
       _isSigned = null;
 
       JarFile oldCloseFile = null;

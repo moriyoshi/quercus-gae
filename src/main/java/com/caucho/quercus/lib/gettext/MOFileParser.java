@@ -33,25 +33,18 @@ import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.UnicodeBuilderValue;
 import com.caucho.quercus.lib.gettext.expr.PluralExpr;
-import com.caucho.util.L10N;
 import com.caucho.vfs.Path;
 import com.caucho.vfs.ReadStream;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 /**
  * Parses Gettext MO files.
  */
 class MOFileParser extends GettextParser
 {
-  private static final Logger log
-    = Logger.getLogger(MOFileParser.class.getName());
-  private static final L10N L = new L10N(MOFileParser.class);
-
-  private Env _env;
   private ReadStream _in;
   private byte[] _tmpBuf = new byte[4];
 
@@ -64,8 +57,6 @@ class MOFileParser extends GettextParser
   MOFileParser(Env env, Path path)
     throws IOException
   {
-    _env = env;
-    
     init(path);
   }
 

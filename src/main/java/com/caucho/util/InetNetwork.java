@@ -38,7 +38,6 @@ public class InetNetwork {
   private static final Logger log
     = Logger.getLogger(InetNetwork.class.getName());
   
-  private long _hiAddress;
   private long _address;
   private long _mask;
   private int _maskIndex;
@@ -77,7 +76,6 @@ public class InetNetwork {
    */
   public InetNetwork(long hiAddress, long loAddress, int maskIndex)
   {
-    _hiAddress = hiAddress;
     _address = loAddress;
     _maskIndex = maskIndex;
     _mask = -1L << (64 - maskIndex);

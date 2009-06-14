@@ -45,9 +45,6 @@ abstract public class AbstractBinaryOutput
   extends OutputStream
   implements BinaryOutput
 {
-  private int lockedShared = 0;
-  private boolean lockedExclusive = false;
-
   /**
    * Returns self as the output stream.
    */

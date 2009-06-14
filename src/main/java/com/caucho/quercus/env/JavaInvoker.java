@@ -50,7 +50,6 @@ abstract public class JavaInvoker
 {
   private static final L10N L = new L10N(JavaInvoker.class);
 
-  private static final Object []NULL_ARGS = new Object[0];
   private static final Value []NULL_VALUES = new Value[0];
 
   private final ModuleContext _moduleContext;

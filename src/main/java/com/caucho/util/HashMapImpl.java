@@ -47,8 +47,6 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
 
   private V _nullValue;
   
-  // maximum allowed entries
-  private int _capacity;
   // number of items in the cache
   private int _size;
   private int _mask;
@@ -78,8 +76,6 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
     _keys = (K []) new Object[capacity];
     _values = (V []) new Object[capacity];
     _mask = capacity - 1;
-
-    _capacity = initialCapacity;
   }
 
   /**

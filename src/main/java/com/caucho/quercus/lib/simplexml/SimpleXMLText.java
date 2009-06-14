@@ -30,9 +30,6 @@
 package com.caucho.quercus.lib.simplexml;
 
 import com.caucho.quercus.env.*;
-import com.caucho.util.L10N;
-
-import java.util.logging.*;
 
 /**
  * SimpleXMLElement object oriented API facade.
@@ -40,10 +37,6 @@ import java.util.logging.*;
  */
 public class SimpleXMLText extends SimpleXMLElement
 {
-  private static final Logger log
-    = Logger.getLogger(SimpleXMLText.class.getName());
-  private static final L10N L = new L10N(SimpleXMLText.class);
-  
   protected SimpleXMLText(Env env,
                           QuercusClass cls)
   {

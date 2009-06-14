@@ -36,14 +36,12 @@ import com.caucho.quercus.statement.Statement;
 import com.caucho.util.L10N;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  * Represents a PHP expression.
  */
 abstract public class Expr {
   private static final L10N L = new L10N(Expr.class);
-  private static final Logger log = Logger.getLogger(Expr.class.getName());
 
   public static final int COMPILE_ARG_MAX = 5;
 

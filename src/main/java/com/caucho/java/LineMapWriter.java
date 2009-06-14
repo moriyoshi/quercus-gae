@@ -100,14 +100,11 @@ public class LineMapWriter {
     
     _os.println("*L");
     int size = lineMap.size();
-    int lastIndex = 0;
     for (int i = 0; i < size; i++) {
       LineMap.Line line = lineMap.get(i);
 
       String filename = line.getSourceFilename();
       int index = fileMap.get(filename);
-
-      String fileMarker = "";
 
       _os.print(line.getSourceLine());
       _os.print("#" + index);

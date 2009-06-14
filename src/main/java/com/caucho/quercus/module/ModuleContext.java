@@ -66,8 +66,6 @@ public class ModuleContext
 
   private ClassLoader _loader;
 
-  private ModuleContext _parent;
-
   private Quercus _quercus;
 
   private HashSet<URL> _serviceClassUrls = new HashSet<URL>();
@@ -117,8 +115,6 @@ public class ModuleContext
   public ModuleContext(Quercus quercus, ModuleContext parent, ClassLoader loader)
   {
     this(quercus, loader);
-
-    _parent = parent;
 
     if (parent != null) {
       _serviceClassUrls.addAll(parent._serviceClassUrls);
@@ -503,7 +499,7 @@ public class ModuleContext
   private void initStaticFunctions()
   {
     Thread thread = Thread.currentThread();
-    ClassLoader oldLoader = thread.getContextClassLoader();
+    thread.getContextClassLoader();
 
     try {
       // thread.setContextClassLoader(_loader);
@@ -614,7 +610,7 @@ public class ModuleContext
 
       QuercusModule module = (QuercusModule) cl.newInstance();
 
-      ModuleInfo info = addModule(cl.getName(), module);
+      addModule(cl.getName(), module);
 
       /*
       _modules.put(cl.getName(), info);
@@ -825,7 +821,7 @@ public class ModuleContext
     }
 
     try {
-      JavaClassDef def = addClass(name, type, extension, null);
+      addClass(name, type, extension, null);
     } catch (RuntimeException e) {
       throw e;
     } catch (Exception e) {

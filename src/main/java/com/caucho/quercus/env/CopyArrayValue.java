@@ -30,7 +30,6 @@
 package com.caucho.quercus.env;
 
 import java.util.IdentityHashMap;
-import java.util.logging.Logger;
 
 /**
  * Represents a PHP array value.
@@ -40,9 +39,6 @@ public class CopyArrayValue extends ArrayValue {
    * 
    */
   private static final long serialVersionUID = 1L;
-
-  private static final Logger log
-    = Logger.getLogger(CopyArrayValue.class.getName());
 
   private final ConstArrayValue _constArray;
   private ArrayValue _copyArray;

@@ -445,9 +445,6 @@ public class CharSegment implements CharSequence {
     if (_length != sa.length())
       return false;
 
-    char []buffer = _buffer;
-    int offset = _offset;
-
     for (int i = _length - 1; i >= 0; i--)
       if (_buffer[_offset + i] != sa.charAt(i))
         return false;

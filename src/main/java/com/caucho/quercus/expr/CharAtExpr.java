@@ -32,14 +32,11 @@ package com.caucho.quercus.expr;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
 
 /**
  * Represents the character at expression
  */
 public class CharAtExpr extends AbstractVarExpr {
-  private static final L10N L = new L10N(CharAtExpr.class);
-
   protected final Expr _objExpr;
   protected final Expr _indexExpr;
 

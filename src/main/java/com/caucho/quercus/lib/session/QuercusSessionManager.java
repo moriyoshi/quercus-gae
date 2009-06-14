@@ -55,14 +55,11 @@ public class QuercusSessionManager {
   private static int COOKIE = 1;
   private static int TRUE = 2;
 
-  private static int UNSET = 0;
   private static int SET_TRUE = 1;
   private static int SET_FALSE = 2;
   
   // active sessions
   protected LruCache<String,SessionArrayValue> _sessions;
-  // total sessions
-  private int _totalSessions;
 
   // iterator to purge sessions (to reduce gc)
   protected Iterator<SessionArrayValue> _sessionIter;
@@ -75,15 +72,15 @@ public class QuercusSessionManager {
   private long _sessionTimeout = 30 * 60 * 1000L;
 
   private int _reuseSessionId = COOKIE;
+  @SuppressWarnings("unused")
   private int _cookieLength = 18;
 
   private int _alwaysLoadSession;
   private boolean _alwaysSaveSession;
   private boolean _saveOnlyOnShutdown;
 
-  private boolean _isModuloSessionId = false;
+  @SuppressWarnings("unused")
   private boolean _isAppendServerIndex = false;
-  private boolean _isTwoDigitSessionIndex = false;
   
   protected boolean _isClosed;
 
@@ -370,7 +367,6 @@ public class QuercusSessionManager {
   {
     SessionArrayValue session;
     boolean isNew = false;
-    boolean killSession = false;
 
     if (_sessions == null)
       return null;
@@ -516,7 +512,7 @@ public class QuercusSessionManager {
         SessionArrayValue session = _sessionList.get(i);
 
         try {
-          long maxIdleTime = session.getMaxInactiveInterval();
+          session.getMaxInactiveInterval();
           _sessions.remove(session.getId());
 
           session.invalidate();

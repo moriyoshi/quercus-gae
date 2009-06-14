@@ -58,7 +58,6 @@ public class ZlibOutputStream extends AbstractBinaryOutput {
     (byte) 0x3                  // operating system (OS)
   };
 
-  private int _encodingMode;
   private boolean _isGzip;
   private long _inputSize;
 

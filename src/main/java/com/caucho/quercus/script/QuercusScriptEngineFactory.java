@@ -31,10 +31,8 @@ package com.caucho.quercus.script;
 
 import com.caucho.quercus.Quercus;
 
-import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
-import javax.script.SimpleBindings;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.*;
@@ -44,8 +42,6 @@ import java.lang.reflect.*;
  */
 public class QuercusScriptEngineFactory implements ScriptEngineFactory
 {
-  private Bindings _globalBindings = new SimpleBindings();
-  
   /**
    * Returns the full name of the ScriptEngine.
    */

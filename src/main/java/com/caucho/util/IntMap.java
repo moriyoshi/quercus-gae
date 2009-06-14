@@ -45,9 +45,7 @@ public class IntMap {
   private final static Object NULL_KEY = new Object();
   
   public final static int NULL = -65536; // Integer.MIN_VALUE + 1;
-  
-  private static int DELETED = 0x1;
-  
+
   private final Item []_entries;
   private final int _mask;
 

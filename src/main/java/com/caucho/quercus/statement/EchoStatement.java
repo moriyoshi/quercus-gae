@@ -40,8 +40,6 @@ import com.caucho.quercus.expr.Expr;
 public class EchoStatement extends Statement {
   protected final Expr _expr;
 
-  private String _genId;
-  
   /**
    * Creates the echo statement.
    */

@@ -1497,6 +1497,7 @@ public class MbstringModule
   static class EregSearch {
     private StringValue _string;
     private UnicodeEregi _ereg;
+    @SuppressWarnings("unused")
     private Value _option;
     private int _length;
 

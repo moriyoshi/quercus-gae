@@ -36,21 +36,14 @@ import com.caucho.quercus.env.*;
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.util.L10N;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Quercus class information
  */
 public class ClassesModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(ClassesModule.class);
-  private static final Logger log
-    = Logger.getLogger(ClassesModule.class.getName());
-
   /**
    * Calls an object method.
    */

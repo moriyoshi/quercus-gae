@@ -34,7 +34,6 @@ import com.caucho.quercus.env.*;
 import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.quercus.module.IniDefinitions;
 import com.caucho.quercus.module.IniDefinition;
-import com.caucho.util.L10N;
 import com.caucho.util.LruCache;
 import com.caucho.vfs.Path;
 
@@ -49,7 +48,6 @@ import java.util.logging.Logger;
 public class ApcModule extends AbstractQuercusModule
 {
   private static final Logger log = Logger.getLogger(ApcModule.class.getName());
-  private static final L10N L = new L10N(ApcModule.class);
 
   private static final IniDefinitions _iniDefinitions = new IniDefinitions();
 
@@ -318,9 +316,6 @@ public class ApcModule extends AbstractQuercusModule
   }
 
   static class Entry extends UnserializeCacheEntry {
-    private long _createTime;
-    private long _accessTime;
-    
     private long _expire;
     private int _hitCount;
 
@@ -332,8 +327,6 @@ public class ApcModule extends AbstractQuercusModule
         _expire = Long.MAX_VALUE / 2;
       else
         _expire = System.currentTimeMillis() + ttl * 1000L;
-
-      _createTime = System.currentTimeMillis();
     }
 
     public long getTTL()
@@ -363,7 +356,6 @@ public class ApcModule extends AbstractQuercusModule
     public Value getValue(Env env)
     {
       if (System.currentTimeMillis() <= _expire) {
-        _accessTime = System.currentTimeMillis();
         _hitCount++;
         
         return super.getValue(env);

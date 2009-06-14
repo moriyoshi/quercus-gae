@@ -70,7 +70,6 @@ public abstract class JdbcConnectionResource
 
   private String _errorMessage = null;
   private int _errorCode;
-  private boolean _fieldCount = false;
   private SQLWarning _warnings;
 
   private Env _env;
@@ -85,7 +84,6 @@ public abstract class JdbcConnectionResource
 
   private String _catalog;
   private boolean _isCatalogOptimEnabled = false;
-  private boolean _isCloseOnClose = true;
 
   private boolean _isUsed;
 

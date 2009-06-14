@@ -29,24 +29,17 @@
 
 package com.caucho.quercus.lib.db;
 
-import com.caucho.util.L10N;
-
 import com.caucho.quercus.env.Env;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.logging.Logger;
 
 
 /**
  * oracle result set class (postgres has NO object oriented API)
  */
 public class OracleResult extends JdbcResultResource {
-  private static final Logger log
-    = Logger.getLogger(OracleResult.class.getName());
-  private static final L10N L = new L10N(OracleResult.class);
-
   /**
    * Constructor for OracleResult
    *

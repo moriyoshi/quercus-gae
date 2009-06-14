@@ -38,7 +38,6 @@ import com.caucho.vfs.WriteStream;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * Represents a Quercus java value.
@@ -50,9 +49,6 @@ public class JavaValue extends ObjectValue
    * 
    */
   private static final long serialVersionUID = 1L;
-
-  private static final Logger log
-    = Logger.getLogger(JavaValue.class.getName());
 
   private JavaClassDef _classDef;
   protected Env _env;

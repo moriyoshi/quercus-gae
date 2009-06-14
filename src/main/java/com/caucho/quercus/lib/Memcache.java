@@ -33,18 +33,12 @@ import com.caucho.quercus.annotation.Optional;
 import com.caucho.quercus.env.BooleanValue;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
 import com.caucho.util.LruCache;
-
-import java.util.logging.Logger;
 
 /**
  * memcache object oriented API facade
  */
 public class Memcache {
-  private static final Logger log = Logger.getLogger(Memcache.class.getName());
-  private static final L10N L = new L10N(Memcache.class);
-
   private Cache _cache;
 
   /**

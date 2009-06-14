@@ -142,8 +142,6 @@ public class UrlRewriterCallback extends CallbackFunction {
     private boolean _includeSessionInfo = false;
     private String _sessionName = null;
     private String _sessionId = null;
-    private String _javaSessionName = null;
-    private String _javaSessionId = null;
 
     private int _index;
     private String _value;
@@ -169,9 +167,9 @@ public class UrlRewriterCallback extends CallbackFunction {
         _sessionName = _env.getIni("session.name").toString();
         _sessionId = _env.getSession().getId();
 
-        _javaSessionName = _env.getQuercus().getCookieName();
+        _env.getQuercus().getCookieName();
 
-        _javaSessionId = _env.getJavaSession().getId();
+        _env.getJavaSession().getId();
       }
 
       if (_includeSessionInfo == false && _rewriterVars.isEmpty())

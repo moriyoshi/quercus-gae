@@ -32,7 +32,6 @@ package com.caucho.config;
 import com.caucho.util.*;
 import java.io.*;
 import java.lang.reflect.*;
-import java.util.logging.*;
 
 /**
  * Thrown by the various Builders
@@ -45,8 +44,6 @@ public class ConfigException
    * 
    */
   private static final long serialVersionUID = 1L;
-  private static final Logger log
-    = Logger.getLogger(ConfigException.class.getName());
   
   /**
    * Create a null exception

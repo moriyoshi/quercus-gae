@@ -51,6 +51,7 @@ public class SessionCallback extends Value {
   private Callback _read;
   private Callback _write;
   private Callback _destroy;
+  @SuppressWarnings("unused")
   private Callback _gc;
 
   public SessionCallback(Callback open,

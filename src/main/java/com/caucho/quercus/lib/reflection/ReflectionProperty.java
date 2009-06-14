@@ -76,6 +76,7 @@ public class ReflectionProperty
     return new ReflectionProperty(prop);
   }
   
+  @SuppressWarnings("unused")
   final private void __clone()
   {
   }

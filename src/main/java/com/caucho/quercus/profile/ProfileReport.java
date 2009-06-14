@@ -250,7 +250,6 @@ public class ProfileReport
     Collections.sort(methodList, new TotalMicrosComparator());
 
     double totalMicros = methodList.get(0).getTotalMicros();
-    int maxNameLength = 0;
 
     out.println();
     out.println("Hierarchy: " + _url + " at " + new Date(_timestamp));

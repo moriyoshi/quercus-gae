@@ -39,7 +39,6 @@ import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.LongValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.module.AbstractQuercusModule;
-import com.caucho.util.L10N;
 import com.caucho.util.RandomUtil;
 import com.caucho.vfs.Path;
 
@@ -50,8 +49,6 @@ import java.util.logging.Logger;
  * PHP encryption
  */
 public class McryptModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(McryptModule.class);
-
   private static final Logger log =
     Logger.getLogger(McryptModule.class.getName());
 
@@ -625,8 +622,7 @@ public class McryptModule extends AbstractQuercusModule {
                                                 Path libDir)
   {
     try {
-      Mcrypt mcrypt = new Mcrypt(env, algorithm, "cbc");
-
+      new Mcrypt(env, algorithm, "cbc");
       return true;
     } catch (Exception e) {
       env.error(e);

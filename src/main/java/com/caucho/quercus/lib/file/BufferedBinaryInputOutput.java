@@ -50,7 +50,6 @@ abstract public class BufferedBinaryInputOutput
     = Logger.getLogger(BufferedBinaryInputOutput.class.getName());
 
   private ReadStream _is;
-  private WriteStream _os;
 
   protected BufferedBinaryInputOutput(Env env)
   {
@@ -62,7 +61,6 @@ abstract public class BufferedBinaryInputOutput
     super.init(is, os);
     
     _is = is;
-    _os = os;
   }
 
   //

@@ -42,7 +42,7 @@ import java.util.Iterator;
 public class WeakLruCache<K,V> {
   // hash table containing the entries.  Its size is twice the capacity
   // so it will always remain at least half empty
-  private CacheItem []_entries;
+  private CacheItem<K,V>[]_entries;
   // maximum allowed entries
   private int _capacity;
   // number of items in the cache
@@ -68,7 +68,7 @@ public class WeakLruCache<K,V> {
     for (capacity = 16; capacity < 2 * initialCapacity; capacity *= 2) {
     }
 
-    _entries = new CacheItem[capacity];
+    _entries = (CacheItem<K,V>[])new CacheItem[capacity];
     _mask = capacity - 1;
 
     _capacity = initialCapacity;

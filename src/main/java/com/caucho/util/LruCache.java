@@ -41,7 +41,6 @@ import java.util.Iterator;
  */
 public final class LruCache<K,V> {
   private static final Object NULL = new Object();
-  private static final Object MISMATCH = new Object();
   
   // maximum allowed entries
   private int _capacity;
@@ -477,7 +476,7 @@ public final class LruCache<K,V> {
     if (oldValue instanceof LruListener)
       ((LruListener) oldValue).lruEvent();
     
-    V value = remove(tail._key);
+    remove(tail._key);
     
     return true;
   }
@@ -507,7 +506,7 @@ public final class LruCache<K,V> {
     if (oldValue instanceof LruListener)
       ((LruListener) oldValue).lruEvent();
 
-    V value = remove(tail._key);
+    remove(tail._key);
     
     return true;
   }

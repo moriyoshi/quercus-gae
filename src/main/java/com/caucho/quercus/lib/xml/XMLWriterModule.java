@@ -31,20 +31,13 @@ package com.caucho.quercus.lib.xml;
 
 import com.caucho.quercus.annotation.*;
 import com.caucho.quercus.env.*;
-import com.caucho.util.L10N;
 import com.caucho.vfs.*;
 import com.caucho.quercus.module.AbstractQuercusModule;
-
-import java.util.logging.*;
 
 /**
  * XMLWriter
  */
 public class XMLWriterModule extends AbstractQuercusModule {
-  private static final Logger log
-    = Logger.getLogger(XMLWriterModule.class.getName());
-  private static final L10N L = new L10N(XMLWriterModule.class);
-
   public String []getLoadedExtensions()
   {
     return new String[] { "XMLWriter" };

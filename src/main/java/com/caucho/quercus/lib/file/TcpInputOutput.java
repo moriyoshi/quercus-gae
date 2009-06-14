@@ -55,6 +55,7 @@ public class TcpInputOutput
     = Logger.getLogger(TcpInputOutput.class.getName());
   
   private Socket _socket;
+  @SuppressWarnings("unused")
   private Domain _domain;
   
   private int _errno;

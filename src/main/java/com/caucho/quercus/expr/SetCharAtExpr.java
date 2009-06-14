@@ -32,14 +32,11 @@ package com.caucho.quercus.expr;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
 
 /**
  * Dummy for code generation
  */
 public class SetCharAtExpr extends Expr {
-  private static final L10N L = new L10N(SetCharAtExpr.class);
-
   private final Expr _objExpr;
   private final Expr _indexExpr;
   private final Expr _valueExpr;

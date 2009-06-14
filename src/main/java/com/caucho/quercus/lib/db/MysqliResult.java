@@ -283,7 +283,6 @@ public class MysqliResult extends JdbcResultResource {
       int jdbcType = md.getColumnType(offset);
       String catalogName = md.getCatalogName(offset);
       String fieldTable = md.getTableName(offset);
-      String fieldSchema = md.getSchemaName(offset);
       String fieldName = md.getColumnName(offset);
       String fieldAlias = md.getColumnLabel(offset);
       String fieldMysqlType = md.getColumnTypeName(offset);
@@ -329,9 +328,7 @@ public class MysqliResult extends JdbcResultResource {
 
     try {
       int jdbcType = md.getColumnType(offset);
-      String catalogName = md.getCatalogName(offset);
       String fieldTable = md.getTableName(offset);
-      String fieldSchema = md.getSchemaName(offset);
       String fieldName = md.getColumnName(offset);
       String fieldAlias = md.getColumnLabel(offset);
       String mysqlType = md.getColumnTypeName(offset);
@@ -494,8 +491,6 @@ public class MysqliResult extends JdbcResultResource {
     Value result = env.createObject();
 
     try {
-      ResultSetMetaData md = getMetaData();
-
       if (! _rs.next())
         return BooleanValue.FALSE;
       
@@ -973,9 +968,6 @@ public class MysqliResult extends JdbcResultResource {
 
       StringValue bb = env.createUnicodeBuilder();
 
-      int length = bytes.length;
-      int offset = 0;
-    
       bb.appendUtf8(bytes);
 
       /*

@@ -60,7 +60,8 @@ public class ReflectionParameter
     
     _clsName = clsName;
   }
-  
+
+  @SuppressWarnings("unused")
   final private void __clone()
   {
   }

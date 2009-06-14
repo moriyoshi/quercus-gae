@@ -40,7 +40,6 @@ import com.caucho.util.L10N;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.logging.Logger;
 
 /**
  * Quercus session handling
@@ -48,8 +47,6 @@ import java.util.logging.Logger;
 public class SessionModule extends AbstractQuercusModule 
   implements ModuleStartupListener {
   private static final L10N L = new L10N(SessionModule.class);
-  private static final Logger log
-    = Logger.getLogger(SessionModule.class.getName());
 
   private static final IniDefinitions _iniDefinitions = new IniDefinitions();
 
@@ -252,7 +249,7 @@ public class SessionModule extends AbstractQuercusModule
     if (deleteOld) {
       session_destroy(env);
 
-      SessionArrayValue session = env.createSession(sessionId, true);
+      env.createSession(sessionId, true);
     }
     else {
       SessionArrayValue session = env.getSession();

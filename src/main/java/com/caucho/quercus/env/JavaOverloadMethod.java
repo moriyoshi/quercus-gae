@@ -350,8 +350,6 @@ public class JavaOverloadMethod extends AbstractJavaMethod {
   @Override
   public String getName()
   {
-    AbstractJavaMethod method;
-
     for (int i = 0; i < _methodTable.length; i++) {
       if (_methodTable[i] != null)
         return _methodTable[i][0].getName();

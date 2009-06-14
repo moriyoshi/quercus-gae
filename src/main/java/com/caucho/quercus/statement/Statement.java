@@ -51,7 +51,6 @@ abstract public class Statement {
   private final Location _location;
   
   private Statement _parent;
-  private String _loopLabel;
 
   protected Statement()
   {

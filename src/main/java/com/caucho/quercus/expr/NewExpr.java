@@ -34,15 +34,12 @@ import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.NullValue;
 import com.caucho.quercus.env.QuercusClass;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
-
 import java.util.ArrayList;
 
 /**
  * Represents a PHP function expression of the form "new ClassName()".
  */
 public class NewExpr extends Expr {
-  private static final L10N L = new L10N(NewExpr.class);
   protected final String _name;
   protected final Expr []_args;
 

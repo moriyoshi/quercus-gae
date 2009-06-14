@@ -60,6 +60,7 @@ public class FileInputOutput extends AbstractBinaryOutput
   private int _buffer;
   private boolean _doUnread = false;
 
+  @SuppressWarnings("unused")
   private Reader _readEncoding;
   private String _readEncodingName;
 

@@ -38,7 +38,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Represents a PHP array value.
@@ -50,20 +49,9 @@ public class ArrayValueImpl extends ArrayValue
    * 
    */
   private static final long serialVersionUID = 1L;
-
-  private static final Logger log
-    = Logger.getLogger(ArrayValueImpl.class.getName());
-
-  private static final StringValue KEY = new ConstStringValue("key");
-  private static final StringValue VALUE = new ConstStringValue("value");
   
   private static final int DEFAULT_SIZE = 16;
   
-  private static final int SORT_REGULAR = 0;
-  private static final int SORT_NUMERIC = 1;
-  private static final int SORT_STRING = 2;
-  private static final int SORT_LOCALE_STRING = 5;
-
   private static final int MIN_HASH = 4;
   
   protected Entry []_entries;
@@ -484,8 +472,6 @@ public class ArrayValueImpl extends ArrayValue
     Entry next = null;
     for (; ptr != null; ptr = next) {
       next = ptr._next;
-      
-      Value key = ptr.getKey();
       
       if (index < start) {
       }
@@ -909,8 +895,6 @@ public class ArrayValueImpl extends ArrayValue
 
     Entry []entries = _entries;
     if (entries != null) {
-      int capacity = entries.length;
-
       int hash = key.hashCode() & _hashMask;
       Entry prevHash = null;
 
@@ -1092,8 +1076,6 @@ public class ArrayValueImpl extends ArrayValue
   {
     Entry []entries = _entries;
     if (entries != null) {
-      int capacity = entries.length;
-
       int hash = entry._key.hashCode() & _hashMask;
 
       Entry head = entries[hash];

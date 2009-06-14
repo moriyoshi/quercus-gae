@@ -45,6 +45,7 @@ public class ReflectionFunction extends ReflectionFunctionAbstract
     super(fun);
   }
   
+  @SuppressWarnings("unused")
   final private void __clone()
   {
   }

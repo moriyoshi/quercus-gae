@@ -32,14 +32,11 @@ package com.caucho.quercus.expr;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.env.*;
 import com.caucho.quercus.program.InterpretedClassDef;
-import com.caucho.util.L10N;
 
 /**
  * Represents the 'this' expression.
  */
 public class ThisExpr extends AbstractVarExpr {
-  private static final L10N L = new L10N(ThisExpr.class);
-
   protected final InterpretedClassDef _quercusClass;
   
   public ThisExpr(Location location, InterpretedClassDef quercusClass)

@@ -152,9 +152,6 @@ public class InterpretedPage extends QuercusPage
     return null;
   }
 
-  // runtime function list for compilation
-  private AbstractFunction []_runtimeFunList;
-
   /**
    * Sets a runtime function array after an env.
    */

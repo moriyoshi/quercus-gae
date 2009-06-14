@@ -34,7 +34,6 @@ import com.caucho.quercus.env.*;
 import com.caucho.quercus.lib.file.BinaryInput;
 import com.caucho.quercus.lib.file.BinaryOutput;
 import com.caucho.quercus.lib.file.FileModule;
-import com.caucho.util.L10N;
 import com.caucho.vfs.Path;
 import com.caucho.vfs.WriteStream;
 
@@ -42,14 +41,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class CurlResource
 {
-  private static final Logger log
-    = Logger.getLogger(CurlResource.class.getName());
-  private static final L10N L = new L10N(CurlResource.class);
-
   private String _requestMethod = "GET";
   private int _responseCode;
 

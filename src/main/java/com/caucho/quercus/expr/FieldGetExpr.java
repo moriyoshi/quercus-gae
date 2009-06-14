@@ -33,14 +33,11 @@ import com.caucho.quercus.Location;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.env.StringValue;
-import com.caucho.util.L10N;
 
 /**
  * Represents a PHP field reference.
  */
 public class FieldGetExpr extends AbstractVarExpr {
-  private static final L10N L = new L10N(FieldGetExpr.class);
-
   protected final Expr _objExpr;
   protected final StringValue _name;
 

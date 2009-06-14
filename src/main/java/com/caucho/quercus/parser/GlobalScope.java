@@ -33,8 +33,6 @@ import com.caucho.quercus.expr.ExprFactory;
 import com.caucho.quercus.program.Function;
 import com.caucho.quercus.program.InterpretedClassDef;
 import com.caucho.quercus.Location;
-import com.caucho.util.L10N;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,8 +40,6 @@ import java.util.HashMap;
  * Parse scope.
  */
 public class GlobalScope extends Scope {
-  private final static L10N L = new L10N(GlobalScope.class);
-
   private ExprFactory _exprFactory;
 
   private HashMap<String,Function> _functionMap

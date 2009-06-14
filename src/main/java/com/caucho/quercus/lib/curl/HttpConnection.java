@@ -50,10 +50,6 @@ public class HttpConnection
   private String _proxyPassword;
   private String _proxyType;
 
-  private int _responseCode;
-  private boolean _hadSentAuthorization = false;
-  private boolean _hadSentProxyAuthorization = false;
-
   private String _authorization;
   private String _proxyAuthorization;
 

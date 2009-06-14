@@ -40,6 +40,7 @@ public class StreamContextResource extends ResourceValue {
    */
   private static final long serialVersionUID = 1L;
   private ArrayValue _options;
+  @SuppressWarnings("unused")
   private ArrayValue _parameters;
   
   public StreamContextResource()

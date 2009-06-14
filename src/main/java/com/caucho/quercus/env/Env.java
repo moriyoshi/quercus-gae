@@ -332,9 +332,6 @@ public class Env {
 
   private Env _oldThreadEnv;
 
-  private long _firstMicroTime;
-  private long _firstNanoTime;
-
   private RegexpState _freeRegexpState;
   
   private CharBuffer _cb = new CharBuffer();
@@ -4098,7 +4095,7 @@ public class Env {
     if (_importMap == null)
       _importMap = new ImportMap();
     
-    String phpName = _importMap.putQualified(javaName);
+    _importMap.putQualified(javaName);
   }
   
   /**
@@ -5497,13 +5494,11 @@ public class Env {
     if (location == null)
       location = getLocation();
 
-    String prefix = location.getMessagePrefix();
+    location.getMessagePrefix();
 
     String fullMsg = msg + getFunctionLocation();
 
     error(B_ERROR, location, fullMsg);
-
-    String exMsg = prefix + fullMsg;
 
     return new QuercusRuntimeException(fullMsg);
   }

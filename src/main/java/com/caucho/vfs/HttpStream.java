@@ -59,11 +59,6 @@ class HttpStream extends StreamImpl {
   
   // Saved keepalive stream for a new request.
   private static HttpStream _savedStream;
-  // Time the stream was saved
-  private static long _saveTime;
-  
-  private long _socketTimeout = 30000L;
-
   private boolean _isSSL;
 
   private Socket _s;
@@ -176,13 +171,11 @@ class HttpStream extends StreamImpl {
     int port = path.getPort();
 
     HttpStream stream = null;
-    long streamTime = 0;
     synchronized (LOCK) {
       if (_savedStream != null
           && host.equals(_savedStream.getHost())
           && port == _savedStream.getPort()) {
         stream = _savedStream;
-        streamTime = _saveTime;
         _savedStream = null;
       }
     }

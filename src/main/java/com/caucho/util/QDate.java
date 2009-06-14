@@ -1316,7 +1316,6 @@ public class QDate {
   {
     int strlen = string.length();
     int year = 0;
-    int i;
 
     char ch = string.charAt(pos);
 

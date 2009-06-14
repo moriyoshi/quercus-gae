@@ -28,9 +28,7 @@
 
 package com.caucho.util;
 
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,16 +66,17 @@ public class L10N {
       path = "/" + path;
 
     messages = l10nMap.get(path);
-    
+
+    /* XXX
     InputStream is = null;
     Locale locale = Locale.getDefault();
-    
+    */
     try {
-      String language = locale.getLanguage();
-
-      String xmlName = path + "_" + language + ".xml";
+      /* XXX String language = locale.getLanguage(); */
 
       /* XXX: punt for now
+      String xmlName = path + "_" + language + ".xml";
+
       is = getClass().getResourceAsStream(xmlName);
       
       if (is != null) {

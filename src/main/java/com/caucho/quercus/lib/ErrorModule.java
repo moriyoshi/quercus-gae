@@ -77,8 +77,6 @@ public class ErrorModule extends AbstractQuercusModule {
   public static final StringValue LINE = new ConstStringValue("line");
   public static final StringValue TYPE = new ConstStringValue("type");
 
-  private long _errorReporting = Env.E_DEFAULT;
-
   /**
    * Returns the default php.ini values.
    */

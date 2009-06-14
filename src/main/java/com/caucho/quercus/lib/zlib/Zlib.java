@@ -75,9 +75,11 @@ public class Zlib {
    */
   public Zlib(Env env, String filename, String mode, boolean useIncludePath)
   {
+    /*
     String filemode = getFileMode(mode);
     int compressionLevel = getCompressionLevel(mode);
     int compressionStrategy = getCompressionStrategy(mode);
+    */
 
     Value val = null;
     // FileModule.fopen(env, filename, mode, useIncludePath, null);
@@ -273,7 +275,6 @@ public class Zlib {
   public ArrayValue gzfile()
   {
     Value line;
-    int oldLength = 0; 
 
     ArrayValue array = new ArrayValueImpl();
 
@@ -299,7 +300,6 @@ public class Zlib {
   public StringValue gzread(Env env, int length)
   {
     StringValue sb = env.createBinaryBuilder();
-    int readChar;
 
     if (_in == null)
       return sb;
@@ -414,6 +414,7 @@ public class Zlib {
    * XXX todo: toss a warning if '+' is found (gzip cannot be open for both reading and writing at the same time)
    *
    */
+  @SuppressWarnings("unused")
   private String getFileMode(String input)
   {
     String modifier = "";
@@ -447,6 +448,7 @@ public class Zlib {
    * Helper function to retrieve the compression level like how PHP5 does it.
    *    1. finds the compression level nearest to the end and returns that
    */
+  @SuppressWarnings("unused")
   private int getCompressionLevel(String input)
   {
     for (int i = input.length() - 1; i >= 0; i-- )
@@ -462,6 +464,7 @@ public class Zlib {
    * Helper function to retrieve the compression strategy like how PHP5 does it.
    *    1. finds the compression strategy nearest to the end and returns that
    */
+  @SuppressWarnings("unused")
   private int getCompressionStrategy(String input)
   {
     for (int i = input.length() - 1; i >= 0; i-- )

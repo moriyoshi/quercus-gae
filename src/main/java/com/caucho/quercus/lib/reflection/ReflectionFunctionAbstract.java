@@ -50,7 +50,8 @@ public abstract class ReflectionFunctionAbstract
   {
     return _fun;
   }
-  
+
+  @SuppressWarnings("unused")
   private void __clone()
   {
   }

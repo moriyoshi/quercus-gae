@@ -94,8 +94,8 @@ public class QuercusParser {
   private final static int DECR = 290;
   
   private final static int SCOPE = 291;
-  private final static int ESCAPED_STRING = 292;
-  private final static int HEREDOC = 293;
+  // private final static int ESCAPED_STRING = 292;
+  // private final static int HEREDOC = 293;
   private final static int ARRAY_RIGHT = 294;
   private final static int SIMPLE_STRING_ESCAPE = 295;
   private final static int COMPLEX_STRING_ESCAPE = 296;
@@ -113,7 +113,7 @@ public class QuercusParser {
   private final static int CLASS = 517;
   private final static int NEW = 518;
   private final static int RETURN = 519;
-  private final static int VAR = 520;
+  // private final static int VAR = 520;
   private final static int PRIVATE = 521;
   private final static int PROTECTED = 522;
   private final static int PUBLIC = 523;
@@ -132,7 +132,7 @@ public class QuercusParser {
   private final static int FOREACH = 536;
   private final static int AS = 537;
   private final static int TEXT = 538;
-  private final static int ISSET = 539;
+  // private final static int ISSET = 539;
   private final static int SWITCH = 540;
   private final static int CASE = 541;
   private final static int DEFAULT = 542;
@@ -173,7 +173,7 @@ public class QuercusParser {
   private final static int IMPORT = 574;
   private final static int TEXT_PHP = 575;
 
-  private final static int LAST_IDENTIFIER_LEXEME = 1024;
+  // private final static int LAST_IDENTIFIER_LEXEME = 1024;
 
   private final static IntMap _insensitiveReserved = new IntMap();
   private final static IntMap _reserved = new IntMap();
@@ -1729,7 +1729,7 @@ public class QuercusParser {
       
       argMap.put(argName, arg);
 
-      VarInfo var = _function.createVar(argName);
+      _function.createVar(argName);
       
       if (token != ',') {
         _peekToken = token;
@@ -1985,7 +1985,7 @@ public class QuercusParser {
           int token2 = parseToken();
 
           if (token2 == FUNCTION) {
-            Function fun = parseFunctionDefinition(modifiers);
+            parseFunctionDefinition(modifiers);
           }
           else {
             _peekToken = token2;
@@ -2490,7 +2490,7 @@ public class QuercusParser {
       return _factory.createGeq(expr, parseShiftExpr());
 
     case INSTANCEOF:
-      Location location = getLocation();
+      getLocation(); // XXX: check if this has side-effects?
 
       Expr classNameExpr = parseShiftExpr();
       
@@ -3861,8 +3861,6 @@ public class QuercusParser {
   private Expr parseArrayFunction()
     throws IOException
   {
-    String name = _lexeme;
-
     int token = parseToken();
 
     if (token != '(')
@@ -3909,7 +3907,6 @@ public class QuercusParser {
     throws IOException
   {
     boolean isWildcard = false;
-    boolean isIdentifierStart = true;
 
     StringBuilder sb = new StringBuilder();
 
@@ -4400,9 +4397,6 @@ public class QuercusParser {
     int ch = read();
     while (ch > 0) {
       if (ch == '<') {
-        int ch2;
-        int ch3;
-        
         if ((ch = read()) == 's' || ch == 'S') {
           _peek = ch;
           if (parseScriptBegin(sb)) {

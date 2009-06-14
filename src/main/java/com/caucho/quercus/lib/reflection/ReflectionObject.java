@@ -37,6 +37,7 @@ import com.caucho.quercus.env.Value;
 
 public class ReflectionObject extends ReflectionClass
 {
+  @SuppressWarnings("unused")
   final private void __clone()
   {
     

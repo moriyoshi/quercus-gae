@@ -30,7 +30,6 @@
 package com.caucho.quercus.lib.db;
 
 import com.caucho.quercus.env.*;
-import com.caucho.util.L10N;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -51,8 +50,6 @@ import java.util.logging.Logger;
 public class JdbcResultResource {
   private static final Logger log
     = Logger.getLogger(JdbcResultResource.class.getName());
-  private static final L10N L = new L10N(JdbcResultResource.class);
-
   public static final int FETCH_ASSOC = 0x1;
   public static final int FETCH_NUM = 0x2;
   public static final int FETCH_BOTH = FETCH_ASSOC | FETCH_NUM;

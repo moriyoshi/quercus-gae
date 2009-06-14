@@ -206,12 +206,10 @@ public class Tree {
   }
 
   static class DfsIterator implements Iterator {
-    private Tree top;
     private Tree node;
 
     DfsIterator(Tree top)
     {
-      this.top = top;
       node = top;
     }
 

@@ -32,20 +32,12 @@ package com.caucho.quercus.lib.i18n;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CoderResult;
-import java.util.logging.Logger;
-
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.StringValue;
-import com.caucho.util.L10N;
 
 public class Big5Decoder
   extends GenericDecoder
 {
-  private static final Logger log
-    = Logger.getLogger(Big5Decoder.class.getName());
-
-  private static final L10N L = new L10N(Big5Decoder.class);
-  
   public Big5Decoder(String charsetName)
   {
     super(charsetName);

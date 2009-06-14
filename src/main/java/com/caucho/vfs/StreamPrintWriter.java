@@ -42,9 +42,6 @@ public class StreamPrintWriter extends PrintWriter
   implements FlushBuffer, EnclosedWriteStream {
   private final static Logger log
     = Logger.getLogger(PrintWriterImpl.class.getName());
-  
-  private final static char []_nullChars = "null".toCharArray();
-  private final static char []_newline = "\n".toCharArray();
 
   private final static Writer _dummyWriter = new StringWriter();
 

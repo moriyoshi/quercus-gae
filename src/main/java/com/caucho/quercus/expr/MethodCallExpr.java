@@ -33,16 +33,12 @@ import com.caucho.quercus.Location;
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.MethodMap;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
-
 import java.util.ArrayList;
 
 /**
  * Represents a PHP function expression.
  */
 public class MethodCallExpr extends Expr {
-  private static final L10N L = new L10N(MethodCallExpr.class);
-
   protected final Expr _objExpr;
   
   protected final String _methodName;

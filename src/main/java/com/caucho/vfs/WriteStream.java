@@ -89,7 +89,6 @@ public class WriteStream extends OutputStreamWithBuffer
   private boolean _disableFlush;
   private boolean reuseBuffer;
 
-  private StreamWriter _writer;
   private StreamPrintWriter _printWriter;
 
   private String newline = "\n";
@@ -1021,7 +1020,6 @@ public class WriteStream extends OutputStreamWithBuffer
     if (source == null)
       return;
 
-    int len;
     int length = _writeBuffer.length;
 
     if (length <= _writeLength) {

@@ -32,17 +32,11 @@ package com.caucho.quercus.program;
 import com.caucho.quercus.Location;
 import com.caucho.quercus.expr.ExprFactory;
 import com.caucho.quercus.statement.Statement;
-import com.caucho.util.L10N;
-
-import java.util.logging.Logger;
 
 /**
  * Represents sequence of statements.
  */
 public class ObjectMethod extends Function {
-  private static final Logger log = Logger.getLogger(ObjectMethod.class.getName());
-  private static final L10N L = new L10N(ObjectMethod.class);
-
   private ClassDef _quercusClass;
 
   ObjectMethod(Location location,

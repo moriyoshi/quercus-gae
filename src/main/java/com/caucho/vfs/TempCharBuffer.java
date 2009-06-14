@@ -39,7 +39,6 @@ public class TempCharBuffer {
 
   TempCharBuffer _next;
   final char []_buf;
-  private int _offset;
   int _length;
   int _bufferCount;
 
@@ -63,7 +62,6 @@ public class TempCharBuffer {
 
     next._next = null;
 
-    next._offset = 0;
     next._length = 0;
     next._bufferCount = 0;
 
@@ -77,7 +75,6 @@ public class TempCharBuffer {
   {
     _next = null;
 
-    _offset = 0;
     _length = 0;
     _bufferCount = 0;
   }

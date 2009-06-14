@@ -632,7 +632,7 @@ public class MiscModule extends AbstractQuercusModule {
       
       es.close();
 
-      int status = process.waitFor();
+      process.waitFor();
 
       return sb;
     } catch (Exception e) {
@@ -677,7 +677,7 @@ public class MiscModule extends AbstractQuercusModule {
         env.getOut().writeStream(is);
         is.close();
 
-        int status = process.waitFor();
+        process.waitFor();
       }
       finally {
         process.destroy();
@@ -1745,7 +1745,6 @@ public class MiscModule extends AbstractQuercusModule {
   }
 
   static class NullPackSegment extends PackSegment {
-    private final String _name;
     private final int _length;
 
     NullPackSegment(int length)
@@ -1754,9 +1753,7 @@ public class MiscModule extends AbstractQuercusModule {
     }
 
     NullPackSegment(String name, int length)
-    {
-      _name = name;
-      
+    {     
       if (length == Integer.MAX_VALUE)
         length = 0;
       

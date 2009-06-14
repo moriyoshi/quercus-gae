@@ -619,7 +619,6 @@ public class XmlWriter
     private int BREAK_BEFORE = 2;
     private int BREAK_AFTER = 4;
     private int BREAK_AFTER_CONTENT = 8;
-    private int EAT_BREAK_BEFORE = 16; // ignore a BREAK_AFTER in the next element
     private int BOOLEAN_ATTRIBUTE = 1024;
 
     private HashMap<String, Integer> _flags = new HashMap<String, Integer>();

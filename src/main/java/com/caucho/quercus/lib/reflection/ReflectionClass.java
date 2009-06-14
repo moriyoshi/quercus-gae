@@ -80,7 +80,8 @@ public class ReflectionClass
   {
     return _cls;
   }
-  
+
+  @SuppressWarnings("unused")
   final private ReflectionClass __clone()
   {
     return new ReflectionClass(_cls);

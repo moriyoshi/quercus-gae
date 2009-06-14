@@ -583,7 +583,7 @@ public final class UnserializeReader {
 
         expect(':');
 
-        int value = (int) readInt();
+        readInt();
 
         expect(';');
         

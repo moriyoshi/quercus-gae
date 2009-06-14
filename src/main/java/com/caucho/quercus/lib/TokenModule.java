@@ -37,20 +37,14 @@ import com.caucho.quercus.module.AbstractQuercusModule;
 import com.caucho.quercus.module.IniDefinitions;
 import com.caucho.quercus.module.IniDefinition;
 import com.caucho.util.IntMap;
-import com.caucho.util.L10N;
 import com.caucho.vfs.WriteStream;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  * Quercus tokenizer 
  */
 public class TokenModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(TokenModule.class);
-  private static final Logger log
-    = Logger.getLogger(TokenModule.class.getName());
-
   public static final int T_ABSTRACT = 256;
   public static final int T_AND_EQUAL = 257;
   public static final int T_ARRAY = 258;
@@ -962,7 +956,6 @@ public class TokenModule extends AbstractQuercusModule {
 
     private int parseNumber()
     {
-      boolean isInt = false;
       int ch;
       
       while ('0' <= (ch = read()) && ch <= '9'
@@ -971,10 +964,11 @@ public class TokenModule extends AbstractQuercusModule {
              || 'a' <= ch && ch <= 'f'
              || 'A' <= ch && ch <= 'F') {
         _lexeme.append((char) ch);
-
+/* XXX: WTF?
         if ('a' <= ch && ch <= 'f' || 'A' <= ch && ch <= 'f'
             || ch == 'x' || ch == 'X')
           isInt = true;
+*/
       }
 
       unread();

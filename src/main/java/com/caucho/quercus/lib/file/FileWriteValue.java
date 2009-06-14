@@ -49,7 +49,6 @@ public class FileWriteValue extends FileValue {
     = Logger.getLogger(FileReadValue.class.getName());
 
   private WriteStream _os;
-  private long _offset;
 
   public FileWriteValue(Path path)
     throws IOException

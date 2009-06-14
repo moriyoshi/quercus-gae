@@ -29,20 +29,12 @@
 
 package com.caucho.quercus.lib.i18n;
 
-import java.util.logging.Logger;
-
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.StringValue;
-import com.caucho.util.L10N;
 
 public class Utf8Decoder
   extends Decoder
 {
-  private static final Logger log
-    = Logger.getLogger(Utf8Decoder.class.getName());
-
-  private static final L10N L = new L10N(Utf8Decoder.class);
-  
   private static final int ERROR_CHARACTER = 0xFFFE;
   private static final int EOF = -1;
   

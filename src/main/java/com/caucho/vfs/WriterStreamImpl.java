@@ -41,7 +41,6 @@ public class WriterStreamImpl extends StreamImpl {
   private static Logger log
     = Logger.getLogger(WriterStreamImpl.class.getName());
   
-  private Writer _writer;
   private ByteToCharWriter _byteToChar = new ByteToCharWriter();
   private boolean _isClosed;
 
@@ -50,7 +49,6 @@ public class WriterStreamImpl extends StreamImpl {
    */
   public void setWriter(Writer writer)
   {
-    _writer = writer;
     _byteToChar.setWriter(writer);
     _isClosed = false;
 

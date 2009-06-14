@@ -36,14 +36,11 @@ import com.caucho.quercus.program.ClassDef;
 import com.caucho.quercus.program.UnsetFunction;
 import com.caucho.util.Crc64;
 import com.caucho.util.L10N;
-import com.caucho.util.LruCache;
 
-import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 /**
  * Represents the state of the definitions: functions, classes and
@@ -51,12 +48,6 @@ import java.util.logging.Logger;
  */
 public final class DefinitionState {
   private static final L10N L = new L10N(DefinitionState.class);
-  private static final Logger log
-    = Logger.getLogger(DefinitionState.class.getName());
-  
-  private static final
-    LruCache<ClassKey,SoftReference<QuercusClass>> _classCache
-    = new LruCache<ClassKey,SoftReference<QuercusClass>>(4096);
 
   private final Quercus _quercus;
 

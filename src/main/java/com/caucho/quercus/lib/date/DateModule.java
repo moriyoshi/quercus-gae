@@ -1382,10 +1382,6 @@ public class DateModule extends AbstractQuercusModule {
 
     private void parseISODate(int value1)
     {
-      int year = _date.getYear();
-      int month = 0;
-      int day = 0;
-      
       if (value1 < 0)
         value1 = - value1;
       
@@ -1437,10 +1433,6 @@ public class DateModule extends AbstractQuercusModule {
 
     private void parseUSDate(int value1)
     {
-      int year = _date.getYear();
-      int month = 0;
-      int day = 0;
-      
       if (value1 < 0)
         value1 = - value1;
       
@@ -1493,10 +1485,6 @@ public class DateModule extends AbstractQuercusModule {
 
     private void parseDayMonthDate(int value1)
     {
-      int year = _date.getYear();
-      int month = 0;
-      int day = 0;
-      
       if (value1 < 0)
         value1 = - value1;
 
@@ -1680,8 +1668,6 @@ public class DateModule extends AbstractQuercusModule {
         
         return;
       }
-
-      int offset = 0;
 
       token = nextToken();
       if (token != INT) {

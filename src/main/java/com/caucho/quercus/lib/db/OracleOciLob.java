@@ -81,9 +81,7 @@ public class OracleOciLob {
   private static Class classOracleCLOB;
   private static Method createTemporaryBLOB;
   private static Method createTemporaryCLOB;
-  private static int BLOB_DURATION_CALL;
   private static int BLOB_DURATION_SESSION;
-  private static int CLOB_DURATION_CALL;
   private static int CLOB_DURATION_SESSION;
 
   static {
@@ -98,9 +96,7 @@ public class OracleOciLob {
                                                               new Class[] {Connection.class,
                                                                            Boolean.TYPE,
                                                                            Integer.TYPE});
-      BLOB_DURATION_CALL = classOracleBLOB.getDeclaredField("DURATION_CALL").getInt(null);
       BLOB_DURATION_SESSION = classOracleBLOB.getDeclaredField("DURATION_SESSION").getInt(null);
-      CLOB_DURATION_CALL = classOracleCLOB.getDeclaredField("DURATION_CALL").getInt(null);
       CLOB_DURATION_SESSION = classOracleCLOB.getDeclaredField("DURATION_SESSION").getInt(null);
     } catch (Exception e) {
       log.log(Level.FINER, L.l("Unable to load LOB classes or methods for oracle.sql.BLOB and oracle.sql.CLOB."));
@@ -142,10 +138,8 @@ public class OracleOciLob {
         break;
       case OracleModule.OCI_D_LOB:
         if (_lob instanceof Blob) {
-          Blob blob = (Blob) _lob;
           return appendInternalBlob(env, lobFrom);
         } else if (_lob instanceof Clob) {
-          Clob clob = (Clob) _lob;
           return appendInternalClob(env, lobFrom);
         }
         break;
@@ -758,7 +752,6 @@ public class OracleOciLob {
       case OracleModule.OCI_D_FILE:
         break;
       case OracleModule.OCI_D_LOB:
-        long written = 0;
         if (_lob instanceof Blob) {
           Blob blob = (Blob) _lob;
           if (_outputStream == null) {

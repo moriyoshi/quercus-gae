@@ -122,7 +122,7 @@ public class MysqliModule extends AbstractQuercusModule {
   // in the client_flags parameter to mysql_connect().
   // This flag will be ignored by Mysqli.connectImpl().
 
-  private static final int MYSQL_CLIENT_LOCAL_FILES = (1 << 7);
+  // private static final int MYSQL_CLIENT_LOCAL_FILES = (1 << 7);
 
   public static final int MYSQL_CLIENT_IGNORE_SPACE = (1 << 8);
   public static final int MYSQL_CLIENT_INTERACTIVE = (1 << 10);

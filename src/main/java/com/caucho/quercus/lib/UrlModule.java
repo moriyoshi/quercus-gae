@@ -51,7 +51,6 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * PHP URL
@@ -60,8 +59,6 @@ public class UrlModule
   extends AbstractQuercusModule
 {
   private static final L10N L = new L10N(UrlModule.class);
-  private static final Logger log
-    = Logger.getLogger(UrlModule.class.getName());
 
   public static final int PHP_URL_SCHEME = 0;
   public static final int PHP_URL_HOST = 1;

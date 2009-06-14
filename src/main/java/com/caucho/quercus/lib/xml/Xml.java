@@ -85,6 +85,7 @@ public class Xml {
    *  Possibly should report error if user wants to use
    *  anything other than ":"
    */
+  @SuppressWarnings("unused")
   private String _separator;
 
   private int _errorCode = XmlModule.XML_ERROR_NONE;

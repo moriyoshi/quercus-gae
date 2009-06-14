@@ -55,7 +55,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.logging.Logger;
 
 /**
  * Facade for the PHP language.
@@ -63,7 +62,6 @@ import java.util.logging.Logger;
 public class Quercus
 {
   private static L10N L = new L10N(Quercus.class);
-  private static final Logger log = Log.open(Quercus.class);
 
   private static HashSet<String> _superGlobals
     = new HashSet<String>();

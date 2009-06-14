@@ -156,8 +156,7 @@ public class MultipartStream extends StreamImpl {
     else if (_readStream == null)
       _readStream = new ReadStream(this, null);
     else if (! _isPartDone) {
-      int len;
-      while ((len = read(_dummyBuffer, 0, _dummyBuffer.length)) >= 0) {
+      while (read(_dummyBuffer, 0, _dummyBuffer.length) >= 0) {
       }
 
       if (_isDone)

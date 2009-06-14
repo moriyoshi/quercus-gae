@@ -40,16 +40,12 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.logging.Logger;
 
 /**
  * Encryption class
  */
 public class Mcrypt {
   private static final L10N L = new L10N(Mcrypt.class);
-
-  private static final Logger log =
-    Logger.getLogger(Mcrypt.class.getName());
 
   private final String _algorithm;
   private final String _mode;
@@ -91,7 +87,7 @@ public class Mcrypt {
     try {
       _cipher.init(Cipher.DECRYPT_MODE, _key, _iv);
 
-      int blockSize = _cipher.getBlockSize();
+      _cipher.getBlockSize();
 
       return _cipher.doFinal(data);
     } catch (Exception e) {

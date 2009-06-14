@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Logger;
 
 /**
  * Represents a Quercus file open for reading
@@ -45,9 +44,6 @@ import java.util.logging.Logger;
 public class AbstractBinaryInput
   implements BinaryInput
 {
-  private static final Logger log
-    = Logger.getLogger(AbstractBinaryInput.class.getName());
-
   private Env _env;
   private final LineReader _lineReader;
 

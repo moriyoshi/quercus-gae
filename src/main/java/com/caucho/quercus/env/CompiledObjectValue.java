@@ -51,7 +51,6 @@ public class CompiledObjectValue extends ObjectValue
    * 
    */
   private static final long serialVersionUID = 1L;
-  private static final StringValue TO_STRING = new UnicodeValueImpl("__toString");
   private static final Value []NULL_FIELDS = new Value[0];
 
   public Value []_fields;
@@ -504,8 +503,6 @@ public class CompiledObjectValue extends ObjectValue
     ArrayList<StringValue> names = _quercusClass.getFieldNames();
     
     if (names != null) {
-      int index = 0;
-
       for (int i = 0; i < names.size(); i++) {
         StringValue key = names.get(i);
         

@@ -31,18 +31,12 @@ package com.caucho.quercus.env;
 
 import com.caucho.quercus.expr.Expr;
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.util.L10N;
 
 /**
  * Represents the introspected static function information.
  */
 abstract public class AbstractJavaMethod extends AbstractFunction
 {
-  private static final L10N L = new L10N(AbstractJavaMethod.class);
-
-  private static final Object [] NULL_ARGS = new Object[0];
-  private static final Value [] NULL_VALUES = new Value[0];
-
   /**
    * Returns the minimally required number of arguments.
    */

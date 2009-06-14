@@ -50,12 +50,12 @@ public class UdpInputOutput
     = Logger.getLogger(UdpInputOutput.class.getName());
 
   private DatagramSocket _socket;
+  @SuppressWarnings("unused")
   private Domain _domain;
   
   private DatagramStream _stream;
+  @SuppressWarnings("unused")
   private int _error;
-  
-  private byte _unread;
   
   public UdpInputOutput(Env env, String host, int port, Domain domain)
     throws IOException

@@ -1746,10 +1746,14 @@ public class ImageModule extends AbstractQuercusModule {
         int width = readInt(is);
         int height = readInt(is);
         int depth = is.read() & 0xff;
-        int color = is.read() & 0xff;
-        int compression = is.read() & 0xff;
-        int filter = is.read() & 0xff;
-        int interlace = is.read() & 0xff;
+        // int color = is.read() & 0xff;
+        // int compression = is.read() & 0xff;
+        // int filter = is.read() & 0xff;
+        // int interlace = is.read() & 0xff;
+        is.read();
+        is.read();
+        is.read();
+        is.read();
 
         info._width = width;
         info._height = height;
@@ -1768,7 +1772,7 @@ public class ImageModule extends AbstractQuercusModule {
         }
       }
 
-      int crc = readInt(is);
+      readInt(is);
     }
 
     return false;
@@ -1780,8 +1784,6 @@ public class ImageModule extends AbstractQuercusModule {
   private static boolean parseGIFImageSize(ReadStream is, ImageInfo info)
     throws IOException
   {
-    int length;
-
     int width = (is.read() & 0xff) + 256 * (is.read() & 0xff);
     int height = (is.read() & 0xff) + 256 * (is.read() & 0xff);
 
@@ -1819,8 +1821,10 @@ public class ImageModule extends AbstractQuercusModule {
         // rst
       }
       else if (ch == 0xc0) {
-        int len = 256 * is.read() + is.read();
-
+        // int len = 256 * is.read() + is.read(); // suppress warnings
+        is.read();
+        is.read();
+        
         int bits = is.read();
         int height = 256 * is.read() + is.read();
         int width = 256 * is.read() + is.read();
@@ -1884,8 +1888,6 @@ public class ImageModule extends AbstractQuercusModule {
       = new HashMap<StringValue,Font>();
     private Font []_fontArray = new Font[6];
     
-    private int _width;
-    private int _height;
     BufferedImage _bufferedImage;
     private Graphics2D _graphics;
     private boolean _isInterlace;
@@ -1896,8 +1898,6 @@ public class ImageModule extends AbstractQuercusModule {
 
     public QuercusImage(int width, int height)
     {
-      _width = width;
-      _height = height;
       _bufferedImage =
         new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       _graphics = (Graphics2D)_bufferedImage.getGraphics();
@@ -1907,8 +1907,6 @@ public class ImageModule extends AbstractQuercusModule {
     {
       try {
         _bufferedImage = ImageIO.read(inputStream);
-        _width = _bufferedImage.getWidth(null);
-        _height = _bufferedImage.getHeight(null);
         _graphics = (Graphics2D)_bufferedImage.getGraphics();
       }
       catch (IOException e) {
@@ -1920,8 +1918,6 @@ public class ImageModule extends AbstractQuercusModule {
     {
       try {
         _bufferedImage = ImageIO.read(filename.openRead());
-        _width = _bufferedImage.getWidth(null);
-        _height = _bufferedImage.getHeight(null);
         _graphics = (Graphics2D)_bufferedImage.getGraphics();
       }
       catch (IOException e) {

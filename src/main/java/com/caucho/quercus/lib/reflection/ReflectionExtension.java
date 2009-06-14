@@ -43,20 +43,18 @@ import com.caucho.quercus.function.AbstractFunction;
 import com.caucho.quercus.module.IniDefinition;
 import com.caucho.quercus.module.IniDefinitions;
 import com.caucho.quercus.module.ModuleInfo;
-import com.caucho.util.L10N;
 
 public class ReflectionExtension
   implements Reflector
 {
-  private static final L10N L = new L10N(ReflectionExtension.class);
-  
   private String _name;
   
   protected ReflectionExtension(Env env, String extension)
   {
     _name = extension;
   }
-  
+
+  @SuppressWarnings("unused")
   final private void __clone()
   {
     

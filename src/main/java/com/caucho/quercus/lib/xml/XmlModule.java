@@ -39,14 +39,11 @@ import com.caucho.quercus.env.LongValue;
 import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.module.AbstractQuercusModule;
-import com.caucho.util.L10N;
 
 /**
  * PHP XML
  */
 public class XmlModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(XmlModule.class);
-
   public static final int XML_OPTION_CASE_FOLDING = 0x0;
   public static final int XML_OPTION_SKIP_TAGSTART = 0x1;
   public static final int XML_OPTION_SKIP_WHITE = 0x2;

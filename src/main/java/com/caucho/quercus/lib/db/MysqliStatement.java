@@ -39,8 +39,6 @@ import com.caucho.quercus.env.LongValue;
 import com.caucho.quercus.env.NullValue;
 import com.caucho.quercus.env.StringValue;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +48,6 @@ import java.util.logging.Logger;
  */
 public class MysqliStatement extends JdbcStatementResource {
   private static final Logger log = Logger.getLogger(MysqliStatement.class.getName());
-  private static final L10N L = new L10N(MysqliStatement.class);
 
   /**
    * Constructor for MysqliStatement

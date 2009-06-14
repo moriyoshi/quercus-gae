@@ -35,8 +35,6 @@ import com.caucho.quercus.env.*;
 import com.caucho.quercus.lib.regexp.Ereg;
 import com.caucho.quercus.lib.regexp.RegexpModule;
 import com.caucho.quercus.module.AbstractQuercusModule;
-import com.caucho.util.L10N;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -48,8 +46,6 @@ import java.util.Map;
  * PHP functions implementing html code.
  */
 public class HtmlModule extends AbstractQuercusModule {
-  private static final L10N L = new L10N(HtmlModule.class);
-
   public static final int HTML_SPECIALCHARS = 0;
   public static final int HTML_ENTITIES = 1;
 

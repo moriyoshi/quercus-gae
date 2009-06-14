@@ -55,7 +55,6 @@ public class FileOutput extends AbstractBinaryOutput
   private Env _env;
   private Path _path;
   private WriteStream _os;
-  private long _offset;
 
   public FileOutput(Env env, Path path)
     throws IOException

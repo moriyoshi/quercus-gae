@@ -78,8 +78,6 @@ public class PostgresStatement extends JdbcStatementResource {
 
       int size = _preparedMapping.size();
 
-      int matches = 0;
-
       for (int i = 0; i < size; i++) {
         LongValue param = _preparedMapping.get(i);
 

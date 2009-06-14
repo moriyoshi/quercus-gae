@@ -36,12 +36,9 @@ import com.caucho.quercus.lib.file.BinaryInput;
 import com.caucho.util.L10N;
 
 import java.io.*;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 
 public class QuercusZipEntry {
-  private static final Logger log =
-    Logger.getLogger(QuercusZipEntry.class.getName());
   private static final L10N L = new L10N(QuercusZipEntry.class);
 
   private final ZipEntry _entry;

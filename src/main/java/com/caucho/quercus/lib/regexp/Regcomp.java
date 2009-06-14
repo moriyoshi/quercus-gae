@@ -136,8 +136,7 @@ class Regcomp {
     
     RegexpNode value = parseRec(pattern, begin);
 
-    int ch;
-    while ((ch = pattern.read()) == '|') {
+    while (pattern.read() == '|') {
       value = RegexpNode.Or.create(value, parseRec(pattern, begin));
     }
     
@@ -1452,8 +1451,6 @@ class Regcomp {
                                           boolean isNegated)
     throws IllegalRegexpException
   {
-    byte category = 0;
-    
     switch (ch) {
     case 'C':
       switch (ch2) {

@@ -55,7 +55,6 @@ public class LargeStringBuilderValue
   protected int _length;
 
   private int _hashCode;
-  private String _value;
 
   public LargeStringBuilderValue()
   {

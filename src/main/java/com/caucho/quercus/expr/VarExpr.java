@@ -47,8 +47,6 @@ public class VarExpr
   private final VarInfo _var;
   protected final String _name;
 
-  private VarState _varState = VarState.INIT;
-
   protected VarExpr(Location location, VarInfo var)
   {
     super(location);

@@ -50,8 +50,6 @@ import java.io.UnsupportedEncodingException;
  */
 abstract public class AbstractByteToChar extends InputStream {
   private Reader _readEncoding;
-  private String _readEncodingName;
-  private int _specialEncoding;
 
   private final byte []_byteBuffer = new byte[256];
   private final char []_charBuffer = new char[1];
@@ -73,11 +71,9 @@ abstract public class AbstractByteToChar extends InputStream {
   {
     if (encoding != null) {
       _readEncoding = Encoding.getReadEncoding(this, encoding);
-      _readEncodingName = Encoding.getMimeName(encoding);
     }
     else {
       _readEncoding = null;
-      _readEncodingName = null;
     }
   }
 

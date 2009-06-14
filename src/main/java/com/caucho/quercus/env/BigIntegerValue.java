@@ -33,7 +33,6 @@ import com.caucho.quercus.program.JavaClassDef;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.logging.Logger;
 
 /**
  * Represents a Quercus java BigInteger value.
@@ -43,9 +42,6 @@ public class BigIntegerValue extends JavaValue {
    * 
    */
   private static final long serialVersionUID = 1L;
-
-  private static final Logger log
-    = Logger.getLogger(JavaURLValue.class.getName());
 
   private final BigInteger _val;
 

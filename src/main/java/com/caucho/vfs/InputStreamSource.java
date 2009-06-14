@@ -32,15 +32,12 @@ package com.caucho.vfs;
 import java.io.*;
 
 import com.caucho.util.IoUtil;
-import com.caucho.util.L10N;
 
 /**
  * Stream source for Hessian serialization of large data
  */
 public class InputStreamSource extends StreamSource
 {
-  private static final L10N L = new L10N(StreamSource.class);
-  
   private InputStream _is;
 
   /**

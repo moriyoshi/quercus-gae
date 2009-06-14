@@ -69,6 +69,7 @@ public class HttpInputOutput extends AbstractBinaryOutput
   
   private HttpStreamWrapper _httpStream;
   
+  @SuppressWarnings("unused")
   private Reader _readEncoding;
   private String _readEncodingName;
   

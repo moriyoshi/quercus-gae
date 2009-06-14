@@ -30,11 +30,8 @@
 package com.caucho.quercus.lib.db;
 
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
-
 import java.sql.CallableStatement;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 
 /**
@@ -42,9 +39,6 @@ import java.util.logging.Logger;
  * this is essentially a JdbcStatementResource.
  */
 public class OracleStatement extends JdbcStatementResource {
-  private static final Logger log = Logger.getLogger(OracleStatement.class.getName());
-  private static final L10N L = new L10N(OracleStatement.class);
-
   // Oracle statement has a notion of number of fetched rows
   // (See also: OracleModule.oci_num_rows)
   private int _fetchedRows;

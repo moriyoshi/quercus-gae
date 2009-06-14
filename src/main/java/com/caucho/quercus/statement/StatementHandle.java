@@ -36,7 +36,9 @@ public class StatementHandle {
   public static final StatementHandle NULL
     = new StatementHandle(NullStatement.NULL);
 
+  @SuppressWarnings("unused")
   private final StatementHandle _parent;
+  @SuppressWarnings("unused")
   private final StatementHandle _previous;
 
   private Statement _statement;

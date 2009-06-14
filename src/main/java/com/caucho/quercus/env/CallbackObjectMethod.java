@@ -30,7 +30,6 @@
 package com.caucho.quercus.env;
 
 import com.caucho.quercus.function.AbstractFunction;
-import com.caucho.util.L10N;
 import com.caucho.vfs.WriteStream;
 
 import java.io.IOException;
@@ -45,8 +44,6 @@ public class CallbackObjectMethod extends Callback {
    */
   private static final long serialVersionUID = 1L;
 
-  private static final L10N L = new L10N(CallbackObjectMethod.class);
-  
   private final ObjectValue _obj;
   private final AbstractFunction _fun;
   

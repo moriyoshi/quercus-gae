@@ -331,7 +331,6 @@ public class SocketStream extends StreamImpl {
    */
   public void closeWrite() throws IOException
   {
-    OutputStream os = _os;
     _os = null;
 
     // since the output stream is opened lazily, we might

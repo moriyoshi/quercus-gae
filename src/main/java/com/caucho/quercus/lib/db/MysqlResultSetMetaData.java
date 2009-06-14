@@ -33,10 +33,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.logging.Logger;
-
 import com.caucho.quercus.QuercusException;
-import com.caucho.util.L10N;
 
 /**
  * Extra Mysql metadata.
@@ -44,11 +41,6 @@ import com.caucho.util.L10N;
  */
 public class MysqlResultSetMetaData
 {
-  private static final Logger log
-    = Logger.getLogger(MysqlResultSetMetaData.class.getName());
-  private static final L10N L
-    = new L10N(MysqlResultSetMetaData.class);
-  
   private ResultSetMetaData _resultSetMetaData;
   
   private String []_columnEncodings;

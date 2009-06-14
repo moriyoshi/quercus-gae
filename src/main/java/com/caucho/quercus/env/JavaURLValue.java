@@ -35,7 +35,6 @@ import com.caucho.quercus.program.JavaClassDef;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.logging.Logger;
 
 /**
  * Represents a Quercus java URL value.
@@ -45,9 +44,6 @@ public class JavaURLValue extends JavaValue {
    * 
    */
   private static final long serialVersionUID = 1L;
-
-  private static final Logger log
-    = Logger.getLogger(JavaURLValue.class.getName());
 
   private final URL _url;
 

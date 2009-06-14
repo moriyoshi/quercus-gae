@@ -35,7 +35,6 @@ import com.caucho.vfs.ReadStream;
 import com.caucho.vfs.VfsStream;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  * Represents an input stream for a popen'ed process.
@@ -43,9 +42,6 @@ import java.util.logging.Logger;
 public class PopenInput extends ReadStreamInput
     implements EnvCleanup
 {
-  private static final Logger log
-    = Logger.getLogger(FileInput.class.getName());
-
   private Env _env;
   private Process _process;
 

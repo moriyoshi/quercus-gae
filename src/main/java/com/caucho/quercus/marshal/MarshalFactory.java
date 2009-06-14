@@ -38,7 +38,6 @@ import com.caucho.quercus.lib.regexp.Regexp;
 import com.caucho.quercus.lib.regexp.UnicodeEreg;
 import com.caucho.quercus.lib.regexp.UnicodeEregi;
 import com.caucho.quercus.program.JavaClassDef;
-import com.caucho.util.L10N;
 import com.caucho.vfs.Path;
 
 import java.io.InputStream;
@@ -55,8 +54,6 @@ import java.util.Map;
  * Code for marshaling (PHP to Java) and unmarshaling (Java to PHP) arguments.
  */
 public class MarshalFactory {
-  private static final L10N L = new L10N(MarshalFactory.class);
-
   protected ModuleContext _moduleContext;
 
   public MarshalFactory(ModuleContext moduleContext)

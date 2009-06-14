@@ -71,7 +71,6 @@ public final class ReadStream extends InputStream
 
   private Reader _readEncoding;
   private String _readEncodingName;
-  private int _specialEncoding;
 
   private boolean _disableClose;
   private boolean _isDisableCloseSource;

@@ -53,7 +53,6 @@ public class GZIPOutputStream extends DeflaterOutputStream {
     0            // operating system (OS)
   };
 
-  private int _encodingMode;
   private boolean _isGzip;
 
   /**
@@ -89,8 +88,6 @@ public class GZIPOutputStream extends DeflaterOutputStream {
 
     if (_isGzip)
       _crc32 = new CRC32();
-
-    _encodingMode = encodingMode;
   }
 
   /**

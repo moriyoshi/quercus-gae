@@ -31,16 +31,12 @@ package com.caucho.vfs;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 /**
  * Facade to HttpStream to properly handle the close.
  */
 public class HttpStreamWrapper extends StreamImpl
 {
-  private static final Logger log
-    = Logger.getLogger(HttpStream.class.getName());
-  
   private HttpStream _stream;
 
   /**

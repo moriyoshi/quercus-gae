@@ -36,13 +36,10 @@ import com.caucho.util.L10N;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class JsonModule
     extends AbstractQuercusModule
 {
-  private static final Logger log
-    = Logger.getLogger(JsonModule.class.getName());
   private static final L10N L = new L10N(JsonModule.class);
 
   public String []getLoadedExtensions()

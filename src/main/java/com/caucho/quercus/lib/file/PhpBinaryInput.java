@@ -33,16 +33,11 @@ import com.caucho.quercus.env.StringValue;
 import com.caucho.vfs.ReadStream;
 import com.caucho.vfs.VfsStream;
 
-import java.util.logging.Logger;
-
 /*
  * php://input
  */
 public class PhpBinaryInput extends AbstractBinaryInput
 {
-  private static final Logger log
-    = Logger.getLogger(PhpBinaryInput.class.getName());
-
   public PhpBinaryInput(Env env)
   {
     super(env);

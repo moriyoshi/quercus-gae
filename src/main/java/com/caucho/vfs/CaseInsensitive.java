@@ -35,6 +35,7 @@ import java.io.File;
  * Configuration for CaseInsensitive environments.
  */
 public class CaseInsensitive {
+  @SuppressWarnings("unused")
   private boolean _isCaseInsensitive = true;
 
   public CaseInsensitive()

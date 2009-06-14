@@ -31,14 +31,11 @@ package com.caucho.quercus.lib;
 
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
-import com.caucho.util.L10N;
 
 /**
  * Java object facade.
  */
 public class Java {
-  private static final L10N L = new L10N(Java.class);
-  
   /**
    * Create a new Java API object.
    */
