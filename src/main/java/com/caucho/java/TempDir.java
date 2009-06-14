@@ -28,21 +28,9 @@
 
 package com.caucho.java;
 
-import com.caucho.vfs.Path;
-
 import javax.annotation.PostConstruct;
 
 public class TempDir {
-  private Path _path;
-
-  /**
-   * Sets the id.
-   */
-  public void setId(Path path)
-  {
-    _path = path;
-  }
-
   /**
    * Stores self.
    */

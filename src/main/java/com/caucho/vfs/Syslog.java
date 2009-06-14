@@ -62,7 +62,6 @@ public class Syslog {
   public static final int LOG_INFO = 6;
   public static final int LOG_DEBUG = 7;
 
-  private static boolean _hasSyslog;
   private static boolean _isOpen;
 
   public Syslog()
@@ -87,13 +86,5 @@ public class Syslog {
   private static native void nativeOpenSyslog();
 
   private static native void nativeSyslog(int priority, String text);
-
-  static {
-    try {
-      System.loadLibrary("resin");
-      _hasSyslog = true;
-    } catch (Throwable e) {
-    }
-  }
 }
 

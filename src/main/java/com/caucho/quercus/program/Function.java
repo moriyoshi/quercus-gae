@@ -385,18 +385,6 @@ public class Function extends AbstractFunction {
     }
   }
 
-  private boolean isVariableArgs()
-  {
-    return _info.isVariableArgs() || _args.length > 5;
-  }
-
-  private boolean isVariableMap()
-  {
-    // return _info.isVariableVar();
-    // php/3254
-    return _info.isUsesSymbolTable() || _info.isVariableVar();
-  }
-
   public String toString()
   {
     return getClass().getSimpleName() + "[" + _name + "]";

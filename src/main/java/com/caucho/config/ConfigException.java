@@ -68,24 +68,6 @@ public class ConfigException
     super(msg, e);
   }
 
-  /**
-   * Creates an exception with a throwable
-   */
-  /*
-  public ConfigException(Throwable e)
-  {
-    super(getMessage(e), e);
-  }
-  */
-
-  private static String getMessage(Throwable e)
-  {
-    if (e instanceof DisplayableException || e instanceof CompileException)
-      return e.getMessage();
-    else
-      return e.toString();
-  }
-
   public static RuntimeException create(String location, Throwable e)
   {
     if (e instanceof InstantiationException && e.getCause() != null)

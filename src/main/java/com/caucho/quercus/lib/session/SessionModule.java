@@ -590,26 +590,6 @@ public class SessionModule extends AbstractQuercusModule
     return NullValue.NULL;
   }
 
-  /**
-   * Converts an integer to a printable character
-   */
-  private static char encode(long code)
-  {
-    code = code & 0x3f;
-
-    if (code < 26)
-      return (char) ('a' + code);
-    else if (code < 52)
-      return (char) ('A' + code - 26);
-    else if (code < 62)
-      return (char) ('0' + code - 52);
-    else if (code == 62)
-      return '_';
-    else
-      return '-';
-  }
-
-
   static final IniDefinition INI_SESSION_SAVE_PATH
     = _iniDefinitions.add("session.save_path", "", PHP_INI_ALL);
   static final IniDefinition INI_SESSION_NAME

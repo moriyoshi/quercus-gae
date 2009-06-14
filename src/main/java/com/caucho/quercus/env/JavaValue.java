@@ -624,50 +624,5 @@ public class JavaValue extends ObjectValue
 
     _object = in.readObject();
   }
-
-  private static class EntryItem implements Map.Entry<Value,Value> {
-    private Value _key;
-    private Value _value;
-    private boolean _isArray;
-
-    EntryItem(Value key, Value value)
-    {
-      _key = key;
-      _value = value;
-    }
-
-    public Value getKey()
-    {
-      return _key;
-    }
-
-    public Value getValue()
-    {
-      return _value;
-    }
-
-    public Value setValue(Value value)
-    {
-      return _value;
-    }
-
-    void addValue(Value value)
-    {
-      ArrayValue array = null;
-      
-      if (! _isArray) {
-        _isArray = true;
-        Value oldValue = _value;
-        _value = new ArrayValueImpl();
-        array = (ArrayValue) _value;
-        array.append(oldValue);
-      }
-      else {
-        array = (ArrayValue) _value;
-      }
-
-      array.append(value);
-    }
-  }
 }
 

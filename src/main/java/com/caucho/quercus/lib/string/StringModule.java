@@ -874,20 +874,6 @@ public class StringModule extends AbstractQuercusModule {
     }
   }
 
-  private static StringValue digestToString(Env env, byte []digest)
-  {
-    StringValue sb = env.createUnicodeBuilder();
-    for (int i = 0; i < digest.length; i++) {
-      int d1 = (digest[i] >> 4) & 0xf;
-      int d2 = (digest[i] & 0xf);
-
-      sb.append(toHexChar(d1));
-      sb.append(toHexChar(d2));
-    }
-
-    return sb;
-  }
-
   /**
    * Returns the metaphone of a string.
    * This implentation produces identical results to the php version, which does contain some bugs.

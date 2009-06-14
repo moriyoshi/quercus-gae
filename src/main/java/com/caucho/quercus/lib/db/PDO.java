@@ -744,11 +744,6 @@ public class PDO implements EnvCleanup {
     return true;
   }
 
-  private boolean setPrefetch(int prefetch)
-  {
-    throw new UnimplementedException();
-  }
-
   /**
    * Sets a custom statement  class derived from PDOStatement.
    *

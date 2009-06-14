@@ -650,30 +650,6 @@ public final class UnserializeReader {
     }
   }
 
-  private String unserializeString()
-    throws IOException
-  {
-    int ch = read();
-    
-    if (ch != 's' && ch != 'S') {
-      throw new IOException(L.l("expected 's' at '{1}' (0x{2})",
-                                String.valueOf((char) ch),
-                                Integer.toHexString(ch)));
-    }
-
-    expect(':');
-    int len = (int) readInt();
-    expect(':');
-    expect('"');
-
-    String s = readString(len);
-
-    expect('"');
-    expect(';');
-
-    return s;
-  }
-
   public final void expect(int expectCh)
     throws IOException
   {

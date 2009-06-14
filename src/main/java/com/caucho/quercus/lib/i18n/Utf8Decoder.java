@@ -200,17 +200,6 @@ public class Utf8Decoder
     return sb;
   }
   
-  private static void decodeCodePoint(StringBuilder sb, int code)
-  {
-    code &= 0xFFFFF;
-    
-    int high = 0xD800 + code >> 10;
-    int low = 0xDC00 + code & 0x3FF;
-    
-    sb.append((char) high);
-    sb.append((char) low);
-  }
-  
   static class Utf8Reader
   {
     int _peek = -1;

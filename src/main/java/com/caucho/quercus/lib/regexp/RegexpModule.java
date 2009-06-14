@@ -1713,20 +1713,6 @@ public class RegexpModule
     
     return matchArray;
   }
-  
-  private static StringValue addDelimiters(Env env,
-                                           StringValue str,
-                                           String startDelim,
-                                           String endDelim)
-  {
-    StringValue sb = str.createStringBuilder();
-    
-    sb = sb.appendBytes(startDelim);
-    sb = sb.append(str);
-    sb = sb.appendBytes(endDelim);
-    
-    return sb;
-  }
 
   private static ArrayList<Replacement>
     compileReplacement(Env env, StringValue replacement, boolean isEval)

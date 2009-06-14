@@ -548,20 +548,6 @@ public class Jar implements CacheListener {
    *
    * @return the last modified time of the jar in milliseconds.
    */
-  private long getLastModifiedImpl()
-  {
-    isCacheValid();
-    
-    return _lastModified;
-  }
-  
-  /**
-   * Returns the last modified time for the path.
-   *
-   * @param path path into the jar.
-   *
-   * @return the last modified time of the jar in milliseconds.
-   */
   private boolean isCacheValid()
   {
     long oldLastModified = _lastModified;

@@ -308,23 +308,6 @@ public class JavaClassDef extends ClassDef {
     addInterfaces(interfaceSet, type.getSuperclass(), false);
   }
 
-  private boolean hasInterface(String name, Class type)
-  {
-    Class[] interfaces = type.getInterfaces();
-
-    if (interfaces != null) {
-      for (Class intfc : interfaces) {
-        if (intfc.getSimpleName().equalsIgnoreCase(name))
-          return true;
-
-        if (hasInterface(name, intfc))
-          return true;
-      }
-    }
-
-    return false;
-  }
-
   @Override
   public boolean isAbstract()
   {
@@ -1031,32 +1014,6 @@ public class JavaClassDef extends ClassDef {
     return isDelegate;
   }
 
-  private <T> boolean addDelegate(Class<T> cl,
-                                  ArrayList<T> delegates,
-                                  Class<? extends Object> delegateClass)
-  {
-    if (!cl.isAssignableFrom(delegateClass))
-      return false;
-
-    for (T delegate : delegates) {
-      if (delegate.getClass() == delegateClass) {
-        return true;
-      }
-    }
-
-    try {
-      delegates.add((T) delegateClass.newInstance());
-    }
-    catch (InstantiationException e) {
-      throw new QuercusModuleException(e);
-    }
-    catch (IllegalAccessException e) {
-      throw new QuercusModuleException(e);
-    }
-    
-    return true;
-  }
-
   private Method getConsMethod(Class type)
   {
     Method []methods = type.getMethods();
@@ -1565,18 +1522,6 @@ public class JavaClassDef extends ClassDef {
     public Value setValue(Value value)
     {
       throw new UnsupportedOperationException();
-    }
-  }
-
-  private class MethodMarshalPair {
-    public Method _method;
-    public Marshal _marshal;
-
-    public MethodMarshalPair(Method method,
-                              Marshal marshal)
-    {
-      _method = method;
-      _marshal = marshal;
     }
   }
 

@@ -259,65 +259,6 @@ public class BeanUtil {
   }
 
   /**
-   * Returns the method matching the name.
-   */
-  static private Method getMethod(Method []methods, String name)
-  {
-    Method method = null;
-    for (int i = 0; i < methods.length; i++) {
-      method = methods[i];
-
-      if (! Modifier.isPublic(method.getModifiers()))
-          continue;
-      
-      if (! Modifier.isPublic(method.getDeclaringClass().getModifiers()))
-          continue;
-      
-      if (method.getName().equals(name))
-        return method;
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns the method matching the name.
-   */
-  static private Method getMethod(Method []methods, String name,
-                                  Class []params)
-  {
-    Method method = null;
-
-    loop:
-    for (int i = 0; i < methods.length; i++) {
-      method = methods[i];
-      
-      if (! Modifier.isPublic(method.getModifiers()))
-        continue;
-      
-      if (! Modifier.isPublic(method.getDeclaringClass().getModifiers()))
-        continue;
-      
-      if (! method.getName().equals(name))
-        continue;
-
-      Class []actual = method.getParameterTypes();
-
-      if (actual.length != params.length)
-        continue;
-
-      for (int j = 0; j < actual.length; j++) {
-        if (! actual[j].isAssignableFrom(params[j]))
-          continue loop;
-      }
-      
-      return method;
-    }
-
-    return null;
-  }
-  
-  /**
    * Returns a set method matching the property name.
    */
   public static Method getSetMethod(BeanInfo info, String propertyName)

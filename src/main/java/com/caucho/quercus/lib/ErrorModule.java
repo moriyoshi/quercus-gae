@@ -348,26 +348,6 @@ public class ErrorModule extends AbstractQuercusModule {
     }
   }
 
-  // Return an array that contains the values passed
-  // into a function as the arguments. IF no values
-  // were passed this method returns an empty array.
-
-  private static ArrayValueImpl evalArgsArray(Env env, FunctionExpr callExpr)
-  {
-    ArrayValueImpl args = new ArrayValueImpl();
-
-    Value []argsValues = callExpr.evalArguments(env);
-
-    if (argsValues != null) {
-      for (int index=0; index < argsValues.length; index++) {
-        Value ref = argsValues[index].toRefVar();
-        args.put(ref);
-      }
-    }
-
-    return args;
-  }
-
   private static String unmangleFile(String className)
   {
     int i = "_quercus".length();

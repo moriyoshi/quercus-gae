@@ -3739,17 +3739,6 @@ public class QuercusParser {
   }
 
   /**
-   * Parses the include expression
-   */
-  private Expr parseInclude()
-    throws IOException
-  {
-    Expr name = parseExpr();
-
-    return _factory.createInclude(getLocation(), _sourceFile, name);
-  }
-
-  /**
    * Parses the list(...) = value expression
    */
   private Expr parseList()

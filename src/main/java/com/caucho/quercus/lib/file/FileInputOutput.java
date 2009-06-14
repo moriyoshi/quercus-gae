@@ -155,17 +155,6 @@ public class FileInputOutput extends AbstractBinaryOutput
     _readEncodingName = mimeName;
   }
 
-  private int readChar()
-    throws IOException
-  {
-    if (_readEncoding != null) {
-      int ch = _readEncoding.read();
-      return ch;
-    }
-
-    return read() & 0xff;
-  }
-
   /**
    * Unread a character.
    */

@@ -199,12 +199,4 @@ public class CallbackObjectMethod extends Callback {
   {
     return _fun instanceof JavaInvoker;
   }
-  
-  private Value error(Env env)
-  {
-    env.warning(L.l("{0}::{1}() is an invalid callback method",
-                    _obj.getClassName(), _methodName));
-    
-    return NullValue.NULL;
-  }
 }

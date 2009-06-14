@@ -37,7 +37,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -1333,62 +1332,5 @@ public class WriteStream extends OutputStreamWithBuffer
   public String toString()
   {
     return getClass().getSimpleName() + "[" + _source + "]";
-  }
-
-  private class StreamWriter extends Writer
-    implements EnclosedWriteStream, FlushBuffer {
-    public final void write(char ch)
-      throws IOException
-    {
-      WriteStream.this.print(ch);
-    }
-
-    public final void write(char []buffer, int offset, int length)
-      throws IOException
-    {
-      WriteStream.this.print(buffer, offset, length);
-    }
-
-    public final void write(char []buffer)
-      throws IOException
-    {
-      WriteStream.this.print(buffer, 0, buffer.length);
-    }
-
-    public final void write(String string)
-      throws IOException
-    {
-      WriteStream.this.print(string);
-    }
-
-    public final void write(String string, int off, int len)
-      throws IOException
-    {
-      WriteStream.this.print(string, off, len);
-    }
-
-    public final void flush()
-      throws IOException
-    {
-      WriteStream.this.flush();
-    }
-
-    public final void flushBuffer()
-      throws IOException
-    {
-      WriteStream.this.flushBuffer();
-    }
-  
-    public final void close()
-      throws IOException
-    {
-      // XXX: if flush, then servlets are sloooow
-      // WriteStream.this.flush();
-    }
-
-    public WriteStream getWriteStream()
-    {
-      return WriteStream.this;
-    }
   }
 }
