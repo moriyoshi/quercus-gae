@@ -118,22 +118,31 @@ public class JavaMethod extends JavaInvoker {
 
       if (e1 instanceof QuercusException)
         throw (QuercusException) e1;
-      
-      String methodName = (_method.getDeclaringClass().getName() + "."
-                           + _method.getName());
-
-      throw new QuercusException(methodName + ": " + e1.getMessage(), e1);
+      throw new QuercusException(getStringizedMethodName()+ ": " + e1.getMessage(), e1);
     } catch (Exception e) {
-      String methodName = (_method.getDeclaringClass().getName() + "."
-                           + _method.getName());
-      
-      throw new QuercusException(methodName + ": " + e.getMessage(), e);
+      throw new QuercusException(getStringizedMethodName() + ": " + e.getMessage(), e);
     }
+  }
+
+  private String getStringizedMethodName() {
+    StringBuffer retval = new StringBuffer();
+    retval.append(_method.getDeclaringClass().getName());
+    retval.append(".");
+    retval.append(_method.getName());
+    retval.append("(");
+    Class<?>[] paramTypes = _method.getParameterTypes();
+    for (int i = 0; i < paramTypes.length; ++i) {
+      if (i != 0)
+        retval.append(",");
+      retval.append(paramTypes[i].getName());
+    }
+    retval.append(")");
+    return retval.toString();
   }
 
   @Override
   public String toString()
   {
-    return "JavaMethod[" + _method + "]";
+    return "JavaMethod[" + getStringizedMethodName() + "]";
   }
 }

@@ -29,6 +29,9 @@
 
 package com.caucho.quercus.marshal;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.JavaValue;
 import com.caucho.quercus.env.Value;
@@ -41,6 +44,7 @@ import com.caucho.util.L10N;
  */
 public class JavaMarshal extends Marshal {
   private static final L10N L = new L10N(JavaMarshal.class);
+  private static final Logger log = Logger.getLogger(JavaMarshal.class.getName());
 
   protected final JavaClassDef _def;
   protected final boolean _isNotNull;
@@ -119,12 +123,20 @@ public class JavaMarshal extends Marshal {
   protected int getMarshalingCostImpl(Value argValue)
   {
     Class type = _def.getType();
-    
-    if (argValue instanceof JavaValue &&
-        type.isAssignableFrom(argValue.toJavaObject().getClass()))
-      return Marshal.ZERO;
-    else
+   
+    if (!(argValue instanceof JavaValue)) {
+      if (log.isLoggable(Level.FINEST))
+        log.finest("The given value is not a JavaValue (" + argValue.getClass() + ")");
       return Marshal.FOUR;
+    }
+
+    Class<?> klass = argValue.toJavaObject().getClass();
+    if (!type.isAssignableFrom(klass)) {
+      if (log.isLoggable(Level.FINEST))
+        log.finest("The class of the given value " + klass + " is not castable to " + type);
+      return Marshal.FOUR;
+    }
+    return Marshal.ZERO;
   }
   
   @Override
