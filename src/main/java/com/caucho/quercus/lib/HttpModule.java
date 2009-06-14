@@ -95,7 +95,8 @@ public class HttpModule extends AbstractQuercusModule {
       }
 
       if (status > 0) {
-        res.setStatus(status, header.substring(p));
+        // res.setStatus(status, header.substring(p));
+        res.setStatus(status);
 
         return NullValue.NULL;
       }
@@ -114,7 +115,7 @@ public class HttpModule extends AbstractQuercusModule {
         //res.sendRedirect(value);
         //return NullValue.NULL;
         
-        res.setStatus(302, "Found");
+        res.setStatus(302);
       }
 
       if (replace) {
@@ -163,8 +164,10 @@ public class HttpModule extends AbstractQuercusModule {
         header.equals("No Content")) {
         // php/1b0(j|k|l|m)
 
-        if (httpResponseCode != 0)
-          res.setStatus((int) httpResponseCode, header);
+        if (httpResponseCode != 0) {
+          // res.setStatus((int) httpResponseCode, header);
+          res.setStatus((int) httpResponseCode);
+        }
       }
     }
 

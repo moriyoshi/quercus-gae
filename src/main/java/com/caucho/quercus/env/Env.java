@@ -1275,7 +1275,7 @@ public class Env {
       String realPath = getIniString("upload_tmp_dir");
 
       if (realPath == null)
-        realPath = getRequest().getRealPath("/WEB-INF/upload");
+        realPath = getServletContext().getRealPath("/WEB-INF/upload");
 
       _uploadPath = _quercus.getPwd().lookup(realPath);
 
@@ -1302,7 +1302,7 @@ public class Env {
     
     if (_tmpPath == null) {
       if (getRequest() != null)
-        realPath = getRequest().getRealPath("/WEB-INF/tmp");
+        realPath = getServletContext().getRealPath("/WEB-INF/tmp");
       else
         realPath = "file:/tmp";
       

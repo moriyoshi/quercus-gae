@@ -251,7 +251,7 @@ public class QuercusServletImpl
 
     Path pwd = new FilePath(System.getProperty("user.dir"));
 
-    Path path = pwd.lookup(req.getRealPath(scriptPath));
+    Path path = pwd.lookup(_config.getServletContext().getRealPath(scriptPath));
 
     if (path.isFile())
       return path;
@@ -264,7 +264,7 @@ public class QuercusServletImpl
     else
       fullPath = scriptPath;
 
-    return pwd.lookup(req.getRealPath(fullPath));
+    return pwd.lookup(_config.getServletContext().getRealPath(fullPath));
   }
 
   /**

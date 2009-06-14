@@ -443,7 +443,7 @@ class Regcomp {
 
     case ' ': case '\n': case '\t': case '\r':
       if (isIgnoreWs()) {
-        while (Character.isSpace((char) pattern.peek()))
+        while (Character.isWhitespace((char) pattern.peek()))
           pattern.read();
 
         return parseRec(pattern, tail);
