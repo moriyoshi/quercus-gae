@@ -59,20 +59,22 @@ public class ValueMarshal extends Marshal
     return true;
   }
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.eval(env);
+    return (T)expr.eval(env);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     if (_isPassThru) {
       // php/0433
-      return value;
+      return (T)value;
     }
     else {
       // php/3c81
-      return value.toValue();
+      return (T)value.toValue();
     }
   }
 

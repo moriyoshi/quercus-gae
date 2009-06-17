@@ -39,18 +39,18 @@ import java.util.Map;
 /**
  * Represents an introspected Java class.
  */
-public class JavaMapClassDef extends JavaClassDef {
-  JavaMapClassDef(ModuleContext moduleContext, String name, Class type)
+public class JavaMapClassDef<K,V> extends JavaClassDef<Map<K,V>> {
+  JavaMapClassDef(ModuleContext moduleContext, String name, Class<Map<K,V>> type)
   {
     super(moduleContext, name, type);
   }
 
-  public Value wrap(Env env, Object obj)
+  public Value wrap(Env env, Map<K,V> obj)
   {
     if (!_isInit)
       init();
     
-    return new JavaMapAdapter(env, (Map) obj, this);
+    return new JavaMapAdapter<K,V>(env, obj, this);
   }
 }
 

@@ -59,13 +59,13 @@ public class OracleOciCollection {
   private Array _collection;
 
   // The cached Java collection
-  private ArrayList _javaCollection;
+  private ArrayList<Object> _javaCollection;
 
   // The Oracle JDBC connection
   private Connection _jdbcConn;
 
   // Cache class oracle.sql.ARRAY
-  private static Class classOracleARRAY;
+  private static Class<?> classOracleARRAY;
 
   static {
     try {
@@ -87,7 +87,7 @@ public class OracleOciCollection {
 
     _collection = null;
 
-    _javaCollection = new ArrayList();
+    _javaCollection = new ArrayList<Object>();
   }
 
   /**
@@ -182,7 +182,7 @@ public class OracleOciCollection {
 
       // oracle.sql.ARRAY array = new oracle.sql.ARRAY(arrayDesc, jdbcConn, arrayValues);
 
-      Class clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
+      Class<?> clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
 
       Constructor constructor = classOracleARRAY.getDeclaredConstructor(new Class[]
         {clArrayDescriptor, Connection.class, Object.class});
@@ -231,7 +231,7 @@ public class OracleOciCollection {
   /**
    * Returns the underlying Java collection
    */
-  protected ArrayList getJavaCollection()
+  protected ArrayList<Object> getJavaCollection()
   {
     return _javaCollection;
   }

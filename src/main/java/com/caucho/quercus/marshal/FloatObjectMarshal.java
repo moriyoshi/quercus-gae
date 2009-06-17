@@ -43,15 +43,17 @@ public class FloatObjectMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Float((float) expr.evalDouble(env));
+    return (T)new Float((float) expr.evalDouble(env));
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object marshal(Env env, Value value, Class expectedClass)
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaFloat();
+    return (T)value.toJavaFloat();
   }
 
   public Value unmarshal(Env env, Object value)

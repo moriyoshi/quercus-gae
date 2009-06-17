@@ -34,11 +34,12 @@ import com.caucho.quercus.env.JavaMapAdapter;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.util.L10N;
+import java.util.Map;
 
 /**
  * Code for marshalling arguments.
  */
-public class JavaMapMarshal extends JavaMarshal {
+public class JavaMapMarshal<K,V> extends JavaMarshal {
   private static final L10N L = new L10N(JavaMarshal.class);
 
   public JavaMapMarshal(JavaClassDef def,
@@ -54,7 +55,8 @@ public class JavaMapMarshal extends JavaMarshal {
     super(def, isNotNull, isUnmarshalNullAsFalse);
   }
 
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public Map<K,V> marshal(Env env, Value value, Class<Map<K,V>> argClass)
   {
     if (! value.isset()) {
       if (_isNotNull) {
@@ -65,7 +67,7 @@ public class JavaMapMarshal extends JavaMarshal {
       return null;
     }
 
-    Object obj = value.toJavaMap(env, argClass);
+    Map<K,V> obj = value.toJavaMap(env, (Class<Map<K,V>>)argClass);
 
     if (obj == null) {
       if (_isNotNull) {

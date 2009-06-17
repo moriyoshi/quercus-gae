@@ -34,6 +34,7 @@ import com.caucho.quercus.env.JavaListAdapter;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.util.L10N;
+import java.util.List;
 
 /**
  * Code for marshalling arguments.
@@ -41,20 +42,20 @@ import com.caucho.util.L10N;
 public class JavaListMarshal extends JavaMarshal {
   private static final L10N L = new L10N(JavaMarshal.class);
 
-  public JavaListMarshal(JavaClassDef def,
+  public JavaListMarshal(JavaClassDef<? extends List<?>> def,
                       boolean isNotNull)
   {
     this(def, isNotNull, false);
   }
 
-  public JavaListMarshal(JavaClassDef def,
+  public JavaListMarshal(JavaClassDef<? extends List<?>> def,
                       boolean isNotNull,
                       boolean isUnmarshalNullAsFalse)
   {
     super(def, isNotNull, isUnmarshalNullAsFalse);
   }
 
-  public Object marshal(Env env, Value value, Class argClass)
+  public <TT> List<TT> marshal(Env env, Value value, Class<List<TT>> argClass)
   {
     if (! value.isset()) {
       if (_isNotNull) {
@@ -65,7 +66,7 @@ public class JavaListMarshal extends JavaMarshal {
       return null;
     }
 
-    Object obj = value.toJavaList(env, argClass);
+    List<TT> obj = (List<TT>)value.toJavaList(env, (Class<List<TT>>)argClass);
 
     if (obj == null) {
       if (_isNotNull) {

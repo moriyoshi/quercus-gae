@@ -61,18 +61,19 @@ public class MarshalFactory {
     _moduleContext = moduleContext;
   }
 
-  public Marshal create(Class argType)
+  public <T> Marshal create(Class<T> argType)
   {
     return create(argType, false);
   }
 
-  public Marshal create(Class argType,
+  public <T> Marshal create(Class<T> argType,
                         boolean isNotNull)
   {
     return create(argType, isNotNull, false);
   }
 
-  public Marshal create(Class argType,
+  @SuppressWarnings("unchecked")
+  public <T> Marshal create(Class<T> argType,
                         boolean isNotNull,
                         boolean isNullAsFalse)
   {
@@ -218,7 +219,7 @@ public class MarshalFactory {
       marshal = JavaCharacterObjectArrayMarshal.MARSHAL;
     }
     else if (argType.isArray()) {
-      marshal = new JavaArrayMarshal(argType);
+      marshal = new JavaArrayMarshal<T>(argType);
     }
     else if (Map.class.isAssignableFrom(argType)) {
       String typeName = argType.getName();
@@ -230,19 +231,19 @@ public class MarshalFactory {
     else if (List.class.isAssignableFrom(argType)) {
       String typeName = argType.getName();
 
-      JavaClassDef javaDef = _moduleContext.getJavaClassDefinition(typeName);
+      JavaClassDef<List<?>> javaDef = (JavaClassDef<List<?>>)_moduleContext.getJavaClassDefinition(typeName);
 
       marshal = new JavaListMarshal(javaDef, isNotNull, isNullAsFalse);
     }
     else if (Collection.class.isAssignableFrom(argType)) {
       String typeName = argType.getName();
 
-      JavaClassDef javaDef = _moduleContext.getJavaClassDefinition(typeName);
+      JavaClassDef<Collection<?>> javaDef = (JavaClassDef<Collection<?>>)_moduleContext.getJavaClassDefinition(typeName);
 
       marshal = new JavaCollectionMarshal(javaDef, isNotNull, isNullAsFalse);
     }
     else if (Enum.class.isAssignableFrom(argType)) {
-      marshal = new EnumMarshal(argType);
+      marshal = new EnumMarshal((Class<Enum<?>>)argType);
     }
     else {
       String typeName = argType.getName();

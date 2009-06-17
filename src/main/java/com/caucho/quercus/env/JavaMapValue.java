@@ -36,31 +36,28 @@ import java.util.Map;
 /**
  * Represents a Quercus java value.
  */
-public class JavaMapValue extends JavaValue {
+public class JavaMapValue<K,V> extends JavaValue<Map<K,V>> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final Map _map;
-
-  public JavaMapValue(Env env, Map map, JavaClassDef def)
+  public JavaMapValue(Env env, Map<K,V> map, JavaClassDef<Map<K,V>> def)
   {
     super(env, map, def);
-
-    _map = map;
   }
   
   @Override
   public Value get(Value name)
   {
-    return _env.wrapJava(_map.get(name.toJavaObject()));
+    return _env.wrapJava(_object.get(name.toJavaObject()));
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Value put(Value index, Value value)
   {
-    return _env.wrapJava(_map.put(index.toJavaObject(), value.toJavaObject()));
+    return _env.wrapJava(_object.put((K)index.toJavaObject(), (V)value.toJavaObject()));
   }
 }
 

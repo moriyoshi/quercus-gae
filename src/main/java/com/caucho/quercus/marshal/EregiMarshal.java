@@ -41,14 +41,16 @@ import com.caucho.quercus.expr.Expr;
 public class EregiMarshal extends StringMarshal {
   public static final EregiMarshal MARSHAL = new EregiMarshal();
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return RegexpModule.createEregi(env, expr.eval(env));
+    return (T)RegexpModule.createEregi(env, expr.eval(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return RegexpModule.createEregi(env, value);
+    return (T)RegexpModule.createEregi(env, value);
   }
 
   public Value unmarshal(Env env, Object value)

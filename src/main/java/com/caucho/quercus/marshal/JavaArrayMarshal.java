@@ -33,26 +33,28 @@ import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.expr.Expr;
 
-public class JavaArrayMarshal extends Marshal
+public class JavaArrayMarshal<T> extends Marshal
 {
-  private Class _expectedClass;
+  private Class<T> _expectedClass;
   
+  @SuppressWarnings("unchecked")
   public JavaArrayMarshal()
   {
-    _expectedClass = Object[].class;
+    _expectedClass = (Class<T>)Object.class;
   }
   
-  public JavaArrayMarshal(Class expectedClass)
+  public JavaArrayMarshal(Class<T> expectedClass)
   {
     _expectedClass = expectedClass;
   }
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  public <TT> TT marshal(Env env, Expr expr, Class<TT> expectedClass)
   {
     return marshal(env, expr.eval(env), expectedClass);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <TT> TT marshal(Env env, Value value, Class<TT> expectedClass)
   {
     /*
     if (! value.isset()) {
@@ -64,8 +66,8 @@ public class JavaArrayMarshal extends Marshal
     }
     */
 
-    Class componentType = expectedClass.getComponentType();
-    Object array = value.valuesToArray(env, componentType);
+    Class<?> componentType = expectedClass.getComponentType();
+    Object[] array = Object[].class.cast(value.valuesToArray(env, componentType));
     
     /*
     if (array == null && _isNotNull) {
@@ -73,7 +75,7 @@ public class JavaArrayMarshal extends Marshal
     }
     */
     
-    return array;
+    return (TT)array;
   }
 
   public Value unmarshal(Env env, Object value)

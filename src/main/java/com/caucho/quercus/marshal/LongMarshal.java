@@ -48,14 +48,16 @@ public class LongMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Long(expr.evalLong(env));
+    return (T)new Long(expr.evalLong(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return new Long(value.toLong());
+    return (T)new Long(value.toLong());
   }
 
   public Value unmarshal(Env env, Object value)

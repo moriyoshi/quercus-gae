@@ -33,6 +33,7 @@ import com.caucho.quercus.env.Env;
 import com.caucho.quercus.env.JavaValue;
 import com.caucho.quercus.env.Value;
 import com.caucho.quercus.expr.Expr;
+import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.vfs.Path;
 
 public class PathMarshal extends Marshal
@@ -44,20 +45,23 @@ public class PathMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return env.lookupPwd(expr.eval(env));
+    return (T)env.lookupPwd(expr.eval(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return env.lookupPwd(value);
+    return (T)env.lookupPwd(value);
   }
 
+  @SuppressWarnings("unchecked")
   public Value unmarshal(Env env, Object value)
   {
     // XXX: need test
-    return env.getQuercus().getJavaClassDefinition(value.getClass().getName()).wrap(env, value);
+    return ((JavaClassDef<Object>)env.getQuercus().getJavaClassDefinition(value.getClass().getName())).wrap(env, value);
   }
   
   @Override

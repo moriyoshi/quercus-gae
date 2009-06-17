@@ -42,7 +42,7 @@ import java.util.*;
 /**
  * Represents a Quercus java value.
  */
-public class JavaValue extends ObjectValue
+public class JavaValue<T> extends ObjectValue
   implements Serializable
 {
   /**
@@ -50,12 +50,12 @@ public class JavaValue extends ObjectValue
    */
   private static final long serialVersionUID = 1L;
 
-  private JavaClassDef _classDef;
+  private JavaClassDef<T> _classDef;
   protected Env _env;
 
-  private Object _object;
+  protected T _object;
 
-  public JavaValue(Env env, Object object, JavaClassDef def)
+  public JavaValue(Env env, T object, JavaClassDef<T> def)
   {
     super();
     
@@ -522,11 +522,12 @@ public class JavaValue extends ObjectValue
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Object toJavaObject(Env env, Class type)
+  public <TT> TT toJavaObject(Env env, Class<TT> type)
   {
     if (type.isAssignableFrom(_object.getClass())) {
-      return _object;
+      return (TT)_object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
                       _object.getClass().getName(), type.getName()));
@@ -538,13 +539,14 @@ public class JavaValue extends ObjectValue
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <TT> TT toJavaObjectNotNull(Env env, Class<TT> type)
   {
-    Class objClass = _object.getClass();
+    Class<?> objClass = _object.getClass();
     
     if (objClass == type || type.isAssignableFrom(objClass)) {
-      return _object;
+      return (TT)_object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
                       objClass.getName(), type.getName()));
@@ -556,11 +558,12 @@ public class JavaValue extends ObjectValue
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
     if (type.isAssignableFrom(_object.getClass())) {
-      return (Map) _object;
+      return (Map<K,V>) _object;
     } else {
       env.warning(L.l("Can't assign {0} to {1}",
                       _object.getClass().getName(), type.getName()));
@@ -611,6 +614,7 @@ public class JavaValue extends ObjectValue
     out.writeObject(_object);
   }
 
+  @SuppressWarnings("unchecked")
   private void readObject(ObjectInputStream in)
     throws ClassNotFoundException, IOException
   {
@@ -622,7 +626,7 @@ public class JavaValue extends ObjectValue
 
     setQuercusClass(_env.createQuercusClass(id, _classDef, null));
 
-    _object = in.readObject();
+    _object = (T)in.readObject();
   }
 }
 

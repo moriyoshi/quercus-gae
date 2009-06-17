@@ -46,11 +46,11 @@ public class JavaMarshal extends Marshal {
   private static final L10N L = new L10N(JavaMarshal.class);
   private static final Logger log = Logger.getLogger(JavaMarshal.class.getName());
 
-  protected final JavaClassDef _def;
+  protected final JavaClassDef<?> _def;
   protected final boolean _isNotNull;
   protected final boolean _isUnmarshalNullAsFalse;
 
-  public JavaMarshal(JavaClassDef def,
+  public JavaMarshal(JavaClassDef<?> def,
                       boolean isNotNull)
   {
     this(def, isNotNull, false);
@@ -65,14 +65,15 @@ public class JavaMarshal extends Marshal {
     _isUnmarshalNullAsFalse = isUnmarshalNullAsFalse;
   }
 
-  public Object marshal(Env env, Expr expr, Class argClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> argClass)
   {
     Value value = expr.eval(env);
 
     return marshal(env, value, argClass);
   }
 
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> argClass)
   {
     if (! value.isset()) {
       if (_isNotNull) {
@@ -83,7 +84,7 @@ public class JavaMarshal extends Marshal {
       return null;
     }
 
-    Object obj = value.toJavaObject();
+    T obj = (T)value.toJavaObject();
 
     if (obj == null) {
       if (_isNotNull) {
@@ -122,7 +123,7 @@ public class JavaMarshal extends Marshal {
   @Override
   protected int getMarshalingCostImpl(Value argValue)
   {
-    Class type = _def.getType();
+    Class<?> type = _def.getType();
    
     if (!(argValue instanceof JavaValue)) {
       if (log.isLoggable(Level.FINEST))
@@ -140,7 +141,7 @@ public class JavaMarshal extends Marshal {
   }
   
   @Override
-  public final Class getExpectedClass()
+  public final Class<?> getExpectedClass()
   {
     return _def.getType();
   }

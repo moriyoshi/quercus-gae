@@ -37,18 +37,15 @@ import java.math.BigInteger;
 /**
  * Represents a Quercus java BigInteger value.
  */
-public class BigIntegerValue extends JavaValue {
+public class BigIntegerValue extends JavaValue<BigInteger> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final BigInteger _val;
-
-  public BigIntegerValue(Env env, BigInteger val, JavaClassDef def)
+  public BigIntegerValue(Env env, BigInteger val, JavaClassDef<BigInteger> def)
   {
     super(env, val, def);
-    _val = val;
   }
   
   /**
@@ -57,7 +54,7 @@ public class BigIntegerValue extends JavaValue {
   @Override
   public long toLong()
   {
-    return _val.longValue();
+    return _object.longValue();
   }
   
   /**
@@ -66,7 +63,7 @@ public class BigIntegerValue extends JavaValue {
   @Override
   public double toDouble()
   {
-    return _val.doubleValue();
+    return _object.doubleValue();
   }
   
   /**
@@ -84,7 +81,7 @@ public class BigIntegerValue extends JavaValue {
   @Override
   public BigInteger toBigInteger()
   {
-    return _val;
+    return _object;
   }
   
   /**
@@ -107,7 +104,7 @@ public class BigIntegerValue extends JavaValue {
   
   public String toString()
   {
-    return "BigInteger[" + _val.toString() + "]";
+    return "BigInteger[" + _object.toString() + "]";
   }
 }
 

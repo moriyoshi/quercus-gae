@@ -56,12 +56,12 @@ abstract public class AbstractJavaMethod extends AbstractFunction
   
   abstract public int getMarshalingCost(Expr []args);
 
-  public Class getJavaDeclaringClass()
+  public Class<?> getJavaDeclaringClass()
   {
     return null;
   }
   
-  public Class []getJavaParameterTypes()
+  public Class<?>[] getJavaParameterTypes()
   {
     return null;
   }

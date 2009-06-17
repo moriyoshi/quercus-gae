@@ -702,7 +702,7 @@ public class JdbcStatementResource {
                 throw new IllegalArgumentException(L.l("cannot convert argument `{0}' to money", param));
               }
 
-              Class cl = Class.forName("org.postgresql.util.PGmoney");
+              Class<?> cl = Class.forName("org.postgresql.util.PGmoney");
               Constructor constructor = cl.getDeclaredConstructor(new Class[] {String.class});
               Object object = constructor.newInstance(new Object[] {money});
 

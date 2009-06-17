@@ -57,8 +57,8 @@ abstract public class JavaInvoker
 
   private final ModuleContext _moduleContext;
   private final String _name;
-  private final Class [] _param;
-  private final Class _retType;
+  private final Class<?>[] _param;
+  private final Class<?> _retType;
   private final Annotation [][] _paramAnn;
   private final Annotation []_methodAnn;
 
@@ -200,7 +200,7 @@ abstract public class JavaInvoker
             }
           }
 
-          Class argType = _param[i + envOffset];
+          Class<?> argType = _param[i + envOffset];
 
           if (isReference) {
             _marshalArgs[i] = marshalFactory.createReference();
@@ -688,7 +688,7 @@ abstract public class JavaInvoker
   //
   // Utility methods
   //
-  private boolean hasThis(Class param, Annotation[]ann)
+  private boolean hasThis(Class<?> param, Annotation[]ann)
   {
     if (! param.isAssignableFrom(ObjectValue.class))
       return false;

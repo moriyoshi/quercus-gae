@@ -39,18 +39,18 @@ import java.util.List;
 /**
  * Represents an introspected Java class.
  */
-public class JavaListClassDef extends JavaClassDef {
-  JavaListClassDef(ModuleContext moduleContext, String name, Class type)
+public class JavaListClassDef<T> extends JavaClassDef<List<T>> {
+  JavaListClassDef(ModuleContext moduleContext, String name, Class<List<T>> type)
   {
     super(moduleContext, name, type);
   }
 
-  public Value wrap(Env env, Object obj)
+  public Value wrap(Env env, List<T> obj)
   {
     if (!_isInit)
       init();
     
-    return new JavaListAdapter(env, (List)obj, this);
+    return new JavaListAdapter<T>(env, obj, this);
   }
 }
 

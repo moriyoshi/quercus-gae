@@ -299,6 +299,7 @@ public class MbstringModule
     }
   }
   
+  @SuppressWarnings("unchecked")
   private static ArrayList<String> getDetectOrderList(Env env,
                                                          Value encodingV)
   {

@@ -389,7 +389,7 @@ public final class Var extends Value
    * Converts to an object.
    */
   @Override
-  public Object toJavaObject(Env env, Class type)
+  public <T> T toJavaObject(Env env, Class<T> type)
   {
     return _value.toJavaObject(env, type);
   }
@@ -398,7 +398,7 @@ public final class Var extends Value
    * Converts to an object.
    */
   @Override
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <T> T toJavaObjectNotNull(Env env, Class<T> type)
   {
     return _value.toJavaObjectNotNull(env, type);
   }
@@ -407,7 +407,7 @@ public final class Var extends Value
    * Converts to a java Collection object.
    */
   @Override
-  public Collection toJavaCollection(Env env, Class type)
+  public <T> Collection<T> toJavaCollection(Env env, Class<? extends Collection<T>> type)
   {
     return _value.toJavaCollection(env, type);
   }
@@ -416,7 +416,7 @@ public final class Var extends Value
    * Converts to a java List object.
    */
   @Override
-  public List toJavaList(Env env, Class type)
+  public <T> List<T> toJavaList(Env env, Class<? extends List<T>> type)
   {
     return _value.toJavaList(env, type);
   }
@@ -425,7 +425,7 @@ public final class Var extends Value
    * Converts to a java map.
    */
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
     return _value.toJavaMap(env, type);
   }
@@ -1349,7 +1349,7 @@ public final class Var extends Value
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     return _value.valuesToArray(env, elementType);
   }

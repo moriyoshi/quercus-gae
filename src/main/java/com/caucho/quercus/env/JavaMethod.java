@@ -93,13 +93,13 @@ public class JavaMethod extends JavaInvoker {
   }
 
   @Override
-  public Class []getJavaParameterTypes()
+  public Class<?>[] getJavaParameterTypes()
   {
     return _method.getParameterTypes();
   }
 
   @Override
-  public Class getJavaDeclaringClass()
+  public Class<?> getJavaDeclaringClass()
   {
     return _method.getDeclaringClass();
   }

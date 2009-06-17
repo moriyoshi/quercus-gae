@@ -61,6 +61,7 @@ public class WeakLruCache<K,V> {
    *
    * @param initialCapacity minimum capacity of the cache
    */
+  @SuppressWarnings("unchecked")
   public WeakLruCache(int initialCapacity)
   {
     int capacity;
@@ -357,7 +358,7 @@ public class WeakLruCache<K,V> {
    */
   public Iterator<K> keys(Iterator<K> oldIter)
   {
-    KeyIterator iter = (KeyIterator) oldIter;
+    KeyIterator<K,V> iter = (KeyIterator<K,V>) oldIter;
     iter.init(this);
     return oldIter;
   }
@@ -374,7 +375,7 @@ public class WeakLruCache<K,V> {
 
   public Iterator<V> values(Iterator<V> oldIter)
   {
-    ValueIterator iter = (ValueIterator) oldIter;
+    ValueIterator<K,V> iter = (ValueIterator<K,V>) oldIter;
     iter.init(this);
     return oldIter;
   }

@@ -47,7 +47,7 @@ public class ContextLoaderObjectInputStream extends ObjectInputStream {
     super(is);
   }
 
-  protected Class resolveClass(ObjectStreamClass v)
+  protected Class<?> resolveClass(ObjectStreamClass v)
     throws IOException, ClassNotFoundException
   {
     String name = v.getName();
@@ -58,7 +58,7 @@ public class ContextLoaderObjectInputStream extends ObjectInputStream {
     return Class.forName(name, false, loader);
   }
 
-  protected Class resolveProxyClass(String []interfaceNames)
+  protected Class<?> resolveProxyClass(String []interfaceNames)
     throws IOException, ClassNotFoundException
   {
     Thread thread = Thread.currentThread();

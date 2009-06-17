@@ -98,6 +98,7 @@ abstract public class Statement {
     rethrow(t, Throwable.class);
   }
 
+  @SuppressWarnings("unchecked")
   final protected <E extends Throwable> void rethrow(Throwable t, Class<E> cl)
     throws E
   {

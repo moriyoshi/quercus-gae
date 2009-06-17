@@ -43,14 +43,16 @@ import com.caucho.quercus.expr.Expr;
 public class BigDecimalMarshal extends Marshal {
   public static final Marshal MARSHAL = new BigDecimalMarshal();
 
-  public Object marshal(Env env, Expr expr, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> argClass)
   {
-    return expr.eval(env).toBigDecimal();
+    return (T) expr.eval(env).toBigDecimal();
   }
   
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> argClass)
   {
-    return value.toBigDecimal();
+    return (T) value.toBigDecimal();
   }
   
   public Value unmarshal(Env env, Object value)

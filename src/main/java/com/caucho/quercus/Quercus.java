@@ -643,7 +643,7 @@ public class Quercus
   /**
    * Adds a java class
    */
-  public void addJavaClass(String name, Class type)
+  public void addJavaClass(String name, Class<?> type)
     throws ConfigException
   {
     try {

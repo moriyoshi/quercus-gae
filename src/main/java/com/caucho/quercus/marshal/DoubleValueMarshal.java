@@ -53,14 +53,16 @@ public class DoubleValueMarshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.eval(env).toDoubleValue();
+    return (T)expr.eval(env).toDoubleValue();
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toDoubleValue();
+    return (T)value.toDoubleValue();
   }
 
   public Value unmarshal(Env env, Object value)

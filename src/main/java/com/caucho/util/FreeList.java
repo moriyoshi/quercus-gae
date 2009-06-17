@@ -50,7 +50,7 @@ public final class FreeList<T> {
    */
   public FreeList(int size)
   {
-    _freeStack = new AtomicReferenceArray(size);
+    _freeStack = new AtomicReferenceArray<T>(size);
   }
   
   /**

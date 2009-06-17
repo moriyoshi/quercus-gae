@@ -198,15 +198,15 @@ public class ModuleContext
     }
   }
 
-  public JavaClassDef addClass(String name, Class type,
-                               String extension, Class javaClassDefClass)
+  public JavaClassDef addClass(String name, Class<?> type,
+                               String extension, Class<?> javaClassDefClass)
     throws NoSuchMethodException,
            InvocationTargetException,
            IllegalAccessException,
            InstantiationException
   {
     synchronized (_javaClassWrappers) {
-      JavaClassDef def = _javaClassWrappers.get(name);
+      JavaClassDef<?> def = _javaClassWrappers.get(name);
 
       if (def == null) {
         if (log.isLoggable(Level.FINEST)) {
@@ -217,7 +217,7 @@ public class ModuleContext
         }
 
         if (javaClassDefClass != null) {
-          Constructor constructor
+          Constructor<?> constructor
             = javaClassDefClass.getConstructor(ModuleContext.class,
                                                String.class,
                                                Class.class);
@@ -250,7 +250,7 @@ public class ModuleContext
   /**
    * Gets or creates a JavaClassDef for the given class name.
    */
-  public JavaClassDef getJavaClassDefinition(Class type, String className)
+  public JavaClassDef getJavaClassDefinition(Class<?> type, String className)
   {
     JavaClassDef def;
     
@@ -287,7 +287,7 @@ public class ModuleContext
         return def;
 
       try {
-        Class type;
+        Class<?> type;
 
         try {
           type = Class.forName(className, false, _loader);
@@ -325,17 +325,19 @@ public class ModuleContext
   }
 
 
-  protected JavaClassDef createDefaultJavaClassDef(String className,
-                                                   Class type)
+  @SuppressWarnings("unchecked")
+  protected <T> JavaClassDef createDefaultJavaClassDef(String className,
+                                                   Class<T> type)
   {
     if (type.isArray())
-      return new JavaArrayClassDef(this, className, type);
+      return new JavaArrayClassDef<Object>(this, className, (Class<Object[]>)type);
     else
-      return new JavaClassDef(this, className, type);
+      return new JavaClassDef<T>(this, className, type);
   }
   
-  protected JavaClassDef createDefaultJavaClassDef(String className,
-                                                   Class type,
+  @SuppressWarnings("unchecked")
+  protected <T> JavaClassDef createDefaultJavaClassDef(String className,
+                                                   Class<T> type,
                                                    String extension)
   {
     if (type.isArray())
@@ -371,7 +373,7 @@ public class ModuleContext
     return _exprFactory;
   }
   
-  public Marshal createMarshal(Class type,
+  public Marshal createMarshal(Class<?> type,
                                boolean isNotNull,
                                boolean isNullAsFalse)
   {

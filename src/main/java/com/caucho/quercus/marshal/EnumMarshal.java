@@ -36,25 +36,27 @@ import com.caucho.quercus.expr.Expr;
  * Code for marshalling arguments.
  */
 public class EnumMarshal extends Marshal {
-  private Class _enumClass;
+  private Class<Enum<?>> _enumClass;
 
-  public EnumMarshal(Class enumClass)
+  public EnumMarshal(Class<Enum<?>> enumClass)
   {
     _enumClass = enumClass;
   }
 
-  public Object marshal(Env env, Expr expr, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <TT> TT marshal(Env env, Expr expr, Class<TT> argClass)
   {
     String name = expr.evalString(env);
 
-    return Enum.valueOf(_enumClass, name);
+    return (TT)Enum.valueOf((Class<Enum>)_enumClass, name);
   }
   
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <TT> TT marshal(Env env, Value value, Class<TT> argClass)
   {
     String name = value.toString();
 
-    return Enum.valueOf(_enumClass, name);
+    return (TT)Enum.valueOf((Class<Enum>)_enumClass, name);
   }
   
   public Value unmarshal(Env env, Object value)

@@ -38,7 +38,7 @@ import com.caucho.quercus.expr.Expr;
  */
 public class ExtValueMarshal extends Marshal
 {
-  private Class _expectedClass;
+  private Class<?> _expectedClass;
   
   public ExtValueMarshal(Class expectedClass)
   {
@@ -59,12 +59,13 @@ public class ExtValueMarshal extends Marshal
     return true;
   }
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
     return marshal(env, expr.eval(env), expectedClass);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     if (value == null || ! value.isset())
       return null;
@@ -73,7 +74,7 @@ public class ExtValueMarshal extends Marshal
     value = value.toValue();
 
     if (expectedClass.isAssignableFrom(value.getClass()))
-      return value;
+      return (T)value;
     else {
       String className = expectedClass.getName();
       int p = className.lastIndexOf('.');
@@ -105,7 +106,7 @@ public class ExtValueMarshal extends Marshal
   }
   
   @Override
-  public Class getExpectedClass()
+  public Class<?> getExpectedClass()
   {
     return _expectedClass;
   }

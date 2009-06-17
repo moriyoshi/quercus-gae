@@ -493,7 +493,7 @@ abstract public class Value implements java.io.Serializable
   /**
    * Converts to a java object.
    */
-  public Object toJavaObject(Env env, Class type)
+  public <T> T toJavaObject(Env env, Class<T> type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
                     getClass().getName(), type.getName()));
@@ -504,7 +504,7 @@ abstract public class Value implements java.io.Serializable
   /**
    * Converts to a java object.
    */
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <T> T toJavaObjectNotNull(Env env, Class<T> type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
                     getClass().getName(), type.getName()));
@@ -587,7 +587,7 @@ abstract public class Value implements java.io.Serializable
   /**
    * Converts to a java Collection object.
    */
-  public Collection toJavaCollection(Env env, Class type)
+  public <T> Collection<T> toJavaCollection(Env env, Class<? extends Collection<T>> type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
             getClass().getName(), type.getName()));
@@ -598,7 +598,7 @@ abstract public class Value implements java.io.Serializable
   /**
    * Converts to a java List object.
    */
-  public List toJavaList(Env env, Class type)
+  public <T> List<T> toJavaList(Env env, Class<? extends List<T>> type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
             getClass().getName(), type.getName()));
@@ -609,7 +609,7 @@ abstract public class Value implements java.io.Serializable
   /**
    * Converts to a java Map object.
    */
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
     env.warning(L.l("Can't convert {0} to Java {1}",
             getClass().getName(), type.getName()));
@@ -2306,7 +2306,7 @@ abstract public class Value implements java.io.Serializable
    * Takes the values of this array, unmarshalls them to objects of type
    * <i>elementType</i>, and puts them in a java array.
    */
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     env.error(L.l("Can't assign {0} with type {1} to {2}[]", this, this.getClass(), elementType));
     return null;

@@ -47,26 +47,27 @@ public class BinaryInputMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
     return marshal(env, expr.eval(env), expectedClass);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     if (value == null)
       return null;
     else if (value instanceof BinaryInput)
-      return (BinaryInput) value;
+      return (T) value;
 
     Object javaObj = value.toJavaObject();
 
     if (javaObj instanceof BinaryInput)
-      return (BinaryInput) javaObj;
+      return (T) javaObj;
     else if (javaObj instanceof InputStream)
-      return new ReadStreamInput(env, (InputStream) javaObj);
+      return (T) new ReadStreamInput(env, (InputStream) javaObj);
     else
-      return new ReadStreamInput(env, value.toInputStream());
+      return (T) new ReadStreamInput(env, value.toInputStream());
   }
 
   public static BinaryInput marshal(Env env, Value value)

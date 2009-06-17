@@ -3984,6 +3984,7 @@ public class StringModule extends AbstractQuercusModule {
    * @param string the source string
    * @param map the character map
    */
+  @SuppressWarnings("unchecked")
   private static StringValue strtrArray(Env env, StringValue string, ArrayValue map)
   {
     int size = map.getSize();
@@ -3991,7 +3992,7 @@ public class StringModule extends AbstractQuercusModule {
     StringValue []fromList = new StringValue[size];
     StringValue []toList = new StringValue[size];
 
-    Map.Entry<Value,Value> [] entryArray = new Map.Entry[size];
+    Map.Entry<Value,Value> [] entryArray = (Map.Entry<Value,Value>[])new Map.Entry[size];
 
     int i = 0;
     for (Map.Entry<Value,Value> entry : map.entrySet()) {

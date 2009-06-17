@@ -172,7 +172,7 @@ public class NullValue extends Value
    * Converts to a java object.
    */
   @Override
-  public Object toJavaObject(Env env, Class type)
+  public <T> T toJavaObject(Env env, Class<T> type)
   {
     return null;
   }
@@ -181,7 +181,7 @@ public class NullValue extends Value
    * Converts to a java object.
    */
   @Override
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <T> T toJavaObjectNotNull(Env env, Class<T> type)
   {
     env.warning(L.l("null is an unexpected argument; expected '{0}'",
                     type.getName()));
@@ -274,7 +274,7 @@ public class NullValue extends Value
    * Converts to a java object.
    */
   @Override
-  public Collection toJavaCollection(Env env, Class type)
+  public <T> Collection<T> toJavaCollection(Env env, Class<? extends Collection<T>> type)
   {
     return null;
   }
@@ -283,7 +283,7 @@ public class NullValue extends Value
    * Converts to a java object.
    */
   @Override
-  public List toJavaList(Env env, Class type)
+  public <T> List<T> toJavaList(Env env, Class<? extends List<T>> type)
   {
     return null;
   }
@@ -292,7 +292,7 @@ public class NullValue extends Value
    * Converts to a java object.
    */
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
     return null;
   }
@@ -347,7 +347,7 @@ public class NullValue extends Value
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     return null;
   }

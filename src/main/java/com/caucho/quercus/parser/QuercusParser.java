@@ -1747,6 +1747,7 @@ public class QuercusParser {
   /**
    * Parses the 'return' statement
    */
+  @SuppressWarnings("unchecked")
   private Statement parseBreak()
     throws IOException
   {
@@ -1784,6 +1785,7 @@ public class QuercusParser {
   /**
    * Parses the 'return' statement
    */
+  @SuppressWarnings("unchecked")
   private Statement parseContinue()
     throws IOException
   {

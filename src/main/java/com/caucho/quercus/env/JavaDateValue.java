@@ -36,18 +36,17 @@ import java.util.Date;
 /**
  * Represents a Quercus java Date value.
  */
-public class JavaDateValue extends JavaValue {
+public class JavaDateValue extends JavaValue<Date> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final Date _date;
+  protected Date _object;
   
-  public JavaDateValue(Env env, Date date, JavaClassDef def)
+  public JavaDateValue(Env env, Date date, JavaClassDef<Date> def)
   {
     super(env, date, def);
-    _date = date;
   }
 
   /**
@@ -57,7 +56,7 @@ public class JavaDateValue extends JavaValue {
   public long toLong()
   {
     // return seconds per PHP convention
-    return _date.getTime() / 1000;
+    return _object.getTime() / 1000;
   }
   
   /**
@@ -66,7 +65,7 @@ public class JavaDateValue extends JavaValue {
   @Override
   public Date toJavaDate()
   {
-    return _date;
+    return _object;
   }
 
 }

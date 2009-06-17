@@ -44,18 +44,20 @@ public class BooleanObjectMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.evalBoolean(env) ? Boolean.TRUE : Boolean.FALSE;
+    return (T)(expr.evalBoolean(env) ? Boolean.TRUE : Boolean.FALSE);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object marshal(Env env, Value value, Class expectedClass)
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     if (value.isNull())
       return null;
     else
-      return value.toBoolean() ? Boolean.TRUE : Boolean.FALSE;
+      return (T)(value.toBoolean() ? Boolean.TRUE : Boolean.FALSE);
   }
 
   public Value unmarshal(Env env, Object value)

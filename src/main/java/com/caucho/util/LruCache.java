@@ -49,7 +49,7 @@ public final class LruCache<K,V> {
   
   // hash table containing the entries.  Its size is twice the capacity
   // so it will always remain at least half empty
-  private CacheItem []_entries;
+  private CacheItem<K,V>[] _entries;
 
   // mask for hash mapping
   private int _mask;
@@ -108,6 +108,7 @@ public final class LruCache<K,V> {
    *
    * @param initialCapacity minimum capacity of the cache
    */
+  @SuppressWarnings("unchecked")
   public LruCache(int initialCapacity, boolean isStatistics)
   {
     int capacity;
@@ -115,7 +116,7 @@ public final class LruCache<K,V> {
     for (capacity = 16; capacity < 2 * initialCapacity; capacity *= 2) {
     }
 
-    _entries = new CacheItem[capacity];
+    _entries = (CacheItem<K,V>[])new CacheItem[capacity];
     _mask = capacity - 1;
 
     _capacity = initialCapacity;
@@ -299,6 +300,7 @@ public final class LruCache<K,V> {
    *
    * @return old value stored under the key
    */
+  @SuppressWarnings("unchecked")
   private V compareAndPut(V testValue, K key, V value, boolean isCompare)
   {
     Object okey = key;
@@ -596,7 +598,7 @@ public final class LruCache<K,V> {
    */
   public Iterator<K> keys()
   {
-    KeyIterator iter = new KeyIterator<K,V>(this);
+    KeyIterator<K,V> iter = new KeyIterator<K,V>(this);
     iter.init(this);
     return iter;
   }
@@ -606,7 +608,7 @@ public final class LruCache<K,V> {
    */
   public Iterator<K> keys(Iterator<K> oldIter)
   {
-    KeyIterator iter = (KeyIterator) oldIter;
+    KeyIterator<K,V> iter = (KeyIterator<K,V>) oldIter;
     iter.init(this);
     return oldIter;
   }
@@ -616,14 +618,14 @@ public final class LruCache<K,V> {
    */
   public Iterator<V> values()
   {
-    ValueIterator iter = new ValueIterator<K,V>(this);
+    ValueIterator<K,V> iter = new ValueIterator<K,V>(this);
     iter.init(this);
     return iter;
   }
 
   public Iterator<V> values(Iterator<V> oldIter)
   {
-    ValueIterator iter = (ValueIterator) oldIter;
+    ValueIterator<K,V> iter = (ValueIterator<K,V>) oldIter;
     iter.init(this);
     return oldIter;
   }

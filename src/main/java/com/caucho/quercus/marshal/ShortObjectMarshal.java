@@ -43,15 +43,17 @@ public class ShortObjectMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Short((short) expr.evalLong(env));
+    return (T)new Short((short) expr.evalLong(env));
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object marshal(Env env, Value value, Class expectedClass)
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaShort();
+    return (T)value.toJavaShort();
   }
 
   public Value unmarshal(Env env, Object value)

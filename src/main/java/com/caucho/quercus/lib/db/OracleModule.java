@@ -283,7 +283,7 @@ public class OracleModule extends AbstractQuercusModule {
       //   oracle.sql.ArrayDescriptor.createDescriptor("number_varray", conn);
 
 
-      Class clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
+      Class<?> clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
 
       Method method
         = clArrayDescriptor.getDeclaredMethod("createDescriptor",
@@ -302,7 +302,7 @@ public class OracleModule extends AbstractQuercusModule {
 
       // oracle.sql.ARRAY array = new oracle.sql.ARRAY(arrayDesc, conn, arrayValues);
 
-      Class clARRAY = Class.forName("oracle.sql.ARRAY");
+      Class<?> clARRAY = Class.forName("oracle.sql.ARRAY");
 
       Constructor constructor = clARRAY.getDeclaredConstructor(new Class[] {
         clArrayDescriptor, Connection.class, Object.class});
@@ -1365,7 +1365,7 @@ public class OracleModule extends AbstractQuercusModule {
       // Use reflection
       // ArrayDescriptor arrayDesc = ArrayDescriptor.createDescriptor(typeName, jdbcConn);
 
-      Class clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
+      Class<?> clArrayDescriptor = Class.forName("oracle.sql.ArrayDescriptor");
 
       Method method = clArrayDescriptor.getDeclaredMethod("createDescriptor",
                                                           new Class[] {String.class,

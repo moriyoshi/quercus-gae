@@ -33,6 +33,7 @@ import com.caucho.quercus.annotation.Name;
 import com.caucho.quercus.annotation.Optional;
 import com.caucho.quercus.annotation.ReturnNullAsFalse;
 import com.caucho.quercus.annotation.EntrySet;
+import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.quercus.env.*;
 import com.caucho.util.L10N;
 import com.caucho.vfs.Path;
@@ -193,6 +194,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     }
   }
   
+  @SuppressWarnings("unchecked")
   protected static Value wrapJava(Env env,
                                   QuercusClass cls,
                                   SimpleXMLElement element)
@@ -200,7 +202,7 @@ public class SimpleXMLElement implements Map.Entry<String,Object>
     if (! "SimpleXMLElement".equals(cls.getName()))
       return new ObjectExtJavaValue(cls, element, cls.getJavaClassDef());
     else
-      return new JavaValue(env, element, cls.getJavaClassDef());
+      return new JavaValue<Object>(env, element, (JavaClassDef<Object>)cls.getJavaClassDef());
   }
   
   protected QuercusClass getQuercusClass()

@@ -53,14 +53,16 @@ public class LongValueMarshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.eval(env).toLongValue();
+    return (T)expr.eval(env).toLongValue();
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toLongValue();
+    return (T)value.toLongValue();
   }
 
   public Value unmarshal(Env env, Object value)

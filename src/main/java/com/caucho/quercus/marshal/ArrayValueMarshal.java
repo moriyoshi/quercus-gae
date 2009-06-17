@@ -59,14 +59,16 @@ public class ArrayValueMarshal extends Marshal
     return true;
   }
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.eval(env).toArrayValue(env);
+    return (T)expr.eval(env).toArrayValue(env);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toArrayValue(env);
+    return (T)value.toArrayValue(env);
   }
 
   public Value unmarshal(Env env, Object value)

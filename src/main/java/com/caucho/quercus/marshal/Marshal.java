@@ -154,11 +154,12 @@ abstract public class Marshal {
     return false;
   }
   
-  abstract public Object marshal(Env env, Expr expr, Class argClass);
+  abstract public <T> T marshal(Env env, Expr expr, Class<T> argClass);
 
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> argClass)
   {
-    return value;
+    return (T)value;
   }
 
   public Value unmarshal(Env env, Object value)

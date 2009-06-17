@@ -47,10 +47,11 @@ public class ReferenceMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
     // quercus/0d1k
-    return expr.evalRef(env);
+    return (T)expr.evalRef(env);
   }
 
   public Value unmarshal(Env env, Object value)

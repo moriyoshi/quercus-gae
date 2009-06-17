@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -2044,6 +2045,7 @@ public class Env {
   /**
    * Returns a superglobal.
    */
+  @SuppressWarnings("unchecked")
   private EnvVar getSuperGlobalRef(String name, boolean isCheckGlobal)
   {
     Var var;
@@ -2193,7 +2195,7 @@ public class Env {
         }
         
         ArrayList<String> keys = new ArrayList<String>();
-        keys.addAll(_request.getParameterMap().keySet());
+        keys.addAll((Set<String>)_request.getParameterMap().keySet());
 
         Collections.sort(keys);
 
@@ -4135,7 +4137,7 @@ public class Env {
    * @param isNullAsFalse what to return if <i>obj</i> is null, if true return
    * {@link BooleanValue.FALSE} otherwise return {@link NullValue.NULL)
    */
-  public Value wrapJava(Object obj, JavaClassDef def, boolean isNullAsFalse)
+  public <T> Value wrapJava(T obj, JavaClassDef<? extends T> def, boolean isNullAsFalse)
   {
     if (obj == null) {
       if (isNullAsFalse)
@@ -4150,7 +4152,8 @@ public class Env {
   /**
    * Returns a PHP value for a Java object
    */
-  public Value wrapJava(Object obj)
+  @SuppressWarnings("unchecked")
+  public <T> Value wrapJava(T obj)
   {
     if (obj == null)
       return NullValue.NULL;
@@ -4158,7 +4161,7 @@ public class Env {
     if (obj instanceof Value)
       return (Value) obj;
     
-    JavaClassDef def = getJavaClassDefinition(obj.getClass());
+    JavaClassDef<T> def = (JavaClassDef<T>)getJavaClassDefinition(obj.getClass());
 
     return def.wrap(this, obj);
   }
@@ -4169,7 +4172,8 @@ public class Env {
    * @param isNullAsFalse what to return if <i>obj</i> is null, if true return
    * {@link BooleanValue.FALSE} otherwise return {@link NullValue.NULL)
    */
-  public Value wrapJava(Object obj, JavaClassDef def)
+  @SuppressWarnings("unchecked")
+  public <T> Value wrapJava(T obj, JavaClassDef<? extends T> def)
   {
     if (obj == null)
       return NullValue.NULL;
@@ -4182,10 +4186,10 @@ public class Env {
     if (def.getType() != obj.getClass()) {
       // XXX: what if types are incompatible, does it matter?
       // if it doesn't matter, simplify this to one if with no else
-      def = getJavaClassDefinition(obj.getClass());
+      def = (JavaClassDef<T>)getJavaClassDefinition(obj.getClass());
     }
 
-    return def.wrap(this, obj);
+    return ((JavaClassDef<T>)def).wrap(this, obj);
   }
 
   /**
@@ -5311,7 +5315,7 @@ public class Env {
   /**
    * Handles exit/die
    */
-  public Value cast(Class cl, Value value)
+  public Value cast(Class<?> cl, Value value)
   {
     value = value.toValue();
 

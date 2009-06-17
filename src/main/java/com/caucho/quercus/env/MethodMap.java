@@ -34,9 +34,10 @@ import java.util.*;
 /**
  * Case-insensitive method mapping
  */
+@SuppressWarnings("unchecked")
 public class MethodMap<V>
 {
-  private Entry<V> []_entries = new Entry[16];
+  private Entry<V> []_entries = (Entry<V>[])new Entry[16];
   private int _size;
     
   public void put(char []buffer, int length, V value)
@@ -106,7 +107,7 @@ public class MethodMap<V>
 
   public Iterable<V> values()
   {
-    return new ValueIterator(_entries);
+    return new ValueIterator<V>(_entries);
   }
 
   private boolean match(char []a, char []b, int length)
@@ -141,7 +142,7 @@ public class MethodMap<V>
 
   private void resize()
   {
-    Entry<V> []newEntries = new Entry[2 * _entries.length];
+    Entry<V> []newEntries = (Entry<V>[])new Entry[2 * _entries.length];
 
     for (int i = 0; i < _entries.length; i++) {
       Entry<V> entry = _entries[i];

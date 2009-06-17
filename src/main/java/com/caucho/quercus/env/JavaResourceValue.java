@@ -37,7 +37,7 @@ import java.io.Serializable;
 /**
  * Represents a Quercus java value representing a PHP resource value.
  */
-public class JavaResourceValue extends JavaValue
+public class JavaResourceValue<T> extends JavaValue<T>
   implements Serializable
 {
   /**
@@ -45,7 +45,7 @@ public class JavaResourceValue extends JavaValue
    */
   private static final long serialVersionUID = 1L;
 
-  public JavaResourceValue(Env env, Object object, JavaClassDef def)
+  public JavaResourceValue(Env env, T object, JavaClassDef<T> def)
   {
     super(env, object, def);
   }

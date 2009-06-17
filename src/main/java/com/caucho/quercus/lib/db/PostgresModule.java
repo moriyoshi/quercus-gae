@@ -854,7 +854,7 @@ public class PostgresModule extends AbstractQuercusModule {
       return data;
 
     try {
-      Class cl = Class.forName("org.postgresql.util.PGbytea");
+      Class<?> cl = Class.forName("org.postgresql.util.PGbytea");
 
       Method method = cl.getDeclaredMethod("toPGString", new Class[] {byte[].class});
 
@@ -2321,7 +2321,7 @@ public class PostgresModule extends AbstractQuercusModule {
   {
     try {
 
-      Class cl = Class.forName("org.postgresql.largeobject.LargeObject");
+      Class<?> cl = Class.forName("org.postgresql.largeobject.LargeObject");
 
       int seekSET = cl.getDeclaredField("SEEK_SET").getInt(null);
       int seekEND = cl.getDeclaredField("SEEK_END").getInt(null);
@@ -2439,7 +2439,7 @@ public class PostgresModule extends AbstractQuercusModule {
 
       int written = len;
 
-      Class cl = Class.forName("org.postgresql.largeobject.LargeObject");
+      Class<?> cl = Class.forName("org.postgresql.largeobject.LargeObject");
 
       Method method = cl.getDeclaredMethod("write",
                                            new Class[] {byte[].class,
@@ -2679,9 +2679,9 @@ public class PostgresModule extends AbstractQuercusModule {
       if (conn == null)
         return false;
 
-      Class cl = Class.forName("org.postgresql.core.PGStream");
+      Class<?> cl = Class.forName("org.postgresql.core.PGStream");
 
-      Constructor constructor = cl.getDeclaredConstructor(new Class[] {
+      Constructor<?> constructor = cl.getDeclaredConstructor(new Class[] {
         String.class, Integer.TYPE});
 
       Object object = constructor.newInstance(new Object[] {conn.getHost(), conn.getPort()});
@@ -3251,7 +3251,7 @@ public class PostgresModule extends AbstractQuercusModule {
 
       byte dataBytes[] = data.getBytes();
 
-      Class cl = Class.forName("org.postgresql.util.PGbytea");
+      Class<?> cl = Class.forName("org.postgresql.util.PGbytea");
 
       Method method = cl.getDeclaredMethod("toBytes", new Class[] {byte[].class});
 

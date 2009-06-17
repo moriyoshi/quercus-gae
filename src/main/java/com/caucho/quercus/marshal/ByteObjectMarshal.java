@@ -38,9 +38,10 @@ public class ByteObjectMarshal extends Marshal
 {
   public static final Marshal MARSHAL = new ByteObjectMarshal();
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Byte((byte) expr.evalLong(env));
+    return (T)new Byte((byte) expr.evalLong(env));
   }
 
   public boolean isReadOnly()
@@ -48,10 +49,11 @@ public class ByteObjectMarshal extends Marshal
     return true;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Object marshal(Env env, Value value, Class expectedClass)
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaByte();
+    return (T)value.toJavaByte();
   }
 
   public Value unmarshal(Env env, Object value)

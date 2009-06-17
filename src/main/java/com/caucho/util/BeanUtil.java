@@ -88,7 +88,7 @@ public class BeanUtil {
   }
 
   public static void
-  validateClass(Class cl, Class parent)
+  validateClass(Class<?> cl, Class<?> parent)
     throws RegistryException
   {
     if (parent.isAssignableFrom(cl)) {
@@ -112,7 +112,7 @@ public class BeanUtil {
       throw new RegistryException(L.l("{0} must be public.",
                                       cl.getName()));
 
-    Constructor zero = null;
+    Constructor<?> zero = null;
     try {
       zero = cl.getConstructor(new Class[0]);
     } catch (Throwable e) {

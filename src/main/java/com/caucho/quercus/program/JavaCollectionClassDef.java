@@ -39,18 +39,18 @@ import java.util.Collection;
 /**
  * Represents an introspected Java class.
  */
-public class JavaCollectionClassDef extends JavaClassDef {
-  JavaCollectionClassDef(ModuleContext moduleContext, String name, Class type)
+public class JavaCollectionClassDef<T> extends JavaClassDef<Collection<T>> {
+  JavaCollectionClassDef(ModuleContext moduleContext, String name, Class<Collection<T>> type)
   {
     super(moduleContext, name, type);
   }
 
-  public Value wrap(Env env, Object obj)
+  public Value wrap(Env env, Collection<T> obj)
   {
     if (!_isInit)
       init();
     
-    return new JavaCollectionAdapter(env, (Collection)obj, this);
+    return new JavaCollectionAdapter<T>(env, obj, this);
   }
 }
 

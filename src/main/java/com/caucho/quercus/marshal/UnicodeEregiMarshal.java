@@ -41,15 +41,17 @@ import com.caucho.quercus.expr.Expr;
 public class UnicodeEregiMarshal extends StringMarshal {
   public static final UnicodeEregiMarshal MARSHAL = new UnicodeEregiMarshal();
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return RegexpModule.createUnicodeEregi(env, 
+    return (T)RegexpModule.createUnicodeEregi(env, 
                                            expr.eval(env).toStringValue(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return RegexpModule.createUnicodeEregi(env, value.toStringValue(env));
+    return (T)RegexpModule.createUnicodeEregi(env, value.toStringValue(env));
   }
 
   public Value unmarshal(Env env, Object value)

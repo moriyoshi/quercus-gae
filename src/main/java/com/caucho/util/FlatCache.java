@@ -45,13 +45,14 @@ public class FlatCache<K,V> {
 
   private static Object NULL = new Object();
 
+  @SuppressWarnings("unchecked")
   public FlatCache(int initialCapacity)
   {
     for (_capacity = 32; _capacity < 2 * initialCapacity; _capacity *= 2) {
     }
 
     _keys = new Object[_capacity];
-    _values = (V []) new Object[_capacity];
+    _values = (V[]) new Object[_capacity];
 
     _mask = _capacity - 1;
   }

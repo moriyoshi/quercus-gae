@@ -61,7 +61,7 @@ import java.util.logging.Logger;
 /**
  * Represents an introspected Java class.
  */
-public class JavaClassDef extends ClassDef {
+public class JavaClassDef<T> extends ClassDef {
   private final static Logger log
     = Logger.getLogger(JavaClassDef.class.getName());
   private final static L10N L = new L10N(JavaClassDef.class);
@@ -69,7 +69,7 @@ public class JavaClassDef extends ClassDef {
   private final ModuleContext _moduleContext;
 
   private final String _name;
-  private final Class _type;
+  private final Class<T> _type;
 
   private QuercusClass _quercusClass;
 
@@ -128,7 +128,7 @@ public class JavaClassDef extends ClassDef {
   
   private String _extension;
 
-  public JavaClassDef(ModuleContext moduleContext, String name, Class type)
+  public JavaClassDef(ModuleContext moduleContext, String name, Class<T> type)
   {
     super(null, name, null, new String[] {});
 
@@ -147,7 +147,7 @@ public class JavaClassDef extends ClassDef {
   
   public JavaClassDef(ModuleContext moduleContext,
                       String name,
-                      Class type,
+                      Class<T> type,
                       String extension)
   {
     this(moduleContext, name, type);
@@ -182,8 +182,9 @@ public class JavaClassDef extends ClassDef {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public static JavaClassDef create(ModuleContext moduleContext,
-                                    String name, Class type)
+                                    String name, Class<?> type)
   {
     if (Double.class.isAssignableFrom(type)
         || Float.class.isAssignableFrom(type))
@@ -209,12 +210,12 @@ public class JavaClassDef extends ClassDef {
     else if (URL.class.isAssignableFrom(type))
       return new URLClassDef(moduleContext);
     else if (Map.class.isAssignableFrom(type))
-      return new JavaMapClassDef(moduleContext, name, type);
+      return new JavaMapClassDef<Object,Object>(moduleContext, name, (Class<Map<Object,Object>>)type);
     else if (List.class.isAssignableFrom(type))
-      return new JavaListClassDef(moduleContext, name, type);
+      return new JavaListClassDef<Object>(moduleContext, name, (Class<List<Object>>) type);
     else if (Collection.class.isAssignableFrom(type)
              && ! Queue.class.isAssignableFrom(type))
-      return new JavaCollectionClassDef(moduleContext, name, type);
+      return new JavaCollectionClassDef<Object>(moduleContext, name, (Class<Collection<Object>>)type);
     else
       return null;
   }
@@ -340,17 +341,18 @@ public class JavaClassDef extends ClassDef {
     return _componentDef;
   }
 
-  public Value wrap(Env env, Object obj)
+  public Value wrap(Env env, T obj)
   {
     if (! _isInit)
       init();
     
     if (_resourceType != null)
-      return new JavaResourceValue(env, obj, this);
+      return new JavaResourceValue<T>(env, obj, this);
     else
-      return new JavaValue(env, obj, this);
+      return new JavaValue<T>(env, obj, this);
   }
 
+  @SuppressWarnings("unchecked")
   private int cmpObject(Object lValue, Object rValue)
   {
     if (lValue == rValue)
@@ -366,7 +368,7 @@ public class JavaClassDef extends ClassDef {
       if (!(rValue instanceof Comparable))
         return -1;
 
-      return ((Comparable) lValue).compareTo(rValue);
+      return ((Comparable<Object>) lValue).compareTo(rValue);
     }
     else if (rValue instanceof Comparable) {
       return 1;
@@ -381,7 +383,7 @@ public class JavaClassDef extends ClassDef {
     return lName.compareTo(rName);
   }
 
-  public int cmpObject(Object lValue, Object rValue, JavaClassDef rClassDef)
+  public int cmpObject(Object lValue, Object rValue, JavaClassDef<?> rClassDef)
   {
     int cmp = cmpObject(lValue, rValue);
 
@@ -485,7 +487,7 @@ public class JavaClassDef extends ClassDef {
 
     if (fieldPair != null) {
       try {
-        Class type = fieldPair._field.getType();
+        Class<?> type = fieldPair._field.getType();
         Object marshaledValue = fieldPair._marshal.marshal(env, value, type);
         fieldPair._field.set(qThis.toJavaObject(), marshaledValue);
 
@@ -757,14 +759,15 @@ public class JavaClassDef extends ClassDef {
     return new String(name, 0, nameLen);
   }
 
-  public Set<? extends Map.Entry<Value,Value>> entrySet(Object obj)
+  @SuppressWarnings("unchecked")
+  public Set<Map.Entry<Value,Value>> entrySet(Object obj)
   {
     try {
       if (_entrySet == null) {
         return null;
       }
 
-      return (Set) _entrySet.invoke(obj);
+      return (Set<Map.Entry<Value,Value>>) _entrySet.invoke(obj);
     } catch (Exception e) {
       throw new QuercusException(e);
     }
@@ -1458,6 +1461,7 @@ public class JavaClassDef extends ClassDef {
       _iterator = iterator;
     }
     
+    @SuppressWarnings("unchecked")
     public Map.Entry<Value, Value> next()
     {
       Object next = _iterator.next();
@@ -1525,7 +1529,7 @@ public class JavaClassDef extends ClassDef {
     }
   }
 
-  private class FieldMarshalPair {
+  private static class FieldMarshalPair {
     public Field _field;
     public Marshal _marshal;
 
@@ -1537,79 +1541,79 @@ public class JavaClassDef extends ClassDef {
     }
   }
   
-  private static class LongClassDef extends JavaClassDef {
+  private static class LongClassDef extends JavaClassDef<Long> {
     LongClassDef(ModuleContext module)
     {
       super(module, "Long", Long.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, Long obj)
     {
       return LongValue.create(((Number) obj).longValue());
     }
   }
   
-  private static class DoubleClassDef extends JavaClassDef {
+  private static class DoubleClassDef extends JavaClassDef<Double> {
     DoubleClassDef(ModuleContext module)
     {
       super(module, "Double", Double.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, Double obj)
     {
       return new DoubleValue(((Number) obj).doubleValue());
     }
   }
   
-  private static class BigIntegerClassDef extends JavaClassDef {
+  private static class BigIntegerClassDef extends JavaClassDef<BigInteger> {
     BigIntegerClassDef(ModuleContext module)
     {
       super(module, "BigInteger", BigInteger.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, BigInteger obj)
     {
-      return new BigIntegerValue(env, (BigInteger) obj, this);
+      return new BigIntegerValue(env, obj, this);
     }
   }
   
-  private static class BigDecimalClassDef extends JavaClassDef {
+  private static class BigDecimalClassDef extends JavaClassDef<BigDecimal> {
     BigDecimalClassDef(ModuleContext module)
     {
       super(module, "BigDecimal", BigDecimal.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, BigDecimal obj)
     {
-      return new BigDecimalValue(env, (BigDecimal) obj, this);
+      return new BigDecimalValue(env, obj, this);
     }
   }
   
-  private static class StringClassDef extends JavaClassDef {
+  private static class StringClassDef extends JavaClassDef<String> {
     StringClassDef(ModuleContext module)
     {
       super(module, "String", String.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, String obj)
     {
       return env.createStringOld((String) obj);
     }
   }
   
-  private static class BooleanClassDef extends JavaClassDef {
+  private static class BooleanClassDef extends JavaClassDef<Boolean> {
     BooleanClassDef(ModuleContext module)
     {
       super(module, "Boolean", Boolean.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, Boolean obj)
     {
       if (Boolean.TRUE.equals(obj))
         return BooleanValue.TRUE;
@@ -1618,42 +1622,42 @@ public class JavaClassDef extends ClassDef {
     }
   }
   
-  private static class CalendarClassDef extends JavaClassDef {
+  private static class CalendarClassDef extends JavaClassDef<Calendar> {
     CalendarClassDef(ModuleContext module)
     {
       super(module, "Calendar", Calendar.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, Calendar obj)
     {
       return new JavaCalendarValue(env, (Calendar)obj, this);
     }
   }
   
-  private static class DateClassDef extends JavaClassDef {
+  private static class DateClassDef extends JavaClassDef<Date> {
     DateClassDef(ModuleContext module)
     {
       super(module, "Date", Date.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, Date obj)
     {
-      return new JavaDateValue(env, (Date)obj, this);
+      return new JavaDateValue(env, obj, this);
     }
   }
   
-  private static class URLClassDef extends JavaClassDef {
+  private static class URLClassDef extends JavaClassDef<URL> {
     URLClassDef(ModuleContext module)
     {
       super(module, "URL", URL.class);
     }
 
     @Override
-    public Value wrap(Env env, Object obj)
+    public Value wrap(Env env, URL obj)
     {
-      return new JavaURLValue(env, (URL)obj, this);
+      return new JavaURLValue(env, obj, this);
     }
   }
 }

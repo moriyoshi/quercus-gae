@@ -37,18 +37,15 @@ import java.math.BigInteger;
 /**
  * Represents a Quercus java BigInteger value.
  */
-public class BigDecimalValue extends JavaValue {
+public class BigDecimalValue extends JavaValue<BigDecimal> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final BigDecimal _val;
-
-  public BigDecimalValue(Env env, BigDecimal val, JavaClassDef def)
+  public BigDecimalValue(Env env, BigDecimal val, JavaClassDef<BigDecimal> def)
   {
     super(env, val, def);
-    _val = val;
   }
   
   /**
@@ -57,7 +54,7 @@ public class BigDecimalValue extends JavaValue {
   @Override
   public long toLong()
   {
-    return _val.longValue();
+    return _object.longValue();
   }
   
   /**
@@ -66,7 +63,7 @@ public class BigDecimalValue extends JavaValue {
   @Override
   public double toDouble()
   {
-    return _val.doubleValue();
+    return _object.doubleValue();
   }
   
   /**
@@ -75,7 +72,7 @@ public class BigDecimalValue extends JavaValue {
   @Override
   public BigDecimal toBigDecimal()
   {
-    return _val;
+    return _object;
   }
   
   /**
@@ -102,12 +99,12 @@ public class BigDecimalValue extends JavaValue {
   @Override
   public boolean isLongConvertible()
   {
-    return _val.longValue() == _val.doubleValue();
+    return _object.longValue() == _object.doubleValue();
   }
   
   public String toString()
   {
-    return "BigDecimal[" + _val.doubleValue() + "]";
+    return "BigDecimal[" + _object.doubleValue() + "]";
   }
 }
 

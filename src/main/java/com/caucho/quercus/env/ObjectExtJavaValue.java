@@ -47,7 +47,7 @@ public class ObjectExtJavaValue extends ObjectExtValue
    */
   private static final long serialVersionUID = 1L;
   private final Object _object;
-  private final JavaClassDef _javaClassDef;
+  private final JavaClassDef<?> _javaClassDef;
   
   public ObjectExtJavaValue(QuercusClass cl, Object object,
                             JavaClassDef javaClassDef)

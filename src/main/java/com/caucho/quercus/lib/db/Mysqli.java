@@ -343,7 +343,7 @@ public class Mysqli extends JdbcConnectionResource {
       if (isConnected()) {
         Connection conn = getJavaConnection();
         
-        Class cls = conn.getClass();
+        Class<?> cls = conn.getClass();
         
         Method method = cls.getMethod("changeUser", String.class, String.class);
         
@@ -1671,7 +1671,7 @@ public class Mysqli extends JdbcConnectionResource {
   };
 
   static class MysqlMetaDataMethod {
-    private Class _resultSetMetaDataClass;
+    private Class<?> _resultSetMetaDataClass;
     private Method _getColumnCharacterSetMethod;
 
     MysqlMetaDataMethod(Class resultSetMetaDataClass)

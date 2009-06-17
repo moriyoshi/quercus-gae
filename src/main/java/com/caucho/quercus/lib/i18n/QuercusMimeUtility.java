@@ -53,6 +53,7 @@ public class QuercusMimeUtility
   /*
    * Returns an array of decoded Mime headers/fields.
    */
+  @SuppressWarnings("unchecked")
   public static Value decodeMimeHeaders(Env env,
                                         StringValue encodedHeaders,
                                         String charset)
@@ -62,7 +63,7 @@ public class QuercusMimeUtility
 
     try {
       Enumeration<Header> enumeration
-        = new InternetHeaders(encodedHeaders.toInputStream()).getAllHeaders();
+        = (Enumeration<Header>)new InternetHeaders(encodedHeaders.toInputStream()).getAllHeaders();
 
       while (enumeration.hasMoreElements()) {
         Header header = enumeration.nextElement();

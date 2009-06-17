@@ -39,17 +39,17 @@ import java.lang.reflect.Array;
 /**
  * Represents an introspected Java class.
  */
-public class JavaArrayClassDef extends JavaClassDef {
+public class JavaArrayClassDef<T> extends JavaClassDef<T[]> {
   public JavaArrayClassDef(ModuleContext moduleContext,
                            String name,
-                           Class type)
+                           Class<T[]> type)
   {
     super(moduleContext, name, type);
   }
   
   public JavaArrayClassDef(ModuleContext moduleContext,
                            String name,
-                           Class type,
+                           Class<T[]> type,
                            String extension)
   {
     super(moduleContext, name, type, extension);
@@ -62,7 +62,7 @@ public class JavaArrayClassDef extends JavaClassDef {
   }
 
   @Override
-  public Value wrap(Env env, Object obj)
+  public Value wrap(Env env, T[] obj)
   {
     if (! _isInit)
       init();
@@ -70,7 +70,7 @@ public class JavaArrayClassDef extends JavaClassDef {
     ArrayValueImpl arrayValueImpl = new ArrayValueImpl();
 
     // XXX: needs to go into constructor
-    Class componentClass = getType().getComponentType();
+    Class<?> componentClass = getType().getComponentType();
 
     MarshalFactory factory = getModuleContext().getMarshalFactory();
     Marshal componentClassMarshal = factory.create(componentClass);

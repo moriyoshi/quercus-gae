@@ -43,14 +43,16 @@ import com.caucho.quercus.expr.Expr;
 public class BigIntegerMarshal extends Marshal {
   public static final Marshal MARSHAL = new BigIntegerMarshal();
 
-  public Object marshal(Env env, Expr expr, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> argClass)
   {
-    return expr.eval(env).toBigInteger();
+    return (T)expr.eval(env).toBigInteger();
   }
   
-  public Object marshal(Env env, Value value, Class argClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> argClass)
   {
-    return value.toBigInteger();
+    return (T)value.toBigInteger();
   }
   
   public Value unmarshal(Env env, Object value)

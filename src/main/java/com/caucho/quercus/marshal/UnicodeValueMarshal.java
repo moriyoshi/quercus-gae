@@ -52,14 +52,16 @@ public class UnicodeValueMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.eval(env).toUnicodeValue(env);
+    return (T)expr.eval(env).toUnicodeValue(env);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toUnicodeValue(env);
+    return (T)value.toUnicodeValue(env);
   }
 
   public Value unmarshal(Env env, Object value)

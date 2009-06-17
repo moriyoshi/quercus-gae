@@ -35,26 +35,28 @@ import com.caucho.quercus.env.Value;
 import com.caucho.quercus.program.JavaClassDef;
 import com.caucho.util.L10N;
 
+import java.util.Collection;
+
 /**
  * Code for marshalling arguments.
  */
 public class JavaCollectionMarshal extends JavaMarshal {
   private static final L10N L = new L10N(JavaMarshal.class);
 
-  public JavaCollectionMarshal(JavaClassDef def,
+  public JavaCollectionMarshal(JavaClassDef<? extends Collection<?>> def,
                       boolean isNotNull)
   {
     this(def, isNotNull, false);
   }
 
-  public JavaCollectionMarshal(JavaClassDef def,
+  public JavaCollectionMarshal(JavaClassDef<? extends Collection<?>> def,
                       boolean isNotNull,
                       boolean isUnmarshalNullAsFalse)
   {
     super(def, isNotNull, isUnmarshalNullAsFalse);
   }
 
-  public Object marshal(Env env, Value value, Class argClass)
+  public <TT> Collection<TT> marshal(Env env, Value value, Class<? extends Collection<TT>> argClass)
   {
     if (! value.isset()) {
       if (_isNotNull) {
@@ -65,7 +67,7 @@ public class JavaCollectionMarshal extends JavaMarshal {
       return null;
     }
 
-    Object obj = value.toJavaCollection(env, argClass);
+    Collection<TT> obj = value.toJavaCollection(env, argClass);
 
     if (obj == null) {
       if (_isNotNull) {

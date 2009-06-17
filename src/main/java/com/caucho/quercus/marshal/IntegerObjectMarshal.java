@@ -43,14 +43,16 @@ public class IntegerObjectMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Integer((int) expr.evalLong(env));
+    return (T)new Integer((int) expr.evalLong(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaInteger();
+    return (T)value.toJavaInteger();
   }
 
   public Value unmarshal(Env env, Object value)

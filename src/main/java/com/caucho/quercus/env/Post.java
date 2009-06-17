@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Handling of POST requests.
@@ -498,6 +499,7 @@ public class Post {
     return value.toString();
   }
   
+  @SuppressWarnings("unchecked")
   private static void putRequestMap(Env env,
                                     ArrayValue post,
                                     ArrayValue files,
@@ -506,7 +508,7 @@ public class Post {
                                     String encoding)
   {
     // this call consumes the inputstream
-    Map<String,String[]> map = request.getParameterMap();
+    Map<String,String[]> map = (Map<String,String[]>)request.getParameterMap();
 
     if (map == null)
       return;
@@ -534,7 +536,7 @@ public class Post {
 
     ArrayList<String> keys = new ArrayList<String>();
 
-    keys.addAll(request.getParameterMap().keySet());
+    keys.addAll((Set<String>)request.getParameterMap().keySet());
 
     Collections.sort(keys);
 

@@ -71,7 +71,7 @@ public class MysqlResultSetMetaData
   
   private String getColumnCharacterEncodingImpl(int column)
   {
-    Class cls = _resultSetMetaData.getClass();
+    Class<?> cls = _resultSetMetaData.getClass();
     
     try {
       Method method = cls.getMethod("getColumnCharacterEncoding", int.class);

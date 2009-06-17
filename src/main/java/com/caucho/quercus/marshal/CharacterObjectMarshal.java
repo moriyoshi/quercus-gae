@@ -43,14 +43,16 @@ public class CharacterObjectMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return new Character(expr.evalChar(env));
+    return (T)new Character(expr.evalChar(env));
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaCharacter();
+    return (T)value.toJavaCharacter();
   }
 
   public Value unmarshal(Env env, Object value)

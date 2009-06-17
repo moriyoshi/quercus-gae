@@ -50,14 +50,16 @@ public class StringMarshal extends Marshal {
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
-    return expr.evalString(env);
+    return (T)expr.evalString(env);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
-    return value.toJavaString();
+    return (T)value.toJavaString();
   }
 
   public Value unmarshal(Env env, Object value)

@@ -40,10 +40,10 @@ import java.util.Set;
  */
 public class HashMapImpl<K,V> extends AbstractMap<K,V> {
   // array containing the keys
-  private K []_keys;
+  private K[] _keys;
   
   // array containing the values
-  private V []_values;
+  private V[] _values;
 
   private V _nullValue;
   
@@ -66,6 +66,7 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
    *
    * @param initialCapacity minimum capacity of the cache
    */
+  @SuppressWarnings("unchecked")
   public HashMapImpl(int initialCapacity)
   {
     int capacity;
@@ -73,8 +74,8 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
     for (capacity = 16; capacity < 2 * initialCapacity; capacity *= 2) {
     }
 
-    _keys = (K []) new Object[capacity];
-    _values = (V []) new Object[capacity];
+    _keys = (K[]) new Object[capacity];
+    _values = (V[]) new Object[capacity];
     _mask = capacity - 1;
   }
 
@@ -142,6 +143,7 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
    *
    * @return old value stored under the key
    */
+  @SuppressWarnings("unchecked")
   public V put(K key, V value)
   {
     if (key == null) {
@@ -159,8 +161,8 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
       K []oldKeys = _keys;
       V []oldValues = _values;
 
-      _keys = (K []) new Object[2 * oldKeys.length];
-      _values = (V []) new Object[2 * oldValues.length];
+      _keys = (K[]) new Object[2 * oldKeys.length];
+      _values = (V[]) new Object[2 * oldValues.length];
 
       _mask = _values.length - 1;
       _size = 0;
@@ -300,7 +302,7 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
    */
   public Set<K> keySet()
   {
-    return new KeySet(this);
+    return new KeySet<K,V>(this);
   }
 
   /**
@@ -430,7 +432,7 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
    */
   public Set<Map.Entry<K,V>> entrySet()
   {
-    return new EntrySet(this);
+    return new EntrySet<K,V>(this);
   }
 
   /**
@@ -457,7 +459,7 @@ public class HashMapImpl<K,V> extends AbstractMap<K,V> {
      */
     public Iterator<Map.Entry<K1,V1>> iterator()
     {
-      return new EntryIterator(_map);
+      return new EntryIterator<K1, V1>(_map);
     }
   }
 

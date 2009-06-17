@@ -36,19 +36,16 @@ import java.util.*;
 /**
  * Represents a marshalled Collection argument.
  */
-public class JavaCollectionAdapter extends JavaAdapter
+public class JavaCollectionAdapter<V> extends JavaAdapter<Collection<V>>
 {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
-  private Collection<Object> _collection;
 
-  public JavaCollectionAdapter(Env env, Collection<Object> coll, JavaClassDef def)
+  public JavaCollectionAdapter(Env env, Collection<V> coll, JavaClassDef def)
   {
     super(env, coll, def);
-    
-    _collection = coll;
   }
 
   /**
@@ -57,7 +54,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   @Override
   public void clear()
   {
-    _collection.clear();
+    _object.clear();
   }
 
   //
@@ -70,7 +67,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   @Override
   public Value copy()
   {
-    return new JavaCollectionAdapter(getEnv(), _collection, getClassDef());
+    return new JavaCollectionAdapter<V>(getEnv(), _object, getClassDef());
   }
 
   /**
@@ -79,7 +76,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   @Override
   public Value copy(Env env, IdentityHashMap<Value,Value> map)
   {
-    return new JavaCollectionAdapter(env, _collection, getClassDef());
+    return new JavaCollectionAdapter<V>(env, _object, getClassDef());
   }
 
   /**
@@ -88,7 +85,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   @Override
   public int getSize()
   {
-    return _collection.size();
+    return _object.size();
   }
 
   /**
@@ -101,12 +98,13 @@ public class JavaCollectionAdapter extends JavaAdapter
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public Value putImpl(Value key, Value value)
   {
     if (key.toInt() != getSize())
       throw new UnsupportedOperationException("random assignment into Collection");
     
-    _collection.add(value.toJavaObject());
+    _object.add((V)value.toJavaObject());
     
     return value;
   }
@@ -122,7 +120,7 @@ public class JavaCollectionAdapter extends JavaAdapter
     if (pos < 0)
       return UnsetValue.UNSET;
     
-    for (Object obj : _collection) {
+    for (Object obj : _object) {
       if (pos-- > 0)
         continue;
       
@@ -143,13 +141,13 @@ public class JavaCollectionAdapter extends JavaAdapter
     if (pos < 0)
       return UnsetValue.UNSET;
     
-    for (Object obj : _collection) {
+    for (Object obj : _object) {
       if (pos-- > 0)
         continue;
       
       Value val = wrapJava(obj);
       
-      _collection.remove(obj);
+      _object.remove(obj);
       return val;
     }
 
@@ -169,9 +167,10 @@ public class JavaCollectionAdapter extends JavaAdapter
    * Returns a collection of the values.
    */
   @Override
-  public Set<Map.Entry<Object,Object>> objectEntrySet()
+  @SuppressWarnings("unchecked")
+  public Set<Map.Entry> objectEntrySet()
   {
-    return new CollectionSet();
+    return (Set<Map.Entry>)new CollectionSet();
   }
   
   /**
@@ -184,7 +183,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   }
 
   @Override
-  public Iterator<Map.Entry<Value, Value>> getIterator(Env env)
+  public Iterator<Map.Entry<Value,Value>> getIterator(Env env)
   {
     return new CollectionValueIterator();
   }
@@ -202,7 +201,7 @@ public class JavaCollectionAdapter extends JavaAdapter
   }
 
   public class CollectionSet
-    extends AbstractSet<Map.Entry<Object,Object>>
+    extends AbstractSet<Map.Entry<Integer,V>>
   {
     CollectionSet()
     {
@@ -215,22 +214,22 @@ public class JavaCollectionAdapter extends JavaAdapter
     }
 
     @Override
-    public Iterator<Map.Entry<Object,Object>> iterator()
+    public Iterator<Map.Entry<Integer,V>> iterator()
     {
       return new CollectionIterator();
     }
   }
   
   public class CollectionIterator
-    implements Iterator<Map.Entry<Object,Object>>
+    implements Iterator<Map.Entry<Integer,V>>
   {
     private int _index;
-    private Iterator _iterator;
+    private Iterator<V> _iterator;
 
     public CollectionIterator()
     {
       _index = 0;
-      _iterator = _collection.iterator();
+      _iterator = _object.iterator();
     }
 
     public boolean hasNext()
@@ -238,9 +237,9 @@ public class JavaCollectionAdapter extends JavaAdapter
       return _iterator.hasNext();
     }
 
-    public Map.Entry<Object, Object> next()
+    public Map.Entry<Integer,V> next()
     {
-      return new CollectionEntry(_index++, _iterator.next());
+      return new CollectionEntry<V>(_index++, _iterator.next());
     }
 
     public void remove()
@@ -249,31 +248,31 @@ public class JavaCollectionAdapter extends JavaAdapter
     }
   }
 
-  public static class CollectionEntry
-    implements Map.Entry<Object,Object>
+  public static class CollectionEntry<V>
+    implements Map.Entry<Integer,V>
   {
     private final int _key;
-    private Object _value;
+    private V _value;
 
-    public CollectionEntry(int key, Object value)
+    public CollectionEntry(int key, V value)
     {
       _key = key;
       _value = value;
     }
 
-    public Object getKey()
+    public Integer getKey()
     {
       return _key;
     }
 
-    public Object getValue()
+    public V getValue()
     {
       return _value;
     }
 
-    public Object setValue(Object value)
+    public V setValue(V value)
     {
-      Object oldValue = _value;
+      V oldValue = _value;
 
       _value = value;
 
@@ -310,7 +309,7 @@ public class JavaCollectionAdapter extends JavaAdapter
     public CollectionValueIterator()
     {
       _index = 0;
-      _iterator = _collection.iterator();
+      _iterator = _object.iterator();
     }
 
     public boolean hasNext()
@@ -360,7 +359,7 @@ public class JavaCollectionAdapter extends JavaAdapter
     public KeyIterator()
     {
       _index = 0;
-      _iterator = _collection.iterator();
+      _iterator = _object.iterator();
     }
 
     public boolean hasNext()
@@ -388,7 +387,7 @@ public class JavaCollectionAdapter extends JavaAdapter
 
     public ValueIterator()
     {
-      _iterator = _collection.iterator();
+      _iterator = _object.iterator();
     }
 
     public boolean hasNext()

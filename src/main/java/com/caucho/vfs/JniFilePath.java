@@ -41,7 +41,7 @@ public class JniFilePath {
       Thread thread = Thread.currentThread();
       ClassLoader loader = thread.getContextClassLoader();
       
-      Class pathClass
+      Class<?> pathClass
         = Class.forName("com.caucho.vfs.JniFilePathImpl", false, loader);
 
       Method isEnabled = pathClass.getMethod("isEnabled", new Class[0]);

@@ -38,6 +38,7 @@ import com.caucho.util.QDate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -48,10 +49,11 @@ public class HttpModule extends AbstractQuercusModule {
 
   private final static QDate _calendar = new QDate(false);
 
-  private static ArrayList<String> getHeaders(Env env)
+  @SuppressWarnings("unchecked")
+  private static List<String> getHeaders(Env env)
   {
-    ArrayList<String> headers
-      = (ArrayList) env.getSpecialValue("caucho.headers");
+    List<String> headers
+      = (List<String>) env.getSpecialValue("caucho.headers");
 
     if (headers == null) {
       headers = new ArrayList<String>();
@@ -121,7 +123,7 @@ public class HttpModule extends AbstractQuercusModule {
       if (replace) {
         res.setHeader(key, value);
 
-        ArrayList<String> headers = getHeaders(env);
+        List<String> headers = getHeaders(env);
 
         int regionEnd = colonIndex + 1;
 
@@ -180,7 +182,7 @@ public class HttpModule extends AbstractQuercusModule {
 
   public static ArrayValue headers_list(Env env)
   {
-    ArrayList<String> headersList = getHeaders(env);
+    List<String> headersList = getHeaders(env);
     int size = headersList.size();
 
     ArrayValueImpl headersArray = new ArrayValueImpl(size);

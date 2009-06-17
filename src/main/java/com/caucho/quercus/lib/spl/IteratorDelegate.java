@@ -52,7 +52,7 @@ public class IteratorDelegate implements TraversableDelegate
   public Iterator<Map.Entry<Value, Value>>
     getIterator(Env env, ObjectValue qThis)
   {
-    return new EntryIterator(env, qThis);
+    return new EntryIterator<Value>(env, qThis);
   }
 
   public Iterator<Value> getKeyIterator(Env env, ObjectValue qThis)
@@ -61,12 +61,12 @@ public class IteratorDelegate implements TraversableDelegate
     // php/4ar3
     //env.error(L.l("An iterator cannot be used with foreach by reference"));
     
-    return new KeyIterator(env, qThis);
+    return new KeyIterator<Value>(env, qThis);
   }
 
   public Iterator<Value> getValueIterator(Env env, ObjectValue qThis)
   {
-    return new ValueIterator(env, (ObjectValue) qThis);
+    return new ValueIterator<Value>(env, (ObjectValue) qThis);
   }
 
   abstract public static class AbstractIteratorImpl<T>

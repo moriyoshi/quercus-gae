@@ -36,18 +36,15 @@ import java.util.Calendar;
 /**
  * Represents a Quercus java Calendar value.
  */
-public class JavaCalendarValue extends JavaValue {
+public class JavaCalendarValue extends JavaValue<Calendar> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final Calendar _calendar;
-  
-  public JavaCalendarValue(Env env, Calendar calendar, JavaClassDef def)
+  public JavaCalendarValue(Env env, Calendar calendar, JavaClassDef<Calendar> def)
   {
     super(env, calendar, def);
-    _calendar = calendar;
   }
 
   /**
@@ -56,7 +53,7 @@ public class JavaCalendarValue extends JavaValue {
   @Override
   public long toLong()
   {
-    return _calendar.getTimeInMillis();
+    return _object.getTimeInMillis();
   }
   
   /**
@@ -65,11 +62,11 @@ public class JavaCalendarValue extends JavaValue {
   @Override
   public Calendar toJavaCalendar()
   {
-    return _calendar;
+    return _object;
   }
   
   public String toString()
   {
-    return _calendar.getTime().toString();
+    return _object.getTime().toString();
   }
 }

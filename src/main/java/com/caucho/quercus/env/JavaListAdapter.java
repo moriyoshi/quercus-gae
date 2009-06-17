@@ -37,8 +37,8 @@ import java.util.logging.*;
 /**
  * Represents a marshalled Collection argument.
  */
-public class JavaListAdapter
-  extends JavaCollectionAdapter
+public class JavaListAdapter<T>
+  extends JavaCollectionAdapter<T>
 {
   /**
    * 
@@ -47,26 +47,23 @@ public class JavaListAdapter
 
   private static final Logger log
     = Logger.getLogger(JavaListAdapter.class.getName());
-
-  //XXX: parameterized type
-  private List _list;
-  
+ 
   private int _next = 0;
 
-  public JavaListAdapter(Env env, List list)
+  public JavaListAdapter(Env env, List<T> list)
   {
-    this(env, list, env.getJavaClassDefinition(list.getClass()));
+    this(env, list, (JavaClassDef<? extends List<T>>)env.getJavaClassDefinition(list.getClass()));
   }
   
-  public JavaListAdapter(Env env, List list, JavaClassDef def)
+  public JavaListAdapter(Env env, List<T> list, JavaClassDef<? extends List<T>> def)
   {
     super(env, list, def);
-    _list = list;
   }
 
   /**
    * Adds a new value.
    */
+  @SuppressWarnings("unchecked")
   public Value putImpl(Value key, Value value)
   {
     int pos = key.toInt();
@@ -74,9 +71,9 @@ public class JavaListAdapter
     
     if (0 <= pos && pos <= size) {
       if (pos < size)
-        _list.remove(pos);
+        ((List<T>)_object).remove(pos);
       
-      _list.add(pos, value.toJavaObject());
+      ((List<T>)_object).add(pos, (T)value.toJavaObject());
 
       return value;
     }
@@ -96,7 +93,7 @@ public class JavaListAdapter
     int pos = key.toInt();
     
     if (0 <= pos && pos < getSize())
-      return wrapJava(_list.get(pos));
+      return wrapJava(((List<T>)_object).get(pos));
     else
       return UnsetValue.UNSET;
   }
@@ -109,7 +106,7 @@ public class JavaListAdapter
     int pos = key.toInt();
     
     if (0 <= pos && pos < getSize())
-      return wrapJava(_list.remove(pos));
+      return wrapJava(((List<T>)_object).remove(pos));
     else
       return UnsetValue.UNSET;
   }
@@ -122,7 +119,7 @@ public class JavaListAdapter
     if (getSize() == 0)
       return BooleanValue.FALSE;
     
-    return wrapJava(_list.remove(0));
+    return wrapJava(((List<T>)_object).remove(0));
   }
   
   /**
@@ -136,7 +133,7 @@ public class JavaListAdapter
    */
   public Value contains(Value value)
   {
-    for (Map.Entry<Value,Value> entry : entrySet()) {
+    for (Map.Entry<Value,Value> entry : (Set<Map.Entry<Value,Value>>)entrySet()) {
       if (entry.getValue().equals(value))
         return entry.getKey();
     }
@@ -149,8 +146,8 @@ public class JavaListAdapter
    */
   public Value current()
   {
-    if (_next < _list.size())
-      return wrapJava(_list.get(_next));
+    if (_next < ((List<T>)_object).size())
+      return wrapJava(((List<T>)_object).get(_next));
     else
       return BooleanValue.FALSE;
   }
@@ -160,7 +157,7 @@ public class JavaListAdapter
    */
   public Value key()
   {    
-    if (_next < _list.size())
+    if (_next < ((List<T>)_object).size())
       return LongValue.create(_next);
     else
       return NullValue.NULL;
@@ -171,7 +168,7 @@ public class JavaListAdapter
    */
   public boolean hasCurrent()
   {
-    return _next < _list.size();
+    return _next < ((List<T>)_object).size();
   }
 
   /**
@@ -179,8 +176,8 @@ public class JavaListAdapter
    */
   public Value next()
   {
-    if (_next < _list.size())
-      return wrapJava(_list.get(_next++));
+    if (_next < ((List<T>)_object).size())
+      return wrapJava(((List<T>)_object).get(_next++));
     else
       return BooleanValue.FALSE;
   }
@@ -191,7 +188,7 @@ public class JavaListAdapter
   public Value prev()
   {
     if (_next > 0)
-      return wrapJava(_list.get(_next--));
+      return wrapJava(((List<T>)_object).get(_next--));
     else
       return BooleanValue.FALSE;
   }
@@ -201,7 +198,7 @@ public class JavaListAdapter
    */
   public Value each()
   {
-    if (_next < _list.size())
+    if (_next < ((List<T>)_object).size())
     {
       ArrayValue result = new ArrayValueImpl();
 
@@ -234,7 +231,7 @@ public class JavaListAdapter
    */
   public Value end()
   {
-    _next = _list.size();
+    _next = ((List<T>)_object).size();
     
     return current();
   }

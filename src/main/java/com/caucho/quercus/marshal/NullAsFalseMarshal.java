@@ -73,12 +73,12 @@ public class NullAsFalseMarshal extends Marshal
     return _marshal.isReference();
   }
 
-  public Object marshal(Env env, Expr expr, Class argClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> argClass)
   {
     return _marshal.marshal(env, expr, argClass);
   }
 
-  public Object marshal(Env env, Value value, Class argClass)
+  public <T> T marshal(Env env, Value value, Class<T> argClass)
   {
     return _marshal.marshal(env, value, argClass);
   }

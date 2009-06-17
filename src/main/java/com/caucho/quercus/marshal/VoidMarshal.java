@@ -38,12 +38,12 @@ public class VoidMarshal extends Marshal
 {
   public static final Marshal MARSHAL = new VoidMarshal();
   
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
     throw new UnsupportedOperationException();
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     throw new UnsupportedOperationException();
   }

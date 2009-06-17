@@ -673,10 +673,10 @@ abstract public class StringValue
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     if (char.class.equals(elementType)) {
-      return toUnicodeValue(env).toCharArray();
+      return T[].class.cast(toUnicodeValue(env).toCharArray());
     }
     else if (Character.class.equals(elementType)) {
       char[] chars = toUnicodeValue(env).toCharArray();
@@ -689,10 +689,10 @@ abstract public class StringValue
         charObjects[i] = Character.valueOf(chars[i]);
       }
       
-      return charObjects;
+      return T[].class.cast(charObjects);
     }
     else if (byte.class.equals(elementType)) {
-      return toBinaryValue(env).toBytes();
+      return T[].class.cast(toBinaryValue(env).toBytes());
     }
     else if (Byte.class.equals(elementType)) {
       byte[] bytes = toBinaryValue(env).toBytes();
@@ -705,7 +705,7 @@ abstract public class StringValue
         byteObjects[i] = Byte.valueOf(bytes[i]);
       }
       
-      return byteObjects;
+      return T[].class.cast(byteObjects);
     }
     else {
       env.error(L.l("Can't assign {0} with type {1} to {2}", this, this.getClass(), elementType));

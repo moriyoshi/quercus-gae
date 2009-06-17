@@ -814,6 +814,7 @@ public class ArrayModule
    * @param keyed true if the keys are to be preserved
    * @return the array in reverse
    */
+  @SuppressWarnings("unchecked")
   public Value array_reverse(Env env,
                              ArrayValue inputArray,
                              @Optional("false") boolean keyed)
@@ -821,7 +822,7 @@ public class ArrayModule
     if (inputArray == null)
       return NullValue.NULL;
 
-    Map.Entry<Value, Value>[] entryArray =
+    Map.Entry<Value, Value>[] entryArray = (Map.Entry<Value, Value>[])
       new Map.Entry[inputArray.getSize()];
 
     inputArray.entrySet().toArray(entryArray);
@@ -3557,6 +3558,7 @@ public class ArrayModule
   {
     private AbstractGet _getter;
 
+    @SuppressWarnings("unused")
     private int _order;
 
     private boolean _isCaseSensitive;
@@ -3624,6 +3626,7 @@ public class ArrayModule
   {
     private AbstractGet _getter;
 
+    @SuppressWarnings("unused")
     private int _order;
 
     private Callback _func;

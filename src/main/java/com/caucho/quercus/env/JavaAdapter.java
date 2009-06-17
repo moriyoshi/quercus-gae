@@ -50,21 +50,21 @@ import java.util.logging.Logger;
 /**
  * Interface for marshalled Java data structures.
  */
-abstract public class JavaAdapter extends ArrayValue
+abstract public class JavaAdapter<T> extends ArrayValue
   implements Serializable
 {
   private static final Logger log
     = Logger.getLogger(JavaAdapter.class.getName());
 
   private WeakReference<Env> _envRef;
-  private Object _object;
+  protected T _object;
   
   private JavaClassDef _classDef;
 
   // Vars to update when matching array item is modified
   private HashMap<Value,Value> _refs;
 
-  protected JavaAdapter(Env env, Object object, JavaClassDef def)
+  protected JavaAdapter(Env env, T object, JavaClassDef def)
   {
     if (env != null)
       _envRef = new WeakReference<Env>(env);
@@ -91,7 +91,7 @@ abstract public class JavaAdapter extends ArrayValue
   /**
    * Converts to an object.
    */
-  public Object toObject()
+  public T toObject()
   {
     return null;
   }
@@ -108,11 +108,12 @@ abstract public class JavaAdapter extends ArrayValue
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <TT> TT toJavaObjectNotNull(Env env, Class<TT> type)
   {
     if (type.isAssignableFrom(_object.getClass())) {
-      return _object;
+      return (TT)_object;
     }
     else {
       env.warning(L.l("Can't assign {0} to {1}",
@@ -148,20 +149,21 @@ abstract public class JavaAdapter extends ArrayValue
   /**
    * Converts to a java List object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Collection toJavaCollection(Env env, Class type)
+  public <TT> Collection<TT> toJavaCollection(Env env, Class<? extends Collection<TT>> type)
   {
-    Collection coll = null;
+    Collection<TT> coll = null;
     
     if (type.isAssignableFrom(HashSet.class)) {
-      coll = new HashSet();
+      coll = new HashSet<TT>();
     }
     else if (type.isAssignableFrom(TreeSet.class)) {
-      coll = new TreeSet();
+      coll = new TreeSet<TT>();
     }
     else {
       try {
-        coll = (Collection) type.newInstance();
+        coll = type.newInstance();
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
@@ -172,7 +174,7 @@ abstract public class JavaAdapter extends ArrayValue
     }
     
    for (Map.Entry entry : objectEntrySet()) {
-      coll.add(entry.getValue());
+      coll.add((TT)entry.getValue());
     }
 
     return coll;
@@ -182,22 +184,22 @@ abstract public class JavaAdapter extends ArrayValue
    * Converts to a java List object.
    */
   @Override
-  public List toJavaList(Env env, Class type)
+  public <TT> List<TT> toJavaList(Env env, Class<? extends List<TT>> type)
   {
-    List list = null;
+    List<TT> list = null;
     
     if (type.isAssignableFrom(ArrayList.class)) {
-      list = new ArrayList();
+      list = new ArrayList<TT>();
     }
     else if (type.isAssignableFrom(LinkedList.class)) {
-      list = new LinkedList();
+      list = new LinkedList<TT>();
     }
     else if (type.isAssignableFrom(Vector.class)) {
-      list = new Vector();
+      list = new Vector<TT>();
     }
     else {
       try {
-        list = (List) type.newInstance();
+        list = type.newInstance();
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
@@ -207,7 +209,7 @@ abstract public class JavaAdapter extends ArrayValue
       }
     }
     
-   for (Map.Entry entry : objectEntrySet()) {
+    for (Map.Entry<?,TT> entry : objectEntrySet()) {
       list.add(entry.getValue());
     }
 
@@ -218,19 +220,19 @@ abstract public class JavaAdapter extends ArrayValue
    * Converts to a java object.
    */
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
-    Map map = null;
+    Map<K, V> map = null;
 
     if (type.isAssignableFrom(TreeMap.class)) {
-      map = new TreeMap();
+      map = new TreeMap<K, V>();
     }
     else if (type.isAssignableFrom(LinkedHashMap.class)) {
-      map = new LinkedHashMap();
+      map = new LinkedHashMap<K, V>();
     }
     else {
       try {
-        map = (Map) type.newInstance();
+        map = type.newInstance();
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
@@ -241,7 +243,7 @@ abstract public class JavaAdapter extends ArrayValue
       }
     }
 
-    for (Map.Entry entry : objectEntrySet()) {
+    for (Map.Entry<K,V> entry : objectEntrySet()) {
       map.put(entry.getKey(), entry.getValue());
     }
 
@@ -396,7 +398,7 @@ abstract public class JavaAdapter extends ArrayValue
   /**
    * Returns a java object set of all the entries.
    */
-  abstract public Set<Map.Entry<Object,Object>> objectEntrySet();
+  abstract public Set<Map.Entry> objectEntrySet();
   
   /**
    * Returns a collection of the values.
@@ -581,10 +583,11 @@ abstract public class JavaAdapter extends ArrayValue
    * @param resetKeys  true if the keys should not be preserved
    * @param strict  true if alphabetic keys should not be preserved
    */
+  @SuppressWarnings("unchecked")
   public void sort(Comparator<Map.Entry<Value, Value>> comparator,
                    boolean resetKeys, boolean strict)
   {
-    Map.Entry<Value,Value>[] entries = new Map.Entry[getSize()];
+    Map.Entry<Value,Value>[] entries = (Map.Entry<Value,Value>[])new Map.Entry[getSize()];
 
     int i = 0;
     for (Map.Entry<Value,Value> entry : entrySet()) {
@@ -658,11 +661,11 @@ abstract public class JavaAdapter extends ArrayValue
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <TT> TT[] valuesToArray(Env env, Class<TT> elementType)
   {
     int size = getSize();
 
-    Object array = Array.newInstance(elementType, size);
+    TT[] array = TT[].class.cast(Array.newInstance(elementType, size));
 
     MarshalFactory factory = env.getModuleContext().getMarshalFactory();
     Marshal elementMarshal = factory.create(elementType);
@@ -970,12 +973,13 @@ abstract public class JavaAdapter extends ArrayValue
     out.writeObject(_classDef.getName());
   }
   
+  @SuppressWarnings("unchecked")
   private void readObject(ObjectInputStream in)
     throws ClassNotFoundException, IOException
   {
     _envRef = new WeakReference<Env>(Env.getInstance());
     
-    _object = in.readObject();
+    _object = (T)in.readObject();
     _classDef = getEnv().getJavaClassDefinition((String) in.readObject());
   }
   

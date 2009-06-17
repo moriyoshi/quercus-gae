@@ -39,18 +39,15 @@ import java.net.URL;
 /**
  * Represents a Quercus java URL value.
  */
-public class JavaURLValue extends JavaValue {
+public class JavaURLValue extends JavaValue<URL> {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private final URL _url;
-
-  public JavaURLValue(Env env, URL url, JavaClassDef def)
+  public JavaURLValue(Env env, URL url, JavaClassDef<URL> def)
   {
     super(env, url, def);
-    _url = url;
   }
 
   /**
@@ -59,7 +56,7 @@ public class JavaURLValue extends JavaValue {
   @Override
   public URL toJavaURL(Env env)
   {
-    return _url;
+    return _object;
   }
 
   /**
@@ -69,7 +66,7 @@ public class JavaURLValue extends JavaValue {
   public InputStream toInputStream()
   {
     try {
-      return _url.openStream();
+      return _object.openStream();
     }
     catch (IOException e) {
       throw new QuercusRuntimeException(e);

@@ -177,19 +177,20 @@ abstract public class ArrayValue extends Value {
    * Converts to a java List object.
    */
   @Override
-  public Collection toJavaCollection(Env env, Class type)
+  @SuppressWarnings("unchecked")
+  public <T> Collection<T> toJavaCollection(Env env, Class<? extends Collection<T>> type)
   {
-    Collection coll = null;
+    Collection<T> coll = null;
     
     if (type.isAssignableFrom(HashSet.class)) {
-      coll = new HashSet();
+      coll = new HashSet<T>();
     }
     else if (type.isAssignableFrom(TreeSet.class)) {
-      coll = new TreeSet();
+      coll = new TreeSet<T>();
     }
     else {
       try {
-        coll = (Collection) type.newInstance();
+        coll = type.newInstance();
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
@@ -200,7 +201,7 @@ abstract public class ArrayValue extends Value {
     }
     
     for (Entry entry = getHead(); entry != null; entry = entry._next) {
-      coll.add(entry.getValue().toJavaObject());
+      coll.add((T)entry.getValue().toJavaObject());
     }
 
     return coll;
@@ -209,23 +210,24 @@ abstract public class ArrayValue extends Value {
   /**
    * Converts to a java List object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public List toJavaList(Env env, Class type)
+  public <T> List<T> toJavaList(Env env, Class<? extends List<T>> type)
   {
-    List list = null;
+    List<T> list = null;
     
     if (type.isAssignableFrom(ArrayList.class)) {
-      list = new ArrayList();
+      list = new ArrayList<T>();
     }
     else if (type.isAssignableFrom(LinkedList.class)) {
-      list = new LinkedList();
+      list = new LinkedList<T>();
     }
     else if (type.isAssignableFrom(Vector.class)) {
-      list = new Vector();
+      list = new Vector<T>();
     }
     else {
       try {
-        list = (List) type.newInstance();
+        list = type.newInstance();
       }
       catch (Throwable e) {
         log.log(Level.FINE, e.toString(), e);
@@ -236,7 +238,7 @@ abstract public class ArrayValue extends Value {
     }
 
     for (Entry entry = getHead(); entry != null; entry = entry._next) {
-      list.add(entry.getValue().toJavaObject());
+      list.add((T)entry.getValue().toJavaObject());
     }
 
     return list;
@@ -245,10 +247,11 @@ abstract public class ArrayValue extends Value {
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
-    Map map = null;
+    Map<K,V> map = null;
     
     if (type.isAssignableFrom(TreeMap.class)) {
       map = new TreeMap();
@@ -271,8 +274,8 @@ abstract public class ArrayValue extends Value {
     }
 
     for (Entry entry = getHead(); entry != null; entry = entry._next) {
-      map.put(entry.getKey().toJavaObject(),
-                  entry.getValue().toJavaObject());
+      map.put((K)entry.getKey().toJavaObject(),
+                  (V)entry.getValue().toJavaObject());
     }
 
     return map;
@@ -1474,11 +1477,11 @@ abstract public class ArrayValue extends Value {
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     int size = getSize();
 
-    Object array = Array.newInstance(elementType, size);
+    T[] array = T[].class.cast(Array.newInstance(elementType, size));
 
     MarshalFactory factory = env.getModuleContext().getMarshalFactory();
     Marshal elementMarshal = factory.create(elementType);

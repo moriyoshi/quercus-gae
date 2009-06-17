@@ -331,7 +331,7 @@ public class JavaAdapterVar extends Value
    * Converts to an object.
    */
   @Override
-  public Object toJavaObject(Env env, Class type)
+  public <T> T toJavaObject(Env env, Class<T> type)
   {
     return getValue().toJavaObject(env, type);
   }
@@ -340,7 +340,7 @@ public class JavaAdapterVar extends Value
    * Converts to an object.
    */
   @Override
-  public Object toJavaObjectNotNull(Env env, Class type)
+  public <TT> TT toJavaObjectNotNull(Env env, Class<TT> type)
   {
     return getValue().toJavaObjectNotNull(env, type);
   }
@@ -349,7 +349,7 @@ public class JavaAdapterVar extends Value
    * Converts to a java Collection object.
    */
   @Override
-  public Collection toJavaCollection(Env env, Class type)
+  public <T> Collection<T> toJavaCollection(Env env, Class<? extends Collection<T>> type)
   {
     return getValue().toJavaCollection(env, type);
   }
@@ -358,7 +358,7 @@ public class JavaAdapterVar extends Value
    * Converts to a java List object.
    */
   @Override
-  public List toJavaList(Env env, Class type)
+  public <T> List<T> toJavaList(Env env, Class<? extends List<T>> type)
   {
     return getValue().toJavaList(env, type);
   }
@@ -367,7 +367,7 @@ public class JavaAdapterVar extends Value
    * Converts to a java Map object.
    */
   @Override
-  public Map toJavaMap(Env env, Class type)
+  public <K,V> Map<K,V> toJavaMap(Env env, Class<? extends Map<K,V>> type)
   {
     return getValue().toJavaMap(env, type);
   }
@@ -1148,7 +1148,7 @@ public class JavaAdapterVar extends Value
    * <i>elementType</i>, and puts them in a java array.
    */
   @Override
-  public Object valuesToArray(Env env, Class elementType)
+  public <T> T[] valuesToArray(Env env, Class<T> elementType)
   {
     return getValue().valuesToArray(env, elementType);
   }

@@ -37,24 +37,24 @@ import java.util.*;
 /**
  * Represents a marshalled Map argument.
  */
-public class JavaMapAdapter
-  extends JavaAdapter
+public class JavaMapAdapter<K,V>
+  extends JavaAdapter<Map<K,V>>
 {
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  private Map<Object,Object> _map;
+  private Map<K,V> _map;
   
   private long _nextAvailableIndex;
 
-  public JavaMapAdapter(Env env, Map map)
+  public JavaMapAdapter(Env env, Map<K,V> map)
   {
     this(env, map, env.getJavaClassDefinition(map.getClass()));
   }
   
-  public JavaMapAdapter(Env env, Map map, JavaClassDef def)
+  public JavaMapAdapter(Env env, Map<K,V> map, JavaClassDef def)
   {
     super(env, map, def);
     _map = map;
@@ -81,11 +81,12 @@ public class JavaMapAdapter
   /**
    * Converts to a java object.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public Object toJavaObject(Env env, Class type)
+  public <T> T toJavaObject(Env env, Class<T> type)
   {
     if (type.isAssignableFrom(_map.getClass())) {
-      return _map;
+      return (T)_map;
     }
     else {
       env.warning(L.l("Can't assign {0} to {1}",
@@ -102,7 +103,7 @@ public class JavaMapAdapter
   public Value copy()
   {
     try {
-      return new JavaMapAdapter(getEnv(), _map, getClassDef());
+      return new JavaMapAdapter<K,V>(getEnv(), _map, getClassDef());
     }
     catch (Exception e) {
       throw new QuercusRuntimeException(e);
@@ -115,7 +116,7 @@ public class JavaMapAdapter
   @Override
   public Value copy(Env env, IdentityHashMap<Value,Value> map)
   {
-    return new JavaMapAdapter(env, _map, getClassDef());
+    return new JavaMapAdapter<K,V>(env, _map, getClassDef());
   }
   
   /**
@@ -186,18 +187,19 @@ public class JavaMapAdapter
    * Adds a new value.
    */
   @Override
+  @SuppressWarnings("unchecked")
   public Value putImpl(Value key, Value value)
   {
-    Object keyObject;
+    K keyObject;
     
     if (key.isLongConvertible() || key instanceof BooleanValue) {
-      keyObject = Long.valueOf(key.toLong());
+      keyObject = (K)Long.valueOf(key.toLong());
     }
     else {
-      keyObject = key.toJavaObject();
+      keyObject = (K)key.toJavaObject();
     }
 
-    Value val = wrapJava(_map.put(keyObject, value.toJavaObject()));
+    Value val = wrapJava(_map.put(keyObject, (V)value.toJavaObject()));
 
     updateNextAvailableIndex(keyObject);
     
@@ -247,9 +249,10 @@ public class JavaMapAdapter
    * Returns a collection of the values.
    */
   @Override
-  public Set<Map.Entry<Object, Object>> objectEntrySet()
+  @SuppressWarnings("unchecked")
+  public Set<Map.Entry> objectEntrySet()
   {
-    return _map.entrySet();
+    return (Set<Map.Entry>)_map.entrySet();
   }
 
   /**
@@ -309,7 +312,7 @@ public class JavaMapAdapter
   public class MapIterator
     implements Iterator<Map.Entry<Value,Value>>
   {
-    private Iterator<Map.Entry<Object,Object>> _iterator;
+    private Iterator<Map.Entry<K,V>> _iterator;
 
     public MapIterator()
     {

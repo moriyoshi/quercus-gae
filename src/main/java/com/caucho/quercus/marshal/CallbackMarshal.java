@@ -44,16 +44,17 @@ public class CallbackMarshal extends Marshal
     return true;
   }
 
-  public Object marshal(Env env, Expr expr, Class expectedClass)
+  public <T> T marshal(Env env, Expr expr, Class<T> expectedClass)
   {
     return marshal(env, expr.eval(env), expectedClass);
   }
 
-  public Object marshal(Env env, Value value, Class expectedClass)
+  @SuppressWarnings("unchecked")
+  public <T> T marshal(Env env, Value value, Class<T> expectedClass)
   {
     Callback cb = env.createCallback(value);
 
-    return cb;
+    return (T)cb;
 
     /*
     if (cb != null)

@@ -66,7 +66,7 @@ public class JavaConstructor extends JavaInvoker {
     return getName();
   }
 
-  private static String getName(Constructor cons)
+  private static String getName(Constructor<?> cons)
   {
     String name;
 
@@ -75,7 +75,7 @@ public class JavaConstructor extends JavaInvoker {
     if (nameAnn != null)
       name = nameAnn.value();
     else {
-      Class cl = cons.getDeclaringClass();
+      Class<?> cl = cons.getDeclaringClass();
       Name clNameAnn =  (Name) cl.getAnnotation(Name.class);
 
       if (clNameAnn != null)
