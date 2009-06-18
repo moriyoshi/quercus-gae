@@ -72,30 +72,7 @@ public class QuercusServlet
   {
     checkJavaVersion();
 
-    if (_impl == null) {
-      try {
-        Class cl = Class.forName("com.caucho.quercus.servlet.ProQuercusServlet");
-        _impl = (QuercusServletImpl) cl.newInstance();
-      } catch (ConfigException e) {
-        log.log(Level.FINEST, e.toString(), e);
-        log.info("Quercus compiled mode requires Resin personal or professional licenses");
-        log.info(e.getMessage());
-      } catch (Exception e) {
-        log.log(Level.FINEST, e.toString(), e);
-      }
-    }
-    
-    if (_impl == null) {
-      try {
-        Class cl = Class.forName("com.caucho.quercus.servlet.ResinQuercusServlet");
-        _impl = (QuercusServletImpl) cl.newInstance();
-      } catch (Exception e) {
-        log.log(Level.FINEST, e.toString(), e);
-      }
-    }
-    
-    if (_impl == null)
-      _impl = new QuercusServletImpl();
+    _impl = new QuercusServletImpl();
   }
 
   /**
@@ -332,6 +309,7 @@ public class QuercusServlet
   public void init(ServletConfig config)
     throws ServletException
   {
+    _impl.setServletConfig(config);
     super.init(config);
 
     Enumeration paramNames = config.getInitParameterNames();
@@ -343,7 +321,7 @@ public class QuercusServlet
       setInitParam(paramName, paramValue);
     }
 
-    initImpl(config);
+    initImpl();
   }
 
   /**
@@ -418,7 +396,7 @@ public class QuercusServlet
       throw new ServletException(L.l("'{0}' is not a recognized init-param", paramName));
   }
 
-  private void initImpl(ServletConfig config)
+  private void initImpl()
     throws ServletException
   {
     getQuercus();
@@ -427,7 +405,7 @@ public class QuercusServlet
       getQuercus().setLazyCompile(true);
     }
 
-    _impl.init(config);
+    _impl.init();
   }
 
   /**

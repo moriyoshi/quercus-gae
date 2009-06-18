@@ -57,6 +57,7 @@ public class PageManager
   private boolean _isCompile;
   private boolean _isCompileFailover;
   private boolean _isRequireSource = true;
+  private boolean _isAutoreloadingEnabled = true;
 
   protected LruCache<Path,QuercusProgram> _programCache
     = new LruCache<Path,QuercusProgram>(1024);
@@ -207,7 +208,7 @@ public class PageManager
 
       boolean isModified = false;
       
-      if (program != null) {
+      if (program != null && _isAutoreloadingEnabled) {
         isModified = program.isModified();
         
         if (program.isCompilable()) {
@@ -281,6 +282,16 @@ public class PageManager
   public void close()
   {
     _isClosed = true;
+  }
+
+  public void setAutoreloadingEnabled(boolean val)
+  {
+    _isAutoreloadingEnabled = val;
+  }
+
+  public boolean isAutoreloadingEnabled()
+  {
+    return _isAutoreloadingEnabled;
   }
 }
 

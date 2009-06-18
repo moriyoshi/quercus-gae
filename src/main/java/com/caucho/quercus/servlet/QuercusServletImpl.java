@@ -74,12 +74,15 @@ public class QuercusServletImpl
   /**
    * initialize the script manager.
    */
-  public void init(ServletConfig config)
+  public void setServletConfig(ServletConfig config)
     throws ServletException
   {
     _config = config;
     _servletContext = config.getServletContext();
+  }
 
+  public void init()
+  {
     checkServletAPIVersion();
     
     getQuercus().setPwd(new FilePath(_servletContext.getRealPath("/")));
@@ -268,13 +271,22 @@ public class QuercusServletImpl
   }
 
   /**
+   * Returns true when under the production environment
+   * Appengine specific.
+   */
+  private boolean isProduction()
+  {
+    return _servletContext.getServerInfo().indexOf("Development") < 0;
+  }
+
+  /**
    * Returns the Quercus instance.
    */
   protected Quercus getQuercus()
   {
     synchronized (this) {
       if (_quercus == null)
-        _quercus = new Quercus();
+        _quercus = new Quercus(isProduction());
     }
 
     return _quercus;

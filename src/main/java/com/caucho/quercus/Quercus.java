@@ -181,21 +181,31 @@ public class Quercus
   private Path _workDir;
   
   private ServletContext _servletContext;
-  
+ 
+  private boolean _isProduction;
+ 
   /**
    * Constructor.
    */
-  public Quercus()
+  public Quercus(boolean isProduction)
   {
     _loader = Thread.currentThread().getContextClassLoader();
     
     _moduleContext = getLocalContext();
     
     _pageManager = createPageManager();
+    _pageManager.setAutoreloadingEnabled(!isProduction);
     
     _sessionManager = createSessionManager();
+
+    _isProduction = isProduction;
   }
-  
+
+  public Quercus()
+  {
+    this(true);
+  }
+
   /**
    * Returns the working directory.
    */
