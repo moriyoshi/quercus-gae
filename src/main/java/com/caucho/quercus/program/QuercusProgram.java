@@ -57,7 +57,8 @@ public class QuercusProgram {
   private QuercusPage _profilePage;
   
   private Path _sourceFile;
-  
+
+  private long _lastModified;  
   private boolean _isCompiling;
   private boolean _isCompilable = true;
   
@@ -236,7 +237,10 @@ public class QuercusProgram {
    */
   public boolean isModified()
   {
-    return false;
+    long lastModified = _sourceFile.getLastModified();
+    boolean retval = lastModified != _lastModified;
+    _lastModified = lastModified;
+    return retval; 
   }
 
   /**
