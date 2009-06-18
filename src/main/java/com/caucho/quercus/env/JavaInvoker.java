@@ -470,10 +470,7 @@ abstract public class JavaInvoker
       Marshal marshal = _marshalArgs[i];
 
       if (i < args.length && args[i] != null) {
-        Value arg = args[i];
-
-        if (arg instanceof Var)
-          arg = arg.toValue();
+        Value arg = args[i].toValue();
 
         int argCost = marshal.getMarshalingCost(arg);
         if (log.isLoggable(Level.FINEST)) {
